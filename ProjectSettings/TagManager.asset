@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Grid
   - EncounterHUD
+  - HPBar
   layers:
   - Default
   - TransparentFX
