@@ -1,39 +1,30 @@
-﻿using UnityEngine;
+﻿using State;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Units {
   public class UnitController : MonoBehaviour {
-    public bool IsMyTurn { get; set; }
-    public UnitControlSource ControlSource { get; set; }
-    public Faction Faction { get; set; }
+    private UnitState _state;
+    private Slider _hpBar;
+    private Grid _grid;
 
     private void Awake() {
-      IsMyTurn = false;
+      _grid = GameObject.FindWithTag(Tags.Grid).GetComponent<Grid>();
+      _hpBar = transform.Find("UnitIndicators").GetComponentInChildren<Slider>();
     }
 
     private void Update() {
-      if (IsMyTurn) {
-        HandleInput();
-      }
-    }
-    
-    private void HandleInput() {
-      // TODO
+      _hpBar.value = _state.CurrentHp;
+      transform.position = _grid.GetCellCenterWorld(_state.Position);
     }
 
-    public void Init(UnitControlSource controlSource, Faction faction) {
-      IsMyTurn = false;
-      ControlSource = controlSource;
-      Faction = faction;
+    public void Init(UnitState state) {
+      _state = state;
+      _hpBar.maxValue = _state.MaxHp;
+      _hpBar.minValue = 0;
+      _hpBar.value = _state.CurrentHp;
+
+      transform.position = _grid.GetCellCenterWorld(_state.Position);
     }
-  }
-
-  public enum Faction {
-    PlayerParty,
-    Enemy,
-  }
-
-  public enum UnitControlSource {
-    Player,
-    AI,
   }
 }
