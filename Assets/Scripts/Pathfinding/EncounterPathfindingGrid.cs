@@ -56,7 +56,6 @@ namespace Pathfinding {
       var path = _pathfinder.FindPath(
           GetNode(originGridPosition), GetNode(destinationGridPosition), EncounterNode.TraversalVelocity);
       if (path.Type != PathType.Complete) {
-        Debug.Log("Returning no path because no valid path was found");
         return null;
       }
 

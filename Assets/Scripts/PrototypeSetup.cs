@@ -50,26 +50,13 @@ public class PrototypeSetup : MonoBehaviour {
     var landTileList = landTiles.ToList();
     HashSet<int> playerUnitCoords = new();
     HashSet<int> enemyUnitCoords = new();
-
-    while (playerUnitCoords.Count < 3) {
-      playerUnitCoords.Add(Random.Range(0, raftTileList.Count));
-    }
     
     while (enemyUnitCoords.Count < 3) {
       enemyUnitCoords.Add(Random.Range(0, landTileList.Count));
     }
-
-    foreach (int i in playerUnitCoords) {
-      var loc = raftTileList[i];
-      var unit = Instantiate(unitPrefab).GetComponent<UnitController>();
-      unit.Init(new UnitState() {
-          ControlSource = UnitControlSource.Player,
-          CurrentHp = 20,
-          MaxHp = 20,
-          Faction = UnitFaction.PlayerParty,
-          Position = loc,
-      });
-      Debug.Log($"Placing player unit at {loc.x}, {loc.y}, {loc.z}");
+    
+    while (playerUnitCoords.Count < 3) {
+      playerUnitCoords.Add(Random.Range(0, raftTileList.Count));
     }
     
     foreach (int i in enemyUnitCoords) {
@@ -85,6 +72,20 @@ public class PrototypeSetup : MonoBehaviour {
       });
       Debug.Log($"Placing enemy unit at {loc.x}, {loc.y}, {loc.z}");
       Debug.Log($"Unit placed at world position: {unit.WorldPosition}");
+    }
+
+    foreach (int i in playerUnitCoords) {
+      var loc = raftTileList[i];
+      var unit = Instantiate(unitPrefab).GetComponent<UnitController>();
+      unit.Init(new UnitState() {
+          ControlSource = UnitControlSource.Player,
+          CurrentHp = 20,
+          MaxHp = 20,
+          Faction = UnitFaction.PlayerParty,
+          Position = loc,
+          MovementRange = 4,
+      });
+      Debug.Log($"Placing player unit at {loc.x}, {loc.y}, {loc.z}");
     }
   }
 }

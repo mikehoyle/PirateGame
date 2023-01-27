@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CameraControl;
 using Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,13 +16,14 @@ namespace Encounters {
     private List<UnitController> _unitsInEncounter = new();
     private int _currentUnitTurn = 0;
     private EncounterHUD _hud;
-    private Camera _camera;
+    private CameraController _camera;
     private IsometricGrid _grid;
     private Vector3Int _lastKnownHoveredCell = new(int.MinValue, int.MinValue, int.MinValue);
+    private bool _userInteractionBlocked = false;
 
     private void Start() {
       _hud = GameObject.FindWithTag(Tags.EncounterHUD).GetComponent<EncounterHUD>();
-      _camera = Camera.main;
+      _camera = Camera.main.GetComponent<CameraController>();
       _grid = IsometricGrid.Get();
 
       _currentRound = 1;
@@ -42,8 +44,7 @@ namespace Encounters {
       _grid.Pathfinder.SetEnabled(unit.State.Position, true);
       
       // Center camera on current unit
-      var camPosition = unit.WorldPosition;
-      _camera.transform.position = new Vector3(camPosition.x, camPosition.y, -10);
+      _camera.SetFocusPoint(unit.WorldPosition);
       
       // Put indicator under unit and show movement possibilities
       _grid.Overlay.ClearAllTiles();
@@ -69,12 +70,21 @@ namespace Encounters {
     }
 
     private void Update() {
+      HandleMouseHover();
+    }
+    
+    private void HandleMouseHover() {
+      if (_userInteractionBlocked) {
+        return;
+      }
+      
       var mousePosition = Mouse.current.position;
       var hoveredCell = _grid.TileAtScreenCoordinate(mousePosition.ReadValue());
       if (_lastKnownHoveredCell != hoveredCell) {
         UpdateMovementHover(hoveredCell);
       }
     }
+
     private void UpdateMovementHover(Vector3Int cell) {
       if (_unitsInEncounter[_currentUnitTurn].State.Position == cell) {
         // No need to indicate you can move where you already are
@@ -95,12 +105,24 @@ namespace Encounters {
     /// PlayerInput event
     /// </summary>
     private void OnSelect() {
+      if (_userInteractionBlocked) {
+        return;
+      }
+      
       var mousePosition = Mouse.current.position;
       var gridCell = _grid.TileAtScreenCoordinate(mousePosition.ReadValue());
       var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.Position, gridCell);
       
-      // DO NOT SUBMIT just a test
-      _unitsInEncounter[_currentUnitTurn].MoveAlongPath(path);
+      
+      if (path != null && _unitsInEncounter[_currentUnitTurn].MoveAlongPath(path, OnUnitActionComplete)) {
+        _userInteractionBlocked = true;
+      }
+    }
+
+    private void OnUnitActionComplete() {
+      _userInteractionBlocked = false;
+      // TODO(P0): currently swap turn after simple movement, obviously allow more than just movement
+      NewUnitTurn((_currentUnitTurn + 1) % _unitsInEncounter.Count);
     }
   }
 }
