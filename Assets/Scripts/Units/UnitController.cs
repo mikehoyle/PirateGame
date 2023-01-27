@@ -39,13 +39,20 @@ namespace Units {
     
     /// <returns>Whether the unit is eligible to move along the path</returns>
     public bool MoveAlongPath(LinkedList<Vector3Int> path, Action onCompleteCallback) {
-      var pathLength = path.Count;
-      if (pathLength == 0 || path.Count - 1 > State.MovementRange) {
+      if (!CouldMoveAlongPath(path)) {
         return false;
       }
       
       _placementManager!.ExecuteMovement(path, onCompleteCallback);
       return true;
+    }
+
+    public bool CouldMoveAlongPath(LinkedList<Vector3Int> path) {
+      if (path == null) {
+        return false;
+      }
+      var pathLength = path.Count;
+      return pathLength > 0 && pathLength - 1 <= State.MovementRange;
     }
   }
 }

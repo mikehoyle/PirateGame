@@ -32,7 +32,7 @@ namespace Encounters {
       Tilemap = Grid.transform.Find("Tilemap").GetComponent<Tilemap>();
       Overlay = Grid.transform.Find("Overlay").GetComponent<Tilemap>();
       TargetingDisplay = Grid.transform.Find("TargetingHint").GetComponent<TargetingHintDisplay>();
-      Pathfinder = new EncounterPathfindingGrid(MaxEncounterWidth, MaxEncounterHeight, GetTileAtPeakElevation);
+      Pathfinder = new EncounterPathfindingGrid(MaxEncounterWidth, MaxEncounterHeight);
     }
 
     private void Start() {

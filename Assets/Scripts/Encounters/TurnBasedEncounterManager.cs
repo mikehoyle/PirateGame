@@ -62,7 +62,9 @@ namespace Encounters {
               new Vector2Int(
                   _unitsInEncounter[unitIndex].State.Position.x + x,
                   _unitsInEncounter[unitIndex].State.Position.y + y));
-          if (_grid.IsTileMovementEligible(tile)) {
+          // OPTIMIZE: memoize paths
+          var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.Position, tile);
+          if (_unitsInEncounter[unitIndex].CouldMoveAlongPath(path)) {
             _grid.Overlay.SetTile(tile, eligibleTileOverlay);
           }
         }
@@ -95,7 +97,7 @@ namespace Encounters {
       _grid.TargetingDisplay.Clear();
       if (_grid.IsTileMovementEligible(cell)) {
         var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.Position, cell);
-        if (path != null) {
+        if (path != null && _unitsInEncounter[_currentUnitTurn].CouldMoveAlongPath(path)) {
           _grid.TargetingDisplay.DisplayMovementHint(path); 
         }
       }

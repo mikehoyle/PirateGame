@@ -49,9 +49,13 @@ namespace Pathfinding {
         return;
       }
       
-      Edge edge = new Edge(this, node, TraversalVelocity);
-      _outgoing.Add(edge);
-      node._incoming.Add(edge);
+      // Connect bi-directional
+      Edge outgoingEdge = new Edge(this, node, TraversalVelocity);
+      Edge incomingEdge = new Edge(node, this, TraversalVelocity);
+      _outgoing.Add(outgoingEdge);
+      _incoming.Add(incomingEdge);
+      node._incoming.Add(outgoingEdge);
+      node._outgoing.Add(incomingEdge);
     }
 
     public override string ToString() => Position.ToString();
