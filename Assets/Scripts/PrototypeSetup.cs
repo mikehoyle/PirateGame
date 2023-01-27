@@ -3,7 +3,6 @@ using System.Linq;
 using State;
 using Units;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public class PrototypeSetup : MonoBehaviour {
@@ -70,6 +69,7 @@ public class PrototypeSetup : MonoBehaviour {
           Faction = UnitFaction.PlayerParty,
           Position = loc,
       });
+      Debug.Log($"Placing player unit at {loc.x}, {loc.y}, {loc.z}");
     }
     
     foreach (int i in enemyUnitCoords) {
@@ -81,7 +81,10 @@ public class PrototypeSetup : MonoBehaviour {
           MaxHp = 20,
           Faction = UnitFaction.Enemy,
           Position = loc,
+          MovementRange = 3,
       });
+      Debug.Log($"Placing enemy unit at {loc.x}, {loc.y}, {loc.z}");
+      Debug.Log($"Unit placed at world position: {unit.WorldPosition}");
     }
   }
 }

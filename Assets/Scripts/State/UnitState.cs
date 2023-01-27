@@ -9,6 +9,7 @@ namespace State {
     public int CurrentHp;
     public UnitControlSource ControlSource;
     public UnitFaction Faction;
+    public int MovementRange;
   }
 
   public enum UnitFaction {

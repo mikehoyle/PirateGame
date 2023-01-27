@@ -1,12 +1,17 @@
-﻿using State;
+﻿using System.Collections.Generic;
+using State;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Units {
   public class UnitController : MonoBehaviour {
-    private UnitState _state;
     private Slider _hpBar;
     private Grid _grid;
+    
+    
+    public UnitState State { get; private set; }
+    // TODO(P1): This doesn't seem to be the true center.
+    public Vector3 WorldPosition => _grid.GetCellCenterWorld(State.Position);
 
     private void Awake() {
       _grid = GameObject.FindWithTag(Tags.Grid).GetComponent<Grid>();
@@ -14,17 +19,31 @@ namespace Units {
     }
 
     private void Update() {
-      _hpBar.value = _state.CurrentHp;
-      transform.position = _grid.GetCellCenterWorld(_state.Position);
+      _hpBar.value = State.CurrentHp;
+      transform.position = WorldPosition;
     }
 
     public void Init(UnitState state) {
-      _state = state;
-      _hpBar.maxValue = _state.MaxHp;
+      State = state;
+      _hpBar.maxValue = State.MaxHp;
       _hpBar.minValue = 0;
-      _hpBar.value = _state.CurrentHp;
+      _hpBar.value = State.CurrentHp;
 
-      transform.position = _grid.GetCellCenterWorld(_state.Position);
+      transform.position = WorldPosition;
+    }
+    
+    /// <returns>Whether the unit is eligible to move along the path</returns>
+    public bool MoveAlongPath(LinkedList<Vector3Int> path) {
+      var pathLength = path.Count;
+      if (pathLength == 0 || path.Count - 1 > State.MovementRange) {
+        return false;
+      }
+      
+      // DO NOT SUBMIT only for testing
+      State.Position = path.Last.Value;
+      Debug.Log($"Unit current grid position: {State.Position}");
+      Debug.Log($"Unit current world position: {WorldPosition}");
+      return true;
     }
   }
 }

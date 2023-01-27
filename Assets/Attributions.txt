@@ -1,0 +1,2 @@
+﻿A* Pathfinding Project: https://arongranberg.com/astar/
+ - AssetStore Free License
