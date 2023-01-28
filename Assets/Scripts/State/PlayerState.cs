@@ -10,7 +10,8 @@ namespace State {
   public class PlayerState {
     public uint FoodQuantity;
     public uint WaterQuantity;
-    public Vector2Int OverworldPosition = new(0, 0);
+    public Vector2Int OverworldGridPosition = new(0, 0);
+    public ShipState ShipState;
     public List<UnitState> Roster = new();
   }
 }

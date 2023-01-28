@@ -1,0 +1,1 @@
+﻿Encapsulates all data which is intended to be serialized and saved for save-game state.

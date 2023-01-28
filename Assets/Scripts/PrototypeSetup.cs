@@ -67,7 +67,7 @@ public class PrototypeSetup : MonoBehaviour {
           CurrentHp = 20,
           MaxHp = 20,
           Faction = UnitFaction.Enemy,
-          Position = loc,
+          PositionInEncounter = loc,
           MovementRange = 3,
       });
       Debug.Log($"Placing enemy unit at {loc.x}, {loc.y}, {loc.z}");
@@ -82,7 +82,7 @@ public class PrototypeSetup : MonoBehaviour {
           CurrentHp = 20,
           MaxHp = 20,
           Faction = UnitFaction.PlayerParty,
-          Position = loc,
+          PositionInEncounter = loc,
           MovementRange = 4,
       });
       Debug.Log($"Placing player unit at {loc.x}, {loc.y}, {loc.z}");

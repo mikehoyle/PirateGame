@@ -29,7 +29,7 @@ namespace Encounters {
       _currentRound = 1;
       _unitsInEncounter = FindObjectsOfType<UnitController>().ToList();
       foreach (var unit in _unitsInEncounter) {
-        _grid.Pathfinder.SetEnabled(unit.State.Position, false);
+        _grid.Pathfinder.SetEnabled(unit.State.PositionInEncounter, false);
       }
       _hud.SetRound(_currentRound);
       // Set to first units turn
@@ -38,17 +38,17 @@ namespace Encounters {
     }
     
     private void NewUnitTurn(int unitIndex) {
-      _grid.Pathfinder.SetEnabled(_unitsInEncounter[_currentUnitTurn].State.Position, false);
+      _grid.Pathfinder.SetEnabled(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, false);
       _currentUnitTurn = unitIndex;
       var unit = _unitsInEncounter[_currentUnitTurn];
-      _grid.Pathfinder.SetEnabled(unit.State.Position, true);
+      _grid.Pathfinder.SetEnabled(unit.State.PositionInEncounter, true);
       
       // Center camera on current unit
       _camera.SetFocusPoint(unit.WorldPosition);
       
       // Put indicator under unit and show movement possibilities
       _grid.Overlay.ClearAllTiles();
-      var gridPosition = unit.State.Position;
+      var gridPosition = unit.State.PositionInEncounter;
       var unitMoveRange = unit.State.MovementRange;
       _grid.Overlay.SetTile(gridPosition, selectedTileOverlay);
 
@@ -60,10 +60,10 @@ namespace Encounters {
           }
           var tile = _grid.GetTileAtPeakElevation(
               new Vector2Int(
-                  _unitsInEncounter[unitIndex].State.Position.x + x,
-                  _unitsInEncounter[unitIndex].State.Position.y + y));
+                  _unitsInEncounter[unitIndex].State.PositionInEncounter.x + x,
+                  _unitsInEncounter[unitIndex].State.PositionInEncounter.y + y));
           // OPTIMIZE: memoize paths
-          var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.Position, tile);
+          var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, tile);
           if (_unitsInEncounter[unitIndex].CouldMoveAlongPath(path)) {
             _grid.Overlay.SetTile(tile, eligibleTileOverlay);
           }
@@ -88,7 +88,7 @@ namespace Encounters {
     }
 
     private void UpdateMovementHover(Vector3Int cell) {
-      if (_unitsInEncounter[_currentUnitTurn].State.Position == cell) {
+      if (_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter == cell) {
         // No need to indicate you can move where you already are
         return;
       }
@@ -96,7 +96,7 @@ namespace Encounters {
       _lastKnownHoveredCell = cell;
       _grid.TargetingDisplay.Clear();
       if (_grid.IsTileMovementEligible(cell)) {
-        var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.Position, cell);
+        var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, cell);
         if (path != null && _unitsInEncounter[_currentUnitTurn].CouldMoveAlongPath(path)) {
           _grid.TargetingDisplay.DisplayMovementHint(path); 
         }
@@ -113,7 +113,7 @@ namespace Encounters {
       
       var mousePosition = Mouse.current.position;
       var gridCell = _grid.TileAtScreenCoordinate(mousePosition.ReadValue());
-      var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.Position, gridCell);
+      var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, gridCell);
       
       
       if (path != null && _unitsInEncounter[_currentUnitTurn].MoveAlongPath(path, OnUnitActionComplete)) {

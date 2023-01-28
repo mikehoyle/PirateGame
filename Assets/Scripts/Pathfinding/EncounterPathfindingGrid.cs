@@ -46,7 +46,7 @@ namespace Pathfinding {
       var originGridPosition = PositionForCoords(origin);
       var destinationGridPosition = PositionForCoords(destination);
       if (!IsGridPositionDefined(originGridPosition) || !IsGridPositionDefined(destinationGridPosition)) { 
-        Debug.Log("Attempt to access coordinate outside grid, returning invalid path.");
+        //Debug.Log("Attempt to access coordinate outside grid, returning invalid path.");
         return null;
       }
       
@@ -70,7 +70,7 @@ namespace Pathfinding {
       var gridPosition = PositionForCoords(cell);
 
       if (!IsGridPositionInBounds(gridPosition)) {
-        Debug.Log("Attempt to access coordinate outside grid, ignoring.");
+        Debug.LogWarning("Attempt to access coordinate outside grid, ignoring.");
         return;
       }
 
