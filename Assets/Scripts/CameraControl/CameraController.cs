@@ -25,5 +25,9 @@ namespace CameraControl {
       _isPointFocused = false;
       transform.position = new Vector3(focus.x, focus.y, transform.position.z);
     }
+
+    public static CameraController Get() {
+      return Camera.main.GetComponent<CameraController>();
+    }
   }
 }

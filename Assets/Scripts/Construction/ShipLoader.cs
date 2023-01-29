@@ -15,11 +15,6 @@ namespace Construction {
     private void Awake() {
       _grid = IsometricGrid.Get();
       _camera = Camera.main.GetComponent<CameraController>();
-
-      if (Debug.isDebugBuild) {
-        // Expect game already loaded in prod build.
-        GameState.Load();
-      }
     }
 
     private void Start() {
@@ -27,25 +22,9 @@ namespace Construction {
     }
     
     private void InitializeScene() {
-      var minX = int.MaxValue;
-      var maxX = int.MinValue;
-      var minY = int.MaxValue;
-      var maxY = int.MinValue;
-      var shipState = GameState.State.Player.ShipState;
-      foreach (var tileCoord in shipState.Foundations) {
-        minX = Math.Min(minX, tileCoord.x);
-        maxX = Math.Max(maxX, tileCoord.x);
-        minY = Math.Min(minY, tileCoord.y);
-        maxY = Math.Max(maxY, tileCoord.y);
+      foreach (var tileCoord in GameState.State.Player.Ship.Foundations) {
         _grid.Tilemap.SetTile(tileCoord, foundationTile);
       }
-
-      var visualMin = _grid.Grid.CellToWorld(new Vector3Int(minX, minY, 0));
-      // +1 to maxes because CellToWorld returns bottom corner of cell,
-      // so top corner of cell = bottom corner of caddy-cornered cell.
-      var visualMax = _grid.Grid.CellToWorld(new Vector3Int(maxX + 1, maxY + 1, 0));
-      
-      _camera.SnapToPoint(Vector3.Lerp(visualMin, visualMax, 0.5f));
     }
   }
 }

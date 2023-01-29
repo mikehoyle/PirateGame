@@ -19,18 +19,14 @@ namespace State {
 
     public static GameState State {
       get {
-        // TODO(P1): Convert to loading from file
-        return _self ??= new GameState();
+        // TODO(P1): Convert to loading from file 
+        return _self ??= GameState.Load();
       }
     }
 
-    public static void Load() {
+    private static GameState Load() {
       // TODO(P1): Convert to loading from file
-      _self ??= DebugGameState.Generate();
-    }
-
-    public static GameState EmptyStateDebugOnly() {
-      return new GameState();
+      return DebugGameState.Generate(new GameState());
     }
   }
 }

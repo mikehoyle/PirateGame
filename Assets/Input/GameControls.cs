@@ -517,6 +517,15 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveCamera"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""3b8ade9b-c124-4517-b4ea-38c07cb9df51"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -552,6 +561,116 @@ namespace Controls
                     ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""ddd8a3b4-2679-40d3-89df-572ea9f78fc2"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""9c2403f6-00a2-4fdf-a759-fe600639df2a"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""e1e91d11-7d07-444f-8711-c4242def542f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""7e3bffb3-2d02-40f0-a901-49aed568049d"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""660fccfa-1b73-40dc-ba23-7bdb9c4a8952"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""ArrowKeys"",
+                    ""id"": ""44401799-5d81-44d0-8a3c-4b9cefbd5950"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e78345ad-b5b8-42a2-90c2-2b509493be51"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""064d7c74-017a-4249-a093-f0c63b597ee1"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""5fa53c97-1b7d-4e35-9cfb-1f6051f184ad"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""d8758833-8075-451a-9b19-2571590e2f30"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -626,6 +745,7 @@ namespace Controls
             m_ShipBuilder = asset.FindActionMap("ShipBuilder", throwIfNotFound: true);
             m_ShipBuilder_Click = m_ShipBuilder.FindAction("Click", throwIfNotFound: true);
             m_ShipBuilder_Point = m_ShipBuilder.FindAction("Point", throwIfNotFound: true);
+            m_ShipBuilder_MoveCamera = m_ShipBuilder.FindAction("MoveCamera", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
             m_Menu_ToggleMenu = m_Menu.FindAction("ToggleMenu", throwIfNotFound: true);
@@ -869,12 +989,14 @@ namespace Controls
         private IShipBuilderActions m_ShipBuilderActionsCallbackInterface;
         private readonly InputAction m_ShipBuilder_Click;
         private readonly InputAction m_ShipBuilder_Point;
+        private readonly InputAction m_ShipBuilder_MoveCamera;
         public struct ShipBuilderActions
         {
             private @GameControls m_Wrapper;
             public ShipBuilderActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Click => m_Wrapper.m_ShipBuilder_Click;
             public InputAction @Point => m_Wrapper.m_ShipBuilder_Point;
+            public InputAction @MoveCamera => m_Wrapper.m_ShipBuilder_MoveCamera;
             public InputActionMap Get() { return m_Wrapper.m_ShipBuilder; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -890,6 +1012,9 @@ namespace Controls
                     @Point.started -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnPoint;
                     @Point.performed -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnPoint;
                     @Point.canceled -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnPoint;
+                    @MoveCamera.started -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnMoveCamera;
+                    @MoveCamera.performed -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnMoveCamera;
+                    @MoveCamera.canceled -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnMoveCamera;
                 }
                 m_Wrapper.m_ShipBuilderActionsCallbackInterface = instance;
                 if (instance != null)
@@ -900,6 +1025,9 @@ namespace Controls
                     @Point.started += instance.OnPoint;
                     @Point.performed += instance.OnPoint;
                     @Point.canceled += instance.OnPoint;
+                    @MoveCamera.started += instance.OnMoveCamera;
+                    @MoveCamera.performed += instance.OnMoveCamera;
+                    @MoveCamera.canceled += instance.OnMoveCamera;
                 }
             }
         }
@@ -972,6 +1100,7 @@ namespace Controls
         {
             void OnClick(InputAction.CallbackContext context);
             void OnPoint(InputAction.CallbackContext context);
+            void OnMoveCamera(InputAction.CallbackContext context);
         }
         public interface IMenuActions
         {

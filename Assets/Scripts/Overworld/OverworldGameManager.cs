@@ -17,7 +17,6 @@ namespace Overworld {
     private MainMenuController _gameMenu;
 
     private void Awake() {
-      GameState.Load();
       _overworldTilemap = GameObject.Find("OverworldTilemap").GetComponent<Tilemap>();
       _overlayTilemap = GameObject.Find("OverlayTilemap").GetComponent<Tilemap>();
     }

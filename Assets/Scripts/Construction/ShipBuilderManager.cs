@@ -19,6 +19,7 @@ namespace Construction {
   /// </summary>
   public class ShipBuilderManager : MonoBehaviour, GameControls.IShipBuilderActions {
     [SerializeField] private TileBase foundationTile;
+    [SerializeField] private float cameraMoveSpeed;
     [SerializeField] private string overworldScene = "OverworldScene";
     [SerializeField] private string backToMapButtonLabel = "Back to Map";
     
@@ -29,17 +30,40 @@ namespace Construction {
     private BuildPlacementIndicator _placementIndicator;
     private ShipState _shipState;
     private MainMenuController _mainMenu;
+    private Vector3 _cameraCursor;
+    private Vector3 _cameraCursorVelocity;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
-      _camera = Camera.main.GetComponent<CameraController>();
+      _camera = CameraController.Get();
       _placementIndicator = _grid.Grid.GetComponentInChildren<BuildPlacementIndicator>();
-      _shipState = GameState.State.Player.ShipState;
+      _shipState = GameState.State.Player.Ship;
     }
 
     private void Start() {
+      InitializeCamera();
       _mainMenu = MainMenuController.Get();
       _mainMenu.AddMenuItem(backToMapButtonLabel, OnBackToMap);
+    }
+    
+    private void InitializeCamera() {
+      var minX = int.MaxValue;
+      var maxX = int.MinValue;
+      var minY = int.MaxValue;
+      var maxY = int.MinValue;
+      foreach (var tileCoord in GameState.State.Player.Ship.Foundations) {
+        minX = Math.Min(minX, tileCoord.x);
+        maxX = Math.Max(maxX, tileCoord.x);
+        minY = Math.Min(minY, tileCoord.y);
+        maxY = Math.Max(maxY, tileCoord.y);
+      }
+      
+      var visualMin = _grid.Grid.CellToWorld(new Vector3Int(minX, minY, 0));
+      // +1 to maxes because CellToWorld returns bottom corner of cell,
+      // so top corner of cell = bottom corner of caddy-cornered cell.
+      var visualMax = _grid.Grid.CellToWorld(new Vector3Int(maxX + 1, maxY + 1, 0));
+      _cameraCursor = Vector3.Lerp(visualMin, visualMax, 0.5f);
+      _camera.SnapToPoint(_cameraCursor);
     }
 
     private void OnEnable() {
@@ -50,6 +74,12 @@ namespace Construction {
 
     private void OnDisable() {
       _controls.ShipBuilder.Disable();
+    }
+
+    private void Update() {
+      _cameraCursor += _cameraCursorVelocity * Time.deltaTime;
+      // TODO(P1): Prevent cursor from leaving the ship area.
+      _camera.SetFocusPoint(_cameraCursor);
     }
 
     private void OnBackToMap() {
@@ -69,7 +99,7 @@ namespace Construction {
         return;
       }
       
-      GameState.State.Player.ShipState.Foundations.Add(gridCell);
+      GameState.State.Player.Ship.Foundations.Add(gridCell);
       _grid.Tilemap.SetTile(gridCell, foundationTile);
       _placementIndicator.Hide();
     }
@@ -93,6 +123,10 @@ namespace Construction {
       } else {
         _placementIndicator.ShowInvalidIndicator(gridCell);
       }
+    }
+
+    public void OnMoveCamera(InputAction.CallbackContext context) {
+      _cameraCursorVelocity = context.ReadValue<Vector2>() * cameraMoveSpeed;
     }
     
     private bool IsValidPlacement(Vector3Int gridCell) {

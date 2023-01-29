@@ -12,8 +12,7 @@ namespace State {
     private const int ShipWidth = 3;
     private const int ShipHeight = 3;
     
-    public static GameState Generate() {
-      var gameState = GameState.EmptyStateDebugOnly();
+    public static GameState Generate(GameState gameState) {
       GeneratePlayerState(gameState);
       GenerateOverworldState(gameState);
       return gameState;
@@ -21,6 +20,7 @@ namespace State {
     
     private static void GeneratePlayerState(GameState gameState) {
       GenerateShipState(gameState.Player);
+      GenerateInventory(gameState.Player);
       GenerateRoster(gameState.Player);
     }
 
@@ -31,13 +31,17 @@ namespace State {
     private static void GenerateShipState(PlayerState playerState) {
       for (int x = 0; x < ShipWidth; x++) {
         for (int y = 0; y < ShipHeight; y++) {
-          playerState.ShipState.Foundations.Add(new Vector3Int(x, y, 0));
+          playerState.Ship.Foundations.Add(new Vector3Int(x, y, 0));
         }
       }
     }
 
+    private static void GenerateInventory(PlayerState playerState) {
+      playerState.Inventory.Items.Add(InventoryState.Item.Lumber, 45);
+    }
+
     private static void GenerateRoster(PlayerState playerState) {
-      var shipFoundations = playerState.ShipState.Foundations.ToList();
+      var shipFoundations = playerState.Ship.Foundations.ToList();
       for (int i = 0; i < PlayerRosterSize; i++) {
         playerState.Roster.Add(new UnitState() {
             ControlSource = UnitControlSource.Player,

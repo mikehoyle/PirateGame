@@ -4,4 +4,5 @@
   public const string Grid = "Grid";
   public const string HpBar = "HPBar";
   public const string MainMenu = "GameMenu";
+  public const string BuildMenu = "BuildMenu";
 }
