@@ -1,5 +1,4 @@
-﻿using System;
-using CameraControl;
+﻿using CameraControl;
 using Common;
 using Controls;
 using Encounters;
@@ -30,16 +29,16 @@ namespace Construction {
       _camera = Camera.main.GetComponent<CameraController>();
       _placementIndicator = _grid.Grid.GetComponentInChildren<BuildPlacementIndicator>();
       _shipState = GameState.State.Player.ShipState;
-      _controls = new GameControls();
+    }
+
+    private void OnEnable() {
+      _controls ??= new GameControls();
       _controls.ShipBuilder.SetCallbacks(this);
       _controls.ShipBuilder.Enable();
     }
 
-    private void Start() {
-      Debug.Log($"Ship state foundations:");
-      foreach (var item in _shipState.Foundations) {
-        Debug.Log($"{item}");
-      }
+    private void OnDisable() {
+      _controls.ShipBuilder.Disable();
     }
 
     public void OnClick(InputAction.CallbackContext context) {
@@ -49,8 +48,6 @@ namespace Construction {
       }
       var mousePosition = Mouse.current.position.ReadValue();
       var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
-      
-      Debug.Log($"Clicked cell: {gridCell}");
 
       if (!IsValidPlacement(gridCell)) {
         return;

@@ -14,12 +14,19 @@ namespace Overworld {
     private GameObject _gameMenu;
 
     private void Awake() {
-      _controls = new GameControls();
-      _controls.Overworld.SetCallbacks(this);
-      _controls.Overworld.Enable();
       _camera = Camera.main.GetComponent<CameraController>();
       _gameMenu = GameObject.FindWithTag(Tags.GameMenu);
       _gameMenu.SetActive(false);
+    }
+    
+    private void OnEnable() {
+      _controls ??= new GameControls();
+      _controls.Overworld.SetCallbacks(this);
+      _controls.Overworld.Enable();
+    }
+
+    private void OnDisable() {
+      _controls.Overworld.Disable();
     }
 
     private void Update() {
