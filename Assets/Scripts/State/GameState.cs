@@ -26,8 +26,11 @@ namespace State {
 
     public static void Load() {
       // TODO(P1): Convert to loading from file
-      // Currently effective no-op
-      _self ??= new GameState();
+      _self ??= DebugGameState.Generate();
+    }
+
+    public static GameState EmptyStateDebugOnly() {
+      return new GameState();
     }
   }
 }

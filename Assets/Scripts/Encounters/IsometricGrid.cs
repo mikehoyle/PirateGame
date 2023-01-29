@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Pathfinding;
-using Roy_T.AStar.Graphs;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,14 +21,12 @@ namespace Encounters {
     public Grid Grid { get; private set; }
     public Tilemap Tilemap { get; private set; }
     public Tilemap Overlay { get; private set; }
-    public TargetingHintDisplay TargetingDisplay { get; set; }
     
     private void Awake() {
       _camera = Camera.main;
       Grid = GetComponent<Grid>();
       Tilemap = Grid.transform.Find("Tilemap").GetComponent<Tilemap>();
       Overlay = Grid.transform.Find("Overlay").GetComponent<Tilemap>();
-      TargetingDisplay = Grid.transform.Find("TargetingHint").GetComponent<TargetingHintDisplay>();
       Pathfinder = new EncounterPathfindingGrid(MaxEncounterWidth, MaxEncounterHeight);
     }
 

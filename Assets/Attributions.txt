@@ -1,2 +1,6 @@
-﻿A* Pathfinding Project: https://arongranberg.com/astar/
- - AssetStore Free License
+﻿All Unity Asset Store assets
+ - Check PackageManager imports
+ - All Unity Asset Store License
+
+https://github.com/roy-t/AStar
+ - MIT License

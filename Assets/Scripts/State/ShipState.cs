@@ -9,7 +9,7 @@ namespace State {
   [Serializable]
   public class ShipState {
     // Where base-level raft tiles are.
-    private List<Vector3Int> Foundations = new();
+    public HashSet<Vector3Int> Foundations = new();
     
     // TODO: fields for contents of ship
   }

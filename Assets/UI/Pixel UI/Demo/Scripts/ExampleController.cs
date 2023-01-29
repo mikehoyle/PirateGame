@@ -19,7 +19,9 @@ namespace PixelsoftGames.PixelUI
 
         private Image image;
         private Shake shake = null;
+#pragma warning disable CS0414
         private bool isBeingAttacked = false;
+#pragma warning restore CS0414
         private BoxCollider2D col = null;
 
         // Use this for initialization

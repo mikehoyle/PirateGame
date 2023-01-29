@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
 using JetBrains.Annotations;
 using Roy_T.AStar.Paths;
 using UnityEngine;
 
 namespace Pathfinding {
   public class EncounterPathfindingGrid {
-    private static readonly List<Vector2Int> SurroundingNodes = new() {
-        new(-1, 0),
-        new(0, 1),
-        new(1, 0),
-        new(0, -1),
-    };
-    
     private readonly EncounterNode[,] _nodes;
     private readonly int _width;
     private readonly int _height;
@@ -80,12 +74,12 @@ namespace Pathfinding {
         _nodes[gridPosition.x, gridPosition.y] = node;
       }
       
-      foreach (var offset in SurroundingNodes) {
-        var connectedNode = GetNode(gridPosition + offset);
+      IsometricGridUtils.ForEachAdjacentTile(gridPosition, adjacentPosition => {
+        var connectedNode = GetNode(adjacentPosition);
         if (connectedNode != null) {
           node.Connect(connectedNode);
         }
-      }
+      });
     }
 
     private Vector2Int PositionForCoords(Vector3Int coords) {

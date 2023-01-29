@@ -20,11 +20,13 @@ namespace Encounters {
     private IsometricGrid _grid;
     private Vector3Int _lastKnownHoveredCell = new(int.MinValue, int.MinValue, int.MinValue);
     private bool _userInteractionBlocked = false;
+    private TargetingHintDisplay _targetingDisplay;
 
     private void Start() {
       _hud = GameObject.FindWithTag(Tags.EncounterHUD).GetComponent<EncounterHUD>();
       _camera = Camera.main.GetComponent<CameraController>();
       _grid = IsometricGrid.Get();
+      _targetingDisplay = _grid.Grid.transform.Find("TargetingHint").GetComponent<TargetingHintDisplay>();
 
       _currentRound = 1;
       _unitsInEncounter = FindObjectsOfType<UnitController>().ToList();
@@ -94,11 +96,11 @@ namespace Encounters {
       }
       
       _lastKnownHoveredCell = cell;
-      _grid.TargetingDisplay.Clear();
+      _targetingDisplay.Clear();
       if (_grid.IsTileMovementEligible(cell)) {
         var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, cell);
         if (path != null && _unitsInEncounter[_currentUnitTurn].CouldMoveAlongPath(path)) {
-          _grid.TargetingDisplay.DisplayMovementHint(path); 
+          _targetingDisplay.DisplayMovementHint(path); 
         }
       }
     }
@@ -107,6 +109,8 @@ namespace Encounters {
     /// PlayerInput event
     /// </summary>
     private void OnSelect() {
+      // TODO(P2): Handle this interaction blocking more cleanly by making better use of InputAction
+      //     generated code, and simply deactivating the control scheme.
       if (_userInteractionBlocked) {
         return;
       }
