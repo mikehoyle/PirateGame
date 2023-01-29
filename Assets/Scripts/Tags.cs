@@ -3,5 +3,5 @@
   public const string Unit = "Unit";
   public const string Grid = "Grid";
   public const string HpBar = "HPBar";
-  public const string GameMenu = "GameMenu";
+  public const string MainMenu = "GameMenu";
 }

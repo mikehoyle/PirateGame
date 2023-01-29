@@ -15,7 +15,7 @@ namespace Overworld {
 
     private void Awake() {
       _camera = Camera.main.GetComponent<CameraController>();
-      _gameMenu = GameObject.FindWithTag(Tags.GameMenu);
+      _gameMenu = GameObject.FindWithTag(Tags.MainMenu);
       _gameMenu.SetActive(false);
     }
     
