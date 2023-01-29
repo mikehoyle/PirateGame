@@ -1,10 +1,13 @@
-﻿using CameraControl;
+﻿using System;
+using CameraControl;
 using Common;
 using Controls;
 using Encounters;
+using HUD.MainMenu;
 using State;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 namespace Construction {
@@ -16,6 +19,8 @@ namespace Construction {
   /// </summary>
   public class ShipBuilderManager : MonoBehaviour, GameControls.IShipBuilderActions {
     [SerializeField] private TileBase foundationTile;
+    [SerializeField] private string overworldScene = "OverworldScene";
+    [SerializeField] private string backToMapButtonLabel = "Back to Map";
     
     private GameControls _controls;
     private Vector3Int _currentHoveredTile;
@@ -23,12 +28,18 @@ namespace Construction {
     private CameraController _camera;
     private BuildPlacementIndicator _placementIndicator;
     private ShipState _shipState;
+    private MainMenuController _mainMenu;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
       _camera = Camera.main.GetComponent<CameraController>();
       _placementIndicator = _grid.Grid.GetComponentInChildren<BuildPlacementIndicator>();
       _shipState = GameState.State.Player.ShipState;
+    }
+
+    private void Start() {
+      _mainMenu = MainMenuController.Get();
+      _mainMenu.AddMenuItem(backToMapButtonLabel, OnBackToMap);
     }
 
     private void OnEnable() {
@@ -39,6 +50,11 @@ namespace Construction {
 
     private void OnDisable() {
       _controls.ShipBuilder.Disable();
+    }
+
+    private void OnBackToMap() {
+      // OPTIMIZE: Load async ideally, could lag
+      SceneManager.LoadScene(overworldScene);
     }
 
     public void OnClick(InputAction.CallbackContext context) {
@@ -59,6 +75,11 @@ namespace Construction {
     }
     
     public void OnPoint(InputAction.CallbackContext context) {
+      if (!isActiveAndEnabled) {
+        // Prevent attempts at handling mouse movement after scene cleanup.
+        return;
+      }
+      
       var mousePosition = context.ReadValue<Vector2>();
       var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
       

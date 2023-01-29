@@ -74,15 +74,6 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ToggleMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""95e4e567-bf1b-4a2e-af5f-49fda2cd047b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -204,17 +195,6 @@ namespace Controls
                     ""processors"": """",
                     ""groups"": ""KBM"",
                     ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4834296b-6f0d-47ab-9f00-b940ed34bd53"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""ToggleMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -574,6 +554,34 @@ namespace Controls
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""d2017e4d-7dcb-42fd-86fd-a192ad73a684"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""c91533ea-97b6-4007-a5fb-f076b9eb761a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""92502de4-7179-46d2-b784-35afeaa54728"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""ToggleMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -602,7 +610,6 @@ namespace Controls
             m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
             m_Overworld_Move = m_Overworld.FindAction("Move", throwIfNotFound: true);
             m_Overworld_Interact = m_Overworld.FindAction("Interact", throwIfNotFound: true);
-            m_Overworld_ToggleMenu = m_Overworld.FindAction("ToggleMenu", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -619,6 +626,9 @@ namespace Controls
             m_ShipBuilder = asset.FindActionMap("ShipBuilder", throwIfNotFound: true);
             m_ShipBuilder_Click = m_ShipBuilder.FindAction("Click", throwIfNotFound: true);
             m_ShipBuilder_Point = m_ShipBuilder.FindAction("Point", throwIfNotFound: true);
+            // Menu
+            m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+            m_Menu_ToggleMenu = m_Menu.FindAction("ToggleMenu", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -713,14 +723,12 @@ namespace Controls
         private IOverworldActions m_OverworldActionsCallbackInterface;
         private readonly InputAction m_Overworld_Move;
         private readonly InputAction m_Overworld_Interact;
-        private readonly InputAction m_Overworld_ToggleMenu;
         public struct OverworldActions
         {
             private @GameControls m_Wrapper;
             public OverworldActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Overworld_Move;
             public InputAction @Interact => m_Wrapper.m_Overworld_Interact;
-            public InputAction @ToggleMenu => m_Wrapper.m_Overworld_ToggleMenu;
             public InputActionMap Get() { return m_Wrapper.m_Overworld; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -736,9 +744,6 @@ namespace Controls
                     @Interact.started -= m_Wrapper.m_OverworldActionsCallbackInterface.OnInteract;
                     @Interact.performed -= m_Wrapper.m_OverworldActionsCallbackInterface.OnInteract;
                     @Interact.canceled -= m_Wrapper.m_OverworldActionsCallbackInterface.OnInteract;
-                    @ToggleMenu.started -= m_Wrapper.m_OverworldActionsCallbackInterface.OnToggleMenu;
-                    @ToggleMenu.performed -= m_Wrapper.m_OverworldActionsCallbackInterface.OnToggleMenu;
-                    @ToggleMenu.canceled -= m_Wrapper.m_OverworldActionsCallbackInterface.OnToggleMenu;
                 }
                 m_Wrapper.m_OverworldActionsCallbackInterface = instance;
                 if (instance != null)
@@ -749,9 +754,6 @@ namespace Controls
                     @Interact.started += instance.OnInteract;
                     @Interact.performed += instance.OnInteract;
                     @Interact.canceled += instance.OnInteract;
-                    @ToggleMenu.started += instance.OnToggleMenu;
-                    @ToggleMenu.performed += instance.OnToggleMenu;
-                    @ToggleMenu.canceled += instance.OnToggleMenu;
                 }
             }
         }
@@ -902,6 +904,39 @@ namespace Controls
             }
         }
         public ShipBuilderActions @ShipBuilder => new ShipBuilderActions(this);
+
+        // Menu
+        private readonly InputActionMap m_Menu;
+        private IMenuActions m_MenuActionsCallbackInterface;
+        private readonly InputAction m_Menu_ToggleMenu;
+        public struct MenuActions
+        {
+            private @GameControls m_Wrapper;
+            public MenuActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ToggleMenu => m_Wrapper.m_Menu_ToggleMenu;
+            public InputActionMap Get() { return m_Wrapper.m_Menu; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+            public void SetCallbacks(IMenuActions instance)
+            {
+                if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+                {
+                    @ToggleMenu.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnToggleMenu;
+                    @ToggleMenu.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnToggleMenu;
+                    @ToggleMenu.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnToggleMenu;
+                }
+                m_Wrapper.m_MenuActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @ToggleMenu.started += instance.OnToggleMenu;
+                    @ToggleMenu.performed += instance.OnToggleMenu;
+                    @ToggleMenu.canceled += instance.OnToggleMenu;
+                }
+            }
+        }
+        public MenuActions @Menu => new MenuActions(this);
         private int m_KBMSchemeIndex = -1;
         public InputControlScheme KBMScheme
         {
@@ -919,7 +954,6 @@ namespace Controls
         {
             void OnMove(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
-            void OnToggleMenu(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
@@ -938,6 +972,10 @@ namespace Controls
         {
             void OnClick(InputAction.CallbackContext context);
             void OnPoint(InputAction.CallbackContext context);
+        }
+        public interface IMenuActions
+        {
+            void OnToggleMenu(InputAction.CallbackContext context);
         }
     }
 }

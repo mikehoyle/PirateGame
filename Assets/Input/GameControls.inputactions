@@ -50,15 +50,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ToggleMenu",
-                    "type": "Button",
-                    "id": "95e4e567-bf1b-4a2e-af5f-49fda2cd047b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -180,17 +171,6 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4834296b-6f0d-47ab-9f00-b940ed34bd53",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KBM",
-                    "action": "ToggleMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -546,6 +526,34 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "d2017e4d-7dcb-42fd-86fd-a192ad73a684",
+            "actions": [
+                {
+                    "name": "ToggleMenu",
+                    "type": "Button",
+                    "id": "c91533ea-97b6-4007-a5fb-f076b9eb761a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "92502de4-7179-46d2-b784-35afeaa54728",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "ToggleMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

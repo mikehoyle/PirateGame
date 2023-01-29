@@ -1071,6 +1071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipBuilderScene: ShipBuilderScene
+  buildMenuItemLabel: Construction
   indicatorTile: {fileID: 0}
 --- !u!4 &1859106166
 Transform:
@@ -1274,54 +1275,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 704585231331356763, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1859106165}
-    - target: {fileID: 814695618210651691, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 814695618210651691, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 814695618210651691, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 814695618210651691, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 814695618210651691, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1538612685037096729, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1859106165}
-    - target: {fileID: 1716735416645017961, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716735416645017961, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716735416645017961, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716735416645017961, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716735416645017961, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2454121518781255696, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1406,10 +1359,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2454121518781255697, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 616689001}
     - target: {fileID: 2454121518781255708, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
       propertyPath: m_Name
       value: MainMenuCanvas

@@ -1,6 +1,7 @@
 ﻿using System;
 using CameraControl;
 using Controls;
+using HUD.MainMenu;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,12 +12,10 @@ namespace Overworld {
     private GameControls _controls;
     private CameraController _camera;
     private Vector3 _currentVelocity;
-    private GameObject _gameMenu;
+    private MainMenuController _gameMenu;
 
     private void Awake() {
       _camera = Camera.main.GetComponent<CameraController>();
-      _gameMenu = GameObject.FindWithTag(Tags.MainMenu);
-      _gameMenu.SetActive(false);
     }
     
     private void OnEnable() {
@@ -40,10 +39,6 @@ namespace Overworld {
     
     public void OnInteract(InputAction.CallbackContext context) {
       // TODO
-    }
-    
-    public void OnToggleMenu(InputAction.CallbackContext context) {
-      _gameMenu.SetActive(!_gameMenu.activeInHierarchy);
     }
   }
 }
