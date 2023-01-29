@@ -39,15 +39,13 @@ namespace Construction {
         maxY = Math.Max(maxY, tileCoord.y);
         _grid.Tilemap.SetTile(tileCoord, foundationTile);
       }
-      
-      
 
       var visualMin = _grid.Grid.CellToWorld(new Vector3Int(minX, minY, 0));
       // +1 to maxes because CellToWorld returns bottom corner of cell,
       // so top corner of cell = bottom corner of caddy-cornered cell.
       var visualMax = _grid.Grid.CellToWorld(new Vector3Int(maxX + 1, maxY + 1, 0));
       
-      _camera.SetFocusPoint(Vector3.Lerp(visualMin, visualMax, 0.5f));
+      _camera.SnapToPoint(Vector3.Lerp(visualMin, visualMax, 0.5f));
     }
   }
 }

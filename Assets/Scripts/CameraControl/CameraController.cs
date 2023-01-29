@@ -20,5 +20,10 @@ namespace CameraControl {
       _isPointFocused = true;
       _focusPoint = new Vector3(focus.x, focus.y, transform.position.z);
     }
+
+    public void SnapToPoint(Vector3 focus) {
+      _isPointFocused = false;
+      transform.position = new Vector3(focus.x, focus.y, transform.position.z);
+    }
   }
 }
