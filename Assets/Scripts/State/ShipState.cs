@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using Common;
+using StaticConfig;
 using UnityEngine;
 
 namespace State {
@@ -8,9 +9,15 @@ namespace State {
   /// </summary>
   [Serializable]
   public class ShipState {
-    // Where base-level raft tiles are.
-    public HashSet<Vector3Int> Foundations = new();
-    
-    // TODO: fields for contents of ship
+    /// <summary>
+    /// Built ship components in 3D space, starting at Z=0.
+    /// The value is a ConstructableScriptedObject.id.
+    /// Avoid modifying this directly.
+    /// </summary>
+    public SparseMatrix3d<string> Components = new();
+
+    public void Add(Vector3Int coords, ConstructableScriptableObject constructable) {
+      Components.Add(coords, constructable.id);
+    }
   }
 }

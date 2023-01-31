@@ -24,6 +24,7 @@ namespace Construction {
     [SerializeField] private float cameraMoveSpeed;
     [SerializeField] private string overworldScene = "OverworldScene";
     [SerializeField] private string backToMapButtonLabel = "Back to Map";
+    [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
     
     private GameControls _controls;
     private Vector3Int _currentHoveredTile;
@@ -57,7 +58,7 @@ namespace Construction {
       var maxX = int.MinValue;
       var minY = int.MaxValue;
       var maxY = int.MinValue;
-      foreach (var tileCoord in GameState.State.Player.Ship.Foundations) {
+      foreach (var tileCoord in GameState.State.Player.Ship.Components.Keys) {
         minX = Math.Min(minX, tileCoord.x);
         maxX = Math.Max(maxX, tileCoord.x);
         minY = Math.Min(minY, tileCoord.y);
@@ -115,7 +116,7 @@ namespace Construction {
       }
       
       var mousePosition = Mouse.current.position.ReadValue();
-      var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
+      var gridCell = GetTargetCellForMousePosition(mousePosition);
       
       AttemptPurchase(gridCell);
     }
@@ -125,10 +126,9 @@ namespace Construction {
         return;
       }
 
-      Debug.Log("Purchasing");
       _playerState.Inventory.DeductBuildCost(_selectedBuild);
-      GameState.State.Player.Ship.Foundations.Add(gridCell);
-      _grid.Tilemap.SetTile(gridCell, foundationTile);
+      _playerState.Ship.Add(gridCell, _selectedBuild);
+      _grid.Tilemap.SetTile(gridCell, _selectedBuild.inGameTile);
       _placementIndicator.Hide();
     }
 
@@ -149,12 +149,7 @@ namespace Construction {
       }
       
       var mousePosition = context.ReadValue<Vector2>();
-      var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
-      
-      if (_playerState.Ship.Foundations.Contains(gridCell)) {
-        _placementIndicator.Hide();
-        return;
-      }
+      var gridCell = GetTargetCellForMousePosition(mousePosition);
 
       _placementIndicator.SetSprite(_selectedBuild.inGameSprite);
       if (IsValidPlacement(gridCell)) {
@@ -162,6 +157,21 @@ namespace Construction {
       } else {
         _placementIndicator.ShowInvalidIndicator(gridCell);
       }
+    }
+
+    private Vector3Int GetTargetCellForMousePosition(Vector2 mousePosition) {
+      var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
+
+      if (_selectedBuild.isFoundationTile) {
+        // Always place foundations on the bottom.
+        gridCell.z = 0;
+      } else {
+        // Other builds want to go above the current highest option.
+        gridCell = _grid.GetTileAtPeakElevation((Vector2Int)gridCell);
+        gridCell.z += 1;
+      }
+
+      return gridCell;
     }
 
     public void OnMoveCamera(InputAction.CallbackContext context) {
@@ -173,13 +183,42 @@ namespace Construction {
     }
     
     private bool IsValidPlacement(Vector3Int gridCell) {
-      var isValidPlacement = false;
-      IsometricGridUtils.ForEachAdjacentTile(gridCell, adjacentCell => {
-        if (_playerState.Ship.Foundations.Contains(adjacentCell)) {
-          isValidPlacement = true;
+      if (!_playerState.Inventory.CanAffordBuild(_selectedBuild)) {
+        return false;
+      }
+      
+      if (_selectedBuild.isFoundationTile) {
+        if (gridCell.z != 0) {
+          // This shouldn't be possible, but fallback logic to prevent stacking (for now)
+          return false;
         }
-      });
-      return isValidPlacement && _playerState.Inventory.CanAffordBuild(_selectedBuild);
+        
+        // For foundation tiles, assert the target cell is empty
+        if (_playerState.Ship.Components.ContainsKey(gridCell)) {
+          _placementIndicator.Hide();
+          return false;
+        }
+        
+        // And, assert there is an adjacent foundation to attach to.
+        var isValidPlacement = false;
+        IsometricGridUtils.ForEachAdjacentTile(gridCell, adjacentCell => {
+          if (_playerState.Ship.Components.TryGetValue(adjacentCell, out var build)) {
+            if (buildOptions.BuildMap[build].isFoundationTile) {
+              isValidPlacement = true;
+            }
+          }
+        });
+        return isValidPlacement;
+      }
+      
+      // Build is meant to be atop a foundation, check that a foundation is below it.
+      var tileBelow = new Vector3Int(gridCell.x, gridCell.y, gridCell.z - 1);
+      if (_playerState.Ship.Components.TryGetValue(tileBelow, out var build)) {
+        if (buildOptions.BuildMap[build].isFoundationTile) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 }

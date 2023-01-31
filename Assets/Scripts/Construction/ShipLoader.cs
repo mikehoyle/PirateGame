@@ -2,19 +2,18 @@
 using CameraControl;
 using Encounters;
 using State;
+using StaticConfig;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Construction {
   public class ShipLoader : MonoBehaviour {
-    [SerializeField] private TileBase foundationTile;
+    [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
     
     private IsometricGrid _grid;
-    private CameraController _camera;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
-      _camera = Camera.main.GetComponent<CameraController>();
     }
 
     private void Start() {
@@ -22,8 +21,8 @@ namespace Construction {
     }
     
     private void InitializeScene() {
-      foreach (var tileCoord in GameState.State.Player.Ship.Foundations) {
-        _grid.Tilemap.SetTile(tileCoord, foundationTile);
+      foreach (var build in GameState.State.Player.Ship.Components) {
+        _grid.Tilemap.SetTile(build.Key, buildOptions.BuildMap[build.Value].inGameTile);
       }
     }
   }

@@ -13,16 +13,17 @@ namespace StaticConfig {
       public RawResourceScriptableObject resource;
       public int cost;
     }
-
-    [InspectorName("Id (DO NOT CHANGE)")]
+    
     public string id;
     public string buildDisplayName;
     public LineItem[] buildCost;
+    // Indicates the tile can be built next to other foundations, but not atop them.
+    public bool isFoundationTile;
     
-    public bool isTile;
-    // If tile
     public TileBase inGameTile;
-    // If sprite
     public Sprite inGameSprite;
+
+    // TODO(P1): Actually support builds bigger than one tile
+    public Vector3Int dimensions = Vector3Int.one;
   }
 }

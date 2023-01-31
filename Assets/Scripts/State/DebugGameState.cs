@@ -32,7 +32,8 @@ namespace State {
     private static void GenerateShipState(PlayerState playerState) {
       for (int x = 0; x < ShipWidth; x++) {
         for (int y = 0; y < ShipHeight; y++) {
-          playerState.Ship.Foundations.Add(new Vector3Int(x, y, 0));
+          // Very error-prone, don't do this in prod code.
+          playerState.Ship.Components.Add(new Vector3Int(x, y, 0), "foundation");
         }
       }
     }
@@ -42,7 +43,7 @@ namespace State {
     }
 
     private static void GenerateRoster(PlayerState playerState) {
-      var shipFoundations = playerState.Ship.Foundations.ToList();
+      var shipFoundations = playerState.Ship.Components.Keys.ToList();
       for (int i = 0; i < PlayerRosterSize; i++) {
         playerState.Roster.Add(new UnitState() {
             ControlSource = UnitControlSource.Player,
