@@ -28,6 +28,10 @@ namespace Construction {
       ShowIndicator(gridPosition);
     }
 
+    public void SetSprite(Sprite sprite) {
+      _spriteRenderer.sprite = sprite;
+    }
+
     private void ShowIndicator(Vector3Int gridPosition) {
       // x+1, y+1 accommodates for top-right tile anchor.
       transform.position = _grid.CellToWorld(gridPosition + new Vector3Int(1, 1, 0));

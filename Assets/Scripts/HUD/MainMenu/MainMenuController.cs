@@ -22,8 +22,10 @@ namespace HUD.MainMenu {
 
     private void OnEnable() {
       _canvas.worldCamera = Camera.main;
-      _controls ??= new GameControls();
-      _controls.Menu.SetCallbacks(this);
+      if (_controls == null) {
+        _controls = new GameControls();
+        _controls.Menu.SetCallbacks(this);
+      }
       _controls.Menu.Enable();
     }
 

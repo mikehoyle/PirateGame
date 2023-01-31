@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 3970844898334541589}
   - component: {fileID: 1445486027365903390}
   - component: {fileID: 5308106276592080647}
+  - component: {fileID: 2973021465856551683}
   m_Layer: 5
   m_Name: UnitIndicators
   m_TagString: Untagged
@@ -177,6 +178,26 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!95 &2973021465856551683
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610268000637442952}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &4235491324849970672
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +359,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4998738781700405354}
-  - component: {fileID: 6797749622720605201}
   - component: {fileID: 2938091484828250302}
   m_Layer: 0
   m_Name: Unit
@@ -364,26 +384,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6797749622720605201
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4998738781700405355}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4add53a7d5ed58c47a46f0d78a0c7680, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &2938091484828250302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1107,6 +1107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4998738783368258714}
   - component: {fileID: 4998738783368258713}
+  - component: {fileID: 3167916634158004698}
   m_Layer: 0
   m_Name: SpriteStack
   m_TagString: Untagged
@@ -1150,6 +1151,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Library: []
   m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 2354960e8a5f27c4c917d6bebd4bd06e, type: 3}
+--- !u!111 &3167916634158004698
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998738783368258715}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8653784092456543253
 GameObject:
   m_ObjectHideFlags: 0

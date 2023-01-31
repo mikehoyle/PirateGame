@@ -19,8 +19,11 @@ namespace Overworld {
     }
     
     private void OnEnable() {
-      _controls ??= new GameControls();
-      _controls.Overworld.SetCallbacks(this);
+      if (_controls == null) {
+        _controls = new GameControls();
+        _controls.Overworld.SetCallbacks(this); 
+      }
+      
       _controls.Overworld.Enable();
     }
 

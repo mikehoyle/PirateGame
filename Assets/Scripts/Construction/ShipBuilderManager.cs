@@ -3,8 +3,10 @@ using CameraControl;
 using Common;
 using Controls;
 using Encounters;
+using HUD.Construction;
 using HUD.MainMenu;
 using State;
+using StaticConfig;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -28,16 +30,20 @@ namespace Construction {
     private IsometricGrid _grid;
     private CameraController _camera;
     private BuildPlacementIndicator _placementIndicator;
-    private ShipState _shipState;
+    private PlayerState _playerState;
     private MainMenuController _mainMenu;
     private Vector3 _cameraCursor;
     private Vector3 _cameraCursorVelocity;
+    private BuildMenuController _buildMenu;
+    private ConstructableScriptableObject _selectedBuild;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
       _camera = CameraController.Get();
       _placementIndicator = _grid.Grid.GetComponentInChildren<BuildPlacementIndicator>();
-      _shipState = GameState.State.Player.Ship;
+      _playerState = GameState.State.Player; 
+      _buildMenu = BuildMenuController.Get();
+      _buildMenu.OnBuildSelected += OnBuildSelected;
     }
 
     private void Start() {
@@ -67,8 +73,11 @@ namespace Construction {
     }
 
     private void OnEnable() {
-      _controls ??= new GameControls();
-      _controls.ShipBuilder.SetCallbacks(this);
+      if (_controls == null) {
+        _controls ??= new GameControls();
+        _controls.ShipBuilder.SetCallbacks(this);
+      }
+
       _controls.ShipBuilder.Enable();
     }
 
@@ -76,7 +85,15 @@ namespace Construction {
       _controls.ShipBuilder.Disable();
     }
 
+    private void OnDestroy() {
+      _buildMenu.OnBuildSelected -= OnBuildSelected;
+    }
+
     private void Update() {
+      UpdateCameraPosition();
+    }
+
+    private void UpdateCameraPosition() {
       _cameraCursor += _cameraCursorVelocity * Time.deltaTime;
       // TODO(P1): Prevent cursor from leaving the ship area.
       _camera.SetFocusPoint(_cameraCursor);
@@ -88,36 +105,58 @@ namespace Construction {
     }
 
     public void OnClick(InputAction.CallbackContext context) {
-      if (context.ReadValue<float>() < 0.01) {
-        // Indicates mouse-up
+      if (!context.performed) {
+        // Ignore start/cancel events
         return;
       }
-      var mousePosition = Mouse.current.position.ReadValue();
-      var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
-
-      if (!IsValidPlacement(gridCell)) {
+      if (_selectedBuild == null) {
+        // No build selected 
         return;
       }
       
+      var mousePosition = Mouse.current.position.ReadValue();
+      var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
+      
+      AttemptPurchase(gridCell);
+    }
+    
+    private void AttemptPurchase(Vector3Int gridCell) {
+      if (!IsValidPlacement(gridCell)) {
+        return;
+      }
+
+      Debug.Log("Purchasing");
+      _playerState.Inventory.DeductBuildCost(_selectedBuild);
       GameState.State.Player.Ship.Foundations.Add(gridCell);
       _grid.Tilemap.SetTile(gridCell, foundationTile);
       _placementIndicator.Hide();
     }
-    
+
     public void OnPoint(InputAction.CallbackContext context) {
       if (!isActiveAndEnabled) {
         // Prevent attempts at handling mouse movement after scene cleanup.
+        return;
+      }
+
+      if (context.canceled) {
+        _placementIndicator.Hide();
+        return;
+      }
+
+      if (_selectedBuild == null) {
+        // Nothing selected, so nothing to indicate
         return;
       }
       
       var mousePosition = context.ReadValue<Vector2>();
       var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
       
-      if (_shipState.Foundations.Contains(gridCell)) {
+      if (_playerState.Ship.Foundations.Contains(gridCell)) {
         _placementIndicator.Hide();
         return;
       }
 
+      _placementIndicator.SetSprite(_selectedBuild.inGameSprite);
       if (IsValidPlacement(gridCell)) {
         _placementIndicator.ShowValidIndicator(gridCell);
       } else {
@@ -128,15 +167,19 @@ namespace Construction {
     public void OnMoveCamera(InputAction.CallbackContext context) {
       _cameraCursorVelocity = context.ReadValue<Vector2>() * cameraMoveSpeed;
     }
+
+    private void OnBuildSelected(object _, ConstructableScriptableObject build) {
+      _selectedBuild = build;
+    }
     
     private bool IsValidPlacement(Vector3Int gridCell) {
       var isValidPlacement = false;
       IsometricGridUtils.ForEachAdjacentTile(gridCell, adjacentCell => {
-        if (_shipState.Foundations.Contains(adjacentCell)) {
+        if (_playerState.Ship.Foundations.Contains(adjacentCell)) {
           isValidPlacement = true;
         }
       });
-      return isValidPlacement;
+      return isValidPlacement && _playerState.Inventory.CanAffordBuild(_selectedBuild);
     }
   }
 }

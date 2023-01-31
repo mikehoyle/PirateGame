@@ -20,7 +20,7 @@ namespace State {
     public static GameState State {
       get {
         // TODO(P1): Convert to loading from file 
-        return _self ??= GameState.Load();
+        return _self ??= Load();
       }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using StaticConfig;
 using UnityEngine;
 
 namespace State {
@@ -37,7 +38,7 @@ namespace State {
     }
 
     private static void GenerateInventory(PlayerState playerState) {
-      playerState.Inventory.Items.Add(InventoryState.Item.Lumber, 45);
+      playerState.Inventory.DebugOnlySetQuantity("lumber", 45);
     }
 
     private static void GenerateRoster(PlayerState playerState) {
