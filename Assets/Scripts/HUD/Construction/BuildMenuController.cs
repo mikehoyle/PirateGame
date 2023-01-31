@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using State;
 using StaticConfig;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +10,6 @@ namespace HUD.Construction {
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
 
     private VerticalLayoutGroup _container;
-    private GameState _gameState;
     private List<BuildMenuOption> _menuOptions = new();
 
     public event EventHandler<ConstructableScriptableObject> OnBuildSelected; 
@@ -20,7 +18,6 @@ namespace HUD.Construction {
 
     private void Awake() {
       _container = GetComponentInChildren<VerticalLayoutGroup>();
-      _gameState = GameState.State;
     }
 
     private void Start() {

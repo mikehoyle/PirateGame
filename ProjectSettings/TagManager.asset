@@ -9,6 +9,7 @@ TagManager:
   - HPBar
   - GameMenu
   - BuildMenu
+  - EncounterActionDisplay
   layers:
   - Default
   - TransparentFX
