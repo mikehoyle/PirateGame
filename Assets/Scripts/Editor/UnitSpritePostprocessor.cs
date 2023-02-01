@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using StaticConfig;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,6 +11,7 @@ namespace EditorInternal {
   public class UnitSpritePostprocessor : AssetPostprocessor {
     private const string UnitAssetPath = "Sprites/Units/Composite";
     private const string SpritesPath = "Sprites/";
+    private const string CompositeAssetPath = "Assets/Sprites/Units/Composite/CompositeSprite.asset";
     private const int UnitSpritesheetFrameWidth = 160;
     private const int UnitSpritesheetFrameHeight = 128;
     private const int SpritePixelsPerUnit = 64;
@@ -21,8 +24,8 @@ namespace EditorInternal {
       if (normalizedPath.Contains(UnitAssetPath)) {
         SliceSpritesheets();
       }
-    }
-    
+    } 
+
     private void SetCommonMetadata() {
       var textureImporter = (TextureImporter)assetImporter;
       if (textureImporter == null || textureImporter.textureType != TextureImporterType.Sprite) {
@@ -83,6 +86,94 @@ namespace EditorInternal {
       }
       
       textureImporter.spritesheet = metadataList.ToArray();
+    }
+    
+    
+
+    private static void OnPostprocessAllAssets(
+        string[] importedAssets,
+        string[] deletedAssets,
+        string[] movedAssets,
+        string[] movedFromAssetPaths) {
+      var updatedAssetPaths = new List<string>(); 
+      foreach (var importedAssetPath in importedAssets) {
+        var normalizedPath = importedAssetPath.Replace("\\", "/");
+        if (!normalizedPath.Contains(UnitAssetPath)) {
+          continue;
+        }
+        
+        var spriteList = new List<Sprite>();
+        foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(importedAssetPath)) {
+          // Anecdotally, the sprites always seem to be in order.
+          if (asset is Sprite sprite) {
+            spriteList.Add(sprite);
+          }
+        }
+
+        if (spriteList.Count > 0) {
+          var targetDir = Path.GetDirectoryName(importedAssetPath);
+          var targetFilename = Path.GetFileNameWithoutExtension(importedAssetPath) + ".asset";
+          var targetPath = Path.Join(targetDir, targetFilename);
+
+          UpdateOrCreateComponentAsset(targetPath, spriteList);
+          updatedAssetPaths.Add(targetPath);
+        }
+      }
+
+      if (updatedAssetPaths.Count > 0) {
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        UpdateOrCreateCompositeAsset(updatedAssetPaths);
+        AssetDatabase.SaveAssets();
+      }
+    }
+
+    private static void UpdateOrCreateComponentAsset(
+        string targetPath, List<Sprite> spriteList) {
+      var spriteComponent = AssetDatabase.LoadAssetAtPath<CompositeSpriteComponentScriptableObject>(targetPath);
+      if (spriteComponent == null) {
+        spriteComponent = ScriptableObject.CreateInstance<CompositeSpriteComponentScriptableObject>();
+        AssetDatabase.CreateAsset(spriteComponent, targetPath);
+      }
+      
+      spriteComponent.frames = spriteList.ToArray();
+      EditorUtility.SetDirty(spriteComponent);
+    }
+
+    private static void UpdateOrCreateCompositeAsset(List<string> updatedAssetPaths) {
+      var composite = AssetDatabase.LoadAssetAtPath<CompositeUnitSpriteScriptableObject>(CompositeAssetPath);
+      if (composite == null) {
+        composite = ScriptableObject.CreateInstance<CompositeUnitSpriteScriptableObject>();
+        AssetDatabase.CreateAsset(composite, CompositeAssetPath);
+      }
+      composite.EnsureFieldsInitialized();
+
+      foreach (var updatedAssetPath in updatedAssetPaths) {
+        var assetLayer = CompositeUnitSpriteScriptableObject.Layer.None;
+        foreach (var layer in CompositeUnitSpriteScriptableObject.LayerToString) {
+          if (updatedAssetPath.Contains(layer.Value)) {
+            assetLayer = layer.Key;
+            break;
+          }
+        }
+
+        if (assetLayer == CompositeUnitSpriteScriptableObject.Layer.None) {
+          Debug.LogWarning($"Asset {updatedAssetPath} not found to be in any known composite layer");
+          continue;
+        }
+
+        var assetToLink = AssetDatabase.LoadAssetAtPath<CompositeSpriteComponentScriptableObject>(updatedAssetPath);
+        if (assetToLink == null) {
+          Debug.LogWarning($"Asset {updatedAssetPath} not found! This should not happen," +
+              $"as it should've been just created. Look for creation errors.");
+          continue;
+        }
+        
+        var componentDictionary = composite.layerOptions[(int)assetLayer];
+        componentDictionary[Path.GetFileNameWithoutExtension(updatedAssetPath)] = assetToLink;
+      }
+      
+      EditorUtility.SetDirty(composite);
     }
   }
 }

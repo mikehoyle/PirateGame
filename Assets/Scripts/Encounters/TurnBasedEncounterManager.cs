@@ -128,6 +128,7 @@ namespace Encounters {
     private void OnUnitActionComplete() {
       _userInteractionBlocked = false;
       // TODO(P0): currently swap turn after simple movement, obviously allow more than just movement
+      // TODO(P0): increment round
       NewUnitTurn((_currentUnitTurn + 1) % _unitsInEncounter.Count);
     }
   }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using State;
+using Units.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ namespace Units {
     
     private Slider _hpBar;
     [CanBeNull] private UnitPlacementManager _placementManager;
+    private AnimatedCompositeSprite _sprite;
 
     public UnitState State { get; private set; }
     // TODO(P1): This doesn't seem to be the true center.
@@ -20,6 +22,7 @@ namespace Units {
       var grid = GameObject.FindWithTag(Tags.Grid).GetComponent<Grid>();
       _placementManager = new UnitPlacementManager(grid, this, speedUnitsPerSec);
       _hpBar = transform.Find("UnitIndicators").GetComponentInChildren<Slider>();
+      _sprite = GetComponentInChildren<AnimatedCompositeSprite>();
     }
 
     private void Update() {
@@ -43,7 +46,12 @@ namespace Units {
         return false;
       }
       
-      _placementManager!.ExecuteMovement(path, onCompleteCallback);
+      // TODO(P0): Fix this, this is just a hacky way to see animations for now.
+      _sprite.Play(CompositeAnimation.Type.WalkSw);
+      _placementManager!.ExecuteMovement(path, () => {
+        _sprite.Play(CompositeAnimation.Type.IdleSw);
+        onCompleteCallback();
+      });
       return true;
     }
 
