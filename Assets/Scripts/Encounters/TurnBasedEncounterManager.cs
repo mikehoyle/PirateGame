@@ -2,134 +2,209 @@
 using System.Collections.Generic;
 using System.Linq;
 using CameraControl;
+using Controls;
+using HUD.Encounter;
 using Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 namespace Encounters {
-  public class TurnBasedEncounterManager : MonoBehaviour {
-    [SerializeField] private TileBase selectedTileOverlay;
-    [SerializeField] private TileBase eligibleTileOverlay;
-    
+  public class TurnBasedEncounterManager : MonoBehaviour, GameControls.ITurnBasedEncounterActions {
     private int _currentRound;
     private List<UnitController> _unitsInEncounter = new();
     private int _currentUnitTurn = 0;
     private EncounterHUD _hud;
     private CameraController _camera;
     private IsometricGrid _grid;
-    private Vector3Int _lastKnownHoveredCell = new(int.MinValue, int.MinValue, int.MinValue);
-    private bool _userInteractionBlocked = false;
     private TargetingHintDisplay _targetingDisplay;
+    private GameControls _controls;
+    private ActionMenuController _actionMenu;
+    private UnitAction _currentlySelectedAction;
+
+    private UnitController ActiveUnit => _unitsInEncounter[_currentUnitTurn];
 
     private void Start() {
       _hud = GameObject.FindWithTag(Tags.EncounterHUD).GetComponent<EncounterHUD>();
+      _actionMenu = ActionMenuController.Get();
       _camera = Camera.main.GetComponent<CameraController>();
       _grid = IsometricGrid.Get();
-      _targetingDisplay = _grid.Grid.transform.Find("TargetingHint").GetComponent<TargetingHintDisplay>();
+      _targetingDisplay = _grid.Grid.GetComponentInChildren<TargetingHintDisplay>();
 
       _currentRound = 1;
       _unitsInEncounter = FindObjectsOfType<UnitController>().ToList();
       foreach (var unit in _unitsInEncounter) {
         _grid.Pathfinder.SetEnabled(unit.State.PositionInEncounter, false);
       }
+      
       _hud.SetRound(_currentRound);
       // Set to first units turn
       // Currently turn order is completely arbitrarily based on the order we found the components
-      NewUnitTurn(0);
+      OnNewUnitTurn(0);
     }
     
-    private void NewUnitTurn(int unitIndex) {
-      _grid.Pathfinder.SetEnabled(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, false);
+    private void OnEnable() {
+      if (_controls == null) {
+        _controls ??= new GameControls();
+        _controls.TurnBasedEncounter.SetCallbacks(this);
+      }
+
+      _controls.TurnBasedEncounter.Enable();
+    }
+
+    private void OnDisable() {
+      _controls.TurnBasedEncounter.Disable();
+    }
+    
+    private void OnNewUnitTurn(int unitIndex) {
+      // TODO(P1): Overhaul the way dynamic obstacles such as units are handled in encounters.
+      //     These scattered interactions with the pathfinder are very messy and error-prone.
+      _grid.Pathfinder.SetEnabled(ActiveUnit.State.PositionInEncounter, false);
       _currentUnitTurn = unitIndex;
-      var unit = _unitsInEncounter[_currentUnitTurn];
-      _grid.Pathfinder.SetEnabled(unit.State.PositionInEncounter, true);
+      _grid.Pathfinder.SetEnabled(ActiveUnit.State.PositionInEncounter, true);
+      ActiveUnit.ActivateTurn();
       
       // Center camera on current unit
-      _camera.SetFocusPoint(unit.WorldPosition);
+      // TODO(P1): Camera controls in encounter
+      _camera.SetFocusPoint(ActiveUnit.WorldPosition);
       
-      // Put indicator under unit and show movement possibilities
-      _grid.Overlay.ClearAllTiles();
-      var gridPosition = unit.State.PositionInEncounter;
-      var unitMoveRange = unit.State.MovementRange;
-      _grid.Overlay.SetTile(gridPosition, selectedTileOverlay);
+      // Display action options, and default select the first
+      _actionMenu.DisplayMenuItemsForUnit(ActiveUnit);
+      SelectAction(ActiveUnit.AvailableActions[0]);
+    }
 
-      for (int x = -unitMoveRange; x <= unitMoveRange; x++) {
-        var yMoveRange = unitMoveRange - Math.Abs(x);
-        for (int y = -yMoveRange; y <= yMoveRange; y++) {
-          if (x == 0 && y == 0) {
-            continue;
-          }
-          var tile = _grid.GetTileAtPeakElevation(
-              new Vector2Int(
-                  _unitsInEncounter[unitIndex].State.PositionInEncounter.x + x,
-                  _unitsInEncounter[unitIndex].State.PositionInEncounter.y + y));
-          // OPTIMIZE: memoize paths
-          var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, tile);
-          if (_unitsInEncounter[unitIndex].CouldMoveAlongPath(path)) {
-            _grid.Overlay.SetTile(tile, eligibleTileOverlay);
-          }
+    public void OnClick(InputAction.CallbackContext context) {
+      if (!context.performed) {
+        return;
+      }
+      
+      var gridCell = _grid.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
+      switch (_currentlySelectedAction) {
+        case UnitAction.Move:
+          AttemptMove(gridCell);
+          return;
+        case UnitAction.AttackMelee:
+          AttemptAttack(gridCell);
+          return;
+      }
+    }
+    private void AttemptAttack(Vector3Int gridCell) {
+      foreach (var unit in _unitsInEncounter) {
+        if (unit.State.PositionInEncounter == gridCell && ActiveUnit.IsUnitEnemy(unit)) {
+          // TODO(P0): Make attacking not completely random;
+          unit.State.CurrentHp -= Random.Range(3, 6);
+          unit.AvailableActions.Remove(UnitAction.AttackMelee);
+          _actionMenu.DisplayMenuItemsForUnit(unit);
+          SelectAction(UnitAction.None);
+          return;
         }
       }
     }
 
-    private void Update() {
-      HandleMouseHover();
+    private void AttemptMove(Vector3Int gridCell) {
+      var path = _grid.GetPath(ActiveUnit.State.PositionInEncounter, gridCell);
+
+
+      var formerPosition = ActiveUnit.State.PositionInEncounter;
+      if (path != null && ActiveUnit.MoveAlongPath(path, OnMoveComplete)) {
+        _grid.Pathfinder.SetEnabled(formerPosition, true);
+        _targetingDisplay.ClearAll();
+        _controls.TurnBasedEncounter.Disable();
+      }
+    }
+
+    private void OnMoveComplete() {
+      _camera.SetFocusPoint(ActiveUnit.WorldPosition);
+      if (ActiveUnit.RemainingMovement <= 0) {
+        ActiveUnit.AvailableActions.Remove(UnitAction.Move);
+        _actionMenu.DisplayMenuItemsForUnit(ActiveUnit);
+        _currentlySelectedAction = UnitAction.None;
+      }
+      SelectAction(_currentlySelectedAction);
+      _controls.TurnBasedEncounter.Enable();
+    }
+
+    public void OnPoint(InputAction.CallbackContext context) {
+      if (!context.performed) {
+        return;
+      }
+
+      // TODO(P1): All these switch-cases are ugly and not maintainable. Make a better way. 
+      switch (_currentlySelectedAction) {
+        case UnitAction.Move:
+          _targetingDisplay.HandleMouseHover(context.ReadValue<Vector2>(), ActiveUnit);
+          return;
+      }
     }
     
-    private void HandleMouseHover() {
-      if (_userInteractionBlocked) {
+    public void OnSelectActionOne(InputAction.CallbackContext context) {
+      if (!context.performed) {
         return;
       }
-      
-      var mousePosition = Mouse.current.position;
-      var hoveredCell = _grid.TileAtScreenCoordinate(mousePosition.ReadValue());
-      if (_lastKnownHoveredCell != hoveredCell) {
-        UpdateMovementHover(hoveredCell);
-      }
+      SelectActionIndex(1);
     }
-
-    private void UpdateMovementHover(Vector3Int cell) {
-      if (_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter == cell) {
-        // No need to indicate you can move where you already are
+    public void OnSelectActionTwo(InputAction.CallbackContext context) {
+      if (!context.performed) {
         return;
       }
-      
-      _lastKnownHoveredCell = cell;
-      _targetingDisplay.Clear();
-      if (_grid.IsTileMovementEligible(cell)) {
-        var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, cell);
-        if (path != null && _unitsInEncounter[_currentUnitTurn].CouldMoveAlongPath(path)) {
-          _targetingDisplay.DisplayMovementHint(path); 
-        }
-      }
+      SelectActionIndex(2);
     }
-
-    /// <summary>
-    /// PlayerInput event
-    /// </summary>
-    private void OnSelect() {
-      // TODO(P2): Handle this interaction blocking more cleanly by making better use of InputAction
-      //     generated code, and simply deactivating the control scheme.
-      if (_userInteractionBlocked) {
+    public void OnSelectActionThree(InputAction.CallbackContext context) {
+      if (!context.performed) {
         return;
       }
-      
-      var mousePosition = Mouse.current.position;
-      var gridCell = _grid.TileAtScreenCoordinate(mousePosition.ReadValue());
-      var path = _grid.GetPath(_unitsInEncounter[_currentUnitTurn].State.PositionInEncounter, gridCell);
-      
-      
-      if (path != null && _unitsInEncounter[_currentUnitTurn].MoveAlongPath(path, OnUnitActionComplete)) {
-        _userInteractionBlocked = true;
+      SelectActionIndex(3);
+    }
+    public void OnSelectActionFour(InputAction.CallbackContext context) {
+      if (!context.performed) {
+        return;
       }
+      SelectActionIndex(4);
+    }
+    public void OnSelectActionFive(InputAction.CallbackContext context) {
+      if (!context.performed) {
+        return;
+      }
+      SelectActionIndex(5);
     }
 
-    private void OnUnitActionComplete() {
-      _userInteractionBlocked = false;
-      // TODO(P0): currently swap turn after simple movement, obviously allow more than just movement
-      // TODO(P0): increment round
-      NewUnitTurn((_currentUnitTurn + 1) % _unitsInEncounter.Count);
+    private void SelectActionIndex(int index) {
+      if (ActiveUnit.CapableActions.Count < index) {
+        return;
+      }
+      var action = ActiveUnit.CapableActions[index - 1];
+      if (!ActiveUnit.AvailableActions.Contains(action)) {
+        return;
+      }
+      SelectAction(action);
+    }
+
+    private void SelectAction(UnitAction unitAction) {
+      _currentlySelectedAction = unitAction;
+      _targetingDisplay.ClearAll();
+
+      switch (unitAction) {
+        case UnitAction.Move:
+          _targetingDisplay.DisplayMovementPossibilities(ActiveUnit);
+          return;
+        case UnitAction.AttackMelee:
+          _targetingDisplay.DisplayAttackPossibilities(ActiveUnit);
+          return;
+        case UnitAction.EndTurn:
+          EndTurn();
+          return;
+      }
+    }
+    
+    private void EndTurn() {
+      var nextTurn = _currentUnitTurn + 1;
+      if (nextTurn >= _unitsInEncounter.Count) {
+        _currentRound++;
+        _hud.SetRound(_currentRound);
+        nextTurn = 0;
+      }
+      OnNewUnitTurn(nextTurn);
     }
   }
 }

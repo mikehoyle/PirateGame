@@ -6,7 +6,7 @@ namespace State {
   [Serializable]
   public class UnitState {
     public Vector3Int PositionOnShip;
-    // TODO should encounter specifics not be in save files?
+    // TODO(P2): Should encounter specifics not be in save files? Probably not
     public Vector3Int PositionInEncounter;
     public int MaxHp;
     public int CurrentHp;

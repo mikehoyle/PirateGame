@@ -5,4 +5,5 @@
   public const string HpBar = "HPBar";
   public const string MainMenu = "GameMenu";
   public const string BuildMenu = "BuildMenu";
+  public const string EncounterActionDisplay = "EncounterActionDisplay";
 }

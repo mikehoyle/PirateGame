@@ -13,6 +13,8 @@ namespace Units.Rendering {
       IdleSw,
       WalkSw,
       WalkEquipSw,
+      WalkSe,
+      WalkNw,
     }
 
     public Type type;

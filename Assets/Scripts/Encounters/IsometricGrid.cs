@@ -16,7 +16,7 @@ namespace Encounters {
     
     private Camera _camera;
     
-    public EncounterPathfindingGrid Pathfinder { get; set; }
+    public EncounterPathfindingGrid Pathfinder { get; private set; }
 
     public Grid Grid { get; private set; }
     public Tilemap Tilemap { get; private set; }

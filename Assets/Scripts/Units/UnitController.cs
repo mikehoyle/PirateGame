@@ -12,17 +12,27 @@ namespace Units {
     
     private Slider _hpBar;
     [CanBeNull] private UnitPlacementManager _placementManager;
-    private AnimatedCompositeSprite _sprite;
 
     public UnitState State { get; private set; }
     // TODO(P1): This doesn't seem to be the true center.
     public Vector3 WorldPosition => _placementManager!.GetPlacement();
+    
+    public List<UnitAction> CapableActions { get; } = new();
+    public List<UnitAction> AvailableActions { get; private set; } = new();
+    public int RemainingMovement { get; private set; }
 
     private void Awake() {
       var grid = GameObject.FindWithTag(Tags.Grid).GetComponent<Grid>();
-      _placementManager = new UnitPlacementManager(grid, this, speedUnitsPerSec);
+      var sprite = GetComponentInChildren<AnimatedCompositeSprite>();
+      _placementManager = new UnitPlacementManager(grid, this, sprite, speedUnitsPerSec);
       _hpBar = transform.Find("UnitIndicators").GetComponentInChildren<Slider>();
-      _sprite = GetComponentInChildren<AnimatedCompositeSprite>();
+      AddAvailableActions();
+    }
+    
+    private void AddAvailableActions() {
+      CapableActions.Add(UnitAction.Move);
+      CapableActions.Add(UnitAction.AttackMelee);
+      CapableActions.Add(UnitAction.EndTurn);
     }
 
     private void Update() {
@@ -39,6 +49,11 @@ namespace Units {
 
       transform.position = WorldPosition;
     }
+
+    public void ActivateTurn() {
+      RemainingMovement = State.MovementRange;
+      AvailableActions = new(CapableActions);
+    }
     
     /// <returns>Whether the unit is eligible to move along the path</returns>
     public bool MoveAlongPath(LinkedList<Vector3Int> path, Action onCompleteCallback) {
@@ -46,12 +61,10 @@ namespace Units {
         return false;
       }
       
-      // TODO(P0): Fix this, this is just a hacky way to see animations for now.
-      _sprite.Play(CompositeAnimation.Type.WalkSw);
       _placementManager!.ExecuteMovement(path, () => {
-        _sprite.Play(CompositeAnimation.Type.IdleSw);
         onCompleteCallback();
       });
+      RemainingMovement -= (path.Count - 1);
       return true;
     }
 
@@ -60,7 +73,11 @@ namespace Units {
         return false;
       }
       var pathLength = path.Count;
-      return pathLength > 0 && pathLength - 1 <= State.MovementRange;
+      return pathLength > 0 && pathLength - 1 <= RemainingMovement;
+    }
+
+    public bool IsUnitEnemy(UnitController unit) {
+      return State.Faction != unit.State.Faction;
     }
   }
 }

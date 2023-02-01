@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Units;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Encounters {
   public class TargetingHintDisplay : MonoBehaviour {
+    [SerializeField] private TileBase selectedTileOverlay;
+    [SerializeField] private TileBase eligibleTileOverlay;
     [SerializeField] private List<TileBase> arrowIndicatorTiles;
     
     private Tilemap _tilemap;
@@ -20,6 +23,8 @@ namespace Encounters {
     /// 0 0 0 0 0 0
     /// </summary>
     private Dictionary<Flags, TileBase> _movementTiles;
+    private IsometricGrid _grid;
+    private Vector3Int _lastKnownHoveredCell = new(int.MinValue, int.MinValue, int.MinValue);
 
     [Flags]
     private enum Flags {
@@ -34,6 +39,7 @@ namespace Encounters {
 
     private void Awake() {
       _tilemap = GetComponent<Tilemap>();
+      _grid = IsometricGrid.Get();
       GenerateMovementTileDict();
     }
     private void GenerateMovementTileDict() {
@@ -53,6 +59,56 @@ namespace Encounters {
           [Flags.Up | Flags.IsOrigin] = arrowIndicatorTiles[12],
           [Flags.Left | Flags.IsOrigin] = arrowIndicatorTiles[13],
       };
+    }
+
+    public void DisplayMovementPossibilities(UnitController unit) {
+      // Put indicator under unit and show movement possibilities
+      _grid.Overlay.ClearAllTiles();
+      _grid.Overlay.color = Color.white;
+      var gridPosition = unit.State.PositionInEncounter;
+      var unitMoveRange = unit.RemainingMovement;
+      _grid.Overlay.SetTile(gridPosition, selectedTileOverlay);
+
+      for (int x = -unitMoveRange; x <= unitMoveRange; x++) {
+        var yMoveRange = unitMoveRange - Math.Abs(x);
+        for (int y = -yMoveRange; y <= yMoveRange; y++) {
+          if (x == 0 && y == 0) {
+            continue;
+          }
+          var tile = _grid.GetTileAtPeakElevation(
+              new Vector2Int(
+                  unit.State.PositionInEncounter.x + x,
+                  unit.State.PositionInEncounter.y + y));
+          // OPTIMIZE: memoize paths
+          var path = _grid.GetPath(unit.State.PositionInEncounter, tile);
+          if (unit.CouldMoveAlongPath(path)) {
+            _grid.Overlay.SetTile(tile, eligibleTileOverlay);
+          }
+        }
+      }
+    }
+    
+    public void HandleMouseHover(Vector3 mousePosition, UnitController activeUnit) {
+      var hoveredCell = _grid.TileAtScreenCoordinate(mousePosition);
+      if (_lastKnownHoveredCell != hoveredCell) {
+        UpdateMovementHover(hoveredCell, activeUnit);
+      }
+    }
+
+    private void UpdateMovementHover(Vector3Int targetedCell, UnitController activeUnit) {
+      if (activeUnit.State.PositionInEncounter == targetedCell) {
+        // No need to indicate you can move where you already are
+        return;
+      }
+      
+      _lastKnownHoveredCell = targetedCell;
+      ClearMovementIndicators();
+      if (_grid.IsTileMovementEligible(targetedCell)) {
+        var path = _grid.GetPath(activeUnit.State.PositionInEncounter, targetedCell);
+        if (path != null && activeUnit.CouldMoveAlongPath(path)) {
+          DisplayMovementHint(path); 
+        }
+      }
     }
     
     public void DisplayMovementHint(LinkedList<Vector3Int> path) {
@@ -103,8 +159,36 @@ namespace Encounters {
       return result;
     }
 
-    public void Clear() {
+    private void ClearMovementIndicators() {
       _tilemap.ClearAllTiles();
+    }
+
+    public void ClearAll() {
+      ClearMovementIndicators();
+      _grid.Overlay.ClearAllTiles();
+    }
+    
+    public void DisplayAttackPossibilities(UnitController unit) {
+      _grid.Overlay.ClearAllTiles();
+      _grid.Overlay.color = Color.red;
+      var gridPosition = unit.State.PositionInEncounter;
+      _grid.Overlay.SetTile(gridPosition, selectedTileOverlay);
+
+      for (int x = -1; x <= 1; x++) {
+        var yRange = 1 - Math.Abs(x);
+        for (int y = -yRange; y <= yRange; y++) {
+          if (x == 0 && y == 0) {
+            continue;
+          }
+          var tile = _grid.GetTileAtPeakElevation(
+              new Vector2Int(
+                  unit.State.PositionInEncounter.x + x,
+                  unit.State.PositionInEncounter.y + y));
+          if (_grid.IsTileMovementEligible(tile)) {
+            _grid.Overlay.SetTile(tile, eligibleTileOverlay);
+          }
+        }
+      }
     }
   }
 }

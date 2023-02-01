@@ -1,13 +1,10 @@
 ﻿using System;
+using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Encounter {
   public class ActionMenuController : MonoBehaviour {
-    // TODO(P1): This is absolutely not how actions should be stored and needs to be changed asap.
-    private static string[] _allActions = {
-        "Move", "Attack",
-    };
     [SerializeField] private GameObject availableActionPrefab;
     
     private HorizontalLayoutGroup _container;
@@ -15,14 +12,27 @@ namespace HUD.Encounter {
       _container = GetComponentInChildren<HorizontalLayoutGroup>();
     }
 
-    private void Start() {
-      CreateMenuItems();
-    }
-    private void CreateMenuItems() {
-      for (int i = 0; i < _allActions.Length; i++) {
+    public void DisplayMenuItemsForUnit(UnitController unit) {
+      Clear();
+      var currentHotkey = 1;
+      foreach (var capableAction in unit.CapableActions) {
         var item = Instantiate(availableActionPrefab, _container.transform).GetComponent<AvailableAction>();
-        item.Init(Convert.ToString(i + 1), _allActions[i]);
+        item.Init(Convert.ToString(currentHotkey), capableAction.DisplayString());
+        if (!unit.AvailableActions.Contains(capableAction)) {
+          item.GetComponent<Button>().interactable = false;
+        }
+        currentHotkey++;
       }
+    }
+
+    private void Clear() {
+      foreach (Transform child in _container.transform) {
+        Destroy(child.gameObject);
+      }
+    }
+
+    public static ActionMenuController Get() {
+      return GameObject.FindWithTag(Tags.EncounterActionDisplay).GetComponent<ActionMenuController>();
     }
   }
 }

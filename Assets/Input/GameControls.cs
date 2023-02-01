@@ -30,9 +30,63 @@ namespace Controls
             ""id"": ""8ab82065-3ee3-40d3-9e48-080ac0b3ecd6"",
             ""actions"": [
                 {
-                    ""name"": ""Select"",
+                    ""name"": ""Click"",
                     ""type"": ""Button"",
                     ""id"": ""1fe5049d-6907-4b32-a14c-83c2e1c595a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Point"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""9ea7f25d-1eec-48fb-9b6b-93699a8b73bb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectActionOne"",
+                    ""type"": ""Button"",
+                    ""id"": ""5982f819-f1de-42cc-bd42-c6f90a32cb40"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectActionTwo"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a16e281-fdfc-45ab-aed6-9b0dd4894eeb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectActionThree"",
+                    ""type"": ""Button"",
+                    ""id"": ""7b2e1746-3099-47c1-aa41-4d5a17b21781"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectActionFour"",
+                    ""type"": ""Button"",
+                    ""id"": ""fbcda4cb-527b-4f9f-b208-182e73502fe3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectActionFive"",
+                    ""type"": ""Button"",
+                    ""id"": ""87609bb1-4d1f-46fa-aa7f-5f47bbd7b020"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -47,7 +101,84 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KBM"",
-                    ""action"": ""Select"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36be579a-68f2-46bb-b11a-ab7b8cc5b084"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a69a09fb-eaf4-4987-a0f4-6ca77a18c239"",
+                    ""path"": ""<Pen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e7def8a-efaf-4a54-b677-38dfefcd091c"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""SelectActionOne"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c04cd15-c155-4f39-a993-1d1421639a93"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""SelectActionTwo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbd225be-a033-48d9-a072-10fd35df27aa"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""SelectActionThree"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c4ce82e-c2ae-4676-8e69-e39f88df252a"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""SelectActionFour"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98915bf2-2c21-4adc-84cd-73bc60991a6b"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""SelectActionFive"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -724,7 +855,13 @@ namespace Controls
 }");
             // TurnBasedEncounter
             m_TurnBasedEncounter = asset.FindActionMap("TurnBasedEncounter", throwIfNotFound: true);
-            m_TurnBasedEncounter_Select = m_TurnBasedEncounter.FindAction("Select", throwIfNotFound: true);
+            m_TurnBasedEncounter_Click = m_TurnBasedEncounter.FindAction("Click", throwIfNotFound: true);
+            m_TurnBasedEncounter_Point = m_TurnBasedEncounter.FindAction("Point", throwIfNotFound: true);
+            m_TurnBasedEncounter_SelectActionOne = m_TurnBasedEncounter.FindAction("SelectActionOne", throwIfNotFound: true);
+            m_TurnBasedEncounter_SelectActionTwo = m_TurnBasedEncounter.FindAction("SelectActionTwo", throwIfNotFound: true);
+            m_TurnBasedEncounter_SelectActionThree = m_TurnBasedEncounter.FindAction("SelectActionThree", throwIfNotFound: true);
+            m_TurnBasedEncounter_SelectActionFour = m_TurnBasedEncounter.FindAction("SelectActionFour", throwIfNotFound: true);
+            m_TurnBasedEncounter_SelectActionFive = m_TurnBasedEncounter.FindAction("SelectActionFive", throwIfNotFound: true);
             // Overworld
             m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
             m_Overworld_Move = m_Overworld.FindAction("Move", throwIfNotFound: true);
@@ -808,12 +945,24 @@ namespace Controls
         // TurnBasedEncounter
         private readonly InputActionMap m_TurnBasedEncounter;
         private ITurnBasedEncounterActions m_TurnBasedEncounterActionsCallbackInterface;
-        private readonly InputAction m_TurnBasedEncounter_Select;
+        private readonly InputAction m_TurnBasedEncounter_Click;
+        private readonly InputAction m_TurnBasedEncounter_Point;
+        private readonly InputAction m_TurnBasedEncounter_SelectActionOne;
+        private readonly InputAction m_TurnBasedEncounter_SelectActionTwo;
+        private readonly InputAction m_TurnBasedEncounter_SelectActionThree;
+        private readonly InputAction m_TurnBasedEncounter_SelectActionFour;
+        private readonly InputAction m_TurnBasedEncounter_SelectActionFive;
         public struct TurnBasedEncounterActions
         {
             private @GameControls m_Wrapper;
             public TurnBasedEncounterActions(@GameControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Select => m_Wrapper.m_TurnBasedEncounter_Select;
+            public InputAction @Click => m_Wrapper.m_TurnBasedEncounter_Click;
+            public InputAction @Point => m_Wrapper.m_TurnBasedEncounter_Point;
+            public InputAction @SelectActionOne => m_Wrapper.m_TurnBasedEncounter_SelectActionOne;
+            public InputAction @SelectActionTwo => m_Wrapper.m_TurnBasedEncounter_SelectActionTwo;
+            public InputAction @SelectActionThree => m_Wrapper.m_TurnBasedEncounter_SelectActionThree;
+            public InputAction @SelectActionFour => m_Wrapper.m_TurnBasedEncounter_SelectActionFour;
+            public InputAction @SelectActionFive => m_Wrapper.m_TurnBasedEncounter_SelectActionFive;
             public InputActionMap Get() { return m_Wrapper.m_TurnBasedEncounter; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -823,16 +972,52 @@ namespace Controls
             {
                 if (m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface != null)
                 {
-                    @Select.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelect;
-                    @Select.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelect;
-                    @Select.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelect;
+                    @Click.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnClick;
+                    @Click.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnClick;
+                    @Click.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnClick;
+                    @Point.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnPoint;
+                    @Point.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnPoint;
+                    @Point.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnPoint;
+                    @SelectActionOne.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionOne;
+                    @SelectActionOne.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionOne;
+                    @SelectActionOne.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionOne;
+                    @SelectActionTwo.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionTwo;
+                    @SelectActionTwo.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionTwo;
+                    @SelectActionTwo.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionTwo;
+                    @SelectActionThree.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionThree;
+                    @SelectActionThree.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionThree;
+                    @SelectActionThree.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionThree;
+                    @SelectActionFour.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFour;
+                    @SelectActionFour.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFour;
+                    @SelectActionFour.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFour;
+                    @SelectActionFive.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFive;
+                    @SelectActionFive.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFive;
+                    @SelectActionFive.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFive;
                 }
                 m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Select.started += instance.OnSelect;
-                    @Select.performed += instance.OnSelect;
-                    @Select.canceled += instance.OnSelect;
+                    @Click.started += instance.OnClick;
+                    @Click.performed += instance.OnClick;
+                    @Click.canceled += instance.OnClick;
+                    @Point.started += instance.OnPoint;
+                    @Point.performed += instance.OnPoint;
+                    @Point.canceled += instance.OnPoint;
+                    @SelectActionOne.started += instance.OnSelectActionOne;
+                    @SelectActionOne.performed += instance.OnSelectActionOne;
+                    @SelectActionOne.canceled += instance.OnSelectActionOne;
+                    @SelectActionTwo.started += instance.OnSelectActionTwo;
+                    @SelectActionTwo.performed += instance.OnSelectActionTwo;
+                    @SelectActionTwo.canceled += instance.OnSelectActionTwo;
+                    @SelectActionThree.started += instance.OnSelectActionThree;
+                    @SelectActionThree.performed += instance.OnSelectActionThree;
+                    @SelectActionThree.canceled += instance.OnSelectActionThree;
+                    @SelectActionFour.started += instance.OnSelectActionFour;
+                    @SelectActionFour.performed += instance.OnSelectActionFour;
+                    @SelectActionFour.canceled += instance.OnSelectActionFour;
+                    @SelectActionFive.started += instance.OnSelectActionFive;
+                    @SelectActionFive.performed += instance.OnSelectActionFive;
+                    @SelectActionFive.canceled += instance.OnSelectActionFive;
                 }
             }
         }
@@ -1076,7 +1261,13 @@ namespace Controls
         }
         public interface ITurnBasedEncounterActions
         {
-            void OnSelect(InputAction.CallbackContext context);
+            void OnClick(InputAction.CallbackContext context);
+            void OnPoint(InputAction.CallbackContext context);
+            void OnSelectActionOne(InputAction.CallbackContext context);
+            void OnSelectActionTwo(InputAction.CallbackContext context);
+            void OnSelectActionThree(InputAction.CallbackContext context);
+            void OnSelectActionFour(InputAction.CallbackContext context);
+            void OnSelectActionFive(InputAction.CallbackContext context);
         }
         public interface IOverworldActions
         {

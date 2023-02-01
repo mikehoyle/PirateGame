@@ -6,9 +6,63 @@
             "id": "8ab82065-3ee3-40d3-9e48-080ac0b3ecd6",
             "actions": [
                 {
-                    "name": "Select",
+                    "name": "Click",
                     "type": "Button",
                     "id": "1fe5049d-6907-4b32-a14c-83c2e1c595a5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Point",
+                    "type": "PassThrough",
+                    "id": "9ea7f25d-1eec-48fb-9b6b-93699a8b73bb",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectActionOne",
+                    "type": "Button",
+                    "id": "5982f819-f1de-42cc-bd42-c6f90a32cb40",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectActionTwo",
+                    "type": "Button",
+                    "id": "1a16e281-fdfc-45ab-aed6-9b0dd4894eeb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectActionThree",
+                    "type": "Button",
+                    "id": "7b2e1746-3099-47c1-aa41-4d5a17b21781",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectActionFour",
+                    "type": "Button",
+                    "id": "fbcda4cb-527b-4f9f-b208-182e73502fe3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectActionFive",
+                    "type": "Button",
+                    "id": "87609bb1-4d1f-46fa-aa7f-5f47bbd7b020",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -23,7 +77,84 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
-                    "action": "Select",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36be579a-68f2-46bb-b11a-ab7b8cc5b084",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a69a09fb-eaf4-4987-a0f4-6ca77a18c239",
+                    "path": "<Pen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e7def8a-efaf-4a54-b677-38dfefcd091c",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectActionOne",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c04cd15-c155-4f39-a993-1d1421639a93",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectActionTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbd225be-a033-48d9-a072-10fd35df27aa",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectActionThree",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c4ce82e-c2ae-4676-8e69-e39f88df252a",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectActionFour",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98915bf2-2c21-4adc-84cd-73bc60991a6b",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectActionFive",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

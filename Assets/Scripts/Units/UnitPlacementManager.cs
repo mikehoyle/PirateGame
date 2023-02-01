@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
+using Units.Rendering;
 using UnityEngine;
 
 namespace Units {
@@ -21,11 +23,13 @@ namespace Units {
     private LinkedListNode<Vector3> _motionPath;
     private float _progressToNextNode;
     private Action _onMovementCompleteCallback;
+    private readonly AnimatedCompositeSprite _sprite;
 
 
-    public UnitPlacementManager(Grid grid, UnitController unit, float speedUnitsPerSec) {
+    public UnitPlacementManager(Grid grid, UnitController unit, AnimatedCompositeSprite sprite, float speedUnitsPerSec) {
       _grid = grid;
       _unit = unit;
+      _sprite = sprite;
       _speedUnitsPerSec = speedUnitsPerSec;
       _movementState = State.AtRest;
     }
@@ -36,11 +40,29 @@ namespace Units {
           OnMovementComplete();
           return;
         }
+
+        PlayMovementAnimation();
         
         _progressToNextNode += (_speedUnitsPerSec * Time.deltaTime);
         if (_progressToNextNode >= 1) {
           _motionPath = _motionPath.Next;
           _progressToNextNode -= 1;
+        }
+      }
+    }
+    private void PlayMovementAnimation() {
+      var direction = _motionPath.Next!.Value - _motionPath.Value;
+      if (Floats.GreaterThanZero(direction.x)) {
+        if (Floats.GreaterThanZero(direction.y)) {
+          _sprite.Play(CompositeAnimation.Type.WalkNe);
+        } else {
+          _sprite.Play(CompositeAnimation.Type.WalkSe);
+        }
+      } else {
+        if (Floats.GreaterThanZero(direction.y)) {
+          _sprite.Play(CompositeAnimation.Type.WalkNw);
+        } else {
+          _sprite.Play(CompositeAnimation.Type.WalkSw);
         }
       }
     }
@@ -76,6 +98,7 @@ namespace Units {
 
     private void OnMovementComplete() {
       _movementState = State.AtRest;
+      _sprite.Play(CompositeAnimation.Type.IdleSw);
       _onMovementCompleteCallback();
       
       _motionPath = null;
