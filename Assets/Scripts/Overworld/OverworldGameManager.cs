@@ -11,6 +11,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 namespace Overworld {
+  /// <summary>
+  /// TODO(P2): This scene is pretty static. Consider optimizing load times by background
+  /// loading the content of every single surrounding tile, so entering any individual one
+  /// would be instant.
+  /// </summary>
   public class OverworldGameManager : MonoBehaviour, GameControls.IOverworldActions {
     [SerializeField] private string buildMenuItemLabel = "Construction";
     

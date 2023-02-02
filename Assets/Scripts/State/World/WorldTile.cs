@@ -16,7 +16,7 @@ namespace State.World {
     public WorldCoordinates Coordinates;
     public abstract Type TileType { get; }
 
-    public T DownRef<T>() where T : WorldTile {
+    public T DownCast<T>() where T : WorldTile {
       if (this is T downRef) {
         return downRef;
       }

@@ -7,8 +7,8 @@ namespace State.World {
   public class EncounterTile : WorldTile {
     public bool IsInitialized;
     
-    public SparseMatrix3d<TerrainType> Terrain;
-    public List<UnitState> Units;
+    public SparseMatrix3d<TerrainType> Terrain = new();
+    public List<UnitState> Units = new();
     
     public override Type TileType => Type.Encounter;
   }

@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using State;
 using Units;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
+[Obsolete("Only ever used pre-prototype")]
 public class PrototypeSetup : MonoBehaviour {
   [SerializeField] private TileBase waterTile;
   [SerializeField] private TileBase raftTile;

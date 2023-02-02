@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Pathfinding;
+using State;
+using State.World;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -30,20 +32,10 @@ namespace Encounters {
       Pathfinder = new EncounterPathfindingGrid(MaxEncounterWidth, MaxEncounterHeight);
     }
 
-    private void Start() {
-      SetupPathfinding();
-    }
-
-    private void SetupPathfinding() {
-      // OPTIMIZE: This is working in a pretty dumb way at the moment.
-      //     it should probably work completely differently once I'm not working with prototype prefabs
-      for (int x = -MaxEncounterWidth/2; x < MaxEncounterWidth; x++) {
-        for (int y = -MaxEncounterHeight / 2; y < MaxEncounterHeight; y++) {
-          var cell = GetTileAtPeakElevation(new Vector2Int(x, y));
-          if (IsTileMovementEligible(cell)) {
-            Pathfinder.MarkCellTraversable(cell);
-          }
-        }
+    public void SetupPathfinding(EncounterTile encounter) {
+      // TODO(P0): include ship-provided terrain, when available.
+      foreach (var terrain in encounter.Terrain.Keys) {
+        Pathfinder.MarkCellTraversable(terrain);
       }
     }
 

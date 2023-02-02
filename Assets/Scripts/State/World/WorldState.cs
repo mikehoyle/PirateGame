@@ -24,8 +24,12 @@ namespace State.World {
 
       return null;
     }
-  }
 
+    public WorldTile GetActiveTile() {
+      var activeTile = GameState.State.Player.OverworldGridPosition;
+      return GetTile(activeTile.x, activeTile.y);
+    }
+  }
 
   [Serializable]
   public struct WorldCoordinates {
