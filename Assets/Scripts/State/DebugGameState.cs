@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Overworld.MapGeneration;
 using StaticConfig;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace State {
   /// <summary>
   /// Creates a static game state object for debugging purposes, rather than randomly
   /// generating or loading from disk.
+  /// TODO(P1): Actually use proper generation and load/save at appropriate times, not this
   /// </summary>
   public static class DebugGameState {
     private const int PlayerRosterSize = 3;
@@ -26,7 +28,7 @@ namespace State {
     }
 
     private static void GenerateOverworldState(GameState gameState) {
-      // TODO whenever needed.
+      gameState.World = new OverworldGenerator(width: 100, height: 100, seed: 1).GenerateWorld();
     }
 
     private static void GenerateShipState(PlayerState playerState) {

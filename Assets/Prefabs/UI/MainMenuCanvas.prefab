@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 2454121518781255710}
   - component: {fileID: 2454121518781255711}
   - component: {fileID: 4273829837089797619}
+  - component: {fileID: 1617013551372349081}
   m_Layer: 5
   m_Name: MainMenuCanvas
   m_TagString: GameMenu
@@ -163,7 +164,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 1152440679
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &2454121518781255710
 MonoBehaviour:
@@ -218,3 +219,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonPrefab: {fileID: 5433024054695571800, guid: de994505d9ad5174ea7ac30750052c17, type: 3}
+--- !u!225 &1617013551372349081
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2454121518781255708}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

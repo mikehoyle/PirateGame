@@ -185,153 +185,6 @@ namespace Controls
             ]
         },
         {
-            ""name"": ""Overworld"",
-            ""id"": ""21b9ff5b-e8b0-4dd4-a561-8a1afcaff4e3"",
-            ""actions"": [
-                {
-                    ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""34ded50c-9839-46f5-9422-bafc86a27ffb"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""4edef6c2-4849-490a-ad38-8dd4f1e4cabc"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""fe98e310-5f23-45a0-be6a-4f33df1d9557"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""c11478c4-2492-4fd0-bac4-c800419af810"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""564ba451-5014-461c-a5dc-4422862af584"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""6c33b57b-e1da-40c8-b1fc-9a14af0c0e8f"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""1fc5f6d4-8270-42d9-ba7a-914b946de184"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""ArrowKeys"",
-                    ""id"": ""bc7af723-4154-4a0a-b1d4-3dc9658fd561"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""a9473d2c-47bd-4bc7-9715-91f7f329fdf9"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""ae267690-1d95-4829-a831-4ca4415ec9c8"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""9aee0639-547d-42aa-8f47-51138c58d8d8"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""06772f92-4156-4075-9f7a-099abeba4c9c"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5a538715-7d31-4f2d-a1f9-4179cd9ae3fd"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""UI"",
             ""id"": ""272f6d14-89ba-496f-b7ff-215263d3219f"",
             ""actions"": [
@@ -648,15 +501,6 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""MoveCamera"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""3b8ade9b-c124-4517-b4ea-38c07cb9df51"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -692,116 +536,6 @@ namespace Controls
                     ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""ddd8a3b4-2679-40d3-89df-572ea9f78fc2"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""9c2403f6-00a2-4fdf-a759-fe600639df2a"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""e1e91d11-7d07-444f-8711-c4242def542f"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""7e3bffb3-2d02-40f0-a901-49aed568049d"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""660fccfa-1b73-40dc-ba23-7bdb9c4a8952"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""ArrowKeys"",
-                    ""id"": ""44401799-5d81-44d0-8a3c-4b9cefbd5950"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""e78345ad-b5b8-42a2-90c2-2b509493be51"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""064d7c74-017a-4249-a093-f0c63b597ee1"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""5fa53c97-1b7d-4e35-9cfb-1f6051f184ad"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""d8758833-8075-451a-9b19-2571590e2f30"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""MoveCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -830,6 +564,161 @@ namespace Controls
                     ""action"": ""ToggleMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Overworld"",
+            ""id"": ""4249ccce-c8d5-4d90-9f74-2b3965d7c7b2"",
+            ""actions"": [
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""446566f5-e715-46d7-ac45-dcc5f8e83a5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1d131f54-6103-4bfc-829d-9d65943ea6a9"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""CameraCursorMovement"",
+            ""id"": ""55792168-f9f6-48c5-8dd6-5c9e5b6b96d3"",
+            ""actions"": [
+                {
+                    ""name"": ""MoveCamera"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""70fccb9d-5b4e-4dda-9192-8397d86066a8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""d68ec9d8-b635-410b-809a-8ddc659ec135"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""84e990a3-4174-424c-ae19-daf0fac37795"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8f780298-589e-493a-92c7-8a599ca8044c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""f97a2e7d-b3ae-4ecf-881d-4133fb507e08"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""0687f5b1-c4d0-49e8-988d-f38c6c00a852"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""ArrowKeys"",
+                    ""id"": ""b056ed58-fbe9-4e68-b581-1e2cc7932cc2"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""4418d6df-550a-473a-b810-5cb4ec30ee1f"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ee000b38-42fc-4459-a636-c6715fa0f72c"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""7d2419b9-f276-4c34-95dd-bf90b913ca11"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""5ddf3887-cda5-429e-ad7b-0ca28119ce16"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -862,10 +751,6 @@ namespace Controls
             m_TurnBasedEncounter_SelectActionThree = m_TurnBasedEncounter.FindAction("SelectActionThree", throwIfNotFound: true);
             m_TurnBasedEncounter_SelectActionFour = m_TurnBasedEncounter.FindAction("SelectActionFour", throwIfNotFound: true);
             m_TurnBasedEncounter_SelectActionFive = m_TurnBasedEncounter.FindAction("SelectActionFive", throwIfNotFound: true);
-            // Overworld
-            m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
-            m_Overworld_Move = m_Overworld.FindAction("Move", throwIfNotFound: true);
-            m_Overworld_Interact = m_Overworld.FindAction("Interact", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -882,10 +767,15 @@ namespace Controls
             m_ShipBuilder = asset.FindActionMap("ShipBuilder", throwIfNotFound: true);
             m_ShipBuilder_Click = m_ShipBuilder.FindAction("Click", throwIfNotFound: true);
             m_ShipBuilder_Point = m_ShipBuilder.FindAction("Point", throwIfNotFound: true);
-            m_ShipBuilder_MoveCamera = m_ShipBuilder.FindAction("MoveCamera", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
             m_Menu_ToggleMenu = m_Menu.FindAction("ToggleMenu", throwIfNotFound: true);
+            // Overworld
+            m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
+            m_Overworld_Click = m_Overworld.FindAction("Click", throwIfNotFound: true);
+            // CameraCursorMovement
+            m_CameraCursorMovement = asset.FindActionMap("CameraCursorMovement", throwIfNotFound: true);
+            m_CameraCursorMovement_MoveCamera = m_CameraCursorMovement.FindAction("MoveCamera", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1023,47 +913,6 @@ namespace Controls
         }
         public TurnBasedEncounterActions @TurnBasedEncounter => new TurnBasedEncounterActions(this);
 
-        // Overworld
-        private readonly InputActionMap m_Overworld;
-        private IOverworldActions m_OverworldActionsCallbackInterface;
-        private readonly InputAction m_Overworld_Move;
-        private readonly InputAction m_Overworld_Interact;
-        public struct OverworldActions
-        {
-            private @GameControls m_Wrapper;
-            public OverworldActions(@GameControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Move => m_Wrapper.m_Overworld_Move;
-            public InputAction @Interact => m_Wrapper.m_Overworld_Interact;
-            public InputActionMap Get() { return m_Wrapper.m_Overworld; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(OverworldActions set) { return set.Get(); }
-            public void SetCallbacks(IOverworldActions instance)
-            {
-                if (m_Wrapper.m_OverworldActionsCallbackInterface != null)
-                {
-                    @Move.started -= m_Wrapper.m_OverworldActionsCallbackInterface.OnMove;
-                    @Move.performed -= m_Wrapper.m_OverworldActionsCallbackInterface.OnMove;
-                    @Move.canceled -= m_Wrapper.m_OverworldActionsCallbackInterface.OnMove;
-                    @Interact.started -= m_Wrapper.m_OverworldActionsCallbackInterface.OnInteract;
-                    @Interact.performed -= m_Wrapper.m_OverworldActionsCallbackInterface.OnInteract;
-                    @Interact.canceled -= m_Wrapper.m_OverworldActionsCallbackInterface.OnInteract;
-                }
-                m_Wrapper.m_OverworldActionsCallbackInterface = instance;
-                if (instance != null)
-                {
-                    @Move.started += instance.OnMove;
-                    @Move.performed += instance.OnMove;
-                    @Move.canceled += instance.OnMove;
-                    @Interact.started += instance.OnInteract;
-                    @Interact.performed += instance.OnInteract;
-                    @Interact.canceled += instance.OnInteract;
-                }
-            }
-        }
-        public OverworldActions @Overworld => new OverworldActions(this);
-
         // UI
         private readonly InputActionMap m_UI;
         private IUIActions m_UIActionsCallbackInterface;
@@ -1174,14 +1023,12 @@ namespace Controls
         private IShipBuilderActions m_ShipBuilderActionsCallbackInterface;
         private readonly InputAction m_ShipBuilder_Click;
         private readonly InputAction m_ShipBuilder_Point;
-        private readonly InputAction m_ShipBuilder_MoveCamera;
         public struct ShipBuilderActions
         {
             private @GameControls m_Wrapper;
             public ShipBuilderActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Click => m_Wrapper.m_ShipBuilder_Click;
             public InputAction @Point => m_Wrapper.m_ShipBuilder_Point;
-            public InputAction @MoveCamera => m_Wrapper.m_ShipBuilder_MoveCamera;
             public InputActionMap Get() { return m_Wrapper.m_ShipBuilder; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1197,9 +1044,6 @@ namespace Controls
                     @Point.started -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnPoint;
                     @Point.performed -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnPoint;
                     @Point.canceled -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnPoint;
-                    @MoveCamera.started -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnMoveCamera;
-                    @MoveCamera.performed -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnMoveCamera;
-                    @MoveCamera.canceled -= m_Wrapper.m_ShipBuilderActionsCallbackInterface.OnMoveCamera;
                 }
                 m_Wrapper.m_ShipBuilderActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1210,9 +1054,6 @@ namespace Controls
                     @Point.started += instance.OnPoint;
                     @Point.performed += instance.OnPoint;
                     @Point.canceled += instance.OnPoint;
-                    @MoveCamera.started += instance.OnMoveCamera;
-                    @MoveCamera.performed += instance.OnMoveCamera;
-                    @MoveCamera.canceled += instance.OnMoveCamera;
                 }
             }
         }
@@ -1250,6 +1091,72 @@ namespace Controls
             }
         }
         public MenuActions @Menu => new MenuActions(this);
+
+        // Overworld
+        private readonly InputActionMap m_Overworld;
+        private IOverworldActions m_OverworldActionsCallbackInterface;
+        private readonly InputAction m_Overworld_Click;
+        public struct OverworldActions
+        {
+            private @GameControls m_Wrapper;
+            public OverworldActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Click => m_Wrapper.m_Overworld_Click;
+            public InputActionMap Get() { return m_Wrapper.m_Overworld; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(OverworldActions set) { return set.Get(); }
+            public void SetCallbacks(IOverworldActions instance)
+            {
+                if (m_Wrapper.m_OverworldActionsCallbackInterface != null)
+                {
+                    @Click.started -= m_Wrapper.m_OverworldActionsCallbackInterface.OnClick;
+                    @Click.performed -= m_Wrapper.m_OverworldActionsCallbackInterface.OnClick;
+                    @Click.canceled -= m_Wrapper.m_OverworldActionsCallbackInterface.OnClick;
+                }
+                m_Wrapper.m_OverworldActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Click.started += instance.OnClick;
+                    @Click.performed += instance.OnClick;
+                    @Click.canceled += instance.OnClick;
+                }
+            }
+        }
+        public OverworldActions @Overworld => new OverworldActions(this);
+
+        // CameraCursorMovement
+        private readonly InputActionMap m_CameraCursorMovement;
+        private ICameraCursorMovementActions m_CameraCursorMovementActionsCallbackInterface;
+        private readonly InputAction m_CameraCursorMovement_MoveCamera;
+        public struct CameraCursorMovementActions
+        {
+            private @GameControls m_Wrapper;
+            public CameraCursorMovementActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @MoveCamera => m_Wrapper.m_CameraCursorMovement_MoveCamera;
+            public InputActionMap Get() { return m_Wrapper.m_CameraCursorMovement; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(CameraCursorMovementActions set) { return set.Get(); }
+            public void SetCallbacks(ICameraCursorMovementActions instance)
+            {
+                if (m_Wrapper.m_CameraCursorMovementActionsCallbackInterface != null)
+                {
+                    @MoveCamera.started -= m_Wrapper.m_CameraCursorMovementActionsCallbackInterface.OnMoveCamera;
+                    @MoveCamera.performed -= m_Wrapper.m_CameraCursorMovementActionsCallbackInterface.OnMoveCamera;
+                    @MoveCamera.canceled -= m_Wrapper.m_CameraCursorMovementActionsCallbackInterface.OnMoveCamera;
+                }
+                m_Wrapper.m_CameraCursorMovementActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @MoveCamera.started += instance.OnMoveCamera;
+                    @MoveCamera.performed += instance.OnMoveCamera;
+                    @MoveCamera.canceled += instance.OnMoveCamera;
+                }
+            }
+        }
+        public CameraCursorMovementActions @CameraCursorMovement => new CameraCursorMovementActions(this);
         private int m_KBMSchemeIndex = -1;
         public InputControlScheme KBMScheme
         {
@@ -1269,11 +1176,6 @@ namespace Controls
             void OnSelectActionFour(InputAction.CallbackContext context);
             void OnSelectActionFive(InputAction.CallbackContext context);
         }
-        public interface IOverworldActions
-        {
-            void OnMove(InputAction.CallbackContext context);
-            void OnInteract(InputAction.CallbackContext context);
-        }
         public interface IUIActions
         {
             void OnNavigate(InputAction.CallbackContext context);
@@ -1291,11 +1193,18 @@ namespace Controls
         {
             void OnClick(InputAction.CallbackContext context);
             void OnPoint(InputAction.CallbackContext context);
-            void OnMoveCamera(InputAction.CallbackContext context);
         }
         public interface IMenuActions
         {
             void OnToggleMenu(InputAction.CallbackContext context);
+        }
+        public interface IOverworldActions
+        {
+            void OnClick(InputAction.CallbackContext context);
+        }
+        public interface ICameraCursorMovementActions
+        {
+            void OnMoveCamera(InputAction.CallbackContext context);
         }
     }
 }

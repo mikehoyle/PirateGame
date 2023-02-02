@@ -10,7 +10,6 @@ using StaticConfig;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
 
 namespace Construction {
   
@@ -20,27 +19,22 @@ namespace Construction {
   /// TODO(P2): Limit camera movement to avoid infinite scroll into the abyss.
   /// </summary>
   public class ShipBuilderManager : MonoBehaviour, GameControls.IShipBuilderActions {
-    [SerializeField] private TileBase foundationTile;
-    [SerializeField] private float cameraMoveSpeed;
-    [SerializeField] private string overworldScene = "OverworldScene";
     [SerializeField] private string backToMapButtonLabel = "Back to Map";
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
     
     private GameControls _controls;
     private Vector3Int _currentHoveredTile;
     private IsometricGrid _grid;
-    private CameraController _camera;
     private BuildPlacementIndicator _placementIndicator;
     private PlayerState _playerState;
     private MainMenuController _mainMenu;
-    private Vector3 _cameraCursor;
-    private Vector3 _cameraCursorVelocity;
     private BuildMenuController _buildMenu;
     private ConstructableScriptableObject _selectedBuild;
+    private CameraCursorMover _cameraMover;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
-      _camera = CameraController.Get();
+      _cameraMover = GetComponent<CameraCursorMover>();
       _placementIndicator = _grid.Grid.GetComponentInChildren<BuildPlacementIndicator>();
       _playerState = GameState.State.Player; 
       _buildMenu = BuildMenuController.Get();
@@ -69,8 +63,7 @@ namespace Construction {
       // +1 to maxes because CellToWorld returns bottom corner of cell,
       // so top corner of cell = bottom corner of caddy-cornered cell.
       var visualMax = _grid.Grid.CellToWorld(new Vector3Int(maxX + 1, maxY + 1, 0));
-      _cameraCursor = Vector3.Lerp(visualMin, visualMax, 0.5f);
-      _camera.SnapToPoint(_cameraCursor);
+      _cameraMover.Initialize(Vector3.Lerp(visualMin, visualMax, 0.5f));
     }
 
     private void OnEnable() {
@@ -90,19 +83,8 @@ namespace Construction {
       _buildMenu.OnBuildSelected -= OnBuildSelected;
     }
 
-    private void Update() {
-      UpdateCameraPosition();
-    }
-
-    private void UpdateCameraPosition() {
-      _cameraCursor += _cameraCursorVelocity * Time.deltaTime;
-      // TODO(P1): Prevent cursor from leaving the ship area.
-      _camera.SetFocusPoint(_cameraCursor);
-    }
-
     private void OnBackToMap() {
-      // OPTIMIZE: Load async ideally, could lag
-      SceneManager.LoadScene(overworldScene);
+      StartCoroutine(Scenes.LoadAsync(Scenes.Name.Overworld));
     }
 
     public void OnClick(InputAction.CallbackContext context) {
@@ -172,10 +154,6 @@ namespace Construction {
       }
 
       return gridCell;
-    }
-
-    public void OnMoveCamera(InputAction.CallbackContext context) {
-      _cameraCursorVelocity = context.ReadValue<Vector2>() * cameraMoveSpeed;
     }
 
     private void OnBuildSelected(object _, ConstructableScriptableObject build) {

@@ -10,6 +10,7 @@ TagManager:
   - GameMenu
   - BuildMenu
   - EncounterActionDisplay
+  - TavernMenu
   layers:
   - Default
   - TransparentFX
