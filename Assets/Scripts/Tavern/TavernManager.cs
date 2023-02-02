@@ -1,6 +1,7 @@
 ﻿using Common;
 using HUD.MainMenu;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Tavern {
   // TODO(P0): Almost all of the functionality here.
@@ -14,7 +15,7 @@ namespace Tavern {
     }
     
     private void OnBackToMap() {
-      StartCoroutine(Scenes.LoadAsync(Scenes.Name.Overworld));
+      SceneManager.LoadScene(Scenes.Name.Overworld.SceneName());
     }
   }
 }

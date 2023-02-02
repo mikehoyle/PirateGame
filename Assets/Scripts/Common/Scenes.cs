@@ -25,17 +25,5 @@ namespace Common {
           _ => throw new NotImplementedException($"Attempted to load non-existent scene {(int)name}"),
       };
     }
-    
-    /// <summary>
-    /// WARNING: This must be used in a MonoBehaviour with StartCoroutine.
-    /// </summary>
-    public static IEnumerator LoadAsync(Name sceneName) {
-      var asyncLoad = SceneManager.LoadSceneAsync(sceneName.SceneName());
-
-      // Wait until the asynchronous scene fully loads
-      while (!asyncLoad.isDone) {
-        yield return null;
-      }
-    }
   }
 }

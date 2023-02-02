@@ -84,7 +84,7 @@ namespace Construction {
     }
 
     private void OnBackToMap() {
-      StartCoroutine(Scenes.LoadAsync(Scenes.Name.Overworld));
+      SceneManager.LoadScene(Scenes.Name.Overworld.SceneName());
     }
 
     public void OnClick(InputAction.CallbackContext context) {

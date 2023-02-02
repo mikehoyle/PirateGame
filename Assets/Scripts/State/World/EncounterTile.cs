@@ -5,6 +5,8 @@ using Common;
 namespace State.World {
   [Serializable]
   public class EncounterTile : WorldTile {
+    public bool IsInitialized;
+    
     public SparseMatrix3d<TerrainType> Terrain;
     public List<UnitState> Units;
     

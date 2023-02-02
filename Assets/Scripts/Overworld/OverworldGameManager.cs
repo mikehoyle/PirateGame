@@ -112,12 +112,12 @@ namespace Overworld {
       var destination = GameState.State.World.GetTile(gridCell.x, gridCell.y);
       switch (destination.TileType) {
         case WorldTile.Type.Tavern:
-          // TODO(P0): Actually load up the encounter from known encounter params
-          StartCoroutine(Scenes.LoadAsync(Scenes.Name.Tavern));
+          // TODO(P0): Actually load up the tavern from known encounter params
+          SceneManager.LoadScene(Scenes.Name.Tavern.SceneName());
           break;
         case WorldTile.Type.Encounter:
           // TODO(P0): Actually load up the encounter from known encounter params
-          StartCoroutine(Scenes.LoadAsync(Scenes.Name.Encounter));
+          SceneManager.LoadScene(Scenes.Name.Encounter.SceneName());
           break;
       }
     }
