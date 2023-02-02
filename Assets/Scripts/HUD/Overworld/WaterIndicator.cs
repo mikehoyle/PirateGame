@@ -1,9 +1,11 @@
 ﻿using State;
+using StaticConfig;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Overworld {
   public class WaterIndicator : MonoBehaviour {
+    [SerializeField] private RawResourceScriptableObject waterResource;
     private Text _text;
     private const string Text = "Water: ";
 
@@ -12,7 +14,7 @@ namespace HUD.Overworld {
     }
 
     private void Update() {
-      _text.text = Text + GameState.State.Player.FoodQuantity;
+      _text.text = Text + GameState.State.Player.Inventory.GetQuantity(waterResource);
     }
   }
 }

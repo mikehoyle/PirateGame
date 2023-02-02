@@ -8,8 +8,6 @@ namespace State {
   /// </summary>
   [Serializable]
   public class PlayerState {
-    public uint FoodQuantity;
-    public uint WaterQuantity;
     public Vector2Int OverworldGridPosition = new(0, 0);
     public ShipState Ship = new();
     public InventoryState Inventory = new();

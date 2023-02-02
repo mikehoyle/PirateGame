@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3345279c351243b4b7eb0cfb7beeee70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterResource: {fileID: 11400000, guid: 7df085faf4d303743a3c3b3de1cc7f13, type: 2}
 --- !u!114 &393350036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,6 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e2ef657c004a23ae398aa3748889a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foodResource: {fileID: 11400000, guid: aebcc41147d51014d98b024a480bc6e0, type: 2}
 --- !u!114 &1695329949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,7 +974,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041f19b176b742adb61344b4ba8004a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipBuilderScene: ShipBuilderScene
   buildMenuItemLabel: Construction
   indicatorTile: {fileID: 11400000, guid: 9af36b73d8decdc4f8fac564e0764fc4, type: 2}
   openSeaTile: {fileID: 11400000, guid: fd357e98dd025534db1d2b6b62b7ec5a, type: 2}
