@@ -67,6 +67,9 @@ namespace HUD.MainMenu {
     }
 
     public void OnToggleMenu(InputAction.CallbackContext context) {
+      if (!context.performed) {
+        return;
+      }
       Toggle();
     }
     
