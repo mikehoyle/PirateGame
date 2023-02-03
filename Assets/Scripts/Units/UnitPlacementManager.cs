@@ -73,7 +73,7 @@ namespace Units {
       _onMovementCompleteCallback = onCompleteCallback;
       
       // Mark unit as in new position immediately.
-      _unit.EncounterMetadata.Position = path.Last.Value;
+      _unit.Position = path.Last.Value;
       
       // Convert grid path to world path
       var worldPath = new LinkedList<Vector3>();
@@ -93,7 +93,7 @@ namespace Units {
         return Vector3.Lerp(_motionPath.Value, _motionPath.Next.Value, _progressToNextNode);
       }
       
-      return _grid.GetCellCenterWorld(_unit.EncounterMetadata.Position);
+      return _grid.GetCellCenterWorld(_unit.Position);
     }
 
     private void OnMovementComplete() {

@@ -26,7 +26,7 @@ namespace Encounters {
     private Dictionary<Flags, TileBase> _movementTiles;
     private IsometricGrid _grid;
     private Vector3Int _lastKnownHoveredCell = new(int.MinValue, int.MinValue, int.MinValue);
-    private EncounterPathfindingGrid _terrain;
+    private EncounterTerrain _terrain;
 
     [Flags]
     private enum Flags {
@@ -42,7 +42,7 @@ namespace Encounters {
     private void Awake() {
       _tilemap = GetComponent<Tilemap>();
       _grid = IsometricGrid.Get();
-      _terrain = EncounterPathfindingGrid.Get();
+      _terrain = EncounterTerrain.Get();
       GenerateMovementTileDict();
     }
     private void GenerateMovementTileDict() {
@@ -64,12 +64,10 @@ namespace Encounters {
       };
     }
 
-    public void DisplayMovementPossibilities(UnitController unit) {
+    public void DisplayMovementPossibilities(Vector3Int gridPosition, int unitMoveRange) {
       // Put indicator under unit and show movement possibilities
       _grid.Overlay.ClearAllTiles();
       _grid.Overlay.color = Color.white;
-      var gridPosition = unit.EncounterMetadata.Position;
-      var unitMoveRange = unit.EncounterMetadata.RemainingMovement;
       _grid.Overlay.SetTile(gridPosition, selectedTileOverlay);
 
       for (int x = -unitMoveRange; x <= unitMoveRange; x++) {
@@ -79,27 +77,25 @@ namespace Encounters {
             continue;
           }
           var tile = _grid.GetTileAtPeakElevation(
-              new Vector2Int(
-                  unit.EncounterMetadata.Position.x + x,
-                  unit.EncounterMetadata.Position.y + y));
+              new Vector2Int(gridPosition.x + x, gridPosition.y + y));
           // OPTIMIZE: memoize paths
-          var path = _terrain.GetPath(unit.EncounterMetadata.Position, tile);
-          if (unit.CouldMoveAlongPath(path)) {
+          var path = _terrain.GetPath(gridPosition, tile);
+          if (UnitController.IsPathViable(path) && path!.Count - 1 <= unitMoveRange) {
             _grid.Overlay.SetTile(tile, eligibleTileOverlay);
           }
         }
       }
     }
     
-    public void HandleMouseHover(Vector3 mousePosition, UnitController activeUnit) {
+    public void HandleMouseHover(Vector3 mousePosition, Vector3Int unitPosition, int movementRange) {
       var hoveredCell = _grid.TileAtScreenCoordinate(mousePosition);
       if (_lastKnownHoveredCell != hoveredCell) {
-        UpdateMovementHover(hoveredCell, activeUnit);
+        UpdateMovementHover(hoveredCell, unitPosition, movementRange);
       }
     }
 
-    private void UpdateMovementHover(Vector3Int targetedCell, UnitController activeUnit) {
-      if (activeUnit.EncounterMetadata.Position == targetedCell) {
+    private void UpdateMovementHover(Vector3Int targetedCell, Vector3Int unitPosition, int movementRange) {
+      if (unitPosition == targetedCell) {
         // No need to indicate you can move where you already are
         return;
       }
@@ -107,8 +103,8 @@ namespace Encounters {
       _lastKnownHoveredCell = targetedCell;
       ClearMovementIndicators();
       if (_grid.IsTileMovementEligible(targetedCell)) {
-        var path = _terrain.GetPath(activeUnit.EncounterMetadata.Position, targetedCell);
-        if (path != null && activeUnit.CouldMoveAlongPath(path)) {
+        var path = _terrain.GetPath(unitPosition, targetedCell);
+        if (path != null && UnitController.IsPathViable(path) && path.Count - 1 <= movementRange) {
           DisplayMovementHint(path); 
         }
       }
@@ -171,10 +167,9 @@ namespace Encounters {
       _grid.Overlay.ClearAllTiles();
     }
     
-    public void DisplayAttackPossibilities(UnitController unit) {
+    public void DisplayAttackPossibilities(Vector3Int gridPosition) {
       _grid.Overlay.ClearAllTiles();
       _grid.Overlay.color = Color.red;
-      var gridPosition = unit.EncounterMetadata.Position;
       _grid.Overlay.SetTile(gridPosition, selectedTileOverlay);
 
       for (int x = -1; x <= 1; x++) {
@@ -184,9 +179,7 @@ namespace Encounters {
             continue;
           }
           var tile = _grid.GetTileAtPeakElevation(
-              new Vector2Int(
-                  unit.EncounterMetadata.Position.x + x,
-                  unit.EncounterMetadata.Position.y + y));
+              new Vector2Int(gridPosition.x + x, gridPosition.y + y));
           if (_grid.IsTileMovementEligible(tile)) {
             _grid.Overlay.SetTile(tile, eligibleTileOverlay);
           }

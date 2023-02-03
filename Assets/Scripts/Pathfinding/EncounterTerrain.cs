@@ -5,7 +5,7 @@ using Roy_T.AStar.Paths;
 using UnityEngine;
 
 namespace Pathfinding {
-  public class EncounterPathfindingGrid : MonoBehaviour {
+  public class EncounterTerrain : MonoBehaviour {
     private const int MaxEncounterWidth = 300;
     private const int MaxEncounterHeight = 300;
     
@@ -104,8 +104,8 @@ namespace Pathfinding {
           && gridPosition.y <= _height;
     }
 
-    public static EncounterPathfindingGrid Get() {
-      return GameObject.FindWithTag(Tags.Grid).GetComponent<EncounterPathfindingGrid>();
+    public static EncounterTerrain Get() {
+      return GameObject.FindWithTag(Tags.Grid).GetComponent<EncounterTerrain>();
     }
   }
 }

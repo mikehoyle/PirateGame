@@ -16,11 +16,11 @@ namespace Encounters {
     
     private IsometricGrid _grid;
     private ShipSetup _shipSetup;
-    private EncounterPathfindingGrid _terrain;
+    private EncounterTerrain _terrain;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
-      _terrain = EncounterPathfindingGrid.Get();
+      _terrain = EncounterTerrain.Get();
       _shipSetup = GetComponent<ShipSetup>();
     }
 

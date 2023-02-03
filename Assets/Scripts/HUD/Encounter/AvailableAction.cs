@@ -16,6 +16,10 @@ namespace HUD.Encounter {
       _button = GetComponent<Button>();
     }
 
+    public void SetUnavailable() {
+      _button.interactable = false;
+    }
+
     public void Init(string hotkey, string actionDescription) {
       _hotkeyField.text = hotkey;
       _descriptionField.text = actionDescription;

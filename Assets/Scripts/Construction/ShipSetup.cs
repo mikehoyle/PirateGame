@@ -15,11 +15,11 @@ namespace Construction {
     [SerializeField] private GameObject unitPrefab;
     
     private IsometricGrid _grid;
-    [CanBeNull] private EncounterPathfindingGrid _terrain;
+    [CanBeNull] private EncounterTerrain _terrain;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
-      _terrain = EncounterPathfindingGrid.Get();
+      _terrain = EncounterTerrain.Get();
     }
 
     public void SetupShip(bool includeUnits = false) {
