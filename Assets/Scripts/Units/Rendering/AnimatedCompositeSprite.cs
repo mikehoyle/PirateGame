@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using State;
 using StaticConfig;
 using UnityEngine;
 using static StaticConfig.CompositeUnitSpriteScriptableObject;
@@ -11,6 +12,7 @@ namespace Units.Rendering {
     private readonly Dictionary<Layer, CompositeSpriteComponentScriptableObject> _components = new();
 
     [SerializeField] private CompositeUnitSpriteScriptableObject compositeUnitOptions;
+    [SerializeField] private Material paletteSwapMaterial;
     [SerializeField] private CompositeAnimation[] animations;
 
     private CompositeAnimation _currentAnimation;
@@ -18,17 +20,18 @@ namespace Units.Rendering {
     private void Awake() {
       foreach (var layer in LayerToString) {
         var layerRenderer = new GameObject(layer.Value);
-        layerRenderer.AddComponent<SpriteRenderer>();
+        var spriteRenderer = layerRenderer.AddComponent<SpriteRenderer>();
         layerRenderer.transform.parent = transform;
         layerRenderer.transform.SetAsFirstSibling();
+        
         
         // Default to the first found component for each layer, for now.
         // This will be random, as dictionaries are unordered.
         _components[layer.Key] = compositeUnitOptions.GetOptions(layer.Key).First().Value;
-        var renderer = layerRenderer.GetComponent<SpriteRenderer>();
         // Default to the first frame, for now.
-        renderer.sprite = _components[layer.Key].frames[0];
-        _layerRenderers[layer.Key] = renderer;
+        spriteRenderer.sprite = _components[layer.Key].frames[0];
+        spriteRenderer.material = paletteSwapMaterial;
+        _layerRenderers[layer.Key] = spriteRenderer;
       }
 
       // Default to idle NE animation, for now.
@@ -37,6 +40,20 @@ namespace Units.Rendering {
 
     private void Update() {
       _currentAnimation?.Update();
+    }
+
+    // For now, wholesale change color so faction is apparent
+    public void SetColorForFaction(UnitFaction faction) {
+      var targetColor = faction switch {
+          // greenish
+          UnitFaction.PlayerParty => new Color(5/255f, 100/255f, 45/255f),
+          // redish
+          _ => new Color(190/255f, 100/255f, 45/255f),
+      };
+
+      foreach (var spriteRenderer in _layerRenderers.Values) {
+        spriteRenderer.material.SetColor("_ShirtColor", targetColor);
+      }
     }
 
     public void Play(CompositeAnimation.Type animationType) {

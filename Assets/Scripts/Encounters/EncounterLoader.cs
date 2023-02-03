@@ -30,12 +30,23 @@ namespace Encounters {
       if (!_encounter.IsInitialized) {
         _encounterGenerator.Generate(_encounter);
       }
-      // TODO(P0): determine and place player ship position
       
-      _encounterSetup.SetUpMap(_encounter);
-      _grid.SetupPathfinding(_encounter);
+      _encounterSetup.SetUpMap(_encounter, GetShipPlacementOffset(GameState.State.Player.Ship));
+      
       Instantiate(encounterManagerPrefab);
       Destroy(gameObject);
+    }
+    
+    // For now, just put the ship next to the terrain in the y+ direction.
+    private Vector3Int GetShipPlacementOffset(ShipState ship) {
+      // TODO(P1): Let player place ship
+      var terrainBounds = _encounter.Terrain.GetBoundingRect();
+      var shipBoundingRect = ship.Components.GetBoundingRect();
+      return new Vector3Int(
+          terrainBounds.xMin - shipBoundingRect.xMin,
+          (terrainBounds.yMax + 1) - shipBoundingRect.yMin,
+          0
+      );
     }
   }
 }

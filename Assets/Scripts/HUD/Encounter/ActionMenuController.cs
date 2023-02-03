@@ -15,10 +15,10 @@ namespace HUD.Encounter {
     public void DisplayMenuItemsForUnit(UnitController unit) {
       Clear();
       var currentHotkey = 1;
-      foreach (var capableAction in unit.CapableActions) {
+      foreach (var capableAction in unit.EncounterMetadata.CapableActions) {
         var item = Instantiate(availableActionPrefab, _container.transform).GetComponent<AvailableAction>();
         item.Init(Convert.ToString(currentHotkey), capableAction.DisplayString());
-        if (!unit.AvailableActions.Contains(capableAction)) {
+        if (!unit.EncounterMetadata.AvailableActions.Contains(capableAction)) {
           item.GetComponent<Button>().interactable = false;
         }
         currentHotkey++;

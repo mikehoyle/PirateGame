@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   compositeUnitOptions: {fileID: 11400000, guid: b78e5b4608560cc438bde18b91b6d01a, type: 2}
+  paletteSwapMaterial: {fileID: 2100000, guid: fd5c317cd69589d4ebfda371b803e731, type: 2}
   animations:
   - type: 0
     startFrame: 0

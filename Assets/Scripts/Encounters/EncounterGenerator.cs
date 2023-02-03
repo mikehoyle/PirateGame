@@ -68,9 +68,8 @@ namespace Encounters {
       for (int i = 0; i < numUnits; i++) {
         var hp = _rng.Next(15, 21);
         var unit = new UnitState {
-            PositionInEncounter = terrainPositions[i],
+            StartingPosition = terrainPositions[i],
             MaxHp = hp,
-            CurrentHp = hp,
             ControlSource = UnitControlSource.AI,
             Faction = UnitFaction.Enemy,
             MovementRange = _rng.Next(3, 5),

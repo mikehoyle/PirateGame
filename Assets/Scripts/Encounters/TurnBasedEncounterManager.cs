@@ -4,6 +4,7 @@ using System.Linq;
 using CameraControl;
 using Controls;
 using HUD.Encounter;
+using Pathfinding;
 using Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,20 +23,25 @@ namespace Encounters {
     private GameControls _controls;
     private ActionMenuController _actionMenu;
     private UnitAction _currentlySelectedAction;
+    private EncounterPathfindingGrid _terrain;
 
     private UnitController ActiveUnit => _unitsInEncounter[_currentUnitTurn];
 
-    private void Start() {
+    private void Awake() {
       _hud = GameObject.FindWithTag(Tags.EncounterHUD).GetComponent<EncounterHUD>();
       _actionMenu = ActionMenuController.Get();
       _camera = Camera.main.GetComponent<CameraController>();
       _grid = IsometricGrid.Get();
+      _terrain = EncounterPathfindingGrid.Get();
       _targetingDisplay = _grid.Grid.GetComponentInChildren<TargetingHintDisplay>();
 
       _currentRound = 1;
+    }
+
+    private void Start() {
       _unitsInEncounter = FindObjectsOfType<UnitController>().ToList();
       foreach (var unit in _unitsInEncounter) {
-        _grid.Pathfinder.SetEnabled(unit.State.PositionInEncounter, false);
+        _terrain.SetEnabled(unit.EncounterMetadata.Position, false);
       }
       
       _hud.SetRound(_currentRound);
@@ -60,10 +66,10 @@ namespace Encounters {
     private void OnNewUnitTurn(int unitIndex) {
       // TODO(P1): Overhaul the way dynamic obstacles such as units are handled in encounters.
       //     These scattered interactions with the pathfinder are very messy and error-prone.
-      _grid.Pathfinder.SetEnabled(ActiveUnit.State.PositionInEncounter, false);
+      _terrain.SetEnabled(ActiveUnit.EncounterMetadata.Position, false);
       _currentUnitTurn = unitIndex;
-      _grid.Pathfinder.SetEnabled(ActiveUnit.State.PositionInEncounter, true);
-      ActiveUnit.ActivateTurn();
+      _terrain.SetEnabled(ActiveUnit.EncounterMetadata.Position, true);
+      ActiveUnit.EncounterMetadata.StartTurn();
       
       // Center camera on current unit
       // TODO(P1): Camera controls in encounter
@@ -71,7 +77,7 @@ namespace Encounters {
       
       // Display action options, and default select the first
       _actionMenu.DisplayMenuItemsForUnit(ActiveUnit);
-      SelectAction(ActiveUnit.AvailableActions[0]);
+      SelectAction(ActiveUnit.EncounterMetadata.AvailableActions[0]);
     }
 
     public void OnClick(InputAction.CallbackContext context) {
@@ -91,10 +97,10 @@ namespace Encounters {
     }
     private void AttemptAttack(Vector3Int gridCell) {
       foreach (var unit in _unitsInEncounter) {
-        if (unit.State.PositionInEncounter == gridCell && ActiveUnit.IsUnitEnemy(unit)) {
+        if (unit.EncounterMetadata.Position == gridCell && ActiveUnit.IsUnitEnemy(unit)) {
           // TODO(P0): Make attacking not completely random;
-          unit.State.CurrentHp -= Random.Range(3, 6);
-          unit.AvailableActions.Remove(UnitAction.AttackMelee);
+          unit.EncounterMetadata.CurrentHp -= Random.Range(3, 6);
+          unit.EncounterMetadata.AvailableActions.Remove(UnitAction.AttackMelee);
           _actionMenu.DisplayMenuItemsForUnit(unit);
           SelectAction(UnitAction.None);
           return;
@@ -103,12 +109,11 @@ namespace Encounters {
     }
 
     private void AttemptMove(Vector3Int gridCell) {
-      var path = _grid.GetPath(ActiveUnit.State.PositionInEncounter, gridCell);
+      var path = _terrain.GetPath(ActiveUnit.EncounterMetadata.Position, gridCell);
 
-
-      var formerPosition = ActiveUnit.State.PositionInEncounter;
+      var formerPosition = ActiveUnit.EncounterMetadata.Position;
       if (path != null && ActiveUnit.MoveAlongPath(path, OnMoveComplete)) {
-        _grid.Pathfinder.SetEnabled(formerPosition, true);
+        _terrain.SetEnabled(formerPosition, true);
         _targetingDisplay.ClearAll();
         _controls.TurnBasedEncounter.Disable();
       }
@@ -116,8 +121,8 @@ namespace Encounters {
 
     private void OnMoveComplete() {
       _camera.SetFocusPoint(ActiveUnit.WorldPosition);
-      if (ActiveUnit.RemainingMovement <= 0) {
-        ActiveUnit.AvailableActions.Remove(UnitAction.Move);
+      if (ActiveUnit.EncounterMetadata.RemainingMovement <= 0) {
+        ActiveUnit.EncounterMetadata.AvailableActions.Remove(UnitAction.Move);
         _actionMenu.DisplayMenuItemsForUnit(ActiveUnit);
         _currentlySelectedAction = UnitAction.None;
       }
@@ -170,11 +175,11 @@ namespace Encounters {
     }
 
     private void SelectActionIndex(int index) {
-      if (ActiveUnit.CapableActions.Count < index) {
+      if (ActiveUnit.EncounterMetadata.CapableActions.Count < index) {
         return;
       }
-      var action = ActiveUnit.CapableActions[index - 1];
-      if (!ActiveUnit.AvailableActions.Contains(action)) {
+      var action = ActiveUnit.EncounterMetadata.CapableActions[index - 1];
+      if (!ActiveUnit.EncounterMetadata.AvailableActions.Contains(action)) {
         return;
       }
       SelectAction(action);

@@ -5,20 +5,23 @@ using Roy_T.AStar.Paths;
 using UnityEngine;
 
 namespace Pathfinding {
-  public class EncounterPathfindingGrid {
-    private readonly EncounterNode[,] _nodes;
-    private readonly int _width;
-    private readonly int _height;
-    private readonly int _gridOffsetX;
-    private readonly int _gridOffsetY;
-    private readonly PathFinder _pathfinder;
+  public class EncounterPathfindingGrid : MonoBehaviour {
+    private const int MaxEncounterWidth = 300;
+    private const int MaxEncounterHeight = 300;
+    
+    private EncounterNode[,] _nodes;
+    private int _width;
+    private int _height;
+    private int _gridOffsetX;
+    private int _gridOffsetY;
+    private PathFinder _pathfinder;
 
-    public EncounterPathfindingGrid(int width, int height) {
-      _width = width;
-      _height = height;
-      _gridOffsetX = width / 2;
-      _gridOffsetY = height / 2;
-      _nodes = new EncounterNode[width, height];
+    private void Awake() {
+      _width = MaxEncounterWidth;
+      _height = MaxEncounterHeight;
+      _gridOffsetX = MaxEncounterWidth / 2;
+      _gridOffsetY = MaxEncounterHeight / 2;
+      _nodes = new EncounterNode[MaxEncounterWidth, MaxEncounterHeight];
       _pathfinder = new PathFinder();
     }
     
@@ -99,6 +102,10 @@ namespace Pathfinding {
           && gridPosition.y >= 0
           && gridPosition.x <= _width
           && gridPosition.y <= _height;
+    }
+
+    public static EncounterPathfindingGrid Get() {
+      return GameObject.FindWithTag(Tags.Grid).GetComponent<EncounterPathfindingGrid>();
     }
   }
 }

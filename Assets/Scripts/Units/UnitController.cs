@@ -16,43 +16,38 @@ namespace Units {
     public UnitState State { get; private set; }
     // TODO(P1): This doesn't seem to be the true center.
     public Vector3 WorldPosition => _placementManager!.GetPlacement();
-    
-    public List<UnitAction> CapableActions { get; } = new();
-    public List<UnitAction> AvailableActions { get; private set; } = new();
-    public int RemainingMovement { get; private set; }
+
+    public UnitEncounterMetadata EncounterMetadata;
+    private AnimatedCompositeSprite _sprite;
 
     private void Awake() {
       var grid = GameObject.FindWithTag(Tags.Grid).GetComponent<Grid>();
-      var sprite = GetComponentInChildren<AnimatedCompositeSprite>();
-      _placementManager = new UnitPlacementManager(grid, this, sprite, speedUnitsPerSec);
+      _sprite = GetComponentInChildren<AnimatedCompositeSprite>();
+      _placementManager = new UnitPlacementManager(grid, this, _sprite, speedUnitsPerSec);
       _hpBar = transform.Find("UnitIndicators").GetComponentInChildren<Slider>();
-      AddAvailableActions();
     }
-    
-    private void AddAvailableActions() {
-      CapableActions.Add(UnitAction.Move);
-      CapableActions.Add(UnitAction.AttackMelee);
-      CapableActions.Add(UnitAction.EndTurn);
+
+    private void Start() {
+      _sprite.SetColorForFaction(State.Faction);
     }
 
     private void Update() {
       _placementManager!.Update();
-      _hpBar.value = State.CurrentHp;
+      _hpBar.value = EncounterMetadata.CurrentHp;
       transform.position = WorldPosition;
     }
 
     public void Init(UnitState state) {
+      Init(state, Vector3Int.zero);
+    }
+
+    public void Init(UnitState state, Vector3Int positionOffset) {
       State = state;
       _hpBar.maxValue = State.MaxHp;
       _hpBar.minValue = 0;
-      _hpBar.value = State.CurrentHp;
-
+      _hpBar.value = State.MaxHp;
+      EncounterMetadata = new UnitEncounterMetadata(this, State.StartingPosition + positionOffset);
       transform.position = WorldPosition;
-    }
-
-    public void ActivateTurn() {
-      RemainingMovement = State.MovementRange;
-      AvailableActions = new(CapableActions);
     }
     
     /// <returns>Whether the unit is eligible to move along the path</returns>
@@ -64,7 +59,7 @@ namespace Units {
       _placementManager!.ExecuteMovement(path, () => {
         onCompleteCallback();
       });
-      RemainingMovement -= (path.Count - 1);
+      EncounterMetadata.RemainingMovement -= (path.Count - 1);
       return true;
     }
 
@@ -73,7 +68,7 @@ namespace Units {
         return false;
       }
       var pathLength = path.Count;
-      return pathLength > 0 && pathLength - 1 <= RemainingMovement;
+      return pathLength > 0 && pathLength - 1 <= EncounterMetadata.RemainingMovement;
     }
 
     public bool IsUnitEnemy(UnitController unit) {

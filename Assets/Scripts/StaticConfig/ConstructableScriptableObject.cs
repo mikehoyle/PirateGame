@@ -19,6 +19,8 @@ namespace StaticConfig {
     public LineItem[] buildCost;
     // Indicates the tile can be built next to other foundations, but not atop them.
     public bool isFoundationTile;
+    // Indicates the tile can be walked through.
+    public bool isTraversable;
     
     public TileBase inGameTile;
     public Sprite inGameSprite;

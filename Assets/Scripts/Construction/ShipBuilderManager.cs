@@ -14,8 +14,6 @@ using UnityEngine.SceneManagement;
 namespace Construction {
   
   /// <summary>
-  /// TODO(P0): Enable placement of more than just foundation.
-  /// TODO(P1): Enable camera movement (nudge? WASD?)
   /// TODO(P2): Limit camera movement to avoid infinite scroll into the abyss.
   /// </summary>
   public class ShipBuilderManager : MonoBehaviour, GameControls.IShipBuilderActions {
@@ -42,6 +40,7 @@ namespace Construction {
     }
 
     private void Start() {
+      GetComponent<ShipSetup>().SetupShip();
       InitializeCamera();
       _mainMenu = MainMenuController.Get();
       _mainMenu.AddMenuItem(backToMapButtonLabel, OnBackToMap);

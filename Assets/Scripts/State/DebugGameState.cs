@@ -49,12 +49,11 @@ namespace State {
       for (int i = 0; i < PlayerRosterSize; i++) {
         playerState.Roster.Add(new UnitState() {
             ControlSource = UnitControlSource.Player,
-            CurrentHp = 20,
             MaxHp = 20,
             Faction = UnitFaction.PlayerParty,
             // Just place on first known spot, obvious cause for future bugs, but this
             // is only for early debugging
-            PositionOnShip = shipFoundations[i],
+            StartingPosition = shipFoundations[i],
             MovementRange = 3,
         });
       }

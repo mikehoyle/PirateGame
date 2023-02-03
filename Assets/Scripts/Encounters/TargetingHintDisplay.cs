@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Pathfinding;
 using Units;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -25,6 +26,7 @@ namespace Encounters {
     private Dictionary<Flags, TileBase> _movementTiles;
     private IsometricGrid _grid;
     private Vector3Int _lastKnownHoveredCell = new(int.MinValue, int.MinValue, int.MinValue);
+    private EncounterPathfindingGrid _terrain;
 
     [Flags]
     private enum Flags {
@@ -40,6 +42,7 @@ namespace Encounters {
     private void Awake() {
       _tilemap = GetComponent<Tilemap>();
       _grid = IsometricGrid.Get();
+      _terrain = EncounterPathfindingGrid.Get();
       GenerateMovementTileDict();
     }
     private void GenerateMovementTileDict() {
@@ -65,8 +68,8 @@ namespace Encounters {
       // Put indicator under unit and show movement possibilities
       _grid.Overlay.ClearAllTiles();
       _grid.Overlay.color = Color.white;
-      var gridPosition = unit.State.PositionInEncounter;
-      var unitMoveRange = unit.RemainingMovement;
+      var gridPosition = unit.EncounterMetadata.Position;
+      var unitMoveRange = unit.EncounterMetadata.RemainingMovement;
       _grid.Overlay.SetTile(gridPosition, selectedTileOverlay);
 
       for (int x = -unitMoveRange; x <= unitMoveRange; x++) {
@@ -77,10 +80,10 @@ namespace Encounters {
           }
           var tile = _grid.GetTileAtPeakElevation(
               new Vector2Int(
-                  unit.State.PositionInEncounter.x + x,
-                  unit.State.PositionInEncounter.y + y));
+                  unit.EncounterMetadata.Position.x + x,
+                  unit.EncounterMetadata.Position.y + y));
           // OPTIMIZE: memoize paths
-          var path = _grid.GetPath(unit.State.PositionInEncounter, tile);
+          var path = _terrain.GetPath(unit.EncounterMetadata.Position, tile);
           if (unit.CouldMoveAlongPath(path)) {
             _grid.Overlay.SetTile(tile, eligibleTileOverlay);
           }
@@ -96,7 +99,7 @@ namespace Encounters {
     }
 
     private void UpdateMovementHover(Vector3Int targetedCell, UnitController activeUnit) {
-      if (activeUnit.State.PositionInEncounter == targetedCell) {
+      if (activeUnit.EncounterMetadata.Position == targetedCell) {
         // No need to indicate you can move where you already are
         return;
       }
@@ -104,7 +107,7 @@ namespace Encounters {
       _lastKnownHoveredCell = targetedCell;
       ClearMovementIndicators();
       if (_grid.IsTileMovementEligible(targetedCell)) {
-        var path = _grid.GetPath(activeUnit.State.PositionInEncounter, targetedCell);
+        var path = _terrain.GetPath(activeUnit.EncounterMetadata.Position, targetedCell);
         if (path != null && activeUnit.CouldMoveAlongPath(path)) {
           DisplayMovementHint(path); 
         }
@@ -171,7 +174,7 @@ namespace Encounters {
     public void DisplayAttackPossibilities(UnitController unit) {
       _grid.Overlay.ClearAllTiles();
       _grid.Overlay.color = Color.red;
-      var gridPosition = unit.State.PositionInEncounter;
+      var gridPosition = unit.EncounterMetadata.Position;
       _grid.Overlay.SetTile(gridPosition, selectedTileOverlay);
 
       for (int x = -1; x <= 1; x++) {
@@ -182,8 +185,8 @@ namespace Encounters {
           }
           var tile = _grid.GetTileAtPeakElevation(
               new Vector2Int(
-                  unit.State.PositionInEncounter.x + x,
-                  unit.State.PositionInEncounter.y + y));
+                  unit.EncounterMetadata.Position.x + x,
+                  unit.EncounterMetadata.Position.y + y));
           if (_grid.IsTileMovementEligible(tile)) {
             _grid.Overlay.SetTile(tile, eligibleTileOverlay);
           }

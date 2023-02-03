@@ -1,4 +1,6 @@
-﻿using State;
+﻿using Construction;
+using Pathfinding;
+using State;
 using State.World;
 using Units;
 using UnityEngine;
@@ -13,16 +15,21 @@ namespace Encounters {
     [SerializeField] private GameObject unitPrefab;
     
     private IsometricGrid _grid;
+    private ShipSetup _shipSetup;
+    private EncounterPathfindingGrid _terrain;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
+      _terrain = EncounterPathfindingGrid.Get();
+      _shipSetup = GetComponent<ShipSetup>();
     }
 
-    public void SetUpMap(EncounterTile encounter) {
+    public void SetUpMap(EncounterTile encounter, Vector3Int shipOffset) {
       foreach (var tile in encounter.Terrain) {
         // For now, ignoring tile type because there's only one. In the future, probably use a scriptable
         // object to define tile for different types.
         _grid.Tilemap.SetTile(tile.Key, landTile);
+        _terrain.MarkCellTraversable(tile.Key);
       }
 
       foreach (var unit in encounter.Units) {
@@ -30,7 +37,7 @@ namespace Encounters {
         unitController.Init(unit);
       }
       
-      // TODO(P0): pick up here once ship placement information is available.
+      _shipSetup.SetupShip(shipOffset, includeUnits: true);
     }
   }
 }

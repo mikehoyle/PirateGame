@@ -10,15 +10,10 @@ namespace Encounters {
   public class IsometricGrid : MonoBehaviour {
     private const float CellWidthInWorldUnits = 1;
     private const int MaxZ = 6;
-  
-    private const int MaxEncounterWidth = 300;
-    private const int MaxEncounterHeight = 300;
 
     [SerializeField] private TileBase waterTile;
     
     private Camera _camera;
-    
-    public EncounterPathfindingGrid Pathfinder { get; private set; }
 
     public Grid Grid { get; private set; }
     public Tilemap Tilemap { get; private set; }
@@ -29,14 +24,6 @@ namespace Encounters {
       Grid = GetComponent<Grid>();
       Tilemap = Grid.transform.Find("Tilemap").GetComponent<Tilemap>();
       Overlay = Grid.transform.Find("Overlay").GetComponent<Tilemap>();
-      Pathfinder = new EncounterPathfindingGrid(MaxEncounterWidth, MaxEncounterHeight);
-    }
-
-    public void SetupPathfinding(EncounterTile encounter) {
-      // TODO(P0): include ship-provided terrain, when available.
-      foreach (var terrain in encounter.Terrain.Keys) {
-        Pathfinder.MarkCellTraversable(terrain);
-      }
     }
 
     /// <summary>
@@ -81,11 +68,6 @@ namespace Encounters {
       var tile = Tilemap.GetTile(position);
       return tile != null && tile != waterTile;
     }
-
-    // TODO(P2): For now, pathfinding completely ignores elevation
-    [CanBeNull]
-    public LinkedList<Vector3Int> GetPath(Vector3Int origin, Vector3Int destination) =>
-        Pathfinder.GetPath(origin, destination);
 
 
     public static IsometricGrid Get() {
