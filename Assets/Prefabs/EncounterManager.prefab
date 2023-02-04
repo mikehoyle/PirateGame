@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1bd722356f466b991b1645f7c188af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lumberResource: {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
+  stoneResource: {fileID: 11400000, guid: c0f7922035a363a4a992f91270ee338e, type: 2}
+  foodResource: {fileID: 11400000, guid: aebcc41147d51014d98b024a480bc6e0, type: 2}
 --- !u!114 &2648408542730051790
 MonoBehaviour:
   m_ObjectHideFlags: 0

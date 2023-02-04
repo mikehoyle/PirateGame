@@ -18,15 +18,18 @@ namespace Units {
     private IsometricGrid _grid;
     [CanBeNull] private UnitTurnContext _turnContext;
 
-    public event EventHandler OnDeath; 
+    public delegate void OnDeathHandler(int encounterId);
+    public event OnDeathHandler OnDeath; 
 
     public int CurrentHp { get; set; }
     public List<UnitAction> CapableActions { get; } = new();
     public List<UnitAction> AvailableActions { get; private set; } = new();
     public int RemainingMovement { get; set; }
     public bool IsMyTurn { get; private set; }
+    public int EncounterId { get; private set; }
     public UnitFaction Faction => _unit.State.Faction;
     public Vector3Int Position => _unit.Position;
+    public bool IsAlive => CurrentHp > 0;
 
     private void Awake() {
       _unit = GetComponent<UnitController>();
@@ -60,11 +63,21 @@ namespace Units {
       IsMyTurn = true;
     }
 
-    public void EndTurn() {
+    private void EndTurn() {
       _terrain.SetEnabled(_unit.Position, false);
       IsMyTurn = false;
       _turnContext?.Controls.SetCallbacks(null);
       _turnContext?.OnTurnEndedCallback();
+      _turnContext = null;
+    }
+
+    public void OnBeginEncounter(int encounterId) {
+      EncounterId = encounterId;
+    }
+
+    public void OnEndEncounter() {
+      IsMyTurn = false;
+      _turnContext?.Controls.SetCallbacks(null);
       _turnContext = null;
     }
 
@@ -75,7 +88,7 @@ namespace Units {
     public void TakeDamage(int damageAmount) {
       CurrentHp -= damageAmount;
       if (CurrentHp <= 0) {
-        OnDeath?.Invoke(this, EventArgs.Empty);
+        OnDeath?.Invoke(EncounterId);
         // TODO death animation
         Destroy(gameObject);
       }
@@ -120,13 +133,13 @@ namespace Units {
       if (_unit.MoveAlongPath(path, OnMoveComplete)) {
         _terrain.SetEnabled(formerPosition, true);
         RemainingMovement -= (path!.Count - 1);
-        _turnContext.TargetingDisplay.ClearAll();
+        _turnContext!.TargetingDisplay.ClearAll();
         _turnContext.Controls.Disable();
       }
     }
 
     private void OnMoveComplete() {
-      _turnContext.Camera.MoveCursorDirectly(_unit.WorldPosition);
+      _turnContext!.Camera.MoveCursorDirectly(_unit.WorldPosition);
       if (RemainingMovement <= 0) {
         AvailableActions.Remove(UnitAction.Move);
         _currentlySelectedAction = UnitAction.None;
@@ -143,7 +156,7 @@ namespace Units {
       // TODO(P1): All these switch-cases are ugly and not maintainable. Make a better way. 
       switch (_currentlySelectedAction) {
         case UnitAction.Move:
-          _turnContext.TargetingDisplay
+          _turnContext!.TargetingDisplay
               .HandleMouseHover(context.ReadValue<Vector2>(), _unit.Position, RemainingMovement);
           return;
       }
@@ -192,8 +205,12 @@ namespace Units {
     }
 
     private void SelectAction(UnitAction unitAction) {
+      if (_turnContext == null) {
+        return;
+      }
+      
       _currentlySelectedAction = unitAction;
-      _turnContext.TargetingDisplay.ClearAll();
+      _turnContext!.TargetingDisplay.ClearAll();
 
       switch (unitAction) {
         case UnitAction.Move:

@@ -4,16 +4,18 @@ using System.Linq;
 using CameraControl;
 using Controls;
 using HUD.Encounter;
-using Pathfinding;
+using State;
+using State.World;
+using StaticConfig;
 using Units;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Tilemaps;
-using Object = System.Object;
-using Random = UnityEngine.Random;
 
 namespace Encounters {
   public class TurnBasedEncounterManager : MonoBehaviour {
+    [SerializeField] private RawResourceScriptableObject lumberResource;
+    [SerializeField] private RawResourceScriptableObject stoneResource;
+    [SerializeField] private RawResourceScriptableObject foodResource;
+    
     private int _currentRound;
     private List<UnitEncounterManager> _unitsInEncounter = new();
     private int _currentUnitTurn = 0;
@@ -26,6 +28,8 @@ namespace Encounters {
     private UnitAction _currentlySelectedAction;
 
     private UnitEncounterManager ActiveUnit => _unitsInEncounter[_currentUnitTurn];
+    private IEnumerable<UnitEncounterManager> AliveUnits =>
+        _unitsInEncounter.Where(unit => unit != null && unit.IsAlive);
 
     private void Awake() {
       _hud = GameObject.FindWithTag(Tags.EncounterHUD).GetComponent<EncounterHUD>();
@@ -38,10 +42,13 @@ namespace Encounters {
     }
 
     private void Start() {
+      int id = 0;
       _unitsInEncounter = FindObjectsOfType<UnitController>()
           .Select(unit => {
             var encounterManager = unit.gameObject.AddComponent<UnitEncounterManager>();
             encounterManager.OnDeath += OnUnitDeath;
+            encounterManager.OnBeginEncounter(id);
+            id++;
             return encounterManager;
           })
           .ToList();
@@ -66,7 +73,7 @@ namespace Encounters {
           TargetingDisplay = _targetingDisplay,
           ActionMenu = _actionMenu,
           Camera = _camera,
-          UnitsInEncounter = _unitsInEncounter,
+          UnitsInEncounter = AliveUnits,
           CurrentTurnIndex = _currentUnitTurn,
           OnTurnEndedCallback = OnEndTurn,
       });
@@ -74,17 +81,56 @@ namespace Encounters {
 
 
     private void OnEndTurn() {
-      var nextTurn = _currentUnitTurn + 1;
-      if (nextTurn >= _unitsInEncounter.Count) {
-        _currentRound++;
-        _hud.SetRound(_currentRound);
-        nextTurn = 0;
-      }
+      var nextTurn = _currentUnitTurn; 
+      do {
+        nextTurn++;
+        if (nextTurn >= _unitsInEncounter.Count) {
+          _currentRound++;
+          _hud.SetRound(_currentRound);
+          nextTurn = 0;
+        }
+      } while (_unitsInEncounter[nextTurn] == null);
+
       OnNewUnitTurn(nextTurn);
     }
 
-    private void OnUnitDeath(object deadUnit, EventArgs _) {
-      // TODO remove from array, maybe end encounter.
+    private void OnUnitDeath(int unitId) {
+      var killedUnit = _unitsInEncounter[unitId];
+      if (killedUnit == null) {
+        Debug.LogWarning("Killed unit already marked dead");
+        return;
+      }
+      
+      // Check for encounter end.
+
+      var unitFaction = killedUnit.Faction;
+      if (AliveUnits.Any(unit => unit.Faction == unitFaction)) {
+        return;
+      }
+      
+      // At this point, no units remain of the killed faction. End the encounter.
+      EndEncounter(unitFaction);
+    }
+    private void EndEncounter(UnitFaction defeatedFaction) {
+      _controls.Disable();
+      foreach (var unit in AliveUnits) {
+        unit.OnEndEncounter();
+      }
+      
+      if (defeatedFaction == UnitFaction.PlayerParty) {
+        _hud.EndEncounter(isVictory: false);
+      } else {
+        // TODO(P1): pull these from generated encounter config.
+        GameState.State.Player.Inventory.AddQuantity(lumberResource, UnityEngine.Random.Range(10, 20));
+        GameState.State.Player.Inventory.AddQuantity(stoneResource, UnityEngine.Random.Range(5, 10));
+        GameState.State.Player.Inventory.AddQuantity(foodResource, UnityEngine.Random.Range(3, 8));
+        
+        // Clear the encounter from the map, do something else with these at some point?
+        var coordinates = GameState.State.World.GetActiveTile().Coordinates;
+        GameState.State.World.SetTile(coordinates.X, coordinates.Y, new OpenSeaTile());
+        
+        _hud.EndEncounter(isVictory: true);
+      }
     }
   }
 }

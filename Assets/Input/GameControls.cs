@@ -721,6 +721,56 @@ namespace Controls
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""PressAnyKey"",
+            ""id"": ""973498a2-e06c-459c-8695-a6ccb4244974"",
+            ""actions"": [
+                {
+                    ""name"": ""Any Key"",
+                    ""type"": ""Button"",
+                    ""id"": ""203cc009-62bc-4a1c-855e-4b069c18200d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""19c89c92-992d-48da-914e-cbac5720c840"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Any Key"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b54a185-1a92-460c-b277-772b2cf60f09"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Any Key"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb698f24-e2a3-4eca-bd5d-c432db0e7f7f"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Any Key"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -776,6 +826,9 @@ namespace Controls
             // CameraCursorMovement
             m_CameraCursorMovement = asset.FindActionMap("CameraCursorMovement", throwIfNotFound: true);
             m_CameraCursorMovement_MoveCamera = m_CameraCursorMovement.FindAction("MoveCamera", throwIfNotFound: true);
+            // PressAnyKey
+            m_PressAnyKey = asset.FindActionMap("PressAnyKey", throwIfNotFound: true);
+            m_PressAnyKey_AnyKey = m_PressAnyKey.FindAction("Any Key", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1157,6 +1210,39 @@ namespace Controls
             }
         }
         public CameraCursorMovementActions @CameraCursorMovement => new CameraCursorMovementActions(this);
+
+        // PressAnyKey
+        private readonly InputActionMap m_PressAnyKey;
+        private IPressAnyKeyActions m_PressAnyKeyActionsCallbackInterface;
+        private readonly InputAction m_PressAnyKey_AnyKey;
+        public struct PressAnyKeyActions
+        {
+            private @GameControls m_Wrapper;
+            public PressAnyKeyActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @AnyKey => m_Wrapper.m_PressAnyKey_AnyKey;
+            public InputActionMap Get() { return m_Wrapper.m_PressAnyKey; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PressAnyKeyActions set) { return set.Get(); }
+            public void SetCallbacks(IPressAnyKeyActions instance)
+            {
+                if (m_Wrapper.m_PressAnyKeyActionsCallbackInterface != null)
+                {
+                    @AnyKey.started -= m_Wrapper.m_PressAnyKeyActionsCallbackInterface.OnAnyKey;
+                    @AnyKey.performed -= m_Wrapper.m_PressAnyKeyActionsCallbackInterface.OnAnyKey;
+                    @AnyKey.canceled -= m_Wrapper.m_PressAnyKeyActionsCallbackInterface.OnAnyKey;
+                }
+                m_Wrapper.m_PressAnyKeyActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @AnyKey.started += instance.OnAnyKey;
+                    @AnyKey.performed += instance.OnAnyKey;
+                    @AnyKey.canceled += instance.OnAnyKey;
+                }
+            }
+        }
+        public PressAnyKeyActions @PressAnyKey => new PressAnyKeyActions(this);
         private int m_KBMSchemeIndex = -1;
         public InputControlScheme KBMScheme
         {
@@ -1205,6 +1291,10 @@ namespace Controls
         public interface ICameraCursorMovementActions
         {
             void OnMoveCamera(InputAction.CallbackContext context);
+        }
+        public interface IPressAnyKeyActions
+        {
+            void OnAnyKey(InputAction.CallbackContext context);
         }
     }
 }

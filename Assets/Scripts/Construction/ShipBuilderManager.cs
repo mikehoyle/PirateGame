@@ -67,7 +67,7 @@ namespace Construction {
 
     private void OnEnable() {
       if (_controls == null) {
-        _controls ??= new GameControls();
+        _controls = new GameControls();
         _controls.ShipBuilder.SetCallbacks(this);
       }
 

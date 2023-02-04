@@ -18,6 +18,11 @@ namespace HUD.Encounter {
     }
 
     private void Update() {
+      if (_activeUnit == null) {
+        Clear();
+        return;
+      }
+      
       for (int i = 0; i < _activeUnit.CapableActions.Count; i++) {
         if (!_activeUnit.AvailableActions.Contains(_activeUnit.CapableActions[i])) {
           _displayedItems[i].SetUnavailable();

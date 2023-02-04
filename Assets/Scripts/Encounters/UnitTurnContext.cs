@@ -15,7 +15,7 @@ namespace Encounters {
     public TargetingHintDisplay TargetingDisplay { get; set; }
     public ActionMenuController ActionMenu { get; set; }
     public CameraCursorMover Camera { get; set; }
-    public List<UnitEncounterManager> UnitsInEncounter { get; set; }
+    public IEnumerable<UnitEncounterManager> UnitsInEncounter { get; set; }
     public int CurrentTurnIndex { get; set; }
     public OnTurnEnded OnTurnEndedCallback { get; set; }
   }

@@ -66,7 +66,7 @@ namespace Encounters {
       var terrainPositions = encounterTile.Terrain.Keys.OrderBy(_ => _rng.Next()).ToList();
       
       for (int i = 0; i < numUnits; i++) {
-        var hp = _rng.Next(15, 21);
+        var hp = _rng.Next(5, 10);
         var unit = new UnitState {
             StartingPosition = terrainPositions[i],
             MaxHp = hp,

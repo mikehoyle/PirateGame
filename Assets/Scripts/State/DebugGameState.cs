@@ -11,7 +11,7 @@ namespace State {
   /// TODO(P1): Actually use proper generation and load/save at appropriate times, not this
   /// </summary>
   public static class DebugGameState {
-    private const int PlayerRosterSize = 3;
+    private const int PlayerRosterSize = 1;
     private const int ShipWidth = 3;
     private const int ShipHeight = 3;
     
@@ -49,7 +49,7 @@ namespace State {
       for (int i = 0; i < PlayerRosterSize; i++) {
         playerState.Roster.Add(new UnitState() {
             ControlSource = UnitControlSource.Player,
-            MaxHp = 20,
+            MaxHp = 10,
             Faction = UnitFaction.PlayerParty,
             // Just place on first known spot, obvious cause for future bugs, but this
             // is only for early debugging
