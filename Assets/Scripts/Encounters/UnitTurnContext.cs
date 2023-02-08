@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CameraControl;
 using Controls;
+using Encounters.Grid;
 using HUD.Encounter;
 using Units;
 
@@ -12,7 +13,7 @@ namespace Encounters {
     public delegate void OnTurnEnded();
     
     public GameControls.TurnBasedEncounterActions Controls { get; set; }
-    public MovementPathIndicator TargetingDisplay { get; set; }
+    public PathIndicator TargetingDisplay { get; set; }
     public ActionMenuController ActionMenu { get; set; }
     public CameraCursorMover Camera { get; set; }
     public IEnumerable<UnitEncounterManager> UnitsInEncounter { get; set; }

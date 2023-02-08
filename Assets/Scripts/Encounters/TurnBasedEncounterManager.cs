@@ -1,25 +1,34 @@
 ﻿using System;
+using CameraControl;
 using Common.Events;
 using Controls;
+using Encounters.Grid;
+using Optional.Unsafe;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
+using StaticConfig.Units;
 using Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Encounters {
   public class TurnBasedEncounterManager : MonoBehaviour, GameControls.ITurnBasedEncounterActions {
-    [SerializeField] private UnitSelectedEvent unitSelectedEvent;
+    [SerializeField] private ObjectClickedEvent objectClickedEvent;
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private Vector3Event mouseHoverEvent;
     [SerializeField] private EmptyGameEvent endPlayerTurnEvent;
     [SerializeField] private EmptyGameEvent endEnemyTurnEvent;
+    [SerializeField] private AbilitySelectedEvent abilitySelectedEvent;
     
     private GameControls _controls;
     private IsometricGrid _grid;
+    private CameraController _cameraController;
+    private GridIndicators _gridIndicators;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
+      _cameraController = CameraController.Get();
+      _gridIndicators = GridIndicators.Get(); 
       currentSelection.Reset();
     }
 
@@ -30,15 +39,21 @@ namespace Encounters {
       }
       _controls.TurnBasedEncounter.Enable();
       endEnemyTurnEvent.RegisterListener(OnStartPlayerTurn);
+      abilitySelectedEvent.RegisterListener(OnAbilitySelected);
     }
 
     private void OnDisable() {
       _controls.TurnBasedEncounter.Disable();
       endEnemyTurnEvent.UnregisterListener(OnStartPlayerTurn);
+      abilitySelectedEvent.UnregisterListener(OnAbilitySelected);
     }
 
     private void OnStartPlayerTurn() {
       _controls.TurnBasedEncounter.Enable();
+    }
+
+    private void OnAbilitySelected(UnitController actor, UnitAbility ability) {
+      ability.OnSelected(actor, _gridIndicators);
     }
     
     public void OnClick(InputAction.CallbackContext context) {
@@ -46,20 +61,17 @@ namespace Encounters {
         return;
       }
 
-      var mousePosition = Mouse.current.position.ReadValue();
-      var ray = Camera.main.ScreenPointToRay(mousePosition);
-      var hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-      if (hit.collider != null && hit.collider.TryGetComponent<UnitController>(out var clickedUnit)) {
-        currentSelection.selectedUnit = clickedUnit;
-        // TODO(P0): this is a hack, fix it to actually have ability selection.
-        currentSelection.selectedAbility = clickedUnit.GetAllCapableAbilities()[0];
-        unitSelectedEvent.Raise(clickedUnit);
-        return;
-      }
+      var clickedObject = _cameraController.RaycastFromMousePosition().collider?.gameObject;
+      var targetTile = _grid.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
 
-      var targetTile = _grid.TileAtScreenCoordinate(mousePosition);
-      if (currentSelection.selectedAbility != null && currentSelection.selectedUnit != null) {
-        currentSelection.selectedAbility.TryExecute(currentSelection.selectedUnit, targetTile);
+      if (currentSelection.TryGet(out var ability, out var unit)) {
+        if (ability.TryExecute(unit, clickedObject, targetTile)) {
+          return; 
+        }
+      }
+      
+      if (clickedObject != null) {
+        objectClickedEvent.Raise(clickedObject.gameObject);
       }
     }
     
@@ -67,8 +79,14 @@ namespace Encounters {
       if (!context.performed) {
         return;
       }
-
-      mouseHoverEvent.Raise(context.ReadValue<Vector2>());
+      
+      var mousePosition = context.ReadValue<Vector2>();
+      var hoveredObject = _cameraController.RaycastFromMousePosition().collider?.gameObject;
+      var hoveredTile = _grid.TileAtScreenCoordinate(mousePosition);
+      if (currentSelection.TryGet(out var ability, out var unit)) {
+        ability.ShowIndicator(unit, hoveredObject, hoveredTile, _gridIndicators);
+      }
+      mouseHoverEvent.Raise(mousePosition);
     }
 
     public void OnSelectActionOne(InputAction.CallbackContext context) {

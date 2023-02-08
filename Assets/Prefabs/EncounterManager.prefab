@@ -46,11 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87482767d1774dd999d12afc26e1f4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitSelectedEvent: {fileID: 11400000, guid: 6630b751c39484c438dc0458f7a211ed, type: 2}
+  objectClickedEvent: {fileID: 11400000, guid: 330e4182eca7bcf45bb4cf657c0b26c4, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
   mouseHoverEvent: {fileID: 11400000, guid: 69c65d5cc56cb354cbdee6a4b52a80cd, type: 2}
   endPlayerTurnEvent: {fileID: 11400000, guid: 70d60596d6f5d7e408f5381eaba68dd8, type: 2}
   endEnemyTurnEvent: {fileID: 11400000, guid: e40c5da67de458c428a0e7cc203b181e, type: 2}
+  abilitySelectedEvent: {fileID: 11400000, guid: 939f8e0b967434746b2151d96e0a2352, type: 2}
 --- !u!114 &2648408542730051790
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Controls;
 using Encounters;
+using Encounters.Grid;
 using JetBrains.Annotations;
 using Pathfinding;
 using State;
@@ -134,7 +135,7 @@ namespace Units {
       if (_unit.MoveAlongPath(path, OnMoveComplete)) {
         _terrain.SetEnabled(formerPosition, true);
         RemainingMovement -= (path!.Count - 1);
-        _turnContext!.TargetingDisplay.ClearAll();
+        _turnContext!.TargetingDisplay.Clear();
         _turnContext.Controls.Disable();
       }
     }
@@ -211,7 +212,7 @@ namespace Units {
       }
       
       _currentlySelectedAction = unitAction;
-      _turnContext!.TargetingDisplay.ClearAll();
+      _turnContext!.TargetingDisplay.Clear();
 
       switch (unitAction) {
         case UnitAction.Move:

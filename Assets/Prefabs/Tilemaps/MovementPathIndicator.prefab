@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a32c427f92f4ea99c9b3316cbd12227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseHoverEvent: {fileID: 11400000, guid: 69c65d5cc56cb354cbdee6a4b52a80cd, type: 2}
+  playerTurnEndEvent: {fileID: 11400000, guid: 70d60596d6f5d7e408f5381eaba68dd8, type: 2}
   movementAbility: {fileID: 11400000, guid: 3913fcc2030fcdd44a3041f9d7d4b858, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
   arrowIndicatorTiles:

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CameraControl;
 using Controls;
+using Encounters.Grid;
 using HUD.Encounter;
 using State;
 using State.Unit;
@@ -25,7 +26,7 @@ namespace Encounters {
     private EncounterHUD _hud;
     private CameraCursorMover _camera;
     private IsometricGrid _grid;
-    private MovementPathIndicator _targetingDisplay;
+    private PathIndicator _targetingDisplay;
     private GameControls _controls;
     //private ActionMenuController _actionMenu;
     private UnitAction _currentlySelectedAction;
@@ -39,7 +40,7 @@ namespace Encounters {
       //_actionMenu = ActionMenuController.Get();
       _camera = GetComponent<CameraCursorMover>();
       _grid = IsometricGrid.Get();
-      _targetingDisplay = _grid.Grid.GetComponentInChildren<MovementPathIndicator>();
+      _targetingDisplay = _grid.Grid.GetComponentInChildren<PathIndicator>();
       _controls = new GameControls();
       _currentRound = 1;
     }

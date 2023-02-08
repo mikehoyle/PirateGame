@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Optional;
 using RuntimeVars;
+using RuntimeVars.Encounters;
+using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
 using Units.Rendering;
@@ -13,6 +16,10 @@ namespace Units {
     [SerializeField] private float speedUnitsPerSec;
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     [SerializeField] private UnitAbilitySet defaultAbilities;
+    [SerializeField] private ObjectClickedEvent objectClickedEvent;
+    [SerializeField] private UnitSelectedEvent unitSelectedEvent;
+    [SerializeField] private AbilitySelectedEvent abilitySelectedEvent;
+    [SerializeField] private CurrentSelection currentSelection;
     
     [CanBeNull] private UnitPlacementManager _placementManager;
     public Vector3Int Position { get; set; }
@@ -29,10 +36,12 @@ namespace Units {
 
     private void OnEnable() {
       playerUnitsInEncounter.Add(this);
+      objectClickedEvent.RegisterListener(OnObjectClicked);
     }
 
     private void OnDisable() {
       playerUnitsInEncounter.Remove(this);
+      objectClickedEvent.UnregisterListener(OnObjectClicked);
     }
 
     private void Start() {
@@ -73,6 +82,21 @@ namespace Units {
 
     public static bool IsPathViable(LinkedList<Vector3Int> path) {
       return path != null && path.Count > 1;
+    }
+
+    private void OnObjectClicked(GameObject clickedObject) {
+      if (clickedObject == gameObject) {
+        if (currentSelection.selectedUnit.Contains(this)) {
+          // Unit clicked but already selected, do nothing.
+          return;
+        }
+
+        var selectedAbility = defaultAbilities.abilities[0];
+        currentSelection.selectedUnit = Option.Some(this);
+        currentSelection.selectedAbility = Option.Some(selectedAbility);
+        unitSelectedEvent.Raise(this);
+        abilitySelectedEvent.Raise(this, selectedAbility);
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 ﻿using Construction;
+using Encounters.Grid;
 using Pathfinding;
 using State;
 using State.World;

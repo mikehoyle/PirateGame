@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace CameraControl {
   public class CameraController : MonoBehaviour {
@@ -7,8 +9,13 @@ namespace CameraControl {
     private bool _isPointFocused;
     private Vector3 _focusPoint;
     private Vector3 _velocity = Vector3.zero;
+    private Camera _camera;
 
-    void LateUpdate() {
+    private void Awake() {
+      _camera = Camera.main;
+    }
+
+    private void LateUpdate() {
       if (_isPointFocused) {
         if (transform.position != _focusPoint) {
           transform.position = Vector3.SmoothDamp(transform.position, _focusPoint, ref _velocity, moveTime);
@@ -24,6 +31,11 @@ namespace CameraControl {
     public void SnapToPoint(Vector3 focus) {
       _isPointFocused = false;
       transform.position = new Vector3(focus.x, focus.y, transform.position.z);
+    }
+
+    public RaycastHit2D RaycastFromMousePosition() {
+      var ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+      return Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
     }
 
     public static CameraController Get() {

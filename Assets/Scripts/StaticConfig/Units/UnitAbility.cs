@@ -1,5 +1,7 @@
 ﻿using System;
 using Common;
+using Encounters;
+using Encounters.Grid;
 using Units;
 using UnityEngine;
 
@@ -8,8 +10,7 @@ namespace StaticConfig.Units {
   /// Encapsulates an actionable capability of a unit.
   /// Expand on this greatly.
   /// </summary>
-  [CreateAssetMenu(menuName = "Units/Abilities/UnitAbility")]
-  public class UnitAbility : EnumScriptableObject {
+  public abstract class UnitAbility : EnumScriptableObject {
     [Serializable]
     public struct UnitAbilityCost {
       public int amount;
@@ -19,10 +20,12 @@ namespace StaticConfig.Units {
     public string displayString;
     public UnitAbilityCost[] cost;
 
-    public void TryExecute(UnitController actor, Vector3Int targetTile) {
-      // TODO(P0): big fat TODO
-    }
+    /// <returns>Whether the ability is successfully executing</returns>
+    public abstract bool TryExecute(UnitController actor, GameObject clickedObject, Vector3Int targetTile);
+
+    public virtual void OnSelected(UnitController actor, GridIndicators indicators) { }
     
-    // Much more will go here.
+    public virtual void ShowIndicator(
+        UnitController actor, GameObject hoveredObject, Vector3Int hoveredTile, GridIndicators indicators) { }
   }
 }

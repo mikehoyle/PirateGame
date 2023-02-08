@@ -3,6 +3,7 @@ using CameraControl;
 using Common;
 using Controls;
 using Encounters;
+using Encounters.Grid;
 using HUD.Construction;
 using HUD.MainMenu;
 using State;

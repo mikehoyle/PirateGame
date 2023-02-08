@@ -1,4 +1,5 @@
 ﻿using Encounters;
+using Encounters.Grid;
 using JetBrains.Annotations;
 using Pathfinding;
 using State;

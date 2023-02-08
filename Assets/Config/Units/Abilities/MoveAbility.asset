@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e57516f19a8e4ff38cd1bc886892e544, type: 3}
+  m_Script: {fileID: 11500000, guid: d064539a5f734bf6b4e5b4a487ebeda3, type: 3}
   m_Name: MoveAbility
   m_EditorClassIdentifier: 
   id: move

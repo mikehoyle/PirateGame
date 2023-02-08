@@ -7,4 +7,5 @@
   public const string BuildMenu = "BuildMenu";
   public const string EncounterActionDisplay = "EncounterActionDisplay";
   public const string PlayerUnit = "PlayerUnit";
+  public const string GridIndicators = "GridIndicators";
 }

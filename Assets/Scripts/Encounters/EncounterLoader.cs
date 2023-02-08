@@ -1,4 +1,5 @@
 ﻿using System;
+using Encounters.Grid;
 using State;
 using State.World;
 using UnityEngine;
