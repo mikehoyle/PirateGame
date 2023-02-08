@@ -2,30 +2,37 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using StaticConfig;
+using StaticConfig.Builds;
+using StaticConfig.RawResources;
+using UnityEngine;
 
 namespace State {
-  [Serializable]
-  public class InventoryState {
-    // Maps item to quantity held, where the keys are RawResourceScriptableObject.ids
-    private Dictionary<string, int> _items = new();
+  [CreateAssetMenu(menuName = "State/InventoryState")]
+  public class InventoryState : ScriptableObject {
+    [Serializable]
+    public class InventoryContentsDictionary : SerializableDictionary<RawResource, int> { }
 
-    public int GetQuantity(RawResourceScriptableObject item) {
-      return _items.GetValueOrDefault(item.id);
+    // Maps item to quantity held, where the keys are RawResourceScriptableObject.ids
+    [SerializeField] private InventoryContentsDictionary items = new();
+
+    public int GetQuantity(RawResource item) {
+      items.TryGetValue(item, out var quantity);
+      return quantity;
     }
 
-    public void AddQuantity(RawResourceScriptableObject item, int quantity) {
+    public void AddQuantity(RawResource item, int quantity) {
       SetQuantity(item, GetQuantity(item) + quantity);
     }
     
-    public void ReduceQuantity(RawResourceScriptableObject item, int quantity) {
+    public void ReduceQuantity(RawResource item, int quantity) {
       AddQuantity(item, -quantity);
     }
 
-    public void SetQuantity(RawResourceScriptableObject item, int quantity) {
-      _items[item.id] = Math.Max(quantity, 0);
+    public void SetQuantity(RawResource item, int quantity) {
+      items[item] = Math.Max(quantity, 0);
     }
 
-    public bool CanAffordBuild([CanBeNull] ConstructableScriptableObject build) {
+    public bool CanAffordBuild([CanBeNull] ConstructableObject build) {
       if (build == null) {
         return false;
       }
@@ -39,16 +46,10 @@ namespace State {
       return true;
     }
 
-    public void DeductBuildCost(ConstructableScriptableObject build) {
+    public void DeductBuildCost(ConstructableObject build) {
       foreach (var lineItem in build.buildCost) {
         ReduceQuantity(lineItem.resource, lineItem.cost);
       }
-    }
-
-    // It is very error-prone to use this directly, but it's convenient just for the
-    // debug/prototype setup.
-    public void DebugOnlySetQuantity(string itemId, int quantity) {
-      _items[itemId] = quantity;
     }
   }
 }

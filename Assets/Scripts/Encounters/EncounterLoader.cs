@@ -13,12 +13,12 @@ namespace Encounters {
     private IsometricGrid _grid;
 
     private void Awake() {
-      _encounter = GameState.State.World.GetActiveTile().DownCast<EncounterTile>();
+      _encounter = GameState.State.world.GetActiveTile().DownCast<EncounterTile>();
       if (_encounter == null) {
         throw new NotSupportedException(
             "Cannot load an encounter on a non-encounter tile." +
-            $"Tile: {GameState.State.Player.OverworldGridPosition}," +
-            $"Tile type: {GameState.State.World.GetActiveTile().TileType}");
+            $"Tile: {GameState.State.player.overworldGridPosition}," +
+            $"Tile type: {GameState.State.world.GetActiveTile().TileType}");
       }
 
       _encounterGenerator = GetComponent<EncounterGenerator>();
@@ -27,11 +27,11 @@ namespace Encounters {
     }
 
     private void Start() {
-      if (!_encounter.IsInitialized) {
+      if (!_encounter.isInitialized) {
         _encounterGenerator.Generate(_encounter);
       }
       
-      _encounterSetup.SetUpMap(_encounter, GetShipPlacementOffset(GameState.State.Player.Ship));
+      _encounterSetup.SetUpMap(_encounter, GetShipPlacementOffset(GameState.State.player.ship));
       
       Instantiate(encounterManagerPrefab);
       Destroy(gameObject);
@@ -40,8 +40,8 @@ namespace Encounters {
     // For now, just put the ship next to the terrain in the y+ direction.
     private Vector3Int GetShipPlacementOffset(ShipState ship) {
       // TODO(P1): Let player place ship
-      var terrainBounds = _encounter.Terrain.GetBoundingRect();
-      var shipBoundingRect = ship.Components.GetBoundingRect();
+      var terrainBounds = _encounter.terrain.GetBoundingRect();
+      var shipBoundingRect = ship.components.GetBoundingRect();
       return new Vector3Int(
           terrainBounds.xMin - shipBoundingRect.xMin,
           (terrainBounds.yMax + 1) - shipBoundingRect.yMin,

@@ -5,13 +5,14 @@ using Encounters;
 using JetBrains.Annotations;
 using Pathfinding;
 using State;
+using State.Unit;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 namespace Units {
   [Serializable]
-  public class UnitEncounterManager : MonoBehaviour, GameControls.ITurnBasedEncounterActions {
+  public class UnitEncounterManager : MonoBehaviour {
     private UnitController _unit;
     private EncounterTerrain _terrain;
     private UnitAction _currentlySelectedAction;
@@ -27,7 +28,7 @@ namespace Units {
     public int RemainingMovement { get; set; }
     public bool IsMyTurn { get; private set; }
     public int EncounterId { get; private set; }
-    public UnitFaction Faction => _unit.State.Faction;
+    public UnitFaction Faction => _unit.State.faction;
     public Vector3Int Position => _unit.Position;
     public bool IsAlive => CurrentHp > 0;
 
@@ -36,8 +37,8 @@ namespace Units {
       _grid = IsometricGrid.Get();
       _terrain = EncounterTerrain.Get();
       _terrain.SetEnabled(_unit.Position, false);
-      CurrentHp = _unit.State.MaxHp;
-      GetComponentInChildren<HpBarController>().Init(this, _unit.State.MaxHp);
+      CurrentHp = _unit.State.maxHp;
+      GetComponentInChildren<HpBarController>().Init(this, _unit.State.maxHp);
       AddAvailableActions();
     }
 
@@ -52,14 +53,14 @@ namespace Units {
       // Always mark self traversable, so unit can move out of their own tile
       _terrain.SetEnabled(_unit.Position, true);
       context.Camera.MoveCursorDirectly(_unit.WorldPosition);
-      RemainingMovement = _unit.State.MovementRange;
+      RemainingMovement = _unit.State.movementRange;
       AvailableActions = new(CapableActions);
       // Display action options, and default select the first
-      context.ActionMenu.SetActiveUnit(this);
+      //context.ActionMenu.SetActiveUnit(this);
       SelectAction(AvailableActions[0]);
       
       // Take control of controls handling
-      context.Controls.SetCallbacks(this);
+      //context.Controls.SetCallbacks(this);
       IsMyTurn = true;
     }
 
@@ -156,8 +157,8 @@ namespace Units {
       // TODO(P1): All these switch-cases are ugly and not maintainable. Make a better way. 
       switch (_currentlySelectedAction) {
         case UnitAction.Move:
-          _turnContext!.TargetingDisplay
-              .HandleMouseHover(context.ReadValue<Vector2>(), _unit.Position, RemainingMovement);
+//          _turnContext!.TargetingDisplay
+//              .HandleMouseHover(context.ReadValue<Vector2>(), _unit.Position, RemainingMovement);
           return;
       }
     }
@@ -214,10 +215,10 @@ namespace Units {
 
       switch (unitAction) {
         case UnitAction.Move:
-          _turnContext.TargetingDisplay.DisplayMovementPossibilities(_unit.Position, RemainingMovement);
+            //_turnContext.TargetingDisplay.DisplayMovementPossibilities(_unit.Position, RemainingMovement);
           return;
         case UnitAction.AttackMelee:
-          _turnContext.TargetingDisplay.DisplayAttackPossibilities(_unit.Position);
+          //_turnContext.TargetingDisplay.DisplayAttackPossibilities(_unit.Position);
           return;
         case UnitAction.EndTurn:
           EndTurn();

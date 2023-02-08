@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
-using State;
+using RuntimeVars;
+using State.Unit;
+using StaticConfig.Units;
 using Units.Rendering;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Units {
   public class UnitController : MonoBehaviour {
     [SerializeField] private float speedUnitsPerSec;
+    [SerializeField] private UnitCollection playerUnitsInEncounter;
+    [SerializeField] private UnitAbilitySet defaultAbilities;
     
     [CanBeNull] private UnitPlacementManager _placementManager;
     public Vector3Int Position { get; set; }
@@ -23,8 +27,16 @@ namespace Units {
       _placementManager = new UnitPlacementManager(grid, this, _sprite, speedUnitsPerSec);
     }
 
+    private void OnEnable() {
+      playerUnitsInEncounter.Add(this);
+    }
+
+    private void OnDisable() {
+      playerUnitsInEncounter.Remove(this);
+    }
+
     private void Start() {
-      _sprite.SetColorForFaction(State.Faction);
+      _sprite.SetColorForFaction(State.faction);
     }
 
     private void Update() {
@@ -38,8 +50,15 @@ namespace Units {
 
     public void Init(UnitState state, Vector3Int positionOffset) {
       State = state;
-      Position = State.StartingPosition + positionOffset;
+      state.encounterState.NewEncounter(state, positionOffset);
+      Position = State.startingPosition + positionOffset;
       transform.position = WorldPosition;
+    }
+
+    public List<UnitAbility> GetAllCapableAbilities() {
+      var result = defaultAbilities.abilities.ToList();
+      result.AddRange(State.GetAbilities());
+      return result;
     }
     
     /// <returns>Whether the unit is eligible to move along the path</returns>

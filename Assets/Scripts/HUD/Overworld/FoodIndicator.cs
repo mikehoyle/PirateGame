@@ -1,11 +1,12 @@
 ﻿using State;
 using StaticConfig;
+using StaticConfig.RawResources;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Overworld {
   public class FoodIndicator : MonoBehaviour {
-    [SerializeField] private RawResourceScriptableObject foodResource;
+    [SerializeField] private RawResource foodResource;
     private Text _text;
     private const string Text = "Food: ";
 
@@ -14,7 +15,7 @@ namespace HUD.Overworld {
     }
 
     private void Update() {
-      _text.text = Text + GameState.State.Player.Inventory.GetQuantity(foodResource);
+      _text.text = Text + GameState.State.player.inventory.GetQuantity(foodResource);
     }
   }
 }

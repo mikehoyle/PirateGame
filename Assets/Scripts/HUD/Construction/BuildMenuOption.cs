@@ -1,6 +1,7 @@
 ﻿using System;
 using State;
 using StaticConfig;
+using StaticConfig.Builds;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,14 +10,14 @@ namespace HUD.Construction {
   public class BuildMenuOption : MonoBehaviour {
     private Text _nameField;
     private Text _costField;
-    private ConstructableScriptableObject _constructable;
+    private ConstructableObject _constructable;
     private Button _button;
     private InventoryState _inventoryState;
 
-    public event EventHandler<ConstructableScriptableObject> OnBuildOptionSelected;
+    public event EventHandler<ConstructableObject> OnBuildOptionSelected;
 
     private void Awake() {
-      _inventoryState = GameState.State.Player.Inventory;
+      _inventoryState = GameState.State.player.inventory;
       _nameField = transform.Find("Name").GetComponent<Text>();
       _costField = transform.Find("Cost").GetComponent<Text>();
 
@@ -30,7 +31,7 @@ namespace HUD.Construction {
       UpdateCostLine();
     }
 
-    public void Init(ConstructableScriptableObject constructable) {
+    public void Init(ConstructableObject constructable) {
       _constructable = constructable; 
       _nameField.text = constructable.buildDisplayName;
       UpdateCostLine();

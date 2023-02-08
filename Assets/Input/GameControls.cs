@@ -91,6 +91,15 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EndTurn"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff398437-ed17-45c3-a30b-4f42190e8b81"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -179,6 +188,17 @@ namespace Controls
                     ""processors"": """",
                     ""groups"": ""KBM"",
                     ""action"": ""SelectActionFive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5efb1f51-736d-46ea-8a1a-b034344d455e"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""EndTurn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -801,6 +821,7 @@ namespace Controls
             m_TurnBasedEncounter_SelectActionThree = m_TurnBasedEncounter.FindAction("SelectActionThree", throwIfNotFound: true);
             m_TurnBasedEncounter_SelectActionFour = m_TurnBasedEncounter.FindAction("SelectActionFour", throwIfNotFound: true);
             m_TurnBasedEncounter_SelectActionFive = m_TurnBasedEncounter.FindAction("SelectActionFive", throwIfNotFound: true);
+            m_TurnBasedEncounter_EndTurn = m_TurnBasedEncounter.FindAction("EndTurn", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -895,6 +916,7 @@ namespace Controls
         private readonly InputAction m_TurnBasedEncounter_SelectActionThree;
         private readonly InputAction m_TurnBasedEncounter_SelectActionFour;
         private readonly InputAction m_TurnBasedEncounter_SelectActionFive;
+        private readonly InputAction m_TurnBasedEncounter_EndTurn;
         public struct TurnBasedEncounterActions
         {
             private @GameControls m_Wrapper;
@@ -906,6 +928,7 @@ namespace Controls
             public InputAction @SelectActionThree => m_Wrapper.m_TurnBasedEncounter_SelectActionThree;
             public InputAction @SelectActionFour => m_Wrapper.m_TurnBasedEncounter_SelectActionFour;
             public InputAction @SelectActionFive => m_Wrapper.m_TurnBasedEncounter_SelectActionFive;
+            public InputAction @EndTurn => m_Wrapper.m_TurnBasedEncounter_EndTurn;
             public InputActionMap Get() { return m_Wrapper.m_TurnBasedEncounter; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -936,6 +959,9 @@ namespace Controls
                     @SelectActionFive.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFive;
                     @SelectActionFive.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFive;
                     @SelectActionFive.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnSelectActionFive;
+                    @EndTurn.started -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnEndTurn;
+                    @EndTurn.performed -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnEndTurn;
+                    @EndTurn.canceled -= m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface.OnEndTurn;
                 }
                 m_Wrapper.m_TurnBasedEncounterActionsCallbackInterface = instance;
                 if (instance != null)
@@ -961,6 +987,9 @@ namespace Controls
                     @SelectActionFive.started += instance.OnSelectActionFive;
                     @SelectActionFive.performed += instance.OnSelectActionFive;
                     @SelectActionFive.canceled += instance.OnSelectActionFive;
+                    @EndTurn.started += instance.OnEndTurn;
+                    @EndTurn.performed += instance.OnEndTurn;
+                    @EndTurn.canceled += instance.OnEndTurn;
                 }
             }
         }
@@ -1261,6 +1290,7 @@ namespace Controls
             void OnSelectActionThree(InputAction.CallbackContext context);
             void OnSelectActionFour(InputAction.CallbackContext context);
             void OnSelectActionFive(InputAction.CallbackContext context);
+            void OnEndTurn(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

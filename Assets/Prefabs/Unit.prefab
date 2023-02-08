@@ -361,9 +361,10 @@ GameObject:
   - component: {fileID: 4998738781700405354}
   - component: {fileID: 2938091484828250302}
   - component: {fileID: 6636280918671138288}
+  - component: {fileID: -4212642104737918321}
   m_Layer: 0
   m_Name: Unit
-  m_TagString: Untagged
+  m_TagString: PlayerUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -398,6 +399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedUnitsPerSec: 2
+  playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
+  defaultAbilities: {fileID: 11400000, guid: 54e2bca7f99bf894699d7cf5e3ed1368, type: 2}
 --- !u!114 &6636280918671138288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +432,22 @@ MonoBehaviour:
   m_ShapePathHash: 1188215802
   m_Mesh: {fileID: 0}
   m_InstanceId: 72738
+--- !u!70 &-4212642104737918321
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998738781700405355}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.25}
+  m_Size: {x: 0.3, y: 0.6}
+  m_Direction: 0
 --- !u!1 &8653784092456543253
 GameObject:
   m_ObjectHideFlags: 0

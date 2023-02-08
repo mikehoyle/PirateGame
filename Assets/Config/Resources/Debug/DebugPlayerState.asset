@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2cd27e53f2468c86a52283f929a686, type: 3}
+  m_Name: DebugPlayerState
+  m_EditorClassIdentifier: 
+  overworldGridPosition: {x: 0, y: 0}
+  ship: {fileID: 11400000, guid: d417f1d14e753f2418061c83216bfd5f, type: 2}
+  inventory: {fileID: 11400000, guid: 0134d077c78b46e49afbcddde1f058ef, type: 2}
+  roster:
+  - {fileID: 11400000, guid: cc90ffd02d3f29b469d85e609d5204f2, type: 2}

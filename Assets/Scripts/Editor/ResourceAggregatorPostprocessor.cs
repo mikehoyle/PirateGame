@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using StaticConfig;
+using StaticConfig.Builds;
+using StaticConfig.RawResources;
 using UnityEditor;
 
 namespace EditorInternal {
@@ -32,7 +34,7 @@ namespace EditorInternal {
         AllBuildOptionsScriptableObject constructableAggregate,
         AllResourcesScriptableObject resourcesAggregate) {
       if (Normalize(updatedAssetPath).Contains(ConstructablesPath)) {
-        var itemToUpdate = AssetDatabase.LoadAssetAtPath<ConstructableScriptableObject>(updatedAssetPath);
+        var itemToUpdate = AssetDatabase.LoadAssetAtPath<ConstructableObject>(updatedAssetPath);
         if (itemToUpdate != null) {
           var itemUpdated = false;
           for (int i = 0; i < constructableAggregate.buildOptions.Length; i++) {
@@ -54,11 +56,11 @@ namespace EditorInternal {
       
       // Ugly duplicated code, oh well
       if (Normalize(updatedAssetPath).Contains(ResourcesPath)) {
-        var itemToUpdate = AssetDatabase.LoadAssetAtPath<RawResourceScriptableObject>(updatedAssetPath);
+        var itemToUpdate = AssetDatabase.LoadAssetAtPath<RawResource>(updatedAssetPath);
         if (itemToUpdate != null) {
           var itemUpdated = false;
           for (int i = 0; i < resourcesAggregate.resources.Length; i++) {
-            if (resourcesAggregate.resources[i].id == itemToUpdate.id) {
+            if (resourcesAggregate.resources[i] == itemToUpdate) {
               resourcesAggregate.resources[i] = itemToUpdate;
               itemUpdated = true;
               break;

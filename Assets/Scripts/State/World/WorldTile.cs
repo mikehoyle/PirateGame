@@ -1,19 +1,16 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace State.World {
   /// <summary>
   /// TODO definitely rework this entire class as the concept of world tiles is expanded.
   /// </summary>
-  [Serializable]
-  public abstract class WorldTile {
+  public abstract class WorldTile : ScriptableObject {
     public enum Type {
       OpenSea,
-      Tavern,
       Encounter,
     }
 
-    public WorldCoordinates Coordinates;
+    public WorldCoordinates coordinates;
     public abstract Type TileType { get; }
 
     public T DownCast<T>() where T : WorldTile {
@@ -23,6 +20,6 @@ namespace State.World {
       
       Debug.LogWarning($"Cannot cast tile of type {TileType} as {nameof(T)}");
       return null;
-    } 
+    }
   }
 }

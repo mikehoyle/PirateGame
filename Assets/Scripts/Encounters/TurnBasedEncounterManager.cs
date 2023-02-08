@@ -1,136 +1,95 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CameraControl;
+using Common.Events;
 using Controls;
-using HUD.Encounter;
-using State;
-using State.World;
-using StaticConfig;
+using RuntimeVars.Encounters;
+using RuntimeVars.Encounters.Events;
 using Units;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Encounters {
-  public class TurnBasedEncounterManager : MonoBehaviour {
-    [SerializeField] private RawResourceScriptableObject lumberResource;
-    [SerializeField] private RawResourceScriptableObject stoneResource;
-    [SerializeField] private RawResourceScriptableObject foodResource;
+  public class TurnBasedEncounterManager : MonoBehaviour, GameControls.ITurnBasedEncounterActions {
+    [SerializeField] private UnitSelectedEvent unitSelectedEvent;
+    [SerializeField] private CurrentSelection currentSelection;
+    [SerializeField] private Vector3Event mouseHoverEvent;
+    [SerializeField] private EmptyGameEvent endPlayerTurnEvent;
+    [SerializeField] private EmptyGameEvent endEnemyTurnEvent;
     
-    private int _currentRound;
-    private List<UnitEncounterManager> _unitsInEncounter = new();
-    private int _currentUnitTurn = 0;
-    private EncounterHUD _hud;
-    private CameraCursorMover _camera;
-    private IsometricGrid _grid;
-    private TargetingHintDisplay _targetingDisplay;
     private GameControls _controls;
-    private ActionMenuController _actionMenu;
-    private UnitAction _currentlySelectedAction;
-
-    private UnitEncounterManager ActiveUnit => _unitsInEncounter[_currentUnitTurn];
-    private IEnumerable<UnitEncounterManager> AliveUnits =>
-        _unitsInEncounter.Where(unit => unit != null && unit.IsAlive);
+    private IsometricGrid _grid;
 
     private void Awake() {
-      _hud = GameObject.FindWithTag(Tags.EncounterHUD).GetComponent<EncounterHUD>();
-      _actionMenu = ActionMenuController.Get();
-      _camera = GetComponent<CameraCursorMover>();
       _grid = IsometricGrid.Get();
-      _targetingDisplay = _grid.Grid.GetComponentInChildren<TargetingHintDisplay>();
-      _controls = new GameControls();
-      _currentRound = 1;
+      currentSelection.Reset();
     }
 
-    private void Start() {
-      int id = 0;
-      _unitsInEncounter = FindObjectsOfType<UnitController>()
-          .Select(unit => {
-            var encounterManager = unit.gameObject.AddComponent<UnitEncounterManager>();
-            encounterManager.OnDeath += OnUnitDeath;
-            encounterManager.OnBeginEncounter(id);
-            id++;
-            return encounterManager;
-          })
-          .ToList();
-      _hud.SetRound(_currentRound);
-      // Set to first units turn
-      // Currently turn order is completely arbitrarily based on the order we found the components
-      OnNewUnitTurn(0);
-    }
-    
     private void OnEnable() {
+      if (_controls == null) {
+        _controls = new GameControls();
+        _controls.TurnBasedEncounter.SetCallbacks(this);
+      }
       _controls.TurnBasedEncounter.Enable();
+      endEnemyTurnEvent.RegisterListener(OnStartPlayerTurn);
     }
 
     private void OnDisable() {
       _controls.TurnBasedEncounter.Disable();
+      endEnemyTurnEvent.UnregisterListener(OnStartPlayerTurn);
+    }
+
+    private void OnStartPlayerTurn() {
+      _controls.TurnBasedEncounter.Enable();
     }
     
-    private void OnNewUnitTurn(int unitIndex) {
-      _currentUnitTurn = unitIndex;
-      ActiveUnit.StartTurn(new UnitTurnContext {
-          Controls = _controls.TurnBasedEncounter,
-          TargetingDisplay = _targetingDisplay,
-          ActionMenu = _actionMenu,
-          Camera = _camera,
-          UnitsInEncounter = AliveUnits,
-          CurrentTurnIndex = _currentUnitTurn,
-          OnTurnEndedCallback = OnEndTurn,
-      });
-    }
-
-
-    private void OnEndTurn() {
-      var nextTurn = _currentUnitTurn; 
-      do {
-        nextTurn++;
-        if (nextTurn >= _unitsInEncounter.Count) {
-          _currentRound++;
-          _hud.SetRound(_currentRound);
-          nextTurn = 0;
-        }
-      } while (_unitsInEncounter[nextTurn] == null);
-
-      OnNewUnitTurn(nextTurn);
-    }
-
-    private void OnUnitDeath(int unitId) {
-      var killedUnit = _unitsInEncounter[unitId];
-      if (killedUnit == null) {
-        Debug.LogWarning("Killed unit already marked dead");
+    public void OnClick(InputAction.CallbackContext context) {
+      if (!context.performed) {
         return;
       }
-      
-      // Check for encounter end.
 
-      var unitFaction = killedUnit.Faction;
-      if (AliveUnits.Any(unit => unit.Faction == unitFaction)) {
+      var mousePosition = Mouse.current.position.ReadValue();
+      var ray = Camera.main.ScreenPointToRay(mousePosition);
+      var hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+      if (hit.collider != null && hit.collider.TryGetComponent<UnitController>(out var clickedUnit)) {
+        currentSelection.selectedUnit = clickedUnit;
+        // TODO(P0): this is a hack, fix it to actually have ability selection.
+        currentSelection.selectedAbility = clickedUnit.GetAllCapableAbilities()[0];
+        unitSelectedEvent.Raise(clickedUnit);
         return;
       }
-      
-      // At this point, no units remain of the killed faction. End the encounter.
-      EndEncounter(unitFaction);
+
+      var targetTile = _grid.TileAtScreenCoordinate(mousePosition);
+      if (currentSelection.selectedAbility != null && currentSelection.selectedUnit != null) {
+        currentSelection.selectedAbility.TryExecute(currentSelection.selectedUnit, targetTile);
+      }
     }
-    private void EndEncounter(UnitFaction defeatedFaction) {
-      _controls.Disable();
-      foreach (var unit in AliveUnits) {
-        unit.OnEndEncounter();
+    
+    public void OnPoint(InputAction.CallbackContext context) {
+      if (!context.performed) {
+        return;
       }
-      
-      if (defeatedFaction == UnitFaction.PlayerParty) {
-        _hud.EndEncounter(isVictory: false);
-      } else {
-        // TODO(P1): pull these from generated encounter config.
-        GameState.State.Player.Inventory.AddQuantity(lumberResource, UnityEngine.Random.Range(10, 20));
-        GameState.State.Player.Inventory.AddQuantity(stoneResource, UnityEngine.Random.Range(5, 10));
-        GameState.State.Player.Inventory.AddQuantity(foodResource, UnityEngine.Random.Range(3, 8));
-        
-        // Clear the encounter from the map, do something else with these at some point?
-        var coordinates = GameState.State.World.GetActiveTile().Coordinates;
-        GameState.State.World.SetTile(coordinates.X, coordinates.Y, new OpenSeaTile());
-        
-        _hud.EndEncounter(isVictory: true);
-      }
+
+      mouseHoverEvent.Raise(context.ReadValue<Vector2>());
+    }
+
+    public void OnSelectActionOne(InputAction.CallbackContext context) {
+      // TODO
+    }
+    public void OnSelectActionTwo(InputAction.CallbackContext context) {
+      // TODO
+    }
+    public void OnSelectActionThree(InputAction.CallbackContext context) {
+      // TODO
+    }
+    public void OnSelectActionFour(InputAction.CallbackContext context) {
+      // TODO
+    }
+    public void OnSelectActionFive(InputAction.CallbackContext context) {
+      // TODO
+    }
+
+    public void OnEndTurn(InputAction.CallbackContext context) {
+      _controls.TurnBasedEncounter.Disable();
+      endPlayerTurnEvent.Raise();
     }
   }
 }

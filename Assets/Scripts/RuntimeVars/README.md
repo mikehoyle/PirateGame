@@ -1,0 +1,1 @@
+﻿Holds the code for ScriptableObjects intended to be held in the project but referenced and used at runtime to hold common data.

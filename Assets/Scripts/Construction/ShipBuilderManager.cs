@@ -7,6 +7,7 @@ using HUD.Construction;
 using HUD.MainMenu;
 using State;
 using StaticConfig;
+using StaticConfig.Builds;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -27,14 +28,14 @@ namespace Construction {
     private PlayerState _playerState;
     private MainMenuController _mainMenu;
     private BuildMenuController _buildMenu;
-    private ConstructableScriptableObject _selectedBuild;
+    private ConstructableObject _selectedBuild;
     private CameraCursorMover _cameraMover;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
       _cameraMover = GetComponent<CameraCursorMover>();
       _placementIndicator = _grid.Grid.GetComponentInChildren<BuildPlacementIndicator>();
-      _playerState = GameState.State.Player; 
+      _playerState = GameState.State.player; 
       _buildMenu = BuildMenuController.Get();
       _buildMenu.OnBuildSelected += OnBuildSelected;
     }
@@ -51,7 +52,7 @@ namespace Construction {
       var maxX = int.MinValue;
       var minY = int.MaxValue;
       var maxY = int.MinValue;
-      foreach (var tileCoord in GameState.State.Player.Ship.Components.Keys) {
+      foreach (var tileCoord in GameState.State.player.ship.components.Keys) {
         minX = Math.Min(minX, tileCoord.x);
         maxX = Math.Max(maxX, tileCoord.x);
         minY = Math.Min(minY, tileCoord.y);
@@ -107,8 +108,8 @@ namespace Construction {
         return;
       }
 
-      _playerState.Inventory.DeductBuildCost(_selectedBuild);
-      _playerState.Ship.Add(gridCell, _selectedBuild);
+      _playerState.inventory.DeductBuildCost(_selectedBuild);
+      _playerState.ship.Add(gridCell, _selectedBuild);
       _grid.Tilemap.SetTile(gridCell, _selectedBuild.inGameTile);
       _placementIndicator.Hide();
     }
@@ -155,12 +156,12 @@ namespace Construction {
       return gridCell;
     }
 
-    private void OnBuildSelected(object _, ConstructableScriptableObject build) {
+    private void OnBuildSelected(object _, ConstructableObject build) {
       _selectedBuild = build;
     }
     
     private bool IsValidPlacement(Vector3Int gridCell) {
-      if (!_playerState.Inventory.CanAffordBuild(_selectedBuild)) {
+      if (!_playerState.inventory.CanAffordBuild(_selectedBuild)) {
         return false;
       }
       
@@ -171,7 +172,7 @@ namespace Construction {
         }
         
         // For foundation tiles, assert the target cell is empty
-        if (_playerState.Ship.Components.ContainsKey(gridCell)) {
+        if (_playerState.ship.components.ContainsKey(gridCell)) {
           _placementIndicator.Hide();
           return false;
         }
@@ -179,8 +180,8 @@ namespace Construction {
         // And, assert there is an adjacent foundation to attach to.
         var isValidPlacement = false;
         IsometricGridUtils.ForEachAdjacentTile(gridCell, adjacentCell => {
-          if (_playerState.Ship.Components.TryGetValue(adjacentCell, out var build)) {
-            if (buildOptions.BuildMap[build].isFoundationTile) {
+          if (_playerState.ship.components.TryGetValue(adjacentCell, out var adjacentBuild)) {
+            if (adjacentBuild.isFoundationTile) {
               isValidPlacement = true;
             }
           }
@@ -190,8 +191,8 @@ namespace Construction {
       
       // Build is meant to be atop a foundation, check that a foundation is below it.
       var tileBelow = new Vector3Int(gridCell.x, gridCell.y, gridCell.z - 1);
-      if (_playerState.Ship.Components.TryGetValue(tileBelow, out var build)) {
-        if (buildOptions.BuildMap[build].isFoundationTile) {
+      if (_playerState.ship.components.TryGetValue(tileBelow, out var build)) {
+        if (build.isFoundationTile) {
           return true;
         }
       }

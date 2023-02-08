@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Pathfinding;
 using State;
+using State.Unit;
 using State.World;
 using UnityEngine;
 using Random = System.Random;
@@ -26,7 +28,8 @@ namespace Encounters {
     /// </summary>
     public void Generate(EncounterTile encounterTile) {
       GenerateTerrain(encounterTile);
-      GenerateUnits(encounterTile);
+      //GenerateUnits(encounterTile);
+      encounterTile.isInitialized = true;
       // TODO
     }
     
@@ -43,40 +46,39 @@ namespace Encounters {
 
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
-          encounterTile.Terrain.Add(new Vector3Int(x, y, 0), TerrainType.Land);
+          encounterTile.terrain.Add(new Vector3Int(x, y, 0), TerrainType.Land);
         }
       }
 
       for (int x = 0; x < poolWidth; x++) {
         for (int y = 0; y < poolHeight; y++) {
-          encounterTile.Terrain.Remove(new Vector3Int(poolX + x, poolY + y));
+          encounterTile.terrain.Remove(new Vector3Int(poolX + x, poolY + y));
         }
       }
     }
     
-    /// <summary>
+    /*/// <summary>
     /// This method is definitely un-fun but for now, just generate a number of units similar
     /// to what the player has, and hard-code their stats.
     /// </summary>
     private void GenerateUnits(EncounterTile encounterTile) {
-      var playerUnits = GameState.State.Player.Roster.Count;
+      var playerUnits = GameState.State.player.roster.Count;
       var numUnits = _rng.Next(
           Math.Max(playerUnits - 1, 1), playerUnits + 2);
 
-      var terrainPositions = encounterTile.Terrain.Keys.OrderBy(_ => _rng.Next()).ToList();
+      var terrainPositions = encounterTile.terrain.Keys.OrderBy(_ => _rng.Next()).ToList();
       
       for (int i = 0; i < numUnits; i++) {
         var hp = _rng.Next(5, 10);
-        var unit = new UnitState {
-            StartingPosition = terrainPositions[i],
-            MaxHp = hp,
-            ControlSource = UnitControlSource.AI,
-            Faction = UnitFaction.Enemy,
-            MovementRange = _rng.Next(3, 5),
-        };
+        var unit = ScriptableObject.CreateInstance<UnitState>();
+        unit.startingPosition = terrainPositions[i];
+        unit.maxHp = hp;
+        unit.faction = UnitFaction.Enemy;
+        unit.movementRange = _rng.Next(3, 5);
+        unit.encounterState = ScriptableObject.CreateInstance<UnitEncounterState>();
 
-        encounterTile.Units.Add(unit);
+        encounterTile.units.Add(unit);
       }
-    }
+    }*/
   }
 }

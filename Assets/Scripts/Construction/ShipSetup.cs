@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Pathfinding;
 using State;
 using StaticConfig;
+using StaticConfig.Builds;
 using Units;
 using UnityEngine;
 
@@ -27,15 +28,15 @@ namespace Construction {
     }
 
     public void SetupShip(Vector3Int offset, bool includeUnits = false) {
-      var playerState = GameState.State.Player;
-      foreach (var build in playerState.Ship.Components) {
+      var playerState = GameState.State.player;
+      foreach (var build in playerState.ship.components) {
         var position = build.Key + offset;
-        _grid.Tilemap.SetTile(position, buildOptions.BuildMap[build.Value].inGameTile);
+        _grid.Tilemap.SetTile(position, build.Value.inGameTile);
         _terrain?.MarkCellTraversable(position);
       }
 
       if (includeUnits) {
-        foreach (var unit in playerState.Roster) {
+        foreach (var unit in playerState.roster) {
           var unitController = Instantiate(unitPrefab).GetComponent<UnitController>();
           unitController.Init(unit, offset);
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using State;
+using State.Unit;
 using StaticConfig;
 using UnityEngine;
 using static StaticConfig.CompositeUnitSpriteScriptableObject;

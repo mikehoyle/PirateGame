@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
+using UnityEngine;
 
 namespace State.World {
   /// <summary>
   /// Holds World-level game state to be saved. 
   /// </summary>
-  [Serializable]
-  public class WorldState {
-    public uint CurrentDay = 1;
-    public Dictionary<WorldCoordinates, WorldTile> TileContents = new();
+  [CreateAssetMenu(menuName = "State/WorldState")]
+  public class WorldState : ScriptableObject {
+    [Serializable]
+    public class WorldContentsDictionary : SerializableDictionary<WorldCoordinates, WorldTile> { }
+
+    public uint currentDay;
+    public WorldContentsDictionary tileContents;
 
     public void SetTile(int x, int y, WorldTile tile) {
       var coordinates = new WorldCoordinates(x, y);
-      tile.Coordinates = coordinates;
-      TileContents[coordinates] = tile;
+      tile.coordinates = coordinates;
+      tileContents[coordinates] = tile;
     }
     
     public WorldTile GetTile(int x, int y) {
-      if (TileContents.TryGetValue(new WorldCoordinates(x, y), out var tile)) {
+      if (tileContents.TryGetValue(new WorldCoordinates(x, y), out var tile)) {
         return tile;
       }
 
@@ -26,7 +28,7 @@ namespace State.World {
     }
 
     public WorldTile GetActiveTile() {
-      var activeTile = GameState.State.Player.OverworldGridPosition;
+      var activeTile = GameState.State.player.overworldGridPosition;
       return GetTile(activeTile.x, activeTile.y);
     }
   }

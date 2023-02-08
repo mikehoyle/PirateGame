@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
-using Pathfinding;
-using State;
-using State.World;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Encounters {
@@ -17,13 +12,11 @@ namespace Encounters {
 
     public Grid Grid { get; private set; }
     public Tilemap Tilemap { get; private set; }
-    public Tilemap Overlay { get; private set; }
     
     private void Awake() {
       _camera = Camera.main;
       Grid = GetComponent<Grid>();
       Tilemap = Grid.transform.Find("Tilemap").GetComponent<Tilemap>();
-      Overlay = Grid.transform.Find("Overlay").GetComponent<Tilemap>();
     }
 
     /// <summary>

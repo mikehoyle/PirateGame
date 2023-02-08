@@ -22,7 +22,6 @@ namespace Overworld {
     // Tiles 
     [SerializeField] private TileBase indicatorTile;
     [SerializeField] private TileBase openSeaTile;
-    [SerializeField] private TileBase tavernTile;
     [SerializeField] private TileBase encounterTile;
     [SerializeField] private TileBase fogOfWarTile;
     
@@ -63,26 +62,25 @@ namespace Overworld {
       StartCoroutine(LoadShipBuilderScene());
       _cameraMover.Initialize(
           _overworldTilemap.GetCellCenterWorld(
-              (Vector3Int)GameState.State.Player.OverworldGridPosition));
+              (Vector3Int)GameState.State.player.overworldGridPosition));
     }
 
     private void DisplayWorld() {
-      foreach (var mapTile in GameState.State.World.TileContents.Values) {
+      foreach (var mapTile in GameState.State.world.tileContents.Values) {
         var tile = mapTile.TileType switch {
             WorldTile.Type.OpenSea => openSeaTile,
             WorldTile.Type.Encounter => encounterTile,
-            WorldTile.Type.Tavern => tavernTile,
             _ => fogOfWarTile,
         };
         _overworldTilemap.SetTile(
-            new Vector3Int(mapTile.Coordinates.X, mapTile.Coordinates.Y, 0), tile);
+            new Vector3Int(mapTile.coordinates.X, mapTile.coordinates.Y, 0), tile);
       }
     }
     
     private void DisplayPlayerIndicator() {
       _overlayTilemap.ClearAllTiles();
       _overlayTilemap.SetTile(
-          (Vector3Int)GameState.State.Player.OverworldGridPosition, indicatorTile);
+          (Vector3Int)GameState.State.player.overworldGridPosition, indicatorTile);
     }
 
     private IEnumerator LoadShipBuilderScene() {
@@ -114,12 +112,8 @@ namespace Overworld {
       // TODO(P1): Make a lot of changes and refinements here, like expending resources to travel,
       //     and doing any sort of adjacency checks.
       MovePlayer(gridCell);
-      var destination = GameState.State.World.GetTile(gridCell.x, gridCell.y);
+      var destination = GameState.State.world.GetTile(gridCell.x, gridCell.y);
       switch (destination.TileType) {
-        case WorldTile.Type.Tavern:
-          // TODO(P0): Actually load up the tavern from known encounter params
-          SceneManager.LoadScene(Scenes.Name.Tavern.SceneName());
-          break;
         case WorldTile.Type.Encounter:
           // TODO(P0): Actually load up the encounter from known encounter params
           SceneManager.LoadScene(Scenes.Name.Encounter.SceneName());
@@ -127,7 +121,7 @@ namespace Overworld {
       }
     }
     private void MovePlayer(Vector3Int gridCell) {
-      GameState.State.Player.OverworldGridPosition = (Vector2Int)gridCell;
+      GameState.State.player.overworldGridPosition = (Vector2Int)gridCell;
       _cameraMover.MoveCursorDirectly(_overworldTilemap.GetCellCenterWorld(gridCell));
       _overlayTilemap.ClearAllTiles();
       _overlayTilemap.SetTile(gridCell, indicatorTile);

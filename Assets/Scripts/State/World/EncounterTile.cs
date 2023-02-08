@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using State.Unit;
+using UnityEngine;
 
 namespace State.World {
-  [Serializable]
+  [CreateAssetMenu(menuName = "State/EncounterTile")]
   public class EncounterTile : WorldTile {
-    public bool IsInitialized;
-    
-    public SparseMatrix3d<TerrainType> Terrain = new();
-    public List<UnitState> Units = new();
+    public bool isInitialized;
+    public SparseMatrix3d<TerrainType> terrain;
     
     public override Type TileType => Type.Encounter;
   }

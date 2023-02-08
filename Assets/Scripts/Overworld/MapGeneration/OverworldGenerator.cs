@@ -36,9 +36,7 @@ namespace Overworld.MapGeneration {
       
       // Overwrite some starter tiles
       // Starter tile is always open ocean
-      world.SetTile(0, 0, new OpenSeaTile());
-      // Always put a tavern adjacent
-      world.SetTile(0, 1, new TavernTile());
+      world.SetTile(0, 0, ScriptableObject.CreateInstance<OpenSeaTile>());
     }
     private void GenerateRandomSpiral(WorldState world) {
       var sideLength = 1;
@@ -75,10 +73,9 @@ namespace Overworld.MapGeneration {
 
     private WorldTile RandomTile() {
       return _rng.NextDouble() switch {
-          var x when x < 0.75 => new OpenSeaTile(),
           // TODO(P0): populate encounter tiles
-          var x when x < 0.90 => new EncounterTile(),
-          _ => new TavernTile(),
+          var x when x < 0.2 => ScriptableObject.CreateInstance<EncounterTile>(),
+          _ => ScriptableObject.CreateInstance<OpenSeaTile>(),
       };
     }
   }

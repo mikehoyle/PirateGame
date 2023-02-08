@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using StaticConfig;
+using StaticConfig.Builds;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +13,9 @@ namespace HUD.Construction {
     private VerticalLayoutGroup _container;
     private List<BuildMenuOption> _menuOptions = new();
 
-    public event EventHandler<ConstructableScriptableObject> OnBuildSelected; 
+    public event EventHandler<ConstructableObject> OnBuildSelected; 
 
-    public ConstructableScriptableObject CurrentlySelectedItem { get; private set; }
+    public ConstructableObject CurrentlySelectedItem { get; private set; }
 
     private void Awake() {
       _container = GetComponentInChildren<VerticalLayoutGroup>();
@@ -38,7 +39,7 @@ namespace HUD.Construction {
       }
     }
 
-    private void OnBuildItemSelected(object _, ConstructableScriptableObject item) {
+    private void OnBuildItemSelected(object _, ConstructableObject item) {
       Debug.Log($"Selected build item: {item.buildDisplayName}");
       CurrentlySelectedItem = item;
       OnBuildSelected?.Invoke(this, item);

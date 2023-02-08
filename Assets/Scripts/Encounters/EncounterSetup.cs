@@ -25,17 +25,17 @@ namespace Encounters {
     }
 
     public void SetUpMap(EncounterTile encounter, Vector3Int shipOffset) {
-      foreach (var tile in encounter.Terrain) {
+      foreach (var tile in encounter.terrain) {
         // For now, ignoring tile type because there's only one. In the future, probably use a scriptable
         // object to define tile for different types.
         _grid.Tilemap.SetTile(tile.Key, landTile);
         _terrain.MarkCellTraversable(tile.Key);
       }
 
-      foreach (var unit in encounter.Units) {
+      /*foreach (var unit in encounter.units) {
         var unitController = Instantiate(unitPrefab).GetComponent<UnitController>();
         unitController.Init(unit);
-      }
+      }*/
       
       _shipSetup.SetupShip(shipOffset, includeUnits: true);
     }
