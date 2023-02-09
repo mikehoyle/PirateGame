@@ -49,7 +49,7 @@ namespace Encounters.Grid {
               new Vector2Int(gridPosition.x + x, gridPosition.y + y));
           // OPTIMIZE: memoize paths
           var path = _terrain.GetPath(gridPosition, tile);
-          if (UnitController.IsPathViable(path) && path!.Count - 1 <= unitMoveRange) {
+          if (path.IsViableAndWithinRange(unitMoveRange)) {
             _tilemap.SetTile(tile, eligibleTileOverlay);
           }
         }

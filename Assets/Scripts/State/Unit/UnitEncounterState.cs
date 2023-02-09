@@ -18,5 +18,9 @@ namespace State.Unit {
       remainingMovement = unitState.movementRange;
       position = unitState.startingPosition + positionOffset;
     }
+
+    public void NewRound(UnitState unitState) {
+      remainingMovement = unitState.movementRange;
+    }
   }
 }

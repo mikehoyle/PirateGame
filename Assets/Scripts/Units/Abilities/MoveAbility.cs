@@ -15,10 +15,26 @@ namespace Units.Abilities {
       indicators.PathIndicator.DisplayMovementPath(actor, hoveredTile);
     }
 
-    public override bool TryExecute(UnitController actor, GameObject clickedObject, Vector3Int targetTile) {
-      // TODO(P0): big fat TODO
-      Debug.Log($"Attempting to execute ability: {id}");
+    public override bool TryExecute(AbilityExecutionContext context) {
+      var path = context.Terrain.GetPath(context.Actor.Position, context.TargetedTile);
+
+      if (!path.IsViableAndWithinRange(context.Actor.State.encounterState.remainingMovement)) {
+        return false;
+      }
+      
+      if (context.Actor.MoveAlongPath(path, OnMoveComplete)) {
+        beginAbilityExecutionEvent.Raise();
+        context.Indicators.Clear();
+        
+        // TODO(P1): Convert to using MP resource
+        context.Actor.State.encounterState.remainingMovement -= path.Length();
+        return true;
+      }
       return false;
+    }
+
+    private void OnMoveComplete() {
+      endAbilityExecutionEvent.Raise();
     }
   }
 }

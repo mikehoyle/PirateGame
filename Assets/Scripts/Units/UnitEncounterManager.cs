@@ -104,7 +104,7 @@ namespace Units {
       var gridCell = _grid.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
       switch (_currentlySelectedAction) {
         case UnitAction.Move:
-          AttemptMove(gridCell);
+          //AttemptMove(gridCell);
           return;
         case UnitAction.AttackMelee:
           AttemptAttack(gridCell);
@@ -124,7 +124,7 @@ namespace Units {
       }
     }
 
-    private void AttemptMove(Vector3Int gridCell) {
+    /*private void AttemptMove(Vector3Int gridCell) {
       var path = _terrain.GetPath(_unit.Position, gridCell);
 
       if (path != null && path.Count - 1 > RemainingMovement) {
@@ -138,7 +138,7 @@ namespace Units {
         _turnContext!.TargetingDisplay.Clear();
         _turnContext.Controls.Disable();
       }
-    }
+    }*/
 
     private void OnMoveComplete() {
       _turnContext!.Camera.MoveCursorDirectly(_unit.WorldPosition);

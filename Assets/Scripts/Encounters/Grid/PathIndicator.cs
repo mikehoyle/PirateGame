@@ -101,9 +101,9 @@ namespace Encounters.Grid {
       Clear();
       if (_grid.IsTileMovementEligible(targetedCell)) {
         var path = _terrain.GetPath(unitPosition, targetedCell);
-        if (path != null && UnitController.IsPathViable(path) && path.Count - 1 <= movementRange) {
+        if (path.IsViableAndWithinRange(movementRange)) {
           Clear();
-          DisplayMovementHintInternal(path.First); 
+          DisplayMovementHintInternal(path.Path.First); 
         }
       }
     }

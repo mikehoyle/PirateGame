@@ -1,9 +1,8 @@
-﻿using System;
-using CameraControl;
+﻿using CameraControl;
 using Common.Events;
 using Controls;
 using Encounters.Grid;
-using Optional.Unsafe;
+using Pathfinding;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using StaticConfig.Units;
@@ -19,16 +18,20 @@ namespace Encounters {
     [SerializeField] private EmptyGameEvent endPlayerTurnEvent;
     [SerializeField] private EmptyGameEvent endEnemyTurnEvent;
     [SerializeField] private AbilitySelectedEvent abilitySelectedEvent;
+    [SerializeField] private EmptyGameEvent beginAbilityExecutionEvent;
+    [SerializeField] private EmptyGameEvent endAbilityExecutionEvent;
     
     private GameControls _controls;
     private IsometricGrid _grid;
     private CameraController _cameraController;
     private GridIndicators _gridIndicators;
+    private EncounterTerrain _terrain;
 
     private void Awake() {
       _grid = IsometricGrid.Get();
       _cameraController = CameraController.Get();
-      _gridIndicators = GridIndicators.Get(); 
+      _gridIndicators = GridIndicators.Get();
+      _terrain = EncounterTerrain.Get();
       currentSelection.Reset();
     }
 
@@ -40,12 +43,16 @@ namespace Encounters {
       _controls.TurnBasedEncounter.Enable();
       endEnemyTurnEvent.RegisterListener(OnStartPlayerTurn);
       abilitySelectedEvent.RegisterListener(OnAbilitySelected);
+      beginAbilityExecutionEvent.RegisterListener(OnBeginAbilityExecution);
+      endAbilityExecutionEvent.RegisterListener(OnEndAbilityExecution);
     }
 
     private void OnDisable() {
       _controls.TurnBasedEncounter.Disable();
       endEnemyTurnEvent.UnregisterListener(OnStartPlayerTurn);
       abilitySelectedEvent.UnregisterListener(OnAbilitySelected);
+      beginAbilityExecutionEvent.UnregisterListener(OnBeginAbilityExecution);
+      endAbilityExecutionEvent.UnregisterListener(OnEndAbilityExecution);
     }
 
     private void OnStartPlayerTurn() {
@@ -54,6 +61,14 @@ namespace Encounters {
 
     private void OnAbilitySelected(UnitController actor, UnitAbility ability) {
       ability.OnSelected(actor, _gridIndicators);
+    }
+
+    private void OnBeginAbilityExecution() {
+      _controls.TurnBasedEncounter.Disable();
+    }
+
+    private void OnEndAbilityExecution() {
+      _controls.TurnBasedEncounter.Enable();
     }
     
     public void OnClick(InputAction.CallbackContext context) {
@@ -65,7 +80,13 @@ namespace Encounters {
       var targetTile = _grid.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
 
       if (currentSelection.TryGet(out var ability, out var unit)) {
-        if (ability.TryExecute(unit, clickedObject, targetTile)) {
+        if (ability.TryExecute(new UnitAbility.AbilityExecutionContext {
+            Actor = unit,
+            TargetedObject = clickedObject,
+            TargetedTile = targetTile,
+            Terrain =  _terrain,
+            Indicators = _gridIndicators,
+        })) {
           return; 
         }
       }

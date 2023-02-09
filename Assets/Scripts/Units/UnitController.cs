@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Events;
 using JetBrains.Annotations;
 using Optional;
+using Pathfinding;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
@@ -19,10 +21,15 @@ namespace Units {
     [SerializeField] private ObjectClickedEvent objectClickedEvent;
     [SerializeField] private UnitSelectedEvent unitSelectedEvent;
     [SerializeField] private AbilitySelectedEvent abilitySelectedEvent;
+    [SerializeField] private EmptyGameEvent endEnemyTurnEvent;
+    [SerializeField] private EmptyGameEvent endAbilityExecutionEvent;
     [SerializeField] private CurrentSelection currentSelection;
     
     [CanBeNull] private UnitPlacementManager _placementManager;
-    public Vector3Int Position { get; set; }
+    public Vector3Int Position {
+      get => State.encounterState.position;
+      set => State.encounterState.position = value;
+    }
     public UnitState State { get; private set; }
     // TODO(P1): This doesn't seem to be the true center.
     public Vector3 WorldPosition => _placementManager!.GetPlacement();
@@ -37,11 +44,15 @@ namespace Units {
     private void OnEnable() {
       playerUnitsInEncounter.Add(this);
       objectClickedEvent.RegisterListener(OnObjectClicked);
+      endEnemyTurnEvent.RegisterListener(OnNewRound);
+      endAbilityExecutionEvent.RegisterListener(OnAbilityEndExecution);
     }
 
     private void OnDisable() {
       playerUnitsInEncounter.Remove(this);
       objectClickedEvent.UnregisterListener(OnObjectClicked);
+      endEnemyTurnEvent.UnregisterListener(OnNewRound);
+      endAbilityExecutionEvent.UnregisterListener(OnAbilityEndExecution);
     }
 
     private void Start() {
@@ -71,17 +82,13 @@ namespace Units {
     }
     
     /// <returns>Whether the unit is eligible to move along the path</returns>
-    public bool MoveAlongPath(LinkedList<Vector3Int> path, Action onCompleteCallback) {
-      if (!IsPathViable(path)) {
+    public bool MoveAlongPath(TravelPath path, Action onCompleteCallback) {
+      if (!path.IsViableAndWithinRange(State.encounterState.remainingMovement)) {
         return false;
       }
       
-      _placementManager!.ExecuteMovement(path, onCompleteCallback);
+      _placementManager!.ExecuteMovement(path.Path, onCompleteCallback);
       return true;
-    }
-
-    public static bool IsPathViable(LinkedList<Vector3Int> path) {
-      return path != null && path.Count > 1;
     }
 
     private void OnObjectClicked(GameObject clickedObject) {
@@ -95,6 +102,20 @@ namespace Units {
         currentSelection.selectedUnit = Option.Some(this);
         currentSelection.selectedAbility = Option.Some(selectedAbility);
         unitSelectedEvent.Raise(this);
+        abilitySelectedEvent.Raise(this, selectedAbility);
+      }
+    }
+
+    private void OnNewRound() {
+      State.encounterState.NewRound(State);
+    }
+
+    private void OnAbilityEndExecution() {
+      // If this unit is selected and just finished performing an ability,
+      // Always go back to selecting the default ability
+      if (currentSelection.selectedUnit.Contains(this)) {
+        var selectedAbility = defaultAbilities.abilities[0];
+        currentSelection.selectedAbility = Option.Some(selectedAbility);
         abilitySelectedEvent.Raise(this, selectedAbility);
       }
     }
