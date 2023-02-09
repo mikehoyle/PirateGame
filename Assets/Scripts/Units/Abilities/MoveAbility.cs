@@ -1,6 +1,4 @@
-﻿using Encounters;
-using Encounters.Grid;
-using StaticConfig.Units;
+﻿using Encounters.Grid;
 using UnityEngine;
 
 namespace Units.Abilities {

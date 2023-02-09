@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e4d0f8688c4968a7d05a6662b60e01, type: 3}
+  m_Name: PunchAbility
+  m_EditorClassIdentifier: 
+  id: punch
+  beginAbilityExecutionEvent: {fileID: 11400000, guid: e72e234224fa90248ba82f81f82798b7, type: 2}
+  endAbilityExecutionEvent: {fileID: 11400000, guid: af6abd0c6ee03714eaaac215c3d39728, type: 2}
+  displayString: Punch
+  cost:
+  - amount: 1
+    resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+  rangeMin: 1
+  rangeMax: 1

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c53283133342fd8e68bb4f6914963c, type: 3}
   m_Name: MovementPoints
   m_EditorClassIdentifier: 
+  id: mp
   displayName: MP

@@ -11,6 +11,7 @@ using UnityEngine;
 namespace Pathfinding {
   public class EncounterTerrain : MonoBehaviour {
     [SerializeField] private UnitCollection unitsInEncounter;
+    [SerializeField] private EnemyUnitCollection enemiesInEncounter;
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private UnitSelectedEvent unitSelectedEvent;
     
@@ -60,24 +61,32 @@ namespace Pathfinding {
         for (int j = 0; j < _nodes.GetLength(1); j++) {
           coords.x = i;
           coords.y = j;
-          if (!IsGridPositionDefined(coords)) {
-            continue;
-          }
-          
-          var node = GetNode(coords);
-          if (unitsInEncounter.Any(unit => unit.State.encounterState.position == node.GridPosition)) {
-            if (currentSelection.TryGet(out _, out var unit)) {
-              if (unit.State.encounterState.position == node.GridPosition) {
-                node.Enabled = true;
-                continue;
-              }
-            }
-            node.Enabled = false;
-            continue;
-          }
-          node.Enabled = true;
+          SetNodeStatus(coords);
         }
       }
+    }
+
+    private void SetNodeStatus(Vector2Int coords) {
+      if (!IsGridPositionDefined(coords)) {
+        return;
+      }
+          
+      var node = GetNode(coords);
+      if (unitsInEncounter.Any(unit => unit.State.encounterState.position == node.GridPosition)) {
+        if (currentSelection.TryGetUnit(out var unit)) {
+          if (unit.State.encounterState.position == node.GridPosition) {
+            node.Enabled = true;
+            return;
+          }
+        }
+        node.Enabled = false;
+        return;
+      }
+      if (enemiesInEncounter.Any(enemy => enemy.State.position == node.GridPosition)) {
+        node.Enabled = false;
+        return;
+      }
+      node.Enabled = true;
     }
 
     private EncounterNode GetNode(Vector2Int coords) => _nodes[coords.x, coords.y];
@@ -129,7 +138,7 @@ namespace Pathfinding {
         _nodes[gridPosition.x, gridPosition.y] = node;
       }
       
-      IsometricGridUtils.ForEachAdjacentTile(gridPosition, adjacentPosition => {
+      GridUtils.ForEachAdjacentTile(gridPosition, adjacentPosition => {
         var connectedNode = GetNode(adjacentPosition);
         if (connectedNode != null) {
           node.Connect(connectedNode);

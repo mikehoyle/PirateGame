@@ -2,16 +2,16 @@
 using UnityEngine.UI;
 
 namespace Units {
+  // TODO(P0): pick this back up.
   public class HpBarController : MonoBehaviour {
     private Slider _hpBar;
-    private UnitEncounterManager _unit;
 
     private void Awake() {
       _hpBar = GetComponent<Slider>();
       enabled = false;
     }
 
-    private void Update() {
+    /*private void Update() {
       _hpBar.value = _unit.CurrentHp;
     }
 
@@ -21,6 +21,6 @@ namespace Units {
       _hpBar.minValue = 0;
       _hpBar.value = maxHp;
       enabled = true;
-    }
+    }*/
   }
 }

@@ -133,5 +133,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471c679ddf70414391c3f825e0b66f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eligibleTileOverlay: {fileID: 11400000, guid: 9bd4f1a826aa37846904c84bed029a4b, type: 2}
+  targetedTileOverlay: {fileID: 11400000, guid: 97f4f6d7230515c44852613ac3b39fc1, type: 2}
   playerTurnEndEvent: {fileID: 11400000, guid: 70d60596d6f5d7e408f5381eaba68dd8, type: 2}

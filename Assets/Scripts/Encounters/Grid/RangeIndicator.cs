@@ -56,6 +56,30 @@ namespace Encounters.Grid {
       }
     }
 
+    /// <summary>
+    /// Displays targeting options, both min and max are inclusive
+    /// TODO(P1): include line-of-sight.
+    /// </summary>
+    public void DisplayTargetingRange(Vector3Int source, int rangeMin, int rangeMax) {
+      enabled = true;
+      Clear();
+      // TODO(P2): Make a targeting-specific sprite
+      _tilemap.color = Color.red;
+
+      for (int x = -rangeMax; x <= rangeMax; x++) {
+        var yRange = rangeMax - Math.Abs(x);
+        for (int y = -yRange; y <= yRange; y++) {
+          if (Math.Abs(x) + Math.Abs(y) < rangeMin) {
+            continue;
+          }
+          var tile = _grid.GetTileAtPeakElevation(
+              new Vector2Int(source.x + x, source.y + y));
+          _tilemap.SetTile(tile, eligibleTileOverlay);
+        }
+      }
+
+    }
+
     public void Clear() {
       _tilemap.ClearAllTiles();
       _tilemap.color = Color.white;

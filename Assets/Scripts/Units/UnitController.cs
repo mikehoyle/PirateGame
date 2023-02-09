@@ -9,7 +9,7 @@ using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
-using StaticConfig.Units;
+using Units.Abilities;
 using Units.Rendering;
 using UnityEngine;
 
@@ -97,12 +97,10 @@ namespace Units {
           // Unit clicked but already selected, do nothing.
           return;
         }
-
-        var selectedAbility = defaultAbilities.abilities[0];
+        
         currentSelection.selectedUnit = Option.Some(this);
-        currentSelection.selectedAbility = Option.Some(selectedAbility);
         unitSelectedEvent.Raise(this);
-        abilitySelectedEvent.Raise(this, selectedAbility);
+        TrySelectAbility(0);
       }
     }
 
@@ -114,10 +112,18 @@ namespace Units {
       // If this unit is selected and just finished performing an ability,
       // Always go back to selecting the default ability
       if (currentSelection.selectedUnit.Contains(this)) {
-        var selectedAbility = defaultAbilities.abilities[0];
-        currentSelection.selectedAbility = Option.Some(selectedAbility);
-        abilitySelectedEvent.Raise(this, selectedAbility);
+        TrySelectAbility(0);
       }
+    }
+    public void TrySelectAbility(int index) {
+      var abilities = GetAllCapableAbilities();
+      if (abilities.Count <= index) {
+        return;
+      }
+
+      var selectedAbility = abilities[index];
+      currentSelection.selectedAbility = Option.Some(selectedAbility);
+      abilitySelectedEvent.Raise(this, selectedAbility);
     }
   }
 }

@@ -180,7 +180,7 @@ namespace Construction {
         
         // And, assert there is an adjacent foundation to attach to.
         var isValidPlacement = false;
-        IsometricGridUtils.ForEachAdjacentTile(gridCell, adjacentCell => {
+        GridUtils.ForEachAdjacentTile(gridCell, adjacentCell => {
           if (_playerState.ship.components.TryGetValue(adjacentCell, out var adjacentBuild)) {
             if (adjacentBuild.isFoundationTile) {
               isValidPlacement = true;

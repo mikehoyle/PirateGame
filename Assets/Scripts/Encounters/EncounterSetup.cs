@@ -1,19 +1,21 @@
 ﻿using Construction;
+using Encounters.Enemies;
 using Encounters.Grid;
 using Pathfinding;
 using State;
 using State.World;
 using Units;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Encounters {
   /// <summary>
-  /// Sets up the scene-tree objects associated with the encounter
+  /// Sets up the scene-tree objects associated with the encounter.
   /// </summary>
   public class EncounterSetup : MonoBehaviour {
     [SerializeField] private TileBase landTile;
-    [SerializeField] private GameObject unitPrefab;
+    [SerializeField] private GameObject enemyPrefab;
     
     private IsometricGrid _grid;
     private ShipSetup _shipSetup;
@@ -33,10 +35,10 @@ namespace Encounters {
         _terrain.MarkCellTraversable(tile.Key);
       }
 
-      /*foreach (var unit in encounter.units) {
-        var unitController = Instantiate(unitPrefab).GetComponent<UnitController>();
-        unitController.Init(unit);
-      }*/
+      foreach (var enemy in encounter.enemies) {
+        var unitController = Instantiate(enemyPrefab).GetComponent<EnemyUnitController>();
+        unitController.Init(enemy);
+      }
       
       _shipSetup.SetupShip(shipOffset, includeUnits: true);
     }

@@ -13,6 +13,10 @@ namespace RuntimeVars {
     private void Awake() {
       _units = new();
     }
+    
+    private void OnDestroy() {
+      _units = new();
+    }
 
     public void Add(UnitController unit) {
       _units.Add(unit);

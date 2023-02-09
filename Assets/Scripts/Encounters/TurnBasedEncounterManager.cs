@@ -3,15 +3,16 @@ using Common.Events;
 using Controls;
 using Encounters.Grid;
 using Pathfinding;
+using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
-using StaticConfig.Units;
 using Units;
+using Units.Abilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Encounters {
-  public class TurnBasedEncounterManager : MonoBehaviour, GameControls.ITurnBasedEncounterActions {
+  public class TurnBasedEncounterManager : EncounterInputReceiver {
     [SerializeField] private ObjectClickedEvent objectClickedEvent;
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private Vector3Event mouseHoverEvent;
@@ -20,6 +21,7 @@ namespace Encounters {
     [SerializeField] private AbilitySelectedEvent abilitySelectedEvent;
     [SerializeField] private EmptyGameEvent beginAbilityExecutionEvent;
     [SerializeField] private EmptyGameEvent endAbilityExecutionEvent;
+    [SerializeField] private IntegerVar currentRound;
     
     private GameControls _controls;
     private IsometricGrid _grid;
@@ -33,6 +35,7 @@ namespace Encounters {
       _gridIndicators = GridIndicators.Get();
       _terrain = EncounterTerrain.Get();
       currentSelection.Reset();
+      currentRound.Value = 1;
     }
 
     private void OnEnable() {
@@ -56,10 +59,12 @@ namespace Encounters {
     }
 
     private void OnStartPlayerTurn() {
+      currentRound.Value += 1;
       _controls.TurnBasedEncounter.Enable();
     }
 
     private void OnAbilitySelected(UnitController actor, UnitAbility ability) {
+      _gridIndicators.Clear();
       ability.OnSelected(actor, _gridIndicators);
     }
 
@@ -71,14 +76,9 @@ namespace Encounters {
       _controls.TurnBasedEncounter.Enable();
     }
     
-    public void OnClick(InputAction.CallbackContext context) {
-      if (!context.performed) {
-        return;
-      }
-
+    protected override void OnClick(Vector2 mousePosition) {
       var clickedObject = _cameraController.RaycastFromMousePosition().collider?.gameObject;
-      var targetTile = _grid.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
-
+      var targetTile = _grid.TileAtScreenCoordinate(mousePosition);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         if (ability.TryExecute(new UnitAbility.AbilityExecutionContext {
             Actor = unit,
@@ -96,12 +96,7 @@ namespace Encounters {
       }
     }
     
-    public void OnPoint(InputAction.CallbackContext context) {
-      if (!context.performed) {
-        return;
-      }
-      
-      var mousePosition = context.ReadValue<Vector2>();
+    protected override void OnPoint(Vector2 mousePosition) {
       var hoveredObject = _cameraController.RaycastFromMousePosition().collider?.gameObject;
       var hoveredTile = _grid.TileAtScreenCoordinate(mousePosition);
       if (currentSelection.TryGet(out var ability, out var unit)) {
@@ -110,23 +105,13 @@ namespace Encounters {
       mouseHoverEvent.Raise(mousePosition);
     }
 
-    public void OnSelectActionOne(InputAction.CallbackContext context) {
-      // TODO
-    }
-    public void OnSelectActionTwo(InputAction.CallbackContext context) {
-      // TODO
-    }
-    public void OnSelectActionThree(InputAction.CallbackContext context) {
-      // TODO
-    }
-    public void OnSelectActionFour(InputAction.CallbackContext context) {
-      // TODO
-    }
-    public void OnSelectActionFive(InputAction.CallbackContext context) {
-      // TODO
+    protected override void OnTrySelectAction(int index) {
+      if (currentSelection.TryGet(out _, out var unit)) {
+        unit.TrySelectAbility(index);
+      }
     }
 
-    public void OnEndTurn(InputAction.CallbackContext context) {
+    protected override void OnEndTurn() {
       _controls.TurnBasedEncounter.Disable();
       endPlayerTurnEvent.Raise();
     }

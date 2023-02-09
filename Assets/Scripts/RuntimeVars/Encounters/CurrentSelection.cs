@@ -2,6 +2,7 @@
 using Optional.Unsafe;
 using StaticConfig.Units;
 using Units;
+using Units.Abilities;
 using UnityEngine;
 
 namespace RuntimeVars.Encounters {
@@ -19,7 +20,17 @@ namespace RuntimeVars.Encounters {
       ability = null;
       unit = null;
       return false;
-    } 
+    }
+
+    public bool TryGetUnit(out UnitController unit) {
+      if (selectedUnit.HasValue) {
+        unit = selectedUnit.ValueOrFailure();
+        return true;
+      }
+
+      unit = null;
+      return false;
+    }
     
     public void Reset() {
       selectedAbility = Option.None<UnitAbility>();

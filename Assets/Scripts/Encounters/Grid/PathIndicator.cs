@@ -6,6 +6,7 @@ using Pathfinding;
 using RuntimeVars.Encounters;
 using StaticConfig.Units;
 using Units;
+using Units.Abilities;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
