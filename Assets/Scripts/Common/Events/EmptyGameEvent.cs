@@ -6,8 +6,8 @@ namespace Common.Events {
     public delegate void OnEventRaised();
 
     public void Raise() {
-      foreach (var listener in Listeners) {
-        listener.Invoke();
+      for (int i = Listeners.Count - 1; i >= 0; i--) {
+        Listeners[i].Invoke();
       }
     }
   }

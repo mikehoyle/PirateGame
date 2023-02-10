@@ -1,27 +1,59 @@
-﻿using System.Collections.Generic;
-using StaticConfig.Units;
-using Units.Abilities;
+﻿using StaticConfig.Units;
 using UnityEngine;
 
 namespace State.Unit {
   [CreateAssetMenu(menuName = "State/UnitEncounterState")]
   public class UnitEncounterState : ScriptableObject {
-    public int currentHp;
-    public List<UnitAbility> capableAbilities;
-    public int remainingMovement;
+    public ExhaustibleResourceTracker[] resources;
     public Vector3Int position;
-    
-    public bool IsAlive => currentHp > 0;
+    public UnitFaction faction;
+    public FacingDirection facingDirection;
 
-    public void NewEncounter(UnitState unitState, Vector3Int positionOffset) {
-      currentHp = unitState.maxHp;
-      capableAbilities = new();
-      remainingMovement = unitState.movementRange;
-      position = unitState.startingPosition + positionOffset;
+    public void NewRound() {
+      foreach (var resource in resources) {
+        resource.NewRound();
+      }
     }
 
-    public void NewRound(UnitState unitState) {
-      remainingMovement = unitState.movementRange;
+    public void NewEncounter() {
+      foreach (var resource in resources) {
+        resource.Reset();
+      }
+    }
+    
+    public void NewEncounter(Vector3Int startingPosition) {
+      NewEncounter();
+      position = startingPosition;
+    }
+
+    public void ExpendResource(ExhaustibleResource resource, int amount) {
+      if (TryGetResourceTracker(resource, out var tracker)) {
+        Debug.Log($"Reducing {tracker.exhaustibleResource.displayName} by {amount}");
+        tracker.Expend(amount);
+        return;
+      }
+
+      Debug.LogWarning($"Attempted to expend not-present resource: {resource}");
+    }
+
+    public int GetResourceAmount(ExhaustibleResource resource) {
+      if (TryGetResourceTracker(resource, out var tracker)) {
+        return tracker.current;
+      }
+      
+      Debug.LogWarning($"Cannot get resource {resource.displayName}, unit does not have it");
+      return 0;
+    }
+
+    public bool TryGetResourceTracker(ExhaustibleResource resource, out ExhaustibleResourceTracker tracker) {
+      foreach (var resourceTracker in resources) {
+        if (resourceTracker.exhaustibleResource == resource) {
+          tracker = resourceTracker;
+          return true;
+        }
+      }
+      tracker = null;
+      return false;
     }
   }
 }

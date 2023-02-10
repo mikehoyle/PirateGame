@@ -1,18 +1,22 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Encounters.Grid;
 using RuntimeVars.Encounters;
-using State.Enemy;
+using State.Unit;
 using StaticConfig.Units;
+using Units.Abilities;
 using UnityEngine;
 
 namespace Encounters.Enemies {
-  public class EnemyUnitController : MonoBehaviour {
+  public class EnemyUnitController : EncounterActor {
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
+    [SerializeField] private UnitAbilitySet defaultAbilities;
     private IsometricGrid _grid;
 
-    public EnemyUnitEncounterState State { get; private set; }
+    public override UnitEncounterState EncounterState { get; protected set; }
 
-    private void Awake() {
+    protected override void Awake() {
+      base.Awake();
       _grid = IsometricGrid.Get();
     }
 
@@ -23,16 +27,16 @@ namespace Encounters.Enemies {
     private void OnDisable() {
       enemiesInEncounter.Remove(this);
     }
-
-    private void Update() {
-      // TODO(P0): Prototype only
-      transform.position = _grid.Grid.GetCellCenterWorld(State.position);
+    
+    public List<UnitAbility> GetAllCapableAbilities() {
+      var result = defaultAbilities.abilities.ToList();
+      return result;
     }
 
-    public void Init(EnemyUnitEncounterState state) {
-      State = state;
+    public void Init(EnemyUnitState state) {
+      EncounterState = state.encounterState;
       // TODO(P0): prototyping only, remove this
-      State.resources = new[] {
+      EncounterState.resources = new[] {
           ExhaustibleResourceTracker.NewHpTracker(10), ExhaustibleResourceTracker.NewMovementTracker(5),
       };
     }

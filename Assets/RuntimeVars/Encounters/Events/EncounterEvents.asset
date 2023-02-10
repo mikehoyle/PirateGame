@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd1ed2e051f4013a60acb7a8e1b11dc, type: 3}
+  m_Name: EncounterEvents
+  m_EditorClassIdentifier: 
+  abilityExecutionStart: {fileID: 11400000, guid: e72e234224fa90248ba82f81f82798b7, type: 2}
+  abilityExecutionEnd: {fileID: 11400000, guid: af6abd0c6ee03714eaaac215c3d39728, type: 2}
+  abilitySelected: {fileID: 11400000, guid: 939f8e0b967434746b2151d96e0a2352, type: 2}
+  encounterStart: {fileID: 11400000, guid: 759af98b73a2e5247a3ee2d17121fdc7, type: 2}
+  enemyTurnStart: {fileID: 11400000, guid: 4e22b90e9d6a96149b1e5151f64ef3e9, type: 2}
+  enemyTurnEnd: {fileID: 11400000, guid: e40c5da67de458c428a0e7cc203b181e, type: 2}
+  playerTurnStart: {fileID: 11400000, guid: 154a6568ff8eb07468504f035bb2d5c4, type: 2}
+  mouseHover: {fileID: 11400000, guid: 69c65d5cc56cb354cbdee6a4b52a80cd, type: 2}
+  newRound: {fileID: 11400000, guid: 165633ce61d51174483a20babcf989c5, type: 2}
+  objectClicked: {fileID: 11400000, guid: 330e4182eca7bcf45bb4cf657c0b26c4, type: 2}
+  playerTurnEnd: {fileID: 11400000, guid: 70d60596d6f5d7e408f5381eaba68dd8, type: 2}
+  unitSelected: {fileID: 11400000, guid: 6630b751c39484c438dc0458f7a211ed, type: 2}

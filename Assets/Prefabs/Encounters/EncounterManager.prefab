@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7946137650026443626}
   - component: {fileID: 2648408542730051790}
   - component: {fileID: 4018983168502657055}
+  - component: {fileID: -1386236013211484715}
   m_Layer: 0
   m_Name: EncounterManager
   m_TagString: Untagged
@@ -46,14 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87482767d1774dd999d12afc26e1f4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectClickedEvent: {fileID: 11400000, guid: 330e4182eca7bcf45bb4cf657c0b26c4, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
-  mouseHoverEvent: {fileID: 11400000, guid: 69c65d5cc56cb354cbdee6a4b52a80cd, type: 2}
-  endPlayerTurnEvent: {fileID: 11400000, guid: 70d60596d6f5d7e408f5381eaba68dd8, type: 2}
-  endEnemyTurnEvent: {fileID: 11400000, guid: e40c5da67de458c428a0e7cc203b181e, type: 2}
-  abilitySelectedEvent: {fileID: 11400000, guid: 939f8e0b967434746b2151d96e0a2352, type: 2}
-  beginAbilityExecutionEvent: {fileID: 11400000, guid: e72e234224fa90248ba82f81f82798b7, type: 2}
-  endAbilityExecutionEvent: {fileID: 11400000, guid: af6abd0c6ee03714eaaac215c3d39728, type: 2}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   currentRound: {fileID: 11400000, guid: b6cacc17f9b44554c8f25deaee2f8598, type: 2}
 --- !u!114 &2648408542730051790
 MonoBehaviour:
@@ -80,5 +75,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc3164781f84489be050f94dd253f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTurnEndEvent: {fileID: 11400000, guid: 70d60596d6f5d7e408f5381eaba68dd8, type: 2}
-  enemyTurnEndEvent: {fileID: 11400000, guid: e40c5da67de458c428a0e7cc203b181e, type: 2}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  enemiesInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
+--- !u!114 &-1386236013211484715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648408542730051789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50871cd8ef0e4013908e42b257c80063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUnits: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
+  enemyUnits: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
+  movementResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+  moveAbility: {fileID: 11400000, guid: 3913fcc2030fcdd44a3041f9d7d4b858, type: 2}

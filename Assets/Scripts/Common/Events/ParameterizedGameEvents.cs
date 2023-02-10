@@ -3,8 +3,8 @@
     public delegate void OnEventRaised(T1 param);
 
     public void Raise(T1 param) {
-      foreach (var listener in Listeners) {
-        listener.Invoke(param);
+      for (int i = Listeners.Count - 1; i >= 0; i--) {
+        Listeners[i].Invoke(param);
       }
     }
   }
@@ -13,8 +13,8 @@
     public delegate void OnEventRaised(T1 param1, T2 param2);
 
     public void Raise(T1 param1, T2 param2) {
-      foreach (var listener in Listeners) {
-        listener.Invoke(param1, param2);
+      for (int i = Listeners.Count - 1; i >= 0; i--) {
+        Listeners[i].Invoke(param1, param2);
       }
     }
   }
@@ -23,8 +23,8 @@
     public delegate void OnEventRaised(T1 param1, T2 param2, T3 param3);
 
     public void Raise(T1 param1, T2 param2, T3 param3) {
-      foreach (var listener in Listeners) {
-        listener.Invoke(param1, param2, param3);
+      for (int i = Listeners.Count - 1; i >= 0; i--) {
+        Listeners[i].Invoke(param1, param2, param3);
       }
     }
   }

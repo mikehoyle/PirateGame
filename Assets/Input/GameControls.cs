@@ -791,6 +791,56 @@ namespace Controls
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""SkillTest"",
+            ""id"": ""cc52e8cc-ba41-4c9d-82b2-d9fe7267d135"",
+            ""actions"": [
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbe15c03-2bc7-4a2e-9554-bc2338fe9923"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""578d62a8-889a-417e-9876-6bc94c43f70d"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72df4a0b-effe-4611-899d-431830f074e4"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d5bb540-86a7-4295-918b-9b72ceb0b056"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -850,6 +900,9 @@ namespace Controls
             // PressAnyKey
             m_PressAnyKey = asset.FindActionMap("PressAnyKey", throwIfNotFound: true);
             m_PressAnyKey_AnyKey = m_PressAnyKey.FindAction("Any Key", throwIfNotFound: true);
+            // SkillTest
+            m_SkillTest = asset.FindActionMap("SkillTest", throwIfNotFound: true);
+            m_SkillTest_Interact = m_SkillTest.FindAction("Interact", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1272,6 +1325,39 @@ namespace Controls
             }
         }
         public PressAnyKeyActions @PressAnyKey => new PressAnyKeyActions(this);
+
+        // SkillTest
+        private readonly InputActionMap m_SkillTest;
+        private ISkillTestActions m_SkillTestActionsCallbackInterface;
+        private readonly InputAction m_SkillTest_Interact;
+        public struct SkillTestActions
+        {
+            private @GameControls m_Wrapper;
+            public SkillTestActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Interact => m_Wrapper.m_SkillTest_Interact;
+            public InputActionMap Get() { return m_Wrapper.m_SkillTest; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(SkillTestActions set) { return set.Get(); }
+            public void SetCallbacks(ISkillTestActions instance)
+            {
+                if (m_Wrapper.m_SkillTestActionsCallbackInterface != null)
+                {
+                    @Interact.started -= m_Wrapper.m_SkillTestActionsCallbackInterface.OnInteract;
+                    @Interact.performed -= m_Wrapper.m_SkillTestActionsCallbackInterface.OnInteract;
+                    @Interact.canceled -= m_Wrapper.m_SkillTestActionsCallbackInterface.OnInteract;
+                }
+                m_Wrapper.m_SkillTestActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Interact.started += instance.OnInteract;
+                    @Interact.performed += instance.OnInteract;
+                    @Interact.canceled += instance.OnInteract;
+                }
+            }
+        }
+        public SkillTestActions @SkillTest => new SkillTestActions(this);
         private int m_KBMSchemeIndex = -1;
         public InputControlScheme KBMScheme
         {
@@ -1325,6 +1411,10 @@ namespace Controls
         public interface IPressAnyKeyActions
         {
             void OnAnyKey(InputAction.CallbackContext context);
+        }
+        public interface ISkillTestActions
+        {
+            void OnInteract(InputAction.CallbackContext context);
         }
     }
 }

@@ -20,4 +20,7 @@ MonoBehaviour:
   - amount: 1
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
   rangeMin: 1
-  rangeMax: 1
+  rangeMax: 5
+  skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  incurredEffect: {fileID: 11400000, guid: 21d3a41669fd32647a2f64b8504bc908, type: 2}

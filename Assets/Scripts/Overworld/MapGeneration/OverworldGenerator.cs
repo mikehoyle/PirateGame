@@ -73,7 +73,6 @@ namespace Overworld.MapGeneration {
 
     private WorldTile RandomTile() {
       return _rng.NextDouble() switch {
-          // TODO(P0): populate encounter tiles
           var x when x < 0.2 => ScriptableObject.CreateInstance<EncounterTile>(),
           _ => ScriptableObject.CreateInstance<OpenSeaTile>(),
       };

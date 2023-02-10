@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Events;
-using Optional.Unsafe;
 using Pathfinding;
-using RuntimeVars.Encounters;
-using StaticConfig.Units;
 using Units;
-using Units.Abilities;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Encounters.Grid {
   public class PathIndicator : MonoBehaviour {
     [SerializeField] private EmptyGameEvent playerTurnEndEvent;
-    [SerializeField] private UnitAbility movementAbility;
-    [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private List<TileBase> arrowIndicatorTiles;
     
     private Tilemap _tilemap;
@@ -82,12 +76,10 @@ namespace Encounters.Grid {
       enabled = false;
     }
 
-    public void DisplayMovementPath(UnitController actor, Vector3Int hoveredTile) {
+    public void DisplayMovementPath(Vector3Int unitPosition, int movementRange, Vector3Int hoveredTile) {
       enabled = true;
       
       if (_lastKnownHoveredCell != hoveredTile) {
-        var unitPosition = actor.State.encounterState.position;
-        var movementRange = actor.State.encounterState.remainingMovement;
         UpdateMovementHover(hoveredTile, unitPosition, movementRange);
       }
     }

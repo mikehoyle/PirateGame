@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Roy_T.AStar.Paths;
@@ -82,7 +83,7 @@ namespace Pathfinding {
         node.Enabled = false;
         return;
       }
-      if (enemiesInEncounter.Any(enemy => enemy.State.position == node.GridPosition)) {
+      if (enemiesInEncounter.Any(enemy => enemy.EncounterState.position == node.GridPosition)) {
         node.Enabled = false;
         return;
       }
@@ -122,6 +123,22 @@ namespace Pathfinding {
         result.AddLast(((EncounterNode)edge.End).GridPosition);
       }
       return new TravelPath(result);
+    }
+
+    public List<Vector3Int> GetAllViableDestinations(Vector3Int position, int moveRange) {
+      var result = new List<Vector3Int>();
+      for (int x = -moveRange; x <= moveRange; x++) {
+        var yMoveRange = moveRange - Math.Abs(x);
+        for (int y = -yMoveRange; y <= yMoveRange; y++) {
+          // OPTIMIZE: memoize paths
+          var path = GetPath(position, new Vector3Int(position.x + x, position.y + y));
+          if (path.IsViableAndWithinRange(moveRange)) {
+            result.Add(path.Path.Last.Value);
+          }
+        }
+      }
+
+      return result;
     }
 
     public void MarkCellTraversable(Vector3Int cell) {

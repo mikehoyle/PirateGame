@@ -33,26 +33,14 @@ namespace Encounters.Grid {
       enabled = false;
     }
 
-    public void DisplayMovementRange(UnitController unit) {
+    public void DisplayMovementRange(Vector3Int unitPosition, int unitMoveRange) {
       enabled = true;
-      var unitMoveRange = unit.State.encounterState.remainingMovement;
-      var gridPosition = unit.State.encounterState.position;
-      
       Clear();
-      for (int x = -unitMoveRange; x <= unitMoveRange; x++) {
-        var yMoveRange = unitMoveRange - Math.Abs(x);
-        for (int y = -yMoveRange; y <= yMoveRange; y++) {
-          if (x == 0 && y == 0) {
-            continue;
-          }
-          var tile = _grid.GetTileAtPeakElevation(
-              new Vector2Int(gridPosition.x + x, gridPosition.y + y));
-          // OPTIMIZE: memoize paths
-          var path = _terrain.GetPath(gridPosition, tile);
-          if (path.IsViableAndWithinRange(unitMoveRange)) {
-            _tilemap.SetTile(tile, eligibleTileOverlay);
-          }
+      foreach (var tile in _terrain.GetAllViableDestinations(unitPosition, unitMoveRange)) {
+        if (tile.x == 0 && tile.y == 0) {
+          continue;
         }
+        _tilemap.SetTile(tile, eligibleTileOverlay);
       }
     }
 

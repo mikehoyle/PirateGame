@@ -1,5 +1,8 @@
-﻿using Encounters.Enemies;
+﻿using Encounters;
+using Encounters.Effects;
 using Encounters.Grid;
+using Encounters.SkillTest;
+using RuntimeVars.Encounters.Events;
 using UnityEngine;
 using static Common.GridUtils;
 
@@ -8,6 +11,8 @@ namespace Units.Abilities {
   public class SingleTargetWithRangeAbility : UnitAbility {
     [SerializeField] private int rangeMin;
     [SerializeField] private int rangeMax;
+    [SerializeField] private EncounterEvents encounterEvents;
+    [SerializeField] private StatusEffect incurredEffect;
 
     public override void OnSelected(UnitController actor, GridIndicators indicators) {
       indicators.RangeIndicator.DisplayTargetingRange(actor.Position, rangeMin, rangeMax);
@@ -20,38 +25,60 @@ namespace Units.Abilities {
         GridIndicators indicators) {
       var target = GetTargetIfEligible(actor, hoveredObject);
       if (target != null) {
-        indicators.TargetingIndicator.TargetTile(target.State.position);
+        indicators.TargetingIndicator.TargetTile(target.EncounterState.position);
         return;
       }
       indicators.TargetingIndicator.Clear();
     }
 
-    public override bool TryExecute(AbilityExecutionContext context) {
-      Debug.Log("Attempting to execute punch");
+    public override bool CouldExecute(AbilityExecutionContext context) {
+      if (!CanAfford(context.Actor)) {
+        return false;
+      }
       var target = GetTargetIfEligible(context.Actor, context.TargetedObject);
-      Debug.Log($"Target is null? {target == null}");
       if (target == null) {
         return false;
       }
       
-      // TODO(P0) add effect system and apply it
-      Debug.Log("Would be punchin that dude.");
       return true;
     }
 
-    private EnemyUnitController GetTargetIfEligible(UnitController actor, GameObject target) {
+    public override bool TryExecute(AbilityExecutionContext context) {
+      if (!CanAfford(context.Actor)) {
+        return false;
+      }
+      var target = GetTargetIfEligible(context.Actor, context.TargetedObject);
+      if (target == null) {
+        return false;
+      }
+      
+      encounterEvents.abilityExecutionStart.Raise();
+      SpendCost(context.Actor);
+      DetermineAbilityEffectiveness(context.Actor, result => OnDetermineAbilityEffectiveness(result, target));
+      return true;
+    }
+
+    private EncounterActor GetTargetIfEligible(EncounterActor actor, GameObject target) {
       if (target == null) {
         return null;
       }
-      Debug.Log($"Game component exists");
-      if (target.TryGetComponent<EnemyUnitController>(out var enemyUnit)) {
-        var distance = DistanceBetween(actor.Position, enemyUnit.State.position);
-        Debug.Log($"Distance {distance}");
+      if (target.TryGetComponent<EncounterActor>(out var targetUnit)) {
+        if (targetUnit.EncounterState.faction == actor.EncounterState.faction) {
+          return null;
+        }
+        var distance = DistanceBetween(actor.Position, targetUnit.EncounterState.position);
         if (distance <= rangeMax && distance >= rangeMin) {
-          return enemyUnit;
+          return targetUnit;
         }
       }
       return null;
+    }
+
+    private void OnDetermineAbilityEffectiveness(float result, EncounterActor target) {
+      Debug.Log($"Skill test complete with result {result}");
+      target.AddStatusEffect(Instantiate(incurredEffect));
+      // TODO(P1): Account for animation time
+      encounterEvents.abilityExecutionEnd.Raise();
     }
   }
 }

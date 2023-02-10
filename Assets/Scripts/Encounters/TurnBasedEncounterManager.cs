@@ -13,14 +13,8 @@ using UnityEngine.InputSystem;
 
 namespace Encounters {
   public class TurnBasedEncounterManager : EncounterInputReceiver {
-    [SerializeField] private ObjectClickedEvent objectClickedEvent;
     [SerializeField] private CurrentSelection currentSelection;
-    [SerializeField] private Vector3Event mouseHoverEvent;
-    [SerializeField] private EmptyGameEvent endPlayerTurnEvent;
-    [SerializeField] private EmptyGameEvent endEnemyTurnEvent;
-    [SerializeField] private AbilitySelectedEvent abilitySelectedEvent;
-    [SerializeField] private EmptyGameEvent beginAbilityExecutionEvent;
-    [SerializeField] private EmptyGameEvent endAbilityExecutionEvent;
+    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private IntegerVar currentRound;
     
     private GameControls _controls;
@@ -44,23 +38,24 @@ namespace Encounters {
         _controls.TurnBasedEncounter.SetCallbacks(this);
       }
       _controls.TurnBasedEncounter.Enable();
-      endEnemyTurnEvent.RegisterListener(OnStartPlayerTurn);
-      abilitySelectedEvent.RegisterListener(OnAbilitySelected);
-      beginAbilityExecutionEvent.RegisterListener(OnBeginAbilityExecution);
-      endAbilityExecutionEvent.RegisterListener(OnEndAbilityExecution);
+      encounterEvents.enemyTurnEnd.RegisterListener(OnStartPlayerTurn);
+      encounterEvents.abilitySelected.RegisterListener(OnAbilitySelected);
+      encounterEvents.abilityExecutionStart.RegisterListener(OnBeginAbilityExecution);
+      encounterEvents.abilityExecutionEnd.RegisterListener(OnEndAbilityExecution);
     }
 
     private void OnDisable() {
       _controls.TurnBasedEncounter.Disable();
-      endEnemyTurnEvent.UnregisterListener(OnStartPlayerTurn);
-      abilitySelectedEvent.UnregisterListener(OnAbilitySelected);
-      beginAbilityExecutionEvent.UnregisterListener(OnBeginAbilityExecution);
-      endAbilityExecutionEvent.UnregisterListener(OnEndAbilityExecution);
+      encounterEvents.enemyTurnEnd.UnregisterListener(OnStartPlayerTurn);
+      encounterEvents.abilitySelected.UnregisterListener(OnAbilitySelected);
+      encounterEvents.abilityExecutionStart.UnregisterListener(OnBeginAbilityExecution);
+      encounterEvents.abilityExecutionEnd.UnregisterListener(OnEndAbilityExecution);
     }
 
     private void OnStartPlayerTurn() {
       currentRound.Value += 1;
       _controls.TurnBasedEncounter.Enable();
+      encounterEvents.playerTurnStart.Raise();
     }
 
     private void OnAbilitySelected(UnitController actor, UnitAbility ability) {
@@ -92,7 +87,7 @@ namespace Encounters {
       }
       
       if (clickedObject != null) {
-        objectClickedEvent.Raise(clickedObject.gameObject);
+        encounterEvents.objectClicked.Raise(clickedObject.gameObject);
       }
     }
     
@@ -102,7 +97,7 @@ namespace Encounters {
       if (currentSelection.TryGet(out var ability, out var unit)) {
         ability.ShowIndicator(unit, hoveredObject, hoveredTile, _gridIndicators);
       }
-      mouseHoverEvent.Raise(mousePosition);
+      encounterEvents.mouseHover.Raise(mousePosition);
     }
 
     protected override void OnTrySelectAction(int index) {
@@ -113,7 +108,8 @@ namespace Encounters {
 
     protected override void OnEndTurn() {
       _controls.TurnBasedEncounter.Disable();
-      endPlayerTurnEvent.Raise();
+      encounterEvents.playerTurnEnd.Raise();
+      encounterEvents.enemyTurnStart.Raise();
     }
   }
 }

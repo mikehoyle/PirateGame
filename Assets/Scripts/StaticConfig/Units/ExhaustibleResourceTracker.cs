@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace StaticConfig.Units {
   [CreateAssetMenu(menuName = "Units/ExhaustibleResourceTracker")]
@@ -7,6 +8,20 @@ namespace StaticConfig.Units {
     public int max;
     public int min;
     public int current;
+
+    public void Reset() {
+      current = max;
+    }
+
+    public void NewRound() {
+      if (exhaustibleResource.renewsOnNewRound) {
+        Reset();
+      }
+    }
+
+    public void Expend(int amount) {
+      current = Math.Max(min, current - amount);
+    }
 
     public static ExhaustibleResourceTracker NewHpTracker(int maxHp) {
       var result =

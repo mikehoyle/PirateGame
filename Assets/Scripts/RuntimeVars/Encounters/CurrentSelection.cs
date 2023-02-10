@@ -1,6 +1,5 @@
 ﻿using Optional;
 using Optional.Unsafe;
-using StaticConfig.Units;
 using Units;
 using Units.Abilities;
 using UnityEngine;
