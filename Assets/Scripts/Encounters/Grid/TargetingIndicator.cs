@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Events;
+using Units.Abilities.AOE;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -31,6 +32,13 @@ namespace Encounters.Grid {
     public void TargetTile(Vector3Int tile) {
       Clear();
       _tilemap.SetTile(tile, targetedTileOverlay);
+    }
+
+    public void TargetAoe(AreaOfEffect areaOfEffect) {
+      Clear();
+      foreach (var tile in areaOfEffect.AffectedPoints()) {
+        _tilemap.SetTile(tile, targetedTileOverlay);
+      }
     }
 
     public void Clear() {

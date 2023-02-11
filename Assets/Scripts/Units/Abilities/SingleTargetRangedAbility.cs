@@ -1,25 +1,13 @@
 ﻿using Encounters;
-using Encounters.Effects;
 using Encounters.Grid;
-using Encounters.SkillTest;
-using RuntimeVars.Encounters.Events;
 using UnityEngine;
-using static Common.GridUtils;
 
 namespace Units.Abilities {
-  [CreateAssetMenu(menuName = "Units/Abilities/SingleTargetWithRangeAbility")]
-  public class SingleTargetWithRangeAbility : UnitAbility {
-    [SerializeField] private int rangeMin;
-    [SerializeField] private int rangeMax;
-    [SerializeField] private EncounterEvents encounterEvents;
-    [SerializeField] private StatusEffect incurredEffect;
-
-    public override void OnSelected(UnitController actor, GridIndicators indicators) {
-      indicators.RangeIndicator.DisplayTargetingRange(actor.Position, rangeMin, rangeMax);
-    }
+  [CreateAssetMenu(menuName = "Units/Abilities/SingleTargetRangedAbility")]
+  public class SingleTargetRangedAbility : RangedAbility {
 
     public override void ShowIndicator(
-        UnitController actor,
+        EncounterActor actor,
         GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
@@ -66,8 +54,7 @@ namespace Units.Abilities {
         if (targetUnit.EncounterState.faction == actor.EncounterState.faction) {
           return null;
         }
-        var distance = DistanceBetween(actor.Position, targetUnit.EncounterState.position);
-        if (distance <= rangeMax && distance >= rangeMin) {
+        if (IsInRange(actor.Position, targetUnit.EncounterState.position)) {
           return targetUnit;
         }
       }
@@ -75,8 +62,7 @@ namespace Units.Abilities {
     }
 
     private void OnDetermineAbilityEffectiveness(float result, EncounterActor target) {
-      Debug.Log($"Skill test complete with result {result}");
-      target.AddStatusEffect(Instantiate(incurredEffect));
+      target.AddStatusEffect(incurredEffect);
       // TODO(P1): Account for animation time
       encounterEvents.abilityExecutionEnd.Raise();
     }

@@ -1,4 +1,6 @@
-﻿using Encounters.Grid;
+﻿using Encounters;
+using Encounters.Grid;
+using RuntimeVars.Encounters.Events;
 using StaticConfig.Units;
 using UnityEngine;
 
@@ -7,13 +9,13 @@ namespace Units.Abilities {
   public class MoveAbility : UnitAbility {
     [SerializeField] private ExhaustibleResource movementResource;
     
-    public override void OnSelected(UnitController actor, GridIndicators indicators) {
+    public override void OnSelected(EncounterActor actor, GridIndicators indicators) {
       indicators.RangeIndicator.DisplayMovementRange(
           actor.Position, actor.EncounterState.GetResourceAmount(movementResource));
     }
 
     public override void ShowIndicator(
-        UnitController actor, GameObject hoveredObject, Vector3Int hoveredTile, GridIndicators indicators) {
+        EncounterActor actor, GameObject hoveredObject, Vector3Int hoveredTile, GridIndicators indicators) {
       indicators.PathIndicator.DisplayMovementPath(
           actor.Position,
           actor.EncounterState.GetResourceAmount(movementResource),
@@ -32,16 +34,13 @@ namespace Units.Abilities {
       }
 
       context.Actor.MoveAlongPath(path, OnMoveComplete);
-      beginAbilityExecutionEvent.Raise();
-      context.Indicators.Clear();
-      
-      // TODO(P1): Convert to using MP resource
+      encounterEvents.abilityExecutionStart.Raise();
       context.Actor.EncounterState.ExpendResource(movementResource, path.Length());
       return true;
     }
 
     private void OnMoveComplete() {
-      endAbilityExecutionEvent.Raise();
+      encounterEvents.abilityExecutionEnd.Raise();
     }
   }
 }

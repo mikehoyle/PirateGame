@@ -16,6 +16,8 @@ namespace RuntimeVars.Encounters {
       _units = new();
     }
 
+    public int Count => _units.Count;
+
     public void Add(EnemyUnitController unit) {
       _units.Add(unit);
     }

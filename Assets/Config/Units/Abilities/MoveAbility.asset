@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MoveAbility
   m_EditorClassIdentifier: 
   id: move
+  skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
   beginAbilityExecutionEvent: {fileID: 11400000, guid: e72e234224fa90248ba82f81f82798b7, type: 2}
   endAbilityExecutionEvent: {fileID: 11400000, guid: af6abd0c6ee03714eaaac215c3d39728, type: 2}
   displayString: Move

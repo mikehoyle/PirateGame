@@ -1,4 +1,6 @@
-﻿using Pathfinding;
+﻿using System.Collections.Generic;
+using Optional.Unsafe;
+using Pathfinding;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using UnityEngine;
@@ -9,9 +11,15 @@ namespace Encounters.AI {
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
     
     private AiActionEvaluator _evaluator;
+    private EncounterTerrain _terrain;
+    
+    // Per-round state
+    private int _enemyMovementsComplete;
+    private List<AiActionPlan> _actionPlans;
 
     private void Awake() {
       _evaluator = GetComponent<AiActionEvaluator>();
+      _terrain = EncounterTerrain.Get();
     }
 
     private void OnEnable() {
@@ -23,15 +31,36 @@ namespace Encounters.AI {
     }
 
     private void OnEnemyTurnStart() {
+      _enemyMovementsComplete = 0;
+      _actionPlans = new();
+      var claimedTiles = new List<Vector3Int>();
       foreach (var enemy in enemiesInEncounter) {
-        var actionPlan = _evaluator.GetActionPlan(enemy);
-        foreach (var actionPlanComponent in actionPlan) {
-          Debug.Log($"Attempting to execute {actionPlanComponent.Ability.name} for AI");
-          actionPlanComponent.Ability.TryExecute(actionPlanComponent.Context);
+        var actionPlan = _evaluator.GetActionPlan(enemy, claimedTiles);
+        claimedTiles.Add(actionPlan.MoveDestination);
+        _actionPlans.Add(actionPlan);
+      }
+
+      foreach (var actionPlan in _actionPlans) {
+        var path = _terrain.GetPath(actionPlan.Actor.Position, actionPlan.MoveDestination);
+        actionPlan.Actor.MoveAlongPath(path, OnCompleteMovement);
+      }
+    }
+
+    private void OnCompleteMovement() {
+      _enemyMovementsComplete += 1;
+      if (_enemyMovementsComplete == enemiesInEncounter.Count) {
+        PerformUnitActions();
+      }
+    }
+
+    private void PerformUnitActions() {
+      foreach (var actionPlan in _actionPlans) {
+        if (actionPlan.Action.HasValue) {
+          var ability = actionPlan.Action.ValueOrFailure();
+          ability.Ability.TryExecute(ability.Context);
         }
       }
-      
-      // TODO(P0): Very big! wait for the action to be done first
+      // TODO(P0): Big! Actually wait for actions to complete
       encounterEvents.enemyTurnEnd.Raise();
     }
   }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17e7cfa7354e479d9d9f2c8e13869b0f, type: 3}
-  m_Name: SingleTargetDamageEffect
+  m_Name: OneShotDamageEffect
   m_EditorClassIdentifier: 
   exhaustibleResourceEffects:
   - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}

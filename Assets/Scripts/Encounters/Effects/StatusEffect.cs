@@ -12,19 +12,28 @@ namespace Encounters.Effects {
     }
 
     public ExhaustibleResourceEffect[] exhaustibleResourceEffects;
-    
-    private EncounterActor _victim;
-    
-    public virtual void Update() {}
 
-    public virtual void Init(EncounterActor victim) {
-      _victim = victim;
+    /// <summary>
+    /// Because status effects can have individual tracking mechanisms, to apply them,
+    /// we duplicate and initialize each instance.
+    /// </summary>
+    public StatusEffect Apply() {
+      var result = Instantiate(this);
+      result.OnApply();
+      return result;
     }
 
-    protected void ApplyEffect() {
-      Debug.Log($"Applying effect to to victim {_victim.name}");
+    /// <returns>If the effect was destroyed</returns>
+    public virtual bool UpdateAndMaybeDestroy(EncounterActor victim) {
+      return false;
+    }
+
+    public virtual void OnApply() { }
+
+    protected void EnactEffect(EncounterActor victim) {
+      Debug.Log($"Applying effect to to victim {victim.name}");
       foreach (var exhaustibleResourceEffect in exhaustibleResourceEffects) {
-        _victim.EncounterState.ExpendResource(
+        victim.EncounterState.ExpendResource(
             exhaustibleResourceEffect.resource, -exhaustibleResourceEffect.diff);
       }
     }

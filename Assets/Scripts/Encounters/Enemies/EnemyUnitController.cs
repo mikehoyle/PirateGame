@@ -20,11 +20,13 @@ namespace Encounters.Enemies {
       _grid = IsometricGrid.Get();
     }
 
-    private void OnEnable() {
+    protected override void OnEnable() {
+      base.OnEnable();
       enemiesInEncounter.Add(this);
     }
     
-    private void OnDisable() {
+    protected override void OnDisable() {
+      base.OnDisable();
       enemiesInEncounter.Remove(this);
     }
     
@@ -37,7 +39,9 @@ namespace Encounters.Enemies {
       EncounterState = state.encounterState;
       // TODO(P0): prototyping only, remove this
       EncounterState.resources = new[] {
-          ExhaustibleResourceTracker.NewHpTracker(10), ExhaustibleResourceTracker.NewMovementTracker(5),
+          ExhaustibleResourceTracker.NewHpTracker(10),
+          ExhaustibleResourceTracker.NewMovementTracker(5),
+          ExhaustibleResourceTracker.NewActionPointsTracker(2), 
       };
     }
   }

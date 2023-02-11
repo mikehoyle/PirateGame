@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 using Optional;
 using RuntimeVars;
 using RuntimeVars.Encounters;
-using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
 using Units.Abilities;
@@ -17,7 +16,6 @@ namespace Units {
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     [SerializeField] private UnitAbilitySet defaultAbilities;
     [SerializeField] private CurrentSelection currentSelection;
-    [SerializeField] private EncounterEvents encounterEvents;
     
     [CanBeNull] private UnitPlacementManager _placementManager;
     
@@ -28,14 +26,16 @@ namespace Units {
       protected set => State.encounterState = value;
     }
 
-    private void OnEnable() {
+    protected override void OnEnable() {
+      base.OnEnable();
       playerUnitsInEncounter.Add(this);
       encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
       encounterEvents.playerTurnStart.RegisterListener(OnNewRound);
       encounterEvents.abilityExecutionEnd.RegisterListener(OnAbilityEndExecution);
     }
 
-    private void OnDisable() {
+    protected override void OnDisable() {
+      base.OnDisable();
       playerUnitsInEncounter.Remove(this);
       encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
       encounterEvents.playerTurnStart.UnregisterListener(OnNewRound);
@@ -52,13 +52,13 @@ namespace Units {
 
     public void Init(UnitState state, Vector3Int positionOffset) {
       State = state;
-      state.encounterState.NewEncounter(state.startingPosition + positionOffset);
       // TODO(P0): prototyping only, remove this
       state.encounterState.resources = new[] {
           ExhaustibleResourceTracker.NewHpTracker(20),
           ExhaustibleResourceTracker.NewActionPointsTracker(2),
           ExhaustibleResourceTracker.NewMovementTracker(8),
       };
+      state.encounterState.NewEncounter(state.startingPosition + positionOffset);
       Position = State.startingPosition + positionOffset;
     }
 
@@ -75,7 +75,7 @@ namespace Units {
           return;
         }
         
-        currentSelection.selectedUnit = Option.Some(this);
+        currentSelection.selectedUnit = Option.Some<EncounterActor>(this);
         encounterEvents.unitSelected.Raise(this);
         TrySelectAbility(0);
       }

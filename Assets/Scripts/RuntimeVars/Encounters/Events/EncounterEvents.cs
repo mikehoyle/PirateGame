@@ -16,5 +16,6 @@ namespace RuntimeVars.Encounters.Events {
     public ObjectClickedEvent objectClicked;
     public EmptyGameEvent playerTurnEnd;
     public UnitSelectedEvent unitSelected;
+    public AoeEffectEvent applyAoeEffect;
   }
 }

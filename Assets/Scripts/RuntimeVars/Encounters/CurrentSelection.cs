@@ -1,6 +1,6 @@
-﻿using Optional;
+﻿using Encounters;
+using Optional;
 using Optional.Unsafe;
-using Units;
 using Units.Abilities;
 using UnityEngine;
 
@@ -8,9 +8,9 @@ namespace RuntimeVars.Encounters {
   [CreateAssetMenu(menuName = "Encounters/CurrentSelection")]
   public class CurrentSelection : ScriptableObject {
     public Option<UnitAbility> selectedAbility;
-    public Option<UnitController> selectedUnit;
+    public Option<EncounterActor> selectedUnit;
 
-    public bool TryGet(out UnitAbility ability, out UnitController unit) {
+    public bool TryGet(out UnitAbility ability, out EncounterActor unit) {
       if (selectedAbility.HasValue && selectedUnit.HasValue) {
         ability = selectedAbility.ValueOrFailure();
         unit = selectedUnit.ValueOrFailure();
@@ -21,7 +21,7 @@ namespace RuntimeVars.Encounters {
       return false;
     }
 
-    public bool TryGetUnit(out UnitController unit) {
+    public bool TryGetUnit(out EncounterActor unit) {
       if (selectedUnit.HasValue) {
         unit = selectedUnit.ValueOrFailure();
         return true;
@@ -33,7 +33,7 @@ namespace RuntimeVars.Encounters {
     
     public void Reset() {
       selectedAbility = Option.None<UnitAbility>();
-      selectedUnit = Option.None<UnitController>();
+      selectedUnit = Option.None<EncounterActor>();
     }
   }
 }

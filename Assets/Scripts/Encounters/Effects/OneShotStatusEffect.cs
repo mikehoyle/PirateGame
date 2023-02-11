@@ -9,17 +9,18 @@ namespace Encounters.Effects {
     public float delayInSeconds;
 
     private float _startTime;
-
-    public override void Update() {
+    
+    public override bool UpdateAndMaybeDestroy(EncounterActor actor) {
       _startTime += Time.deltaTime;
       if (_startTime >= delayInSeconds) {
-        ApplyEffect();
+        EnactEffect(actor);
         Destroy(this);
+        return true;
       }
+      return false;
     }
     
-    public override void Init(EncounterActor victim) {
-      base.Init(victim);
+    public override void OnApply() {
       _startTime = 0;
     }
   }

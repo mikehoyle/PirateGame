@@ -7,6 +7,7 @@ using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using Units;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Pathfinding {
@@ -14,7 +15,6 @@ namespace Pathfinding {
     [SerializeField] private UnitCollection unitsInEncounter;
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
     [SerializeField] private CurrentSelection currentSelection;
-    [SerializeField] private UnitSelectedEvent unitSelectedEvent;
     
     private const int MaxEncounterWidth = 300;
     private const int MaxEncounterHeight = 300;
@@ -35,28 +35,12 @@ namespace Pathfinding {
       _pathfinder = new PathFinder();
     }
 
-    private void OnEnable() {
-      unitSelectedEvent.RegisterListener(OnUnitSelected);
-    }
-
-    private void OnDisable() {
-      unitSelectedEvent.UnregisterListener(OnUnitSelected);
-    }
-
     private void Update() {
       // OPTIMIZE this is terribly inefficient any may need to change if there is lag
       RefreshUnitObstacles();
     }
 
-    private void OnUnitSelected(UnitController _) {
-      RefreshUnitObstacles();
-    }
-
     private void RefreshUnitObstacles() {
-      foreach (var unit in unitsInEncounter) {
-        SetEnabled(unit.State.encounterState.position, false);
-      }
-
       var coords = new Vector2Int(0, 0);
       for (int i = 0; i < _nodes.GetLength(0); i++) {
         for (int j = 0; j < _nodes.GetLength(1); j++) {
@@ -75,7 +59,7 @@ namespace Pathfinding {
       var node = GetNode(coords);
       if (unitsInEncounter.Any(unit => unit.State.encounterState.position == node.GridPosition)) {
         if (currentSelection.TryGetUnit(out var unit)) {
-          if (unit.State.encounterState.position == node.GridPosition) {
+          if (unit.Position == node.GridPosition) {
             node.Enabled = true;
             return;
           }
@@ -101,6 +85,7 @@ namespace Pathfinding {
     
     /// <summary>
     /// Returns proper elevation, but ignores elevation for pathing purposes.
+    /// Always ignores enabled status of origin tile, to ensure units never block themselves.
     /// </summary>
     public TravelPath GetPath(Vector3Int origin, Vector3Int destination) {
       var originGridPosition = PositionForCoords(origin);
@@ -108,9 +93,17 @@ namespace Pathfinding {
       if (!IsGridPositionDefined(originGridPosition) || !IsGridPositionDefined(destinationGridPosition)) {
         return new TravelPath(null);
       }
-      
-      var path = _pathfinder.FindPath(
-          GetNode(originGridPosition), GetNode(destinationGridPosition), EncounterNode.TraversalVelocity);
+
+      var originNode = GetNode(originGridPosition);
+      var originNodeEnabledStatus = originNode.Enabled;
+      originNode.Enabled = true;
+      var result = GetPathInternal(originNode, GetNode(destinationGridPosition));
+      originNode.Enabled = originNodeEnabledStatus;
+      return result;
+    }
+
+    private TravelPath GetPathInternal(EncounterNode originNode, EncounterNode destinationNode) {
+      var path = _pathfinder.FindPath(originNode, destinationNode, EncounterNode.TraversalVelocity);
       if (path.Type != PathType.Complete) {
         return new TravelPath(null);
       }

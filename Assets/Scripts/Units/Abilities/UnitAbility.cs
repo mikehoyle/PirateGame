@@ -5,6 +5,7 @@ using Encounters;
 using Encounters.Grid;
 using Encounters.SkillTest;
 using Pathfinding;
+using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
 using UnityEngine;
@@ -17,8 +18,7 @@ namespace Units.Abilities {
   /// </summary>
   public abstract class UnitAbility : EnumScriptableObject {
     [SerializeField] private GameObject skillTestPrefab;
-    [SerializeField] protected EmptyGameEvent beginAbilityExecutionEvent;
-    [SerializeField] protected EmptyGameEvent endAbilityExecutionEvent;
+    [SerializeField] protected EncounterEvents encounterEvents;
 
     // Result is a quality percentage from 0 - 1.
     public delegate void AbilityEffectivenessCallback(float result);
@@ -40,10 +40,10 @@ namespace Units.Abilities {
     public string displayString;
     public UnitAbilityCost[] cost;
 
-    public virtual void OnSelected(UnitController actor, GridIndicators indicators) { }
+    public virtual void OnSelected(EncounterActor actor, GridIndicators indicators) { }
     
     public virtual void ShowIndicator(
-        UnitController actor, GameObject hoveredObject, Vector3Int hoveredTile, GridIndicators indicators) { }
+        EncounterActor actor, GameObject hoveredObject, Vector3Int hoveredTile, GridIndicators indicators) { }
 
     public abstract bool CouldExecute(AbilityExecutionContext context);
     

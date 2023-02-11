@@ -102,12 +102,16 @@ namespace Encounters {
 
     protected override void OnTrySelectAction(int index) {
       if (currentSelection.TryGet(out _, out var unit)) {
-        unit.TrySelectAbility(index);
+        if (unit is UnitController playerUnit) {
+          playerUnit.TrySelectAbility(index);  
+        }
       }
     }
 
     protected override void OnEndTurn() {
+      currentSelection.Reset();
       _controls.TurnBasedEncounter.Disable();
+      _gridIndicators.Clear();
       encounterEvents.playerTurnEnd.Raise();
       encounterEvents.enemyTurnStart.Raise();
     }

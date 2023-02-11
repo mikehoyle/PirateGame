@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using Encounters.Effects;
 using Pathfinding;
+using RuntimeVars.Encounters.Events;
 using State.Unit;
 using Units;
+using Units.Abilities.AOE;
 using UnityEngine;
 
 namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour {
-    public List<StatusEffect> activeStatusEffects;
+    [SerializeField] protected List<StatusEffect> activeStatusEffects;
+    [SerializeField] protected EncounterEvents encounterEvents;
     
     private UnitMover _mover;
     public Vector3Int Position {
@@ -22,27 +25,42 @@ namespace Encounters {
       _mover = GetComponent<UnitMover>();
     }
 
+    protected virtual void OnEnable() {
+      encounterEvents.applyAoeEffect.RegisterListener(OnApplyAoeEffect);
+    }
+
+    protected virtual void OnDisable() {
+      encounterEvents.applyAoeEffect.UnregisterListener(OnApplyAoeEffect);
+    }
+
     protected virtual void Update() {
       UpdateStatusEffects();
     }
     
     private void UpdateStatusEffects() {
       for (int i = activeStatusEffects.Count - 1; i >= 0; i--) {
-        if (activeStatusEffects[i] == null) {
+        if (activeStatusEffects[i].UpdateAndMaybeDestroy(this)) {
           activeStatusEffects.RemoveAt(i);
-          continue;
         }
-        
-        activeStatusEffects[i].Update();
+      }
+    }
+
+    private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffect effect) {
+      if (aoe.AffectsPoint(Position)) {
+        AddStatusEffect(effect);
       }
     }
 
     public void MoveAlongPath(TravelPath path, Action callback) {
+      if (!path.IsViable()) {
+        callback();
+        return;
+      }
       _mover.ExecuteMovement(path.Path, callback);
     }
 
-    public void AddStatusEffect(StatusEffect effect) {
-      effect.Init(this);
+    public void AddStatusEffect(StatusEffect effectTemplate) {
+      var effect = effectTemplate.Apply();
       activeStatusEffects.Add(effect);
     }
   }
