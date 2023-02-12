@@ -8,4 +8,5 @@
   public const string EncounterActionDisplay = "EncounterActionDisplay";
   public const string PlayerUnit = "PlayerUnit";
   public const string GridIndicators = "GridIndicators";
+  public const string Terrain = "Terrain";
 }

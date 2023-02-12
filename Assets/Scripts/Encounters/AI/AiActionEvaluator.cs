@@ -5,10 +5,10 @@ using Common;
 using Encounters.Enemies;
 using Encounters.Grid;
 using Optional;
-using Pathfinding;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using StaticConfig.Units;
+using Terrain;
 using Units.Abilities;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ namespace Encounters.AI {
     [SerializeField] private ExhaustibleResource movementResource;
     [SerializeField] private MoveAbility moveAbility;
 
-    private EncounterTerrain _terrain;
+    private SceneTerrain _terrain;
     private GridIndicators _indicators;
 
     private static class ActionPreferences {
@@ -30,7 +30,7 @@ namespace Encounters.AI {
     }
 
     private void Awake() {
-      _terrain = EncounterTerrain.Get();
+      _terrain = SceneTerrain.Get();
       _indicators = GridIndicators.Get();
     }
 

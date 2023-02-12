@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Common;
 using Encounters;
-using Encounters.Grid;
 using State.Unit;
-using Units.Rendering;
+using Terrain;
 using UnityEngine;
 
 namespace Units {
@@ -21,7 +20,7 @@ namespace Units {
     private Action _onMovementCompleteCallback;
 
     private void Awake() {
-      _grid = IsometricGrid.Get().Grid;
+      _grid = SceneTerrain.Get().Grid;
       _unit = GetComponent<EncounterActor>();
       _currentlyMoving = false;
     }

@@ -1,15 +1,13 @@
 ﻿using CameraControl;
-using Common.Events;
 using Controls;
 using Encounters.Grid;
-using Pathfinding;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
+using Terrain;
 using Units;
 using Units.Abilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Encounters {
   public class TurnBasedEncounterManager : EncounterInputReceiver {
@@ -18,16 +16,14 @@ namespace Encounters {
     [SerializeField] private IntegerVar currentRound;
     
     private GameControls _controls;
-    private IsometricGrid _grid;
     private CameraController _cameraController;
     private GridIndicators _gridIndicators;
-    private EncounterTerrain _terrain;
+    private SceneTerrain _terrain;
 
     private void Awake() {
-      _grid = IsometricGrid.Get();
       _cameraController = CameraController.Get();
       _gridIndicators = GridIndicators.Get();
-      _terrain = EncounterTerrain.Get();
+      _terrain = SceneTerrain.Get();
       currentSelection.Reset();
       currentRound.Value = 1;
     }
@@ -70,10 +66,10 @@ namespace Encounters {
     private void OnEndAbilityExecution() {
       _controls.TurnBasedEncounter.Enable();
     }
-    
+
     protected override void OnClick(Vector2 mousePosition) {
       var clickedObject = _cameraController.RaycastFromMousePosition().collider?.gameObject;
-      var targetTile = _grid.TileAtScreenCoordinate(mousePosition);
+      var targetTile = _terrain.TileAtScreenCoordinate(mousePosition);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         if (ability.TryExecute(new UnitAbility.AbilityExecutionContext {
             Actor = unit,
@@ -93,7 +89,7 @@ namespace Encounters {
     
     protected override void OnPoint(Vector2 mousePosition) {
       var hoveredObject = _cameraController.RaycastFromMousePosition().collider?.gameObject;
-      var hoveredTile = _grid.TileAtScreenCoordinate(mousePosition);
+      var hoveredTile = _terrain.TileAtScreenCoordinate(mousePosition);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         ability.ShowIndicator(unit, hoveredObject, hoveredTile, _gridIndicators);
       }

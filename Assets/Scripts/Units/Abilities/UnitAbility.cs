@@ -1,13 +1,12 @@
 ﻿using System;
 using Common;
-using Common.Events;
 using Encounters;
 using Encounters.Grid;
 using Encounters.SkillTest;
-using Pathfinding;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
+using Terrain;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,7 +32,7 @@ namespace Units.Abilities {
       public EncounterActor Actor { get; set; }
       public GameObject TargetedObject { get; set; }
       public Vector3Int TargetedTile { get; set; }
-      public EncounterTerrain Terrain { get; set; }
+      public SceneTerrain Terrain { get; set; }
       public GridIndicators Indicators { get; set; }
     }
 

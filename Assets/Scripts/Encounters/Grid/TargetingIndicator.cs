@@ -10,11 +10,9 @@ namespace Encounters.Grid {
     [SerializeField] private EmptyGameEvent playerTurnEndEvent;
     
     private Tilemap _tilemap;
-    private IsometricGrid _grid;
 
     private void Awake() {
       _tilemap = GetComponent<Tilemap>();
-      _grid = IsometricGrid.Get();
     }
 
     private void OnEnable() {

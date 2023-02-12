@@ -11,7 +11,6 @@ namespace Encounters {
     private EncounterTile _encounter;
     private EncounterGenerator _encounterGenerator;
     private EncounterSetup _encounterSetup;
-    private IsometricGrid _grid;
 
     private void Awake() {
       _encounter = GameState.State.world.GetActiveTile().DownCast<EncounterTile>();
@@ -24,7 +23,6 @@ namespace Encounters {
 
       _encounterGenerator = GetComponent<EncounterGenerator>();
       _encounterSetup = GetComponent<EncounterSetup>();
-      _grid = IsometricGrid.Get();
     }
 
     private void Start() {

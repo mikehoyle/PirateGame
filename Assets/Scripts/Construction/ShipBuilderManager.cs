@@ -9,6 +9,7 @@ using HUD.MainMenu;
 using State;
 using StaticConfig;
 using StaticConfig.Builds;
+using Terrain;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -24,7 +25,7 @@ namespace Construction {
     
     private GameControls _controls;
     private Vector3Int _currentHoveredTile;
-    private IsometricGrid _grid;
+    private SceneTerrain _terrain;
     private BuildPlacementIndicator _placementIndicator;
     private PlayerState _playerState;
     private MainMenuController _mainMenu;
@@ -33,9 +34,9 @@ namespace Construction {
     private CameraCursorMover _cameraMover;
 
     private void Awake() {
-      _grid = IsometricGrid.Get();
+      _terrain = SceneTerrain.Get();
       _cameraMover = GetComponent<CameraCursorMover>();
-      _placementIndicator = _grid.Grid.GetComponentInChildren<BuildPlacementIndicator>();
+      _placementIndicator = _terrain.GetComponentInChildren<BuildPlacementIndicator>();
       _playerState = GameState.State.player; 
       _buildMenu = BuildMenuController.Get();
       _buildMenu.OnBuildSelected += OnBuildSelected;
@@ -60,10 +61,10 @@ namespace Construction {
         maxY = Math.Max(maxY, tileCoord.y);
       }
       
-      var visualMin = _grid.Grid.CellToWorld(new Vector3Int(minX, minY, 0));
+      var visualMin = _terrain.Grid.CellToWorld(new Vector3Int(minX, minY, 0));
       // +1 to maxes because CellToWorld returns bottom corner of cell,
       // so top corner of cell = bottom corner of caddy-cornered cell.
-      var visualMax = _grid.Grid.CellToWorld(new Vector3Int(maxX + 1, maxY + 1, 0));
+      var visualMax = _terrain.Grid.CellToWorld(new Vector3Int(maxX + 1, maxY + 1, 0));
       _cameraMover.Initialize(Vector3.Lerp(visualMin, visualMax, 0.5f));
     }
 
@@ -111,7 +112,8 @@ namespace Construction {
 
       _playerState.inventory.DeductBuildCost(_selectedBuild);
       _playerState.ship.Add(gridCell, _selectedBuild);
-      _grid.Tilemap.SetTile(gridCell, _selectedBuild.inGameTile);
+      // IMMEDIATE: fix the shipbuilder flow
+      //_grid.Tilemap.SetTile(gridCell, _selectedBuild.inGameTile);
       _placementIndicator.Hide();
     }
 
@@ -143,14 +145,14 @@ namespace Construction {
     }
 
     private Vector3Int GetTargetCellForMousePosition(Vector2 mousePosition) {
-      var gridCell = _grid.TileAtScreenCoordinate(mousePosition);
+      var gridCell = _terrain.TileAtScreenCoordinate(mousePosition);
 
       if (_selectedBuild.isFoundationTile) {
         // Always place foundations on the bottom.
         gridCell.z = 0;
       } else {
         // Other builds want to go above the current highest option.
-        gridCell = _grid.GetTileAtPeakElevation((Vector2Int)gridCell);
+        gridCell = _terrain.GetTile((Vector2Int)gridCell).GridPosition;
         gridCell.z += 1;
       }
 

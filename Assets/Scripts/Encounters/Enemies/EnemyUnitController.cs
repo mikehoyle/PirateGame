@@ -11,14 +11,8 @@ namespace Encounters.Enemies {
   public class EnemyUnitController : EncounterActor {
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
     [SerializeField] private UnitAbilitySet defaultAbilities;
-    private IsometricGrid _grid;
 
     public override UnitEncounterState EncounterState { get; protected set; }
-
-    protected override void Awake() {
-      base.Awake();
-      _grid = IsometricGrid.Get();
-    }
 
     protected override void OnEnable() {
       base.OnEnable();

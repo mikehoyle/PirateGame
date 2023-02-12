@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Encounters.Effects;
-using Pathfinding;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
+using Terrain;
 using Units;
 using Units.Abilities.AOE;
 using UnityEngine;
 
 namespace Encounters {
-  public abstract class EncounterActor : MonoBehaviour {
+  public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid {
     [SerializeField] protected List<StatusEffect> activeStatusEffects;
     [SerializeField] protected EncounterEvents encounterEvents;
     

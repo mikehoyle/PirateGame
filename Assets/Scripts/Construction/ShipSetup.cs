@@ -1,10 +1,6 @@
-﻿using Encounters;
-using Encounters.Grid;
-using JetBrains.Annotations;
-using Pathfinding;
-using State;
-using StaticConfig;
+﻿using State;
 using StaticConfig.Builds;
+using Terrain;
 using Units;
 using UnityEngine;
 
@@ -16,12 +12,10 @@ namespace Construction {
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
     [SerializeField] private GameObject unitPrefab;
     
-    private IsometricGrid _grid;
-    [CanBeNull] private EncounterTerrain _terrain;
+    private SceneTerrain _terrain;
 
     private void Awake() {
-      _grid = IsometricGrid.Get();
-      _terrain = EncounterTerrain.Get();
+      _terrain = SceneTerrain.Get();
     }
 
     public void SetupShip(bool includeUnits = false) {
@@ -32,8 +26,7 @@ namespace Construction {
       var playerState = GameState.State.player;
       foreach (var build in playerState.ship.components) {
         var position = build.Key + offset;
-        _grid.Tilemap.SetTile(position, build.Value.inGameTile);
-        _terrain?.MarkCellTraversable(position);
+        _terrain.AddTerrain(position, build.Value.inGameSprite);
       }
 
       if (includeUnits) {

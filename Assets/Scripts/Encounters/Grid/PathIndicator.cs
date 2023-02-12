@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Events;
-using Pathfinding;
-using Units;
+using Terrain;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,9 +23,8 @@ namespace Encounters.Grid {
     /// 0 0 0 0 0 0
     /// </summary>
     private Dictionary<Flags, TileBase> _movementTiles;
-    private IsometricGrid _grid;
     private Vector3Int _lastKnownHoveredCell = new(int.MinValue, int.MinValue, int.MinValue);
-    private EncounterTerrain _terrain;
+    private SceneTerrain _terrain;
 
     [Flags]
     private enum Flags {
@@ -41,8 +39,7 @@ namespace Encounters.Grid {
 
     private void Awake() {
       _tilemap = GetComponent<Tilemap>();
-      _grid = IsometricGrid.Get();
-      _terrain = EncounterTerrain.Get();
+      _terrain = SceneTerrain.Get();
       GenerateMovementTileDict();
     }
     private void GenerateMovementTileDict() {
@@ -92,12 +89,10 @@ namespace Encounters.Grid {
       
       _lastKnownHoveredCell = targetedCell;
       Clear();
-      if (_grid.IsTileMovementEligible(targetedCell)) {
-        var path = _terrain.GetPath(unitPosition, targetedCell);
-        if (path.IsViableAndWithinRange(movementRange)) {
-          Clear();
-          DisplayMovementHintInternal(path.Path.First); 
-        }
+      var path = _terrain.GetPath(unitPosition, targetedCell);
+      if (path.IsViableAndWithinRange(movementRange)) {
+        Clear();
+        DisplayMovementHintInternal(path.Path.First); 
       }
     }
 

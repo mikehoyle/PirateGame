@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Optional.Unsafe;
-using Pathfinding;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
+using Terrain;
 using UnityEngine;
 
 namespace Encounters.AI {
@@ -11,7 +11,7 @@ namespace Encounters.AI {
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
     
     private AiActionEvaluator _evaluator;
-    private EncounterTerrain _terrain;
+    private SceneTerrain _terrain;
     
     // Per-round state
     private int _enemyMovementsComplete;
@@ -19,7 +19,7 @@ namespace Encounters.AI {
 
     private void Awake() {
       _evaluator = GetComponent<AiActionEvaluator>();
-      _terrain = EncounterTerrain.Get();
+      _terrain = SceneTerrain.Get();
     }
 
     private void OnEnable() {

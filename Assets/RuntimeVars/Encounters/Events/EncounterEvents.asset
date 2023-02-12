@@ -24,3 +24,4 @@ MonoBehaviour:
   objectClicked: {fileID: 11400000, guid: 330e4182eca7bcf45bb4cf657c0b26c4, type: 2}
   playerTurnEnd: {fileID: 11400000, guid: 70d60596d6f5d7e408f5381eaba68dd8, type: 2}
   unitSelected: {fileID: 11400000, guid: 6630b751c39484c438dc0458f7a211ed, type: 2}
+  applyAoeEffect: {fileID: 11400000, guid: cca934d769a147a4cb12b0c02992b71f, type: 2}

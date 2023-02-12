@@ -1,29 +1,22 @@
 ﻿using Construction;
 using Encounters.Enemies;
-using Encounters.Grid;
-using Pathfinding;
-using State;
 using State.World;
-using Units;
-using Unity.VisualScripting;
+using Terrain;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Encounters {
   /// <summary>
   /// Sets up the scene-tree objects associated with the encounter.
   /// </summary>
   public class EncounterSetup : MonoBehaviour {
-    [SerializeField] private TileBase landTile;
+    [SerializeField] private Sprite landSprite;
     [SerializeField] private GameObject enemyPrefab;
     
-    private IsometricGrid _grid;
     private ShipSetup _shipSetup;
-    private EncounterTerrain _terrain;
+    private SceneTerrain _terrain;
 
     private void Awake() {
-      _grid = IsometricGrid.Get();
-      _terrain = EncounterTerrain.Get();
+      _terrain = SceneTerrain.Get();
       _shipSetup = GetComponent<ShipSetup>();
     }
 
@@ -31,8 +24,7 @@ namespace Encounters {
       foreach (var tile in encounter.terrain) {
         // For now, ignoring tile type because there's only one. In the future, probably use a scriptable
         // object to define tile for different types.
-        _grid.Tilemap.SetTile(tile.Key, landTile);
-        _terrain.MarkCellTraversable(tile.Key);
+        _terrain.AddTerrain(tile.Key, landSprite);
       }
 
       foreach (var enemy in encounter.enemies) {

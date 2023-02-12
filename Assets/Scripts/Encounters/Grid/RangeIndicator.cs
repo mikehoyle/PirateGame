@@ -1,8 +1,6 @@
 ﻿using System;
 using Common.Events;
-using Pathfinding;
-using RuntimeVars.Encounters.Events;
-using Units;
+using Terrain;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,13 +10,11 @@ namespace Encounters.Grid {
     [SerializeField] private EmptyGameEvent playerTurnEndEvent;
     
     private Tilemap _tilemap;
-    private IsometricGrid _grid;
-    private EncounterTerrain _terrain;
+    private SceneTerrain _terrain;
 
     private void Awake() {
       _tilemap = GetComponent<Tilemap>();
-      _grid = IsometricGrid.Get();
-      _terrain = EncounterTerrain.Get();
+      _terrain = SceneTerrain.Get();
     }
 
     private void OnEnable() {
@@ -60,8 +56,7 @@ namespace Encounters.Grid {
           if (Math.Abs(x) + Math.Abs(y) < rangeMin) {
             continue;
           }
-          var tile = _grid.GetTileAtPeakElevation(
-              new Vector2Int(source.x + x, source.y + y));
+          var tile = _terrain.GetElevation(new Vector2Int(source.x + x, source.y + y));
           _tilemap.SetTile(tile, eligibleTileOverlay);
         }
       }
