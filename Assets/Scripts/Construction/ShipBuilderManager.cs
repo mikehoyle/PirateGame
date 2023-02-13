@@ -2,12 +2,9 @@
 using CameraControl;
 using Common;
 using Controls;
-using Encounters;
-using Encounters.Grid;
 using HUD.Construction;
 using HUD.MainMenu;
 using State;
-using StaticConfig;
 using StaticConfig.Builds;
 using Terrain;
 using UnityEngine;
@@ -32,18 +29,20 @@ namespace Construction {
     private BuildMenuController _buildMenu;
     private ConstructableObject _selectedBuild;
     private CameraCursorMover _cameraMover;
+    private ShipSetup _shipSetup;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
       _cameraMover = GetComponent<CameraCursorMover>();
       _placementIndicator = _terrain.GetComponentInChildren<BuildPlacementIndicator>();
+      _shipSetup = GetComponent<ShipSetup>(); 
       _playerState = GameState.State.player; 
       _buildMenu = BuildMenuController.Get();
       _buildMenu.OnBuildSelected += OnBuildSelected;
     }
 
     private void Start() {
-      GetComponent<ShipSetup>().SetupShip();
+      _shipSetup.SetupShip();
       InitializeCamera();
       _mainMenu = MainMenuController.Get();
       _mainMenu.AddMenuItem(backToMapButtonLabel, OnBackToMap);
@@ -112,8 +111,7 @@ namespace Construction {
 
       _playerState.inventory.DeductBuildCost(_selectedBuild);
       _playerState.ship.Add(gridCell, _selectedBuild);
-      // IMMEDIATE: fix the shipbuilder flow
-      //_grid.Tilemap.SetTile(gridCell, _selectedBuild.inGameTile);
+      _shipSetup.AddBuild(gridCell, _selectedBuild);
       _placementIndicator.Hide();
     }
 
@@ -152,7 +150,7 @@ namespace Construction {
         gridCell.z = 0;
       } else {
         // Other builds want to go above the current highest option.
-        gridCell = _terrain.GetTile((Vector2Int)gridCell).GridPosition;
+        gridCell = _terrain.GetElevation((Vector2Int)gridCell);
         gridCell.z += 1;
       }
 

@@ -841,6 +841,65 @@ namespace Controls
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""ShipPlacement"",
+            ""id"": ""c3ecaf5c-6730-4934-b03b-ea570315262d"",
+            ""actions"": [
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a3c4838-e91d-4b5f-b476-d927c4d26ffe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Point"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""0edbdb23-ca31-4386-b62b-06e3a9c495da"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4f0a72fa-641d-47bd-9e5c-d3d5b9ca947f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""744d9829-36c9-462a-98e3-e5388a148e58"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d21a83e-2505-416e-abe1-c8a9e751fd84"",
+                    ""path"": ""<Pen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -903,6 +962,10 @@ namespace Controls
             // SkillTest
             m_SkillTest = asset.FindActionMap("SkillTest", throwIfNotFound: true);
             m_SkillTest_Interact = m_SkillTest.FindAction("Interact", throwIfNotFound: true);
+            // ShipPlacement
+            m_ShipPlacement = asset.FindActionMap("ShipPlacement", throwIfNotFound: true);
+            m_ShipPlacement_Click = m_ShipPlacement.FindAction("Click", throwIfNotFound: true);
+            m_ShipPlacement_Point = m_ShipPlacement.FindAction("Point", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1358,6 +1421,47 @@ namespace Controls
             }
         }
         public SkillTestActions @SkillTest => new SkillTestActions(this);
+
+        // ShipPlacement
+        private readonly InputActionMap m_ShipPlacement;
+        private IShipPlacementActions m_ShipPlacementActionsCallbackInterface;
+        private readonly InputAction m_ShipPlacement_Click;
+        private readonly InputAction m_ShipPlacement_Point;
+        public struct ShipPlacementActions
+        {
+            private @GameControls m_Wrapper;
+            public ShipPlacementActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Click => m_Wrapper.m_ShipPlacement_Click;
+            public InputAction @Point => m_Wrapper.m_ShipPlacement_Point;
+            public InputActionMap Get() { return m_Wrapper.m_ShipPlacement; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(ShipPlacementActions set) { return set.Get(); }
+            public void SetCallbacks(IShipPlacementActions instance)
+            {
+                if (m_Wrapper.m_ShipPlacementActionsCallbackInterface != null)
+                {
+                    @Click.started -= m_Wrapper.m_ShipPlacementActionsCallbackInterface.OnClick;
+                    @Click.performed -= m_Wrapper.m_ShipPlacementActionsCallbackInterface.OnClick;
+                    @Click.canceled -= m_Wrapper.m_ShipPlacementActionsCallbackInterface.OnClick;
+                    @Point.started -= m_Wrapper.m_ShipPlacementActionsCallbackInterface.OnPoint;
+                    @Point.performed -= m_Wrapper.m_ShipPlacementActionsCallbackInterface.OnPoint;
+                    @Point.canceled -= m_Wrapper.m_ShipPlacementActionsCallbackInterface.OnPoint;
+                }
+                m_Wrapper.m_ShipPlacementActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Click.started += instance.OnClick;
+                    @Click.performed += instance.OnClick;
+                    @Click.canceled += instance.OnClick;
+                    @Point.started += instance.OnPoint;
+                    @Point.performed += instance.OnPoint;
+                    @Point.canceled += instance.OnPoint;
+                }
+            }
+        }
+        public ShipPlacementActions @ShipPlacement => new ShipPlacementActions(this);
         private int m_KBMSchemeIndex = -1;
         public InputControlScheme KBMScheme
         {
@@ -1415,6 +1519,11 @@ namespace Controls
         public interface ISkillTestActions
         {
             void OnInteract(InputAction.CallbackContext context);
+        }
+        public interface IShipPlacementActions
+        {
+            void OnClick(InputAction.CallbackContext context);
+            void OnPoint(InputAction.CallbackContext context);
         }
     }
 }

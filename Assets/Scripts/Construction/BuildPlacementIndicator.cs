@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Terrain;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Construction {
@@ -9,11 +10,11 @@ namespace Construction {
     [SerializeField] Color validPlacementColor;
     [SerializeField] Color invalidPlacementColor;
     
-    private Grid _grid;
     private SpriteRenderer _spriteRenderer;
+    private SceneTerrain _terrain;
 
     private void Awake() {
-      _grid = GetComponentInParent<Grid>();
+      _terrain = SceneTerrain.Get();
       _spriteRenderer = GetComponent<SpriteRenderer>();
       _spriteRenderer.enabled = false;
     }
@@ -33,8 +34,7 @@ namespace Construction {
     }
 
     private void ShowIndicator(Vector3Int gridPosition) {
-      // x+1, y+1 accommodates for top-right tile anchor.
-      transform.position = _grid.CellToWorld(gridPosition + new Vector3Int(1, 1, 0));
+      transform.position = _terrain.CellAnchorWorld(gridPosition);
       _spriteRenderer.enabled = true;
     }
 

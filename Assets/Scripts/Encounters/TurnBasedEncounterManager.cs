@@ -1,4 +1,5 @@
-﻿using CameraControl;
+﻿using System;
+using CameraControl;
 using Controls;
 using Encounters.Grid;
 using RuntimeVars;
@@ -26,6 +27,11 @@ namespace Encounters {
       _terrain = SceneTerrain.Get();
       currentSelection.Reset();
       currentRound.Value = 1;
+      encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
+    }
+
+    private void OnDestroy() {
+      encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
     }
 
     private void OnEnable() {
@@ -46,6 +52,10 @@ namespace Encounters {
       encounterEvents.abilitySelected.UnregisterListener(OnAbilitySelected);
       encounterEvents.abilityExecutionStart.UnregisterListener(OnBeginAbilityExecution);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnEndAbilityExecution);
+    }
+
+    private void OnEncounterStart() {
+      enabled = true;
     }
 
     private void OnStartPlayerTurn() {

@@ -23,7 +23,6 @@ namespace StaticConfig.Builds {
     // Indicates the tile can be walked through.
     public bool isTraversable;
     
-    public TileBase inGameTile;
     public Sprite inGameSprite;
 
     // TODO(P1): Actually support builds bigger than one tile

@@ -10,7 +10,7 @@ namespace Units {
   public class UnitMover : MonoBehaviour {
     [SerializeField] private float speedUnitsPerSec;
     
-    private Grid _grid;
+    private SceneTerrain _terrain;
     private bool _currentlyMoving;
     private EncounterActor _unit;
     
@@ -20,7 +20,7 @@ namespace Units {
     private Action _onMovementCompleteCallback;
 
     private void Awake() {
-      _grid = SceneTerrain.Get().Grid;
+      _terrain = SceneTerrain.Get();
       _unit = GetComponent<EncounterActor>();
       _currentlyMoving = false;
     }
@@ -43,7 +43,7 @@ namespace Units {
         return;
       }
       
-      transform.position = _grid.GetCellCenterWorld(_unit.Position);
+      transform.position = _terrain.CellCenterWorld(_unit.Position);
     }
     
     private void SetFacingDirection() {
@@ -74,14 +74,14 @@ namespace Units {
       // Convert grid path to world path
       var worldPath = new LinkedList<Vector3>();
       foreach (var gridCell in path) {
-        worldPath.AddLast(_grid.GetCellCenterWorld(gridCell));
+        worldPath.AddLast(_terrain.CellCenterWorld(gridCell));
       }
       _motionPath = worldPath.First;
     }
 
     private void OnMovementComplete() {
       _currentlyMoving = false;
-      transform.position = _grid.GetCellCenterWorld(_unit.Position);
+      transform.position = _terrain.CellCenterWorld(_unit.Position);
       _onMovementCompleteCallback();
       
       _motionPath = null;

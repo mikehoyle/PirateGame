@@ -34,7 +34,7 @@ namespace Terrain {
       RemoveTilesAtAnyElevation(position);
 
       var newTile = Instantiate(terrainTilePrefab, transform).GetComponent<TerrainTile>();
-      newTile.Initialize(position, terrainSprite, Grid);
+      newTile.Initialize(position, terrainSprite, CellAnchorWorld(position), CellCenterWorld(position));
       
       // By default, connect tiles to any adjacent tile that is within one Z value of
       GridUtils.ForEachAdjacentTile(position, adjacentCoords => {
@@ -133,6 +133,26 @@ namespace Terrain {
       var fallback = Grid.WorldToCell(worldPoint);
       fallback.z = 0;
       return fallback;
+    }
+
+    /// <summary>
+    /// We have to adjust the anchor, because (bafflingly) Unity wants to sort tiles based on their bottom-center
+    /// corner, which will result in all sorts of clipping issues. This adjustment places them with the assumption
+    /// that their pivot is at top-center (where we place it), which resolves all sorts of woes.
+    /// </summary>
+    public Vector3 CellAnchorWorld(Vector3Int coord) {
+       return Grid.CellToWorld(coord + new Vector3Int(1, 1, 0));
+    }
+    
+    public Vector3 CellBaseWorld(Vector3Int coord) {
+      return Grid.CellToWorld(coord);
+    }
+
+    /// <summary>
+    /// Grid.CellCenterWorld seems broken, so this replaces it.
+    /// </summary>
+    public Vector3 CellCenterWorld(Vector3Int coord) {
+      return Grid.CellToWorld(coord) + new Vector3(0, Grid.cellSize.y / 2, 0);
     }
 
     private bool IsGridPositionDefined(Vector3Int gridPosition) {

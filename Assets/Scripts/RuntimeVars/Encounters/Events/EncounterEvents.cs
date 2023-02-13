@@ -7,6 +7,7 @@ namespace RuntimeVars.Encounters.Events {
     public EmptyGameEvent abilityExecutionStart;
     public EmptyGameEvent abilityExecutionEnd;
     public AbilitySelectedEvent abilitySelected;
+    public EmptyGameEvent encounterReadyToStart;
     public EmptyGameEvent encounterStart;
     public EmptyGameEvent enemyTurnStart;
     public EmptyGameEvent enemyTurnEnd;

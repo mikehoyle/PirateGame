@@ -12,7 +12,6 @@ namespace Terrain {
   /// </summary>
   public class TerrainTile : MonoBehaviour, INode {
     public static readonly Velocity TraversalVelocity = Velocity.FromMetersPerSecond(1);
-    private static readonly Vector3Int CellOffset = new Vector3Int(1, 1, 0);
     
     private IList<IEdge> _incoming;
     private IList<IEdge> _outgoing;
@@ -71,16 +70,12 @@ namespace Terrain {
       Enabled = shouldBeEnabled;
     }
 
-    public void Initialize(Vector3Int position, Sprite sprite, Grid grid) {
+    public void Initialize(Vector3Int position, Sprite sprite, Vector3 anchorPosition, Vector3 centerPosition) {
       GridPosition = position;
       _sprite.sprite = sprite;
-      
-      // We have to adjust the position, because (bafflingly) Unity wants to sort tiles based on their
-      // center, which will result in all sorts of clipping issues. This adjustement places them with the assumption
-      // that their pivot is at top-center (where we place it), which resolves all sorts of woes.
-      var adjustedPosition = position + CellOffset;
-      _worldCenter = grid.GetCellCenterWorld(adjustedPosition);
-      transform.position = grid.CellToWorld(adjustedPosition);
+      transform.position = anchorPosition;
+      _worldCenter = centerPosition;
+      gameObject.isStatic = true;
     }
     
     public void Connect(TerrainTile node) {

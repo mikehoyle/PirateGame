@@ -817,6 +817,65 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "ShipPlacement",
+            "id": "c3ecaf5c-6730-4934-b03b-ea570315262d",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "9a3c4838-e91d-4b5f-b476-d927c4d26ffe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Point",
+                    "type": "PassThrough",
+                    "id": "0edbdb23-ca31-4386-b62b-06e3a9c495da",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4f0a72fa-641d-47bd-9e5c-d3d5b9ca947f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "744d9829-36c9-462a-98e3-e5388a148e58",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d21a83e-2505-416e-abe1-c8a9e751fd84",
+                    "path": "<Pen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

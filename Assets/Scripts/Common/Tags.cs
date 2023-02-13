@@ -9,4 +9,5 @@
   public const string PlayerUnit = "PlayerUnit";
   public const string GridIndicators = "GridIndicators";
   public const string Terrain = "Terrain";
+  public const string SceneManager = "SceneManager";
 }

@@ -17,8 +17,6 @@ namespace Units {
     [SerializeField] private UnitAbilitySet defaultAbilities;
     [SerializeField] private CurrentSelection currentSelection;
     
-    [CanBeNull] private UnitPlacementManager _placementManager;
-    
     public UnitState State { get; private set; }
 
     public override UnitEncounterState EncounterState {

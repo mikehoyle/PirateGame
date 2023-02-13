@@ -1,5 +1,7 @@
-﻿using Construction;
+﻿using System;
+using Construction;
 using Encounters.Enemies;
+using RuntimeVars.Encounters.Events;
 using State.World;
 using Terrain;
 using UnityEngine;
@@ -11,28 +13,49 @@ namespace Encounters {
   public class EncounterSetup : MonoBehaviour {
     [SerializeField] private Sprite landSprite;
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private EncounterEvents encounterEvents;
     
-    private ShipSetup _shipSetup;
     private SceneTerrain _terrain;
+    private EncounterTile _encounter;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
-      _shipSetup = GetComponent<ShipSetup>();
     }
 
-    public void SetUpMap(EncounterTile encounter, Vector3Int shipOffset) {
+    private void OnEnable() {
+      encounterEvents.encounterReadyToStart.RegisterListener(OnEncounterReady);
+      encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
+    }
+
+    private void OnDisable() {
+      encounterEvents.encounterReadyToStart.UnregisterListener(OnEncounterReady);
+      encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
+    }
+
+    public void SetUpMap(EncounterTile encounter) {
+      _encounter = encounter;
       foreach (var tile in encounter.terrain) {
         // For now, ignoring tile type because there's only one. In the future, probably use a scriptable
         // object to define tile for different types.
         _terrain.AddTerrain(tile.Key, landSprite);
       }
+    }
 
-      foreach (var enemy in encounter.enemies) {
+    private void OnEncounterReady() {
+      SetUpEnemyUnits();
+      encounterEvents.encounterStart.Raise();
+      enabled = false;
+    }
+
+    private void SetUpEnemyUnits() {
+      foreach (var enemy in _encounter.enemies) {
         var unitController = Instantiate(enemyPrefab).GetComponent<EnemyUnitController>();
         unitController.Init(enemy);
       }
-      
-      _shipSetup.SetupShip(shipOffset, includeUnits: true);
+    }
+
+    private void OnEncounterStart() {
+      enabled = false;
     }
   }
 }

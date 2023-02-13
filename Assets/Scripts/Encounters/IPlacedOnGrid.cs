@@ -2,6 +2,6 @@
 
 namespace Encounters {
   public interface IPlacedOnGrid {
-    public Vector3Int Position { get; set; }
+    public Vector3Int Position { get; }
   }
 }
