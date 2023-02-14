@@ -1,5 +1,4 @@
-﻿using System;
-using Common.Events;
+﻿using System.Linq;
 using Construction;
 using Controls;
 using RuntimeVars.Encounters.Events;
@@ -9,7 +8,7 @@ using Terrain;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Encounters {
+namespace Encounters.ShipPlacement {
   /// <summary>
   /// Manages the flow where the player gets to choose where their ship is placed.
   /// </summary>
@@ -17,11 +16,13 @@ namespace Encounters {
     [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private GameObject ghostShipPrefab;
     
-    private EncounterTile _encounter;
     private ShipSetup _shipSetup;
     private GameObject _ghostShip;
     private GameControls _controls;
     private SceneTerrain _terrain;
+    private TerrainProfile _encounterProfile;
+    private TerrainProfile _shipProfile;
+    private Vector3Int? _currentShipOffset;
 
     private void Awake() {
       _shipSetup = GetComponent<ShipSetup>();
@@ -36,6 +37,7 @@ namespace Encounters {
       }
       _controls.ShipPlacement.Enable();
       _shipSetup.SetupGhostShip(_ghostShip.transform);
+      _ghostShip.SetActive(false);
     }
 
     private void OnDisable() {
@@ -43,12 +45,16 @@ namespace Encounters {
     }
 
     public void BeginShipPlacement(EncounterTile encounter) {
-      _encounter = encounter;
+      _encounterProfile = TerrainProfile.BuildFrom(encounter.terrain.Keys);
+      _shipProfile = TerrainProfile.BuildFrom(
+          GameState.State.player.ship.components
+              .Where(component => component.Value.isFoundationTile)
+              .Select(component => component.Key));
       enabled = true;
     }
 
     // For now, just put the ship next to the terrain in the y+ direction.
-    private Vector3Int GetShipPlacementOffset(ShipState ship) {
+    /*private Vector3Int GetShipPlacementOffset(ShipState ship) {
       var terrainBounds = _encounter.terrain.GetBoundingRect();
       var shipBoundingRect = ship.components.GetBoundingRect();
       return new Vector3Int(
@@ -56,15 +62,14 @@ namespace Encounters {
           (terrainBounds.yMax + 1) - shipBoundingRect.yMin,
           0
       );
-    }
+    }*/
     
     public void OnClick(InputAction.CallbackContext context) {
-      if (!context.performed) {
+      if (!context.performed || !_currentShipOffset.HasValue) {
         return;
       }
       
-      // TODO(P0): Obviously address this
-      _shipSetup.SetupShip(GetShipPlacementOffset(GameState.State.player.ship), includeUnits: true);
+      _shipSetup.SetupShip(_currentShipOffset.Value, includeUnits: true);
       encounterEvents.encounterReadyToStart.Raise();
       enabled = false;
     }
@@ -80,8 +85,18 @@ namespace Encounters {
         return;
       }
       
-      _ghostShip.transform.position = _terrain.CellBaseWorld(
-          _terrain.TileAtScreenCoordinate(context.ReadValue<Vector2>()));;
+      _ghostShip.SetActive(true);
+      var hoveredTile = _terrain.TileAtScreenCoordinate(context.ReadValue<Vector2>());
+      var overlap = _shipProfile.CalculateEdgeOverlap(hoveredTile, _encounterProfile);
+      var offset = overlap.SuggestedSnapOffset();
+      _currentShipOffset = hoveredTile + offset;
+
+      if (_currentShipOffset.HasValue) {
+        _ghostShip.transform.position = _terrain.CellBaseWorld(_currentShipOffset.Value);
+      } else {
+        // TODO(P2): This is bad UX but is easy for now.
+        _ghostShip.SetActive(false);
+      }
     }
   }
 }
