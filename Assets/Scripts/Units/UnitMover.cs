@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Animation;
 using Encounters;
 using State.Unit;
 using Terrain;
@@ -31,8 +32,9 @@ namespace Units {
           OnMovementComplete();
           return;
         }
-
+        
         SetFacingDirection();
+        _unit.AnimationState = AnimationNames.Walk;
         transform.position = Vector3.Lerp(_motionPath.Value, _motionPath.Next!.Value, _progressToNextNode);
         
         _progressToNextNode += (speedUnitsPerSec * Time.deltaTime);
@@ -42,7 +44,8 @@ namespace Units {
         }
         return;
       }
-      
+
+      _unit.AnimationState = AnimationNames.Idle;
       transform.position = _terrain.CellCenterWorld(_unit.Position);
     }
     
@@ -81,6 +84,7 @@ namespace Units {
 
     private void OnMovementComplete() {
       _currentlyMoving = false;
+      _unit.AnimationState = AnimationNames.Idle;
       transform.position = _terrain.CellCenterWorld(_unit.Position);
       _onMovementCompleteCallback();
       

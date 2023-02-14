@@ -1,4 +1,5 @@
-﻿using Encounters;
+﻿using Common.Animation;
+using Encounters;
 using Encounters.Grid;
 using UnityEngine;
 
@@ -42,7 +43,8 @@ namespace Units.Abilities {
       
       encounterEvents.abilityExecutionStart.Raise();
       SpendCost(context.Actor);
-      DetermineAbilityEffectiveness(context.Actor, result => OnDetermineAbilityEffectiveness(result, target));
+      DetermineAbilityEffectiveness(
+          context.Actor, result => OnDetermineAbilityEffectiveness(context.Actor, result, target));
       return true;
     }
 
@@ -61,8 +63,11 @@ namespace Units.Abilities {
       return null;
     }
 
-    private void OnDetermineAbilityEffectiveness(float result, EncounterActor target) {
+    private void OnDetermineAbilityEffectiveness(EncounterActor actor, float result, EncounterActor target) {
       target.AddStatusEffect(incurredEffect);
+      // Animation options should definitely not be here... a future problem.
+      actor.FaceTowards(target.Position);
+      actor.PlayOneOffAnimation(AnimationNames.Attack);
       // TODO(P1): Account for animation time
       encounterEvents.abilityExecutionEnd.Raise();
     }

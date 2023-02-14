@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace StaticConfig {
-  [CreateAssetMenu(fileName = "CompositeUnitSprite", menuName = "ScriptableObjects/Composite Unit Sprite", order = 0)]
+  [CreateAssetMenu(fileName = "CompositeUnitSprite", menuName = "Sprites/Composite Unit Sprite", order = 0)]
   public class CompositeUnitSpriteScriptableObject : ScriptableObject {
     // Currently used for directory name and gameobject name
     public static readonly Dictionary<Layer, string> LayerToString = new() {

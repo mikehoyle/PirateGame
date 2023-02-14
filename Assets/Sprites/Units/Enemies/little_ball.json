@@ -1,0 +1,253 @@
+{ "frames": [
+   {
+    "filename": "little_ball_0",
+    "frame": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 300
+   },
+   {
+    "filename": "little_ball_1",
+    "frame": { "x": 76, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 300
+   },
+   {
+    "filename": "little_ball_2",
+    "frame": { "x": 152, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 300
+   },
+   {
+    "filename": "little_ball_3",
+    "frame": { "x": 228, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 300
+   },
+   {
+    "filename": "little_ball_4",
+    "frame": { "x": 304, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_5",
+    "frame": { "x": 380, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_6",
+    "frame": { "x": 456, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_7",
+    "frame": { "x": 532, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_8",
+    "frame": { "x": 608, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_9",
+    "frame": { "x": 684, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_10",
+    "frame": { "x": 760, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_11",
+    "frame": { "x": 836, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_12",
+    "frame": { "x": 912, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_13",
+    "frame": { "x": 988, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_14",
+    "frame": { "x": 1064, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_15",
+    "frame": { "x": 1140, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_16",
+    "frame": { "x": 1216, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_17",
+    "frame": { "x": 1292, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_18",
+    "frame": { "x": 1368, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_19",
+    "frame": { "x": 1444, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_20",
+    "frame": { "x": 1520, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_21",
+    "frame": { "x": 1596, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_22",
+    "frame": { "x": 1672, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_23",
+    "frame": { "x": 1748, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_24",
+    "frame": { "x": 1824, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "little_ball_25",
+    "frame": { "x": 1900, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "little_ball.png",
+  "format": "RGBA8888",
+  "size": { "w": 1976, "h": 48 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle_sw", "from": 0, "to": 1, "direction": "forward" },
+   { "name": "idle_nw", "from": 2, "to": 3, "direction": "forward" },
+   { "name": "walk_sw", "from": 4, "to": 8, "direction": "forward" },
+   { "name": "walk_nw", "from": 9, "to": 13, "direction": "forward" },
+   { "name": "attack_sw", "from": 14, "to": 19, "direction": "forward" },
+   { "name": "attack_nw", "from": 20, "to": 25, "direction": "forward" }
+  ]
+ }
+}
