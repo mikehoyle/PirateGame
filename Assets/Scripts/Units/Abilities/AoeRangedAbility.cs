@@ -43,17 +43,10 @@ namespace Units.Abilities {
       return IsInRange(context.Actor.Position, context.TargetedTile);
     }
     
-    public override bool TryExecute(AbilityExecutionContext context) {
-      if (!CouldExecute(context)) {
-        return false;
-      }
-      // TODO Normalize all this stuff
-      encounterEvents.abilityExecutionStart.Raise();
-      SpendCost(context.Actor);
+    protected override void Execute(AbilityExecutionContext context) {
       encounterEvents.applyAoeEffect.Raise(_areaOfEffect.WithTarget(context.TargetedTile), incurredEffect);
       // TODO(P1): Account for animation time
       encounterEvents.abilityExecutionEnd.Raise();
-      return true;
     }
   }
 }

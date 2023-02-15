@@ -4,6 +4,7 @@ using Common.Animation;
 using Encounters.Effects;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
+using StaticConfig.Units;
 using Terrain;
 using Units;
 using Units.Abilities.AOE;
@@ -11,8 +12,12 @@ using UnityEngine;
 
 namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable {
+    // TODO(P3): Configure this elsewhere
+    protected const int ActionPointsPerRound = 2;
+    
     [SerializeField] protected List<StatusEffect> activeStatusEffects;
     [SerializeField] protected EncounterEvents encounterEvents;
+    [SerializeField] protected ExhaustibleResources exhaustibleResources;
     
     private UnitMover _mover;
     public Vector3Int Position {
@@ -99,8 +104,7 @@ namespace Encounters {
       _mover.ExecuteMovement(path.Path, callback);
     }
 
-    public void AddStatusEffect(StatusEffect effectTemplate) {
-      var effect = effectTemplate.Apply();
+    public void AddStatusEffect(StatusEffect effect) {
       activeStatusEffects.Add(effect);
     }
   }

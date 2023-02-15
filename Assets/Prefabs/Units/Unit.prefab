@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 2573591084334462572}
   - component: {fileID: 6636280918671138288}
   - component: {fileID: -4212642104737918321}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Unit
   m_TagString: PlayerUnit
   m_Icon: {fileID: 0}
@@ -100,9 +100,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeStatusEffects: []
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
   defaultAbilities: {fileID: 11400000, guid: 54e2bca7f99bf894699d7cf5e3ed1368, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
+  constitutionStat: {fileID: 11400000, guid: d6f0cf594fbe2ca4782833aa62fd60c4, type: 2}
+  movementStat: {fileID: 11400000, guid: f0645ee535e419d4cb5f55bba8e17304, type: 2}
 --- !u!114 &2573591084334462572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +149,7 @@ MonoBehaviour:
   - {x: -0.023188937, y: -0.15845776, z: 0}
   m_ShapePathHash: 1188215802
   m_Mesh: {fileID: 0}
-  m_InstanceId: 49722
+  m_InstanceId: 50032
 --- !u!70 &-4212642104737918321
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -173,6 +176,10 @@ PrefabInstance:
     - target: {fileID: 7073700707995748676, guid: d53b0a281779c59498a0521ee02cd9f3, type: 3}
       propertyPath: m_Name
       value: CompositeSprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073700707995748676, guid: d53b0a281779c59498a0521ee02cd9f3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7073700707995748677, guid: d53b0a281779c59498a0521ee02cd9f3, type: 3}
       propertyPath: m_RootOrder

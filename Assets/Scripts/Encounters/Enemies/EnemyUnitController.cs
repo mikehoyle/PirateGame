@@ -37,11 +37,10 @@ namespace Encounters.Enemies {
 
     public void Init(EnemyUnitState state) {
       EncounterState = state.encounterState;
-      // TODO(P0): prototyping only, remove this
       EncounterState.resources = new[] {
-          ExhaustibleResourceTracker.NewHpTracker(10),
-          ExhaustibleResourceTracker.NewMovementTracker(5),
-          ExhaustibleResourceTracker.NewActionPointsTracker(2), 
+          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.hp, state.startingHp),
+          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.mp, state.movementRange),
+          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.ap, ActionPointsPerRound),
       };
     }
   }

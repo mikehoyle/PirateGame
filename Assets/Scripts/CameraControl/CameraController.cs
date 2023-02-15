@@ -33,9 +33,9 @@ namespace CameraControl {
       transform.position = new Vector3(focus.x, focus.y, transform.position.z);
     }
 
-    public RaycastHit2D RaycastFromMousePosition() {
+    public RaycastHit2D RaycastFromMousePosition(LayerMask layerMask) {
       var ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-      return Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+      return Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, layerMask);
     }
 
     public static CameraController Get() {

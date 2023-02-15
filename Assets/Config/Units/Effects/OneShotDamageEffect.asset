@@ -14,5 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exhaustibleResourceEffects:
   - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
-    diff: -10
+    calculation:
+      type: 2
+      constInt: 0
+      constFloat: 0
+      calculatedValue:
+        operation: 0
+        operands:
+        - type: 0
+          constInt: 5
+          constFloat: 0
+          calculatedValue:
+            operation: 0
+            operands: []
+          exhaustibleResource: {fileID: 0}
+          stat: {fileID: 0}
+        - type: 0
+          constInt: 3
+          constFloat: 0
+          calculatedValue:
+            operation: 0
+            operands: []
+          exhaustibleResource: {fileID: 0}
+          stat: {fileID: 0}
+      exhaustibleResource: {fileID: 0}
+      stat: {fileID: 0}
   delayInSeconds: 0

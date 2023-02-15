@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -160105272764826462}
   - component: {fileID: 4072349022230282683}
   - component: {fileID: 9048316107894136840}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeStatusEffects: []
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   enemiesInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
   defaultAbilities: {fileID: 11400000, guid: a87722db31238824da8b5f61d1250f75, type: 2}
 --- !u!114 &-160105272764826462

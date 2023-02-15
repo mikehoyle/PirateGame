@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Encounters;
-using JetBrains.Annotations;
 using Optional;
 using RuntimeVars;
 using RuntimeVars.Encounters;
@@ -13,9 +12,17 @@ using UnityEngine;
 
 namespace Units {
   public class UnitController : EncounterActor {
+    // TODO(P3): Configure these elsewhere
+    private const int BaseHp = 10;
+    private const int HpPerLevel = 10;
+    private const int BaseMovement = 4;
+    private const int MovementPerLevel = 1;
+    
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     [SerializeField] private UnitAbilitySet defaultAbilities;
     [SerializeField] private CurrentSelection currentSelection;
+    [SerializeField] private Stat constitutionStat;
+    [SerializeField] private Stat movementStat;
     
     public UnitState State { get; private set; }
 
@@ -50,11 +57,13 @@ namespace Units {
 
     public void Init(UnitState state, Vector3Int positionOffset) {
       State = state;
-      // TODO(P0): prototyping only, remove this
       state.encounterState.resources = new[] {
-          ExhaustibleResourceTracker.NewHpTracker(20),
-          ExhaustibleResourceTracker.NewActionPointsTracker(2),
-          ExhaustibleResourceTracker.NewMovementTracker(8),
+          // TODO(P1): Don't always refresh HP fully.
+          ExhaustibleResourceTracker.NewTracker(
+              exhaustibleResources.hp, BaseHp + (HpPerLevel * state.encounterState.GetStat(constitutionStat))),
+          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.ap, ActionPointsPerRound),
+          ExhaustibleResourceTracker.NewTracker(
+              exhaustibleResources.mp, BaseMovement + (MovementPerLevel * state.encounterState.GetStat(movementStat))),
       };
       state.encounterState.NewEncounter(state.startingPosition + positionOffset);
       Position = State.startingPosition + positionOffset;

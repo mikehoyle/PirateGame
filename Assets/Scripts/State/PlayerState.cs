@@ -12,6 +12,7 @@ namespace State {
     public Vector2Int overworldGridPosition;
     public ShipState ship;
     public InventoryState inventory;
+    public ArmoryState armory;
     public List<UnitState> roster;
   }
 }

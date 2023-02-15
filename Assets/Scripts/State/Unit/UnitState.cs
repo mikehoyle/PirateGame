@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using StaticConfig.Units;
+﻿using System.Collections.Generic;
+using StaticConfig.Equipment;
 using Units.Abilities;
 using UnityEngine;
 
@@ -10,10 +9,14 @@ namespace State.Unit {
   public class UnitState : ScriptableObject {
     public Vector3Int startingPosition;
     public UnitEncounterState encounterState;
-    
+    public SerializableDictionary<EquipmentSlot, Equipment> equipped;
+
     public List<UnitAbility> GetAbilities() {
-      // TODO(P1): Add abilities from equipment etc.
-      return new();
+      List<UnitAbility> unitAbilities = new();
+      foreach (var equipment in equipped.Values) {
+        unitAbilities.AddRange(equipment.abilitiesProvided);
+      }
+      return unitAbilities;
     }
   }
 }

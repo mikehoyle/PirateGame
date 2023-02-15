@@ -20,6 +20,7 @@ namespace Encounters {
     private CameraController _cameraController;
     private GridIndicators _gridIndicators;
     private SceneTerrain _terrain;
+    private LayerMask _unitInteractionLayer;
 
     private void Awake() {
       _cameraController = CameraController.Get();
@@ -28,6 +29,10 @@ namespace Encounters {
       currentSelection.Reset();
       currentRound.Value = 1;
       encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
+    }
+
+    private void Start() {
+      _unitInteractionLayer = LayerMask.GetMask("Clickable");
     }
 
     private void OnDestroy() {
@@ -78,7 +83,7 @@ namespace Encounters {
     }
 
     protected override void OnClick(Vector2 mousePosition) {
-      var clickedObject = _cameraController.RaycastFromMousePosition().collider?.gameObject;
+      var clickedObject = _cameraController.RaycastFromMousePosition(_unitInteractionLayer).collider?.gameObject;
       var targetTile = _terrain.TileAtScreenCoordinate(mousePosition);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         if (ability.TryExecute(new UnitAbility.AbilityExecutionContext {
@@ -98,7 +103,7 @@ namespace Encounters {
     }
     
     protected override void OnPoint(Vector2 mousePosition) {
-      var hoveredObject = _cameraController.RaycastFromMousePosition().collider?.gameObject;
+      var hoveredObject = _cameraController.RaycastFromMousePosition(_unitInteractionLayer).collider?.gameObject;
       var hoveredTile = _terrain.TileAtScreenCoordinate(mousePosition);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         ability.ShowIndicator(unit, hoveredObject, hoveredTile, _gridIndicators);

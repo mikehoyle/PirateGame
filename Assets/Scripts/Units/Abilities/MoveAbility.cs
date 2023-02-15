@@ -27,16 +27,17 @@ namespace Units.Abilities {
       return path.IsViableAndWithinRange(context.Actor.EncounterState.GetResourceAmount(movementResource));
     }
 
-    public override bool TryExecute(AbilityExecutionContext context) {
+    protected override void Execute(AbilityExecutionContext context) {
       var path = context.Terrain.GetPath(context.Actor.Position, context.TargetedTile);
       if (!path.IsViableAndWithinRange(context.Actor.EncounterState.GetResourceAmount(movementResource))) {
-        return false;
+        Debug.LogWarning("Path became non-viable during movement execution. This should not happene");
+        return;
       }
-
+      
+      // Manually spend cost because it is dynamic.
+      context.Actor.EncounterState.ExpendResource(movementResource, path.Length());
       context.Actor.MoveAlongPath(path, OnMoveComplete);
       encounterEvents.abilityExecutionStart.Raise();
-      context.Actor.EncounterState.ExpendResource(movementResource, path.Length());
-      return true;
     }
 
     private void OnMoveComplete() {

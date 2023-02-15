@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46190b7e438d44fcae841884ca525014, type: 3}
-  m_Name: HpTracker
+  m_Script: {fileID: 11500000, guid: 09d29da16c654b62a4e61b9610b63984, type: 3}
+  m_Name: MovementStat
   m_EditorClassIdentifier: 
-  exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
-  max: 0
-  min: 0
-  current: 0
+  id: movement
+  displayName: Movement
+  maxValue: 6
+  minValue: 1

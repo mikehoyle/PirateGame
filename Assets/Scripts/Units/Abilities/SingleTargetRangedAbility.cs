@@ -32,20 +32,15 @@ namespace Units.Abilities {
       return true;
     }
 
-    public override bool TryExecute(AbilityExecutionContext context) {
-      if (!CanAfford(context.Actor)) {
-        return false;
-      }
+    protected override void Execute(AbilityExecutionContext context) {
       var target = GetTargetIfEligible(context.Actor, context.TargetedObject);
       if (target == null) {
-        return false;
+        Debug.LogWarning("Could not find target when executing");
+        return;
       }
       
-      encounterEvents.abilityExecutionStart.Raise();
-      SpendCost(context.Actor);
       DetermineAbilityEffectiveness(
-          context.Actor, result => OnDetermineAbilityEffectiveness(context.Actor, result, target));
-      return true;
+          context.Actor, result => OnDetermineAbilityEffectiveness(context, result, target));
     }
 
     private EncounterActor GetTargetIfEligible(EncounterActor actor, GameObject target) {
@@ -63,11 +58,14 @@ namespace Units.Abilities {
       return null;
     }
 
-    private void OnDetermineAbilityEffectiveness(EncounterActor actor, float result, EncounterActor target) {
-      target.AddStatusEffect(incurredEffect);
+    private void OnDetermineAbilityEffectiveness(
+        AbilityExecutionContext context, float result, EncounterActor target) {
+      var effect = incurredEffect.Apply();
+      effect.CalculateEffects(context, result);
+      target.AddStatusEffect(effect);
       // Animation options should definitely not be here... a future problem.
-      actor.FaceTowards(target.Position);
-      actor.PlayOneOffAnimation(AnimationNames.Attack);
+      context.Actor.FaceTowards(target.Position);
+      context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
       // TODO(P1): Account for animation time
       encounterEvents.abilityExecutionEnd.Raise();
     }

@@ -1,5 +1,7 @@
 ﻿using System;
 using StaticConfig.Units;
+using Units.Abilities;
+using Units.Abilities.Formulas;
 using UnityEngine;
 
 namespace Encounters.Effects {
@@ -8,10 +10,21 @@ namespace Encounters.Effects {
     [Serializable]
     public class ExhaustibleResourceEffect {
       public ExhaustibleResource resource;
-      public int diff;
+      public Calculation calculation;
+      public float CalculatedValue { get; private set; }
+
+      public void Calculate(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
+        CalculatedValue = calculation.GetValue(context, skillTestResult);
+      }
     }
 
     public ExhaustibleResourceEffect[] exhaustibleResourceEffects;
+
+    public void CalculateEffects(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
+      foreach (var effect in exhaustibleResourceEffects) {
+        effect.Calculate(context, skillTestResult);
+      }
+    }
 
     /// <summary>
     /// Because status effects can have individual tracking mechanisms, to apply them,
@@ -34,7 +47,7 @@ namespace Encounters.Effects {
       Debug.Log($"Applying effect to to victim {victim.name}");
       foreach (var exhaustibleResourceEffect in exhaustibleResourceEffects) {
         victim.EncounterState.ExpendResource(
-            exhaustibleResourceEffect.resource, -exhaustibleResourceEffect.diff);
+            exhaustibleResourceEffect.resource, (int)exhaustibleResourceEffect.CalculatedValue);
       }
     }
   }

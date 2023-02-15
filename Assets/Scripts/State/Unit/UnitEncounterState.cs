@@ -5,6 +5,7 @@ namespace State.Unit {
   [CreateAssetMenu(menuName = "State/UnitEncounterState")]
   public class UnitEncounterState : ScriptableObject {
     public ExhaustibleResourceTracker[] resources;
+    public StatTracker[] stats;
     public Vector3Int position;
     public UnitFaction faction;
     public FacingDirection facingDirection;
@@ -54,6 +55,26 @@ namespace State.Unit {
       }
       tracker = null;
       return false;
+    }
+    
+    public bool TryGetStatTracker(Stat stat, out StatTracker tracker) {
+      foreach (var statTracker in stats) {
+        if (statTracker.stat == stat) {
+          tracker = statTracker;
+          return true;
+        }
+      }
+      tracker = null;
+      return false;
+    }
+
+    public int GetStat(Stat stat) {
+      if (TryGetStatTracker(stat, out var tracker)) {
+        return tracker.current;
+      }
+      
+      Debug.LogWarning($"Cannot get resource {stat.displayName}, unit does not have it");
+      return 0;
     }
   }
 }

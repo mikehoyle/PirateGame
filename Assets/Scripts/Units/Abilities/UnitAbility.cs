@@ -45,9 +45,21 @@ namespace Units.Abilities {
         EncounterActor actor, GameObject hoveredObject, Vector3Int hoveredTile, GridIndicators indicators) { }
 
     public abstract bool CouldExecute(AbilityExecutionContext context);
-    
+
     /// <returns>Whether the ability is successfully executing</returns>
-    public abstract bool TryExecute(AbilityExecutionContext context);
+    public bool TryExecute(AbilityExecutionContext context) {
+      if (!CouldExecute(context) || !CanAfford(context.Actor)) {
+        return false;
+      }
+
+      encounterEvents.abilityExecutionStart.Raise();
+      SpendCost(context.Actor);
+      Execute(context);
+      return true;
+    }
+
+    
+    protected abstract void Execute(AbilityExecutionContext context); 
 
     public bool CanAfford(EncounterActor actor) {
       foreach (var abilityCost in cost) {

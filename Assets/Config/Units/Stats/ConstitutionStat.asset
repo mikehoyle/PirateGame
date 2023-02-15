@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb43582c2321480087bf00adc5bc9d42, type: 3}
-  m_Name: DebugEnemyUnitState
+  m_Script: {fileID: 11500000, guid: 09d29da16c654b62a4e61b9610b63984, type: 3}
+  m_Name: ConstitutionStat
   m_EditorClassIdentifier: 
-  startingHp: 15
-  movementRange: 5
-  encounterState: {fileID: 11400000, guid: aea861eb5e4a2ed4ba8682164beebeb0, type: 2}
+  id: constitution
+  displayName: Constitution
+  maxValue: 6
+  minValue: 1
