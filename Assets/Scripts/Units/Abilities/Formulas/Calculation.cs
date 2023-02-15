@@ -11,11 +11,12 @@ namespace Units.Abilities.Formulas {
   public class Calculation {
     [Serializable]
     public enum Type {
-      ConstInt,
-      ConstFloat,
-      CalculatedValue,
-      ActorExhaustibleResource,
-      ActorStat,
+      ConstInt = 0,
+      ConstFloat = 1,
+      CalculatedValue = 2,
+      ActorExhaustibleResource = 3,
+      ActorStat = 4,
+      SkillTestResult = 5,
     }
 
     public Type type;
@@ -23,9 +24,9 @@ namespace Units.Abilities.Formulas {
     // Only one of these should ever be filled
     public int constInt;
     public float constFloat;
-    public CalculatedValue calculatedValue;
     public ExhaustibleResource exhaustibleResource;
-    public Stat stat; 
+    public Stat stat;
+    public CalculatedValue calculatedValue;
 
     public float GetValue(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
       return type switch {
@@ -34,6 +35,7 @@ namespace Units.Abilities.Formulas {
           Type.CalculatedValue => calculatedValue.CalculateValue(context, skillTestResult),
           Type.ActorExhaustibleResource => context.Actor.EncounterState.GetResourceAmount(exhaustibleResource),
           Type.ActorStat => context.Actor.EncounterState.GetStat(stat),
+          Type.SkillTestResult => skillTestResult,
           // Should be unreachable
           _ => LogWarning(),
       };

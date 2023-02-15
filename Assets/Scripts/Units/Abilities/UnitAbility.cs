@@ -15,7 +15,7 @@ namespace Units.Abilities {
   /// Encapsulates an actionable capability of a unit.
   /// Expand on this greatly.
   /// </summary>
-  public abstract class UnitAbility : EnumScriptableObject {
+  public abstract class UnitAbility : ScriptableObject {
     [SerializeField] private GameObject skillTestPrefab;
     [SerializeField] protected EncounterEvents encounterEvents;
 

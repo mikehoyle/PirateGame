@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DebugUnitState
   m_EditorClassIdentifier: 
   startingPosition: {x: 0, y: 0, z: 0}
-  maxHp: 20
-  faction: 0
-  movementRange: 6
   encounterState: {fileID: 11400000, guid: ecf9873cbd75e994b9d56bd9e8de0476, type: 2}
+  equipped:
+    m_keys:
+    - {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}
+    m_values:
+    - {fileID: 11400000, guid: 4ea7c49cde3f3354a9c765233d97dd18, type: 2}
