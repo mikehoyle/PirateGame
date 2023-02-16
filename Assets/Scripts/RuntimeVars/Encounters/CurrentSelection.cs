@@ -20,18 +20,8 @@ namespace RuntimeVars.Encounters {
       unit = null;
       return false;
     }
-
-    public bool TryGetUnit(out EncounterActor unit) {
-      if (selectedUnit.HasValue) {
-        unit = selectedUnit.ValueOrFailure();
-        return true;
-      }
-
-      unit = null;
-      return false;
-    }
     
-    public void Reset() {
+    public void Clear() {
       selectedAbility = Option.None<UnitAbility>();
       selectedUnit = Option.None<EncounterActor>();
     }

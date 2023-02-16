@@ -1,16 +1,14 @@
-﻿using System;
-using CameraControl;
-using Common;
+﻿using Common;
 using Controls;
-using HUD.Construction;
-using HUD.MainMenu;
+using Optional;
+using RuntimeVars.ShipBuilder;
 using RuntimeVars.ShipBuilder.Events;
 using State;
 using StaticConfig.Builds;
 using Terrain;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 namespace Construction {
   
@@ -18,52 +16,27 @@ namespace Construction {
   /// TODO(P2): Limit camera movement to avoid infinite scroll into the abyss.
   /// </summary>
   public class ShipBuilderManager : MonoBehaviour, GameControls.IShipBuilderActions {
-    [SerializeField] private string backToMapButtonLabel = "Back to Map";
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
     [SerializeField] private ShipBuilderEvents shipBuilderEvents;
+    [SerializeField] private CurrentBuildSelection currentBuildSelection;
     
     private GameControls _controls;
-    private Vector3Int _currentHoveredTile;
     private SceneTerrain _terrain;
-    private BuildPlacementIndicator _placementIndicator;
     private PlayerState _playerState;
-    private MainMenuController _mainMenu;
-    private ConstructableObject _selectedBuild;
-    private CameraCursorMover _cameraMover;
     private ShipSetup _shipSetup;
 
     private void Awake() {
+      enabled = false;
       _terrain = SceneTerrain.Get();
-      _cameraMover = GetComponent<CameraCursorMover>();
-      _placementIndicator = _terrain.GetComponentInChildren<BuildPlacementIndicator>();
-      _shipSetup = GetComponent<ShipSetup>(); 
-      _playerState = GameState.State.player; 
+      _shipSetup = GetComponent<ShipSetup>();
+      _playerState = GameState.State.player;
+      shipBuilderEvents.enterConstructionMode.RegisterListener(OnEnterConstructionMode);
+      shipBuilderEvents.exitConstructionMode.RegisterListener(OnExitConstructionMode);
     }
 
-    private void Start() {
-      _shipSetup.SetupShip();
-      InitializeCamera();
-      _mainMenu = MainMenuController.Get();
-      _mainMenu.AddMenuItem(backToMapButtonLabel, OnBackToMap);
-    }
-    
-    private void InitializeCamera() {
-      var minX = int.MaxValue;
-      var maxX = int.MinValue;
-      var minY = int.MaxValue;
-      var maxY = int.MinValue;
-      foreach (var tileCoord in GameState.State.player.ship.components.Keys) {
-        minX = Math.Min(minX, tileCoord.x);
-        maxX = Math.Max(maxX, tileCoord.x);
-        minY = Math.Min(minY, tileCoord.y);
-        maxY = Math.Max(maxY, tileCoord.y);
-      }
-      
-      var visualMin = _terrain.Grid.CellToWorld(new Vector3Int(minX, minY, 0));
-      // +1 to maxes because CellToWorld returns bottom corner of cell,
-      // so top corner of cell = bottom corner of caddy-cornered cell.
-      var visualMax = _terrain.Grid.CellToWorld(new Vector3Int(maxX + 1, maxY + 1, 0));
-      _cameraMover.Initialize(Vector3.Lerp(visualMin, visualMax, 0.5f));
+    private void OnDestroy() {
+      shipBuilderEvents.enterConstructionMode.UnregisterListener(OnEnterConstructionMode);
+      shipBuilderEvents.exitConstructionMode.UnregisterListener(OnExitConstructionMode);
     }
 
     private void OnEnable() {
@@ -77,39 +50,42 @@ namespace Construction {
     }
 
     private void OnDisable() {
+      currentBuildSelection.Clear();
       _controls.ShipBuilder.Disable();
       shipBuilderEvents.buildSelected.UnregisterListener(OnBuildSelected);
     }
 
-    private void OnBackToMap() {
-      SceneManager.LoadScene(Scenes.Name.Overworld.SceneName());
+    public void OnClick(InputAction.CallbackContext context) {
+      if (!context.performed || EventSystem.current.IsPointerOverGameObject()) {
+        // Ignore start/cancel events and UI-bound events
+        return;
+      }
+      
+      AttemptPurchase();
     }
 
-    public void OnClick(InputAction.CallbackContext context) {
-      if (!context.performed) {
-        // Ignore start/cancel events
-        return;
-      }
-      if (_selectedBuild == null) {
-        // No build selected 
-        return;
-      }
-      
-      var mousePosition = Mouse.current.position.ReadValue();
-      var gridCell = GetTargetCellForMousePosition(mousePosition);
-      
-      AttemptPurchase(gridCell);
+    private void OnEnterConstructionMode() {
+      enabled = true;
+    }
+
+    private void OnExitConstructionMode() {
+      enabled = false;
     }
     
-    private void AttemptPurchase(Vector3Int gridCell) {
-      if (!IsValidPlacement(gridCell)) {
+    
+    private void AttemptPurchase() {
+      if (!currentBuildSelection.build.TryGet(out var build) || !currentBuildSelection.tile.TryGet(out var tile)) {
+        return;
+      }
+      
+      if (!IsValidPlacement(tile)) {
         return;
       }
 
-      _playerState.inventory.DeductBuildCost(_selectedBuild);
-      _playerState.ship.Add(gridCell, _selectedBuild);
-      _shipSetup.AddBuild(gridCell, _selectedBuild);
-      _placementIndicator.Hide();
+      _playerState.inventory.DeductBuildCost(build);
+      _playerState.ship.Add(tile, build);
+      _shipSetup.AddBuild(tile, build);
+      currentBuildSelection.tile = Option.None<Vector3Int>();
     }
 
     public void OnPoint(InputAction.CallbackContext context) {
@@ -117,53 +93,50 @@ namespace Construction {
         // Prevent attempts at handling mouse movement after scene cleanup.
         return;
       }
-
-      if (context.canceled) {
-        _placementIndicator.Hide();
-        return;
-      }
-
-      if (_selectedBuild == null) {
-        // Nothing selected, so nothing to indicate
+      
+      if (context.canceled || EventSystem.current.IsPointerOverGameObject()) {
+        currentBuildSelection.tile = Option.None<Vector3Int>();
         return;
       }
       
-      var mousePosition = context.ReadValue<Vector2>();
-      var gridCell = GetTargetCellForMousePosition(mousePosition);
-
-      _placementIndicator.SetSprite(_selectedBuild.inGameSprite);
-      if (IsValidPlacement(gridCell)) {
-        _placementIndicator.ShowValidIndicator(gridCell);
-      } else {
-        _placementIndicator.ShowInvalidIndicator(gridCell);
-      }
+      var tile = GetTargetCellForMousePosition(context.ReadValue<Vector2>());
+      currentBuildSelection.tile = Option.Some(tile);
+      currentBuildSelection.isValidPlacement = IsValidPlacement(tile);
     }
 
     private Vector3Int GetTargetCellForMousePosition(Vector2 mousePosition) {
       var gridCell = _terrain.TileAtScreenCoordinate(mousePosition);
 
-      if (_selectedBuild.isFoundationTile) {
-        // Always place foundations on the bottom.
-        gridCell.z = 0;
-      } else {
-        // Other builds want to go above the current highest option.
-        gridCell = _terrain.GetElevation((Vector2Int)gridCell);
-        gridCell.z += 1;
-      }
+      currentBuildSelection.build.MatchSome(build => {
+        if (build.isFoundationTile) {
+          // Always place foundations on the bottom.
+          gridCell.z = 0;
+        } else {
+          // Other builds want to go above the current highest option.
+          gridCell = _terrain.GetElevation((Vector2Int)gridCell);
+          gridCell.z += 1;
+        }
+      });
+      
+      
 
       return gridCell;
     }
 
     private void OnBuildSelected(ConstructableObject build) {
-      _selectedBuild = build;
+      currentBuildSelection.build = Option.Some(build);
     }
     
     private bool IsValidPlacement(Vector3Int gridCell) {
-      if (!_playerState.inventory.CanAffordBuild(_selectedBuild)) {
+      if (!currentBuildSelection.build.TryGet(out var selectedBuild)) {
         return false;
       }
       
-      if (_selectedBuild.isFoundationTile) {
+      if (!_playerState.inventory.CanAffordBuild(selectedBuild)) {
+        return false;
+      }
+      
+      if (selectedBuild.isFoundationTile) {
         if (gridCell.z != 0) {
           // This shouldn't be possible, but fallback logic to prevent stacking (for now)
           return false;
@@ -171,7 +144,8 @@ namespace Construction {
         
         // For foundation tiles, assert the target cell is empty
         if (_playerState.ship.components.ContainsKey(gridCell)) {
-          _placementIndicator.Hide();
+          // This is a smelly side-effect, but it's fine for now. 
+          currentBuildSelection.tile = Option.None<Vector3Int>();
           return false;
         }
         

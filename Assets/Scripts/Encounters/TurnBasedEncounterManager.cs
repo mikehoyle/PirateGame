@@ -9,6 +9,7 @@ using Terrain;
 using Units;
 using Units.Abilities;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Encounters {
   public class TurnBasedEncounterManager : EncounterInputReceiver {
@@ -26,7 +27,7 @@ namespace Encounters {
       _cameraController = CameraController.Get();
       _gridIndicators = GridIndicators.Get();
       _terrain = SceneTerrain.Get();
-      currentSelection.Reset();
+      currentSelection.Clear();
       currentRound.Value = 1;
       encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
     }
@@ -83,6 +84,11 @@ namespace Encounters {
     }
 
     protected override void OnClick(Vector2 mousePosition) {
+      if (EventSystem.current.IsPointerOverGameObject()) {
+        // Ignore UI-intended events
+        return;
+      }
+      
       var clickedObject = _cameraController.RaycastFromMousePosition(_unitInteractionLayer).collider?.gameObject;
       var targetTile = _terrain.TileAtScreenCoordinate(mousePosition);
       if (currentSelection.TryGet(out var ability, out var unit)) {
@@ -103,6 +109,11 @@ namespace Encounters {
     }
     
     protected override void OnPoint(Vector2 mousePosition) {
+      if (EventSystem.current.IsPointerOverGameObject()) {
+        // Ignore UI-intended events
+        return;
+      }
+      
       var hoveredObject = _cameraController.RaycastFromMousePosition(_unitInteractionLayer).collider?.gameObject;
       var hoveredTile = _terrain.TileAtScreenCoordinate(mousePosition);
       if (currentSelection.TryGet(out var ability, out var unit)) {
@@ -120,7 +131,7 @@ namespace Encounters {
     }
 
     protected override void OnEndTurn() {
-      currentSelection.Reset();
+      currentSelection.Clear();
       _controls.TurnBasedEncounter.Disable();
       _gridIndicators.Clear();
       encounterEvents.playerTurnEnd.Raise();

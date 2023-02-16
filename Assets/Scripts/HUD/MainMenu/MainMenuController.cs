@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Controls;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 namespace HUD.MainMenu {
   public class MainMenuController : MonoBehaviour, GameControls.IMenuActions {
     [SerializeField] private GameObject _buttonPrefab;
+    
     private Transform _container;
     private Canvas _canvas;
     private readonly Dictionary<string, Button> _buttons = new();
@@ -18,6 +20,10 @@ namespace HUD.MainMenu {
       _canvas = GetComponent<Canvas>();
       AddMenuItem("Exit Game", OnExitGame);
       Hide();
+    }
+
+    private void OnDestroy() {
+      _buttons.Clear();
     }
 
     private void OnEnable() {

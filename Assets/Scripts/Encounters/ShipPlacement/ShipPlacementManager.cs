@@ -50,7 +50,6 @@ namespace Encounters.ShipPlacement {
           GameState.State.player.ship.components
               .Where(component => component.Value.isFoundationTile)
               .Select(component => component.Key));
-      Debug.Log($"ship profile: {_shipProfile}");
       enabled = true;
     }
     

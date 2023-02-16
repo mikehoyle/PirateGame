@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: ShipBuilderEvents
   m_EditorClassIdentifier: 
   buildSelected: {fileID: 11400000, guid: 8859417b76c80ae4d9222bfa601609e8, type: 2}
+  enterConstructionMode: {fileID: 11400000, guid: e6c41ab846775b5499914d2970708198, type: 2}
+  exitConstructionMode: {fileID: 11400000, guid: 365d549da4ab4474ab2ccc404f936e9c, type: 2}
