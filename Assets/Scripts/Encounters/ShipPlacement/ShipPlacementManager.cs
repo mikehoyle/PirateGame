@@ -50,19 +50,9 @@ namespace Encounters.ShipPlacement {
           GameState.State.player.ship.components
               .Where(component => component.Value.isFoundationTile)
               .Select(component => component.Key));
+      Debug.Log($"ship profile: {_shipProfile}");
       enabled = true;
     }
-
-    // For now, just put the ship next to the terrain in the y+ direction.
-    /*private Vector3Int GetShipPlacementOffset(ShipState ship) {
-      var terrainBounds = _encounter.terrain.GetBoundingRect();
-      var shipBoundingRect = ship.components.GetBoundingRect();
-      return new Vector3Int(
-          terrainBounds.xMin - shipBoundingRect.xMin,
-          (terrainBounds.yMax + 1) - shipBoundingRect.yMin,
-          0
-      );
-    }*/
     
     public void OnClick(InputAction.CallbackContext context) {
       if (!context.performed || !_currentShipOffset.HasValue) {

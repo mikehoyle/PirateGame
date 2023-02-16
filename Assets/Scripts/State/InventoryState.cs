@@ -13,7 +13,7 @@ namespace State {
     public class InventoryContentsDictionary : SerializableDictionary<RawResource, int> { }
 
     // Maps item to quantity held, where the keys are RawResourceScriptableObject.ids
-    [SerializeField] private InventoryContentsDictionary items = new();
+    [SerializeField] private InventoryContentsDictionary items;
 
     public int GetQuantity(RawResource item) {
       items.TryGetValue(item, out var quantity);

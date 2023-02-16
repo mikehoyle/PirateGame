@@ -21,7 +21,7 @@ MonoBehaviour:
       exhaustibleResource: {fileID: 0}
       stat: {fileID: 0}
       calculatedValue:
-        operation: 0
+        operation: 2
         operands:
         - type: 0
           constInt: 1
@@ -31,36 +31,12 @@ MonoBehaviour:
           calculatedValue:
             operation: 0
             operands: []
-        - type: 0
-          constInt: 1
+        - type: 4
+          constInt: 0
           constFloat: 0
           exhaustibleResource: {fileID: 0}
-          stat: {fileID: 0}
+          stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
           calculatedValue:
-            operation: 2
-            operands:
-            - type: 0
-              constInt: 2
-              constFloat: 0
-              exhaustibleResource: {fileID: 0}
-              stat: {fileID: 0}
-              calculatedValue:
-                operation: 0
-                operands: []
-            - type: 4
-              constInt: 0
-              constFloat: 0
-              exhaustibleResource: {fileID: 0}
-              stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
-              calculatedValue:
-                operation: 0
-                operands: []
-            - type: 5
-              constInt: 0
-              constFloat: 0
-              exhaustibleResource: {fileID: 0}
-              stat: {fileID: 0}
-              calculatedValue:
-                operation: 0
-                operands: []
+            operation: 0
+            operands: []
   delayInSeconds: 0

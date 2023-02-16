@@ -12,15 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e4d0f8688c4968a7d05a6662b60e01, type: 3}
   m_Name: PunchAbility
   m_EditorClassIdentifier: 
-  id: punch
   skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
-  beginAbilityExecutionEvent: {fileID: 11400000, guid: e72e234224fa90248ba82f81f82798b7, type: 2}
-  endAbilityExecutionEvent: {fileID: 11400000, guid: af6abd0c6ee03714eaaac215c3d39728, type: 2}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   displayString: Punch
   cost:
   - amount: 1
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
   rangeMin: 1
   rangeMax: 1
-  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
-  incurredEffect: {fileID: 11400000, guid: 21d3a41669fd32647a2f64b8504bc908, type: 2}
+  incurredEffect: {fileID: 11400000, guid: 47bb2b5920a7b424cb6ba318ff968129, type: 2}

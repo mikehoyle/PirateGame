@@ -4,6 +4,7 @@ using Common;
 using Controls;
 using HUD.Construction;
 using HUD.MainMenu;
+using RuntimeVars.ShipBuilder.Events;
 using State;
 using StaticConfig.Builds;
 using Terrain;
@@ -19,6 +20,7 @@ namespace Construction {
   public class ShipBuilderManager : MonoBehaviour, GameControls.IShipBuilderActions {
     [SerializeField] private string backToMapButtonLabel = "Back to Map";
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
+    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     
     private GameControls _controls;
     private Vector3Int _currentHoveredTile;
@@ -26,7 +28,6 @@ namespace Construction {
     private BuildPlacementIndicator _placementIndicator;
     private PlayerState _playerState;
     private MainMenuController _mainMenu;
-    private BuildMenuController _buildMenu;
     private ConstructableObject _selectedBuild;
     private CameraCursorMover _cameraMover;
     private ShipSetup _shipSetup;
@@ -37,8 +38,6 @@ namespace Construction {
       _placementIndicator = _terrain.GetComponentInChildren<BuildPlacementIndicator>();
       _shipSetup = GetComponent<ShipSetup>(); 
       _playerState = GameState.State.player; 
-      _buildMenu = BuildMenuController.Get();
-      _buildMenu.OnBuildSelected += OnBuildSelected;
     }
 
     private void Start() {
@@ -72,16 +71,14 @@ namespace Construction {
         _controls = new GameControls();
         _controls.ShipBuilder.SetCallbacks(this);
       }
-
+      
       _controls.ShipBuilder.Enable();
+      shipBuilderEvents.buildSelected.RegisterListener(OnBuildSelected);
     }
 
     private void OnDisable() {
       _controls.ShipBuilder.Disable();
-    }
-
-    private void OnDestroy() {
-      _buildMenu.OnBuildSelected -= OnBuildSelected;
+      shipBuilderEvents.buildSelected.UnregisterListener(OnBuildSelected);
     }
 
     private void OnBackToMap() {
@@ -157,7 +154,7 @@ namespace Construction {
       return gridCell;
     }
 
-    private void OnBuildSelected(object _, ConstructableObject build) {
+    private void OnBuildSelected(ConstructableObject build) {
       _selectedBuild = build;
     }
     

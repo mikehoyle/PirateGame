@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PrecisionScalingDamage
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 17e7cfa7354e479d9d9f2c8e13869b0f, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].resource
+    value: 
+    objectReference: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.type
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.constInt
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.constFloat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.exhaustibleResource
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.stat
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operation
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[0].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[0].constInt
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[0].constFloat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[0].exhaustibleResource
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[0].stat
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[0].calculatedValue.operation
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[0].calculatedValue.operands.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[1].type
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[1].constInt
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[1].constFloat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[1].exhaustibleResource
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[1].stat
+    value: 
+    objectReference: {fileID: 11400000, guid: 27bc55966ccc98747a38b270dc376ebe, type: 2}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[1].calculatedValue.operation
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculatedValue.operands.Array.data[1].calculatedValue.operands.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: delayInSeconds
+    value: 0
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []

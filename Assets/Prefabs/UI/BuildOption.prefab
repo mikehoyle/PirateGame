@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c50fc983cb44120a46d34c94a9df01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipBuilderEvents: {fileID: 11400000, guid: 8be84bed803b2004da287ee98bde5697, type: 2}
 --- !u!1 &3814585112349283601
 GameObject:
   m_ObjectHideFlags: 0

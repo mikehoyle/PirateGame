@@ -80,15 +80,15 @@ namespace Encounters.ShipPlacement {
       var maxTopOverlap = int.MinValue;
       foreach (var x in TopEdge.Keys) {
         if (otherProfile.BottomEdge.TryGetValue(x + offset.x, out var y)) {
-          maxTopOverlap = Math.Max(maxTopOverlap, (TopEdge[x] + offset.y) - y);
+          maxTopOverlap = Math.Max(maxTopOverlap, (TopEdge[x] + offset.y) + y);
         }
       }
       result.Top = maxTopOverlap;
       
-      var maxBotOverlap = int.MinValue;
+      var maxBotOverlap = int.MaxValue;
       foreach (var x in BottomEdge.Keys) {
         if (otherProfile.TopEdge.TryGetValue(x + offset.x, out var y)) {
-          maxBotOverlap = Math.Max(maxBotOverlap, (BottomEdge[x] + offset.y) - y);
+          maxBotOverlap = Math.Min(maxBotOverlap, (BottomEdge[x] + offset.y) - y);
         }
       }
       result.Bottom = maxBotOverlap;
@@ -96,15 +96,15 @@ namespace Encounters.ShipPlacement {
       var maxRightOverlap = int.MinValue;
       foreach (var y in RightEdge.Keys) {
         if (otherProfile.LeftEdge.TryGetValue(y + offset.y, out var x)) {
-          maxRightOverlap = Math.Max(maxRightOverlap, (RightEdge[y] + offset.x) - x);
+          maxRightOverlap = Math.Max(maxRightOverlap, (RightEdge[y] + offset.x) + x);
         }
       }
       result.Right = maxRightOverlap;
       
-      var maxLeftOverlap = int.MinValue;
+      var maxLeftOverlap = int.MaxValue;
       foreach (var y in LeftEdge.Keys) {
         if (otherProfile.RightEdge.TryGetValue(y + offset.y, out var x)) {
-          maxLeftOverlap = Math.Max(maxLeftOverlap, (LeftEdge[y] + offset.x) - x);
+          maxLeftOverlap = Math.Min(maxLeftOverlap, (LeftEdge[y] + offset.x) - x);
         }
       }
       result.Left = maxLeftOverlap;

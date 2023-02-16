@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Common {
   /// <summary>
@@ -8,9 +7,10 @@ namespace Common {
   /// </summary>
   public abstract class EnumScriptableObject : ScriptableObject {
     [SerializeField] protected string id;
-
-    // Equality overrides
-    protected bool Equals(EnumScriptableObject other) {
+    
+    // This doesn't work because Unity might try to reference it before it's
+    // deserialized. That shouldn't be a problem for now.
+    /*protected bool Equals(EnumScriptableObject other) {
       return id == other.id;
     }
     
@@ -29,6 +29,6 @@ namespace Common {
     
     public override int GetHashCode() {
       return HashCode.Combine(id);
-    }
+    }*/
   }
 }
