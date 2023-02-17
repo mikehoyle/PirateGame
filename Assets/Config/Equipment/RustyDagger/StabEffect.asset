@@ -15,28 +15,24 @@ MonoBehaviour:
   exhaustibleResourceEffects:
   - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
     calculation:
-      type: 2
-      constInt: 0
-      constFloat: 0
-      exhaustibleResource: {fileID: 0}
-      stat: {fileID: 0}
-      calculatedValue:
-        operation: 2
+      calculationsToSum:
+      - operation: 0
         operands:
         - type: 0
           constInt: 1
           constFloat: 0
           exhaustibleResource: {fileID: 0}
           stat: {fileID: 0}
-          calculatedValue:
-            operation: 0
-            operands: []
-        - type: 4
-          constInt: 0
+      - operation: 2
+        operands:
+        - type: 0
+          constInt: 1
+          constFloat: 0
+          exhaustibleResource: {fileID: 0}
+          stat: {fileID: 0}
+        - type: 0
+          constInt: 1
           constFloat: 0
           exhaustibleResource: {fileID: 0}
           stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
-          calculatedValue:
-            operation: 0
-            operands: []
   delayInSeconds: 0

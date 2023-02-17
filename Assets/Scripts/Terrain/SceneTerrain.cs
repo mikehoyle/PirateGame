@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Encounters;
 using StaticConfig.Terrain;
 using UnityEngine;
 
@@ -10,7 +11,10 @@ namespace Terrain {
   /// </summary>
   public class SceneTerrain : MonoBehaviour {
     private const float CellWidthInWorldUnits = 1;
+    private const float CellHeightInWorldUnits = 0.5f;
+    private const float ZHeight = 1.5f;
     private const int MaxZ = 6;
+    
     // TODO(P2): Use custom tilemaps instead of passed in sprites
     [SerializeField] private TerrainTilemap tilemap;
     [SerializeField] private GameObject terrainTilePrefab;
@@ -34,7 +38,7 @@ namespace Terrain {
       RemoveTilesAtAnyElevation(position);
 
       var newTile = Instantiate(terrainTilePrefab, transform).GetComponent<TerrainTile>();
-      newTile.Initialize(position, terrainSprite, CellAnchorWorld(position), CellCenterWorld(position));
+      newTile.Initialize(position, terrainSprite);
       
       // By default, connect tiles to any adjacent tile that is within one Z value of
       GridUtils.ForEachAdjacentTile(position, adjacentCoords => {
@@ -155,10 +159,48 @@ namespace Terrain {
       return Grid.CellToWorld(coord) + new Vector3(0, Grid.cellSize.y / 2, 0);
     }
 
+    /// <summary>
+    /// Because this is just a simple calculation, there's no reason we can't calculate it on our own
+    /// without needing access to the game object 
+    /// </summary>
+    public static Vector3 CellBaseWorldStatic(Vector3Int coord) {
+      return new Vector3(
+          (coord.x - coord.y) * (CellWidthInWorldUnits / 2),
+          ((coord.x + coord.y) * (CellHeightInWorldUnits / 2))
+          + (coord.z * ZHeight * (CellHeightInWorldUnits / 2)),
+          coord.z * ZHeight);
+    }
+
+    public static Vector3 CellCenterWorldStatic(Vector3Int coord) {
+      return CellBaseWorldStatic(coord) + new Vector3(0, CellHeightInWorldUnits / 2, 0);
+    }
+    
+    public static Vector3 CellAnchorWorldStatic(Vector3Int coord) {
+      return CellBaseWorldStatic(coord) + new Vector3(0, CellHeightInWorldUnits, 0);
+    }
+
+    public static bool IsMovementBlocked(Vector3Int tile) {
+      var blockingLayer = LayerMask.GetMask("BlockMovement");
+      foreach (var collision in Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), blockingLayer)) {
+        // A simple check isn't sufficient, because isometric elevation can overlay elevated tiles on top
+        // of lower tiles behind them, so check the Z position of collisions, if possible
+        if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
+          if (placedOnGrid.Position.z == tile.z) {
+            return true;
+          }
+        } else {
+          // This should hopefully not be the case, but worst case assume an intersection is blocking
+          return true;
+        }
+      }
+
+      return false;
+    }
+
     private bool IsGridPositionDefined(Vector3Int gridPosition) {
       return _terrainMap.Contains(gridPosition);
     }
-    
+
     public static SceneTerrain Get() {
       return GameObject.FindWithTag(Tags.Terrain).GetComponent<SceneTerrain>();
     }

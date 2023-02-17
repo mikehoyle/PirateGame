@@ -944,70 +944,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1859106164
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1859106166}
-  - component: {fileID: 1859106165}
-  - component: {fileID: 1859106167}
-  m_Layer: 0
-  m_Name: OverworldGameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1859106165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859106164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041f19b176b742adb61344b4ba8004a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildMenuItemLabel: Construction
-  indicatorTile: {fileID: 11400000, guid: 9af36b73d8decdc4f8fac564e0764fc4, type: 2}
-  openSeaTile: {fileID: 11400000, guid: fd357e98dd025534db1d2b6b62b7ec5a, type: 2}
-  tavernTile: {fileID: 11400000, guid: 1c50091a9581ef84aa6bc6add9d4ba8a, type: 2}
-  encounterTile: {fileID: 11400000, guid: f65ecbf0e08a41c40be8df41f96dad91, type: 2}
-  fogOfWarTile: {fileID: 11400000, guid: d8beb59f28246c4438fd6d5ec55d66fc, type: 2}
---- !u!4 &1859106166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859106164}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1859106167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859106164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d8e2f39019f447d95de7331f53eed23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraMoveSpeed: 4
 --- !u!1 &1987476865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1248,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c7dab5d538c3854e964487ce11e1b63, type: 3}
+--- !u!1001 &6780469849755931321
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6780469848234092493, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_Name
+      value: OverworldGameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780469848234092495, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
 --- !u!1001 &6908462395484404041
 PrefabInstance:
   m_ObjectHideFlags: 0

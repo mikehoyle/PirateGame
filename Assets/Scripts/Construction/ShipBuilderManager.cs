@@ -24,12 +24,14 @@ namespace Construction {
     private SceneTerrain _terrain;
     private PlayerState _playerState;
     private ShipSetup _shipSetup;
+    private UiInteractionTracker _uiInteraction;
 
     private void Awake() {
       enabled = false;
       _terrain = SceneTerrain.Get();
       _shipSetup = GetComponent<ShipSetup>();
       _playerState = GameState.State.player;
+      _uiInteraction = GetComponent<UiInteractionTracker>();
       shipBuilderEvents.enterConstructionMode.RegisterListener(OnEnterConstructionMode);
       shipBuilderEvents.exitConstructionMode.RegisterListener(OnExitConstructionMode);
     }
@@ -56,7 +58,7 @@ namespace Construction {
     }
 
     public void OnClick(InputAction.CallbackContext context) {
-      if (!context.performed || EventSystem.current.IsPointerOverGameObject()) {
+      if (!context.performed || _uiInteraction.isPlayerHoveringUi) {
         // Ignore start/cancel events and UI-bound events
         return;
       }
@@ -94,7 +96,7 @@ namespace Construction {
         return;
       }
       
-      if (context.canceled || EventSystem.current.IsPointerOverGameObject()) {
+      if (context.canceled || _uiInteraction.isPlayerHoveringUi) {
         currentBuildSelection.tile = Option.None<Vector3Int>();
         return;
       }
@@ -117,8 +119,6 @@ namespace Construction {
           gridCell.z += 1;
         }
       });
-      
-      
 
       return gridCell;
     }
@@ -158,6 +158,7 @@ namespace Construction {
             }
           }
         });
+        
         return isValidPlacement;
       }
       

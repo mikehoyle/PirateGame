@@ -10,11 +10,11 @@ namespace Encounters.Effects {
     [Serializable]
     public class ExhaustibleResourceEffect {
       public ExhaustibleResource resource;
-      public Calculation calculation;
+      public AggregateCalculation calculation;
       public float CalculatedValue { get; private set; }
 
       public void Calculate(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
-        CalculatedValue = calculation.GetValue(context, skillTestResult);
+        CalculatedValue = calculation.CalculateValue(context, skillTestResult);
       }
     }
 

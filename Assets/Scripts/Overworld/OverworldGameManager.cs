@@ -32,11 +32,13 @@ namespace Overworld {
     private CameraCursorMover _cameraMover;
     private GameControls _controls;
     private Camera _camera;
+    private UiInteractionTracker _uiInteraction;
 
     private void Awake() {
       _overworldTilemap = GameObject.Find("OverworldTilemap").GetComponent<Tilemap>();
       _overlayTilemap = GameObject.Find("OverlayTilemap").GetComponent<Tilemap>();
       _cameraMover = GetComponent<CameraCursorMover>();
+      _uiInteraction = GetComponent<UiInteractionTracker>();
       _camera = Camera.main;
     }
     
@@ -97,7 +99,7 @@ namespace Overworld {
     }
 
     public void OnClick(InputAction.CallbackContext context) {
-      if (!context.performed) {
+      if (!context.performed || _uiInteraction.isPlayerHoveringUi) {
         return;
       }
       

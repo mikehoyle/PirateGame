@@ -1,49 +1,45 @@
 ﻿using System;
-using StaticConfig.Units;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Units.Abilities.Formulas {
-  /// <summary>
-  /// The way this class is structured is because of the dumb way needed to make it editable in
-  /// the inspector.
-  /// </summary>
   [Serializable]
   public class Calculation {
     [Serializable]
-    public enum Type {
-      ConstInt = 0,
-      ConstFloat = 1,
-      CalculatedValue = 2,
-      ActorExhaustibleResource = 3,
-      ActorStat = 4,
-      SkillTestResult = 5,
+    public enum Operation {
+      Add = 0,
+      Subtract = 1,
+      Multiply = 2,
+      Divide = 3,
     }
 
-    public Type type;
-    
-    // Only one of these should ever be filled
-    public int constInt;
-    public float constFloat;
-    public ExhaustibleResource exhaustibleResource;
-    public Stat stat;
-    public CalculatedValue calculatedValue;
+    public Operation operation;
+    public List<DerivedValue> operands;
 
-    public float GetValue(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
-      return type switch {
-          Type.ConstInt => constInt,
-          Type.ConstFloat => constFloat,
-          Type.CalculatedValue => calculatedValue.CalculateValue(context, skillTestResult),
-          Type.ActorExhaustibleResource => context.Actor.EncounterState.GetResourceAmount(exhaustibleResource),
-          Type.ActorStat => context.Actor.EncounterState.GetStat(stat),
-          Type.SkillTestResult => skillTestResult,
-          // Should be unreachable
-          _ => LogWarning(),
+    public float CalculateValue(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
+      return operation switch {
+          Operation.Subtract => ExecuteOperation(context, skillTestResult, (a, b) => a - b),
+          // If I divide by zero using this, it's my own damn fault.
+          Operation.Divide => ExecuteOperation(context, skillTestResult, (a, b) => a / b),
+          Operation.Multiply => ExecuteOperation(context, skillTestResult, (a, b) => a * b),
+          // Default to Add
+          _ => ExecuteOperation(context, skillTestResult, (a, b) => a + b),
       };
     }
 
-    private float LogWarning() {
-      Debug.LogWarning("Unknown type used for Calculation");
-      return 0f;
+    private float ExecuteOperation(
+        UnitAbility.AbilityExecutionContext context, float skillTestResult, Func<float, float, float> op) {
+      if (operands.Count == 0) {
+        Debug.LogWarning("Cannot perform operation with zero operands");
+        return 0;
+      }
+      
+      var result = operands[0].GetValue(context, skillTestResult);
+      for (int i = 1; i < operands.Count; i++) {
+        result = op(result, operands[i].GetValue(context, skillTestResult));
+      }
+
+      return result;
     }
   }
 }

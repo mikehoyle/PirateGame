@@ -1,5 +1,6 @@
 ﻿using System;
 using CameraControl;
+using Common;
 using Controls;
 using Encounters.Grid;
 using RuntimeVars;
@@ -22,11 +23,13 @@ namespace Encounters {
     private GridIndicators _gridIndicators;
     private SceneTerrain _terrain;
     private LayerMask _unitInteractionLayer;
+    private UiInteractionTracker _uiInteraction;
 
     private void Awake() {
       _cameraController = CameraController.Get();
       _gridIndicators = GridIndicators.Get();
       _terrain = SceneTerrain.Get();
+      _uiInteraction = GetComponent<UiInteractionTracker>();
       currentSelection.Clear();
       currentRound.Value = 1;
       encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
@@ -84,7 +87,7 @@ namespace Encounters {
     }
 
     protected override void OnClick(Vector2 mousePosition) {
-      if (EventSystem.current.IsPointerOverGameObject()) {
+      if (_uiInteraction.isPlayerHoveringUi) {
         // Ignore UI-intended events
         return;
       }
@@ -109,7 +112,7 @@ namespace Encounters {
     }
     
     protected override void OnPoint(Vector2 mousePosition) {
-      if (EventSystem.current.IsPointerOverGameObject()) {
+      if (_uiInteraction.isPlayerHoveringUi) {
         // Ignore UI-intended events
         return;
       }

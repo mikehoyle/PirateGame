@@ -23,7 +23,7 @@ namespace Construction {
     }
 
     private void Start() {
-      _shipSetup.SetupShip();
+      _shipSetup.SetupShip(includeUnits: true);
       InitializeCamera();
       _mainMenu = MainMenuController.Get();
       _mainMenu.AddMenuItem(backToMapButtonLabel, OnBackToMap);

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1915456244}
   - component: {fileID: 4018983168502657055}
   - component: {fileID: 7946137650026443626}
+  - component: {fileID: -6471134198255543633}
   m_Layer: 0
   m_Name: EncounterManager
   m_TagString: SceneManager
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  ghostShipPrefab: {fileID: 0}
 --- !u!114 &4018983168502657055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,3 +167,16 @@ MonoBehaviour:
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   currentRound: {fileID: 11400000, guid: b6cacc17f9b44554c8f25deaee2f8598, type: 2}
+--- !u!114 &-6471134198255543633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648408542730051789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7820126a75a745efb1730b8520bebd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerHoveringUi: 0

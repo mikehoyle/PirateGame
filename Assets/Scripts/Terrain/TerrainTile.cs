@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Encounters;
 using Roy_T.AStar.Graphs;
 using Roy_T.AStar.Primitives;
 using UnityEngine;
+using Edge = Roy_T.AStar.Graphs.Edge;
 
 namespace Terrain {
   /// <summary>
@@ -17,8 +17,6 @@ namespace Terrain {
     private IList<IEdge> _outgoing;
     private IList<IEdge> _emptyList;
     private SpriteRenderer _sprite;
-    private Vector3 _worldCenter;
-    private LayerMask _blockingLayer;
 
     public Vector3Int GridPosition { get; private set; }
 
@@ -49,32 +47,16 @@ namespace Terrain {
       _outgoing = new List<IEdge>();
       _emptyList = new List<IEdge>();
       _sprite = GetComponent<SpriteRenderer>();
-      _blockingLayer = LayerMask.GetMask("BlockMovement");
     }
 
     private void Update() {
-      var shouldBeEnabled = true;
-      foreach (var collision in Physics2D.OverlapPointAll(_worldCenter, _blockingLayer)) {
-        // A simple check isn't sufficient, because isometric elevation can overlay elevated tiles on top
-        // of lower tiles behind them, so check the Z position of collisions, if possible
-        if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
-          if (placedOnGrid.Position.z == GridPosition.z) {
-            shouldBeEnabled = false;
-          }
-        } else {
-          // This should hopefully not be the case, but worst case assume an intersection is blocking
-          shouldBeEnabled = false;
-        }
-      }
-
-      Enabled = shouldBeEnabled;
+      Enabled = !SceneTerrain.IsMovementBlocked(GridPosition);
     }
 
-    public void Initialize(Vector3Int position, Sprite sprite, Vector3 anchorPosition, Vector3 centerPosition) {
+    public void Initialize(Vector3Int position, Sprite sprite) {
       GridPosition = position;
       _sprite.sprite = sprite;
-      transform.position = anchorPosition;
-      _worldCenter = centerPosition;
+      transform.position = SceneTerrain.CellAnchorWorldStatic(position);
       gameObject.isStatic = true;
     }
     

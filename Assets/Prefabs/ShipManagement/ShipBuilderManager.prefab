@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9118583357752667886}
   - component: {fileID: 9118583357752667885}
   - component: {fileID: 9118583357752667884}
+  - component: {fileID: 384966496876980691}
   m_Layer: 0
   m_Name: ShipBuilderManager
   m_TagString: SceneManager
@@ -63,6 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildOptions: {fileID: 11400000, guid: c63a3f0ee9d58ca40a04cd0b57ec1235, type: 2}
   shipBuilderEvents: {fileID: 11400000, guid: 8be84bed803b2004da287ee98bde5697, type: 2}
+  currentBuildSelection: {fileID: 0}
 --- !u!114 &9118583357752667885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,3 +93,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraMoveSpeed: 4
+--- !u!114 &384966496876980691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9118583357752667872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7820126a75a745efb1730b8520bebd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerHoveringUi: 0
