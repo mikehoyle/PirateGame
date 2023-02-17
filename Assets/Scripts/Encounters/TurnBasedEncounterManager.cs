@@ -41,6 +41,7 @@ namespace Encounters {
 
     private void OnDestroy() {
       encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
+      currentSelection.Clear();
     }
 
     private void OnEnable() {
@@ -102,7 +103,7 @@ namespace Encounters {
             Terrain =  _terrain,
             Indicators = _gridIndicators,
         })) {
-          return; 
+          return;
         }
       }
       

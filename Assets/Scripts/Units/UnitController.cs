@@ -24,11 +24,23 @@ namespace Units {
     [SerializeField] private Stat constitutionStat;
     [SerializeField] private Stat movementStat;
     
+    private SpriteRenderer _selectedIndicator;
+
     public UnitState State { get; private set; }
 
     public override UnitEncounterState EncounterState {
       get => State.encounterState;
       protected set => State.encounterState = value;
+    }
+
+    protected override void Awake() {
+      base.Awake();
+      _selectedIndicator = transform.Find("SelectedIndicator").GetComponent<SpriteRenderer>();
+      _selectedIndicator.enabled = false;
+    }
+
+    private void Start() {
+      GetComponentInChildren<AnimatedCompositeSprite>().SetColorForFaction(EncounterState.faction);
     }
 
     protected override void OnEnable() {
@@ -37,6 +49,7 @@ namespace Units {
       encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
       encounterEvents.playerTurnStart.RegisterListener(OnNewRound);
       encounterEvents.abilityExecutionEnd.RegisterListener(OnAbilityEndExecution);
+      encounterEvents.unitSelected.RegisterListener(OnUnitSelected);
     }
 
     protected override void OnDisable() {
@@ -45,10 +58,6 @@ namespace Units {
       encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
       encounterEvents.playerTurnStart.UnregisterListener(OnNewRound);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
-    }
-
-    private void Start() {
-      GetComponentInChildren<AnimatedCompositeSprite>().SetColorForFaction(EncounterState.faction);
     }
 
     public void Init(UnitState state) {
@@ -84,8 +93,16 @@ namespace Units {
         
         currentSelection.selectedUnit = Option.Some<EncounterActor>(this);
         encounterEvents.unitSelected.Raise(this);
-        TrySelectAbility(0);
       }
+    }
+
+    private void OnUnitSelected(UnitController selectedUnit) {
+      if (this == selectedUnit) {
+        TrySelectAbility(0);
+        _selectedIndicator.enabled = true;
+        return;
+      }
+      _selectedIndicator.enabled = false;
     }
 
     private void OnNewRound() {

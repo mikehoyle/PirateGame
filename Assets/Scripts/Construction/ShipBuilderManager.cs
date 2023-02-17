@@ -114,9 +114,9 @@ namespace Construction {
           // Always place foundations on the bottom.
           gridCell.z = 0;
         } else {
-          // Other builds want to go above the current highest option.
+          // Other builds want to go at the current elevation... which will probably also always
+          // be zero. But hey, maybe we'll have stacking options in the future
           gridCell = _terrain.GetElevation((Vector2Int)gridCell);
-          gridCell.z += 1;
         }
       });
 
@@ -143,8 +143,9 @@ namespace Construction {
         }
         
         // For foundation tiles, assert the target cell is empty
-        if (_playerState.ship.components.ContainsKey(gridCell)) {
-          // This is a smelly side-effect, but it's fine for now. 
+        if (_playerState.ship.foundations.ContainsKey(gridCell)) {
+          // This is a smelly side-effect, but it's fine for now. The goal is to not overlay
+          // the indicator on the existing build.
           currentBuildSelection.tile = Option.None<Vector3Int>();
           return false;
         }
@@ -152,22 +153,19 @@ namespace Construction {
         // And, assert there is an adjacent foundation to attach to.
         var isValidPlacement = false;
         GridUtils.ForEachAdjacentTile(gridCell, adjacentCell => {
-          if (_playerState.ship.components.TryGetValue(adjacentCell, out var adjacentBuild)) {
-            if (adjacentBuild.isFoundationTile) {
-              isValidPlacement = true;
-            }
+          if (_playerState.ship.foundations.TryGetValue(adjacentCell, out var adjacentBuild)) {
+            isValidPlacement = true;
           }
         });
         
         return isValidPlacement;
       }
       
-      // Build is meant to be atop a foundation, check that a foundation is below it.
-      var tileBelow = new Vector3Int(gridCell.x, gridCell.y, gridCell.z - 1);
-      if (_playerState.ship.components.TryGetValue(tileBelow, out var build)) {
-        if (build.isFoundationTile) {
-          return true;
-        }
+      // Build is meant to be atop a foundation, check that it is on a foundation
+      if (_playerState.ship.foundations.ContainsKey(gridCell)) {
+        // If movement is blocked at ground level, we assume something else is already there, so
+        // we don't allow the placement.
+        return !SceneTerrain.IsMovementBlocked(_terrain.GetElevation((Vector2Int)gridCell));
       }
       return false;
     }

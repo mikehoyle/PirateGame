@@ -18,7 +18,8 @@ namespace Construction {
     public void Initialize(ConstructableObject constructableObject, Vector3Int position) {
       _spriteRenderer.sprite = constructableObject.inGameSprite;
       Position = position;
-      transform.position = _terrain.CellAnchorWorld(position);
+      transform.position = constructableObject.isFoundationTile ?
+          _terrain.CellAnchorWorld(position) : _terrain.CellBaseWorld(position);
     }
   }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common;
 using StaticConfig;
 using StaticConfig.Builds;
@@ -15,10 +16,17 @@ namespace State {
     /// Built ship components in 3D space, starting at Z=0.
     /// Avoid modifying this directly.
     /// </summary>
-    public SparseMatrix3d<ConstructableObject> components;
+    public SparseMatrix3d<ConstructableObject> foundations;
+    public SparseMatrix3d<ConstructableObject> builds;
+    
+    public IEnumerable<KeyValuePair<Vector3Int, ConstructableObject>> Components => foundations.Concat(builds);
 
     public void Add(Vector3Int coords, ConstructableObject constructable) {
-      components.Add(coords, constructable);
+      if (constructable.isFoundationTile) {
+        foundations.Add(coords, constructable);
+      } else {
+        builds.Add(coords, constructable);
+      }
     }
   }
 }

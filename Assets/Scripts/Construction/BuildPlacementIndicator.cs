@@ -2,6 +2,7 @@
 using Common;
 using RuntimeVars.ShipBuilder;
 using RuntimeVars.ShipBuilder.Events;
+using StaticConfig.Builds;
 using Terrain;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,10 +35,10 @@ namespace Construction {
       SetSprite(build.inGameSprite);
       if (currentBuildSelection.isValidPlacement) {
         _spriteRenderer.color = validPlacementColor;
-        ShowIndicator(tile);
+        ShowIndicator(tile, build);
       } else {
         _spriteRenderer.color = invalidPlacementColor;
-        ShowIndicator(tile);
+        ShowIndicator(tile, build);
       }
     }
 
@@ -45,8 +46,10 @@ namespace Construction {
       _spriteRenderer.sprite = sprite;
     }
 
-    private void ShowIndicator(Vector3Int gridPosition) {
-      transform.position = _terrain.CellAnchorWorld(gridPosition);
+    private void ShowIndicator(Vector3Int gridPosition, ConstructableObject build) {
+      transform.position = build.isFoundationTile ?
+          _terrain.CellAnchorWorld(gridPosition) : _terrain.CellBaseWorld(gridPosition);
+
       _spriteRenderer.enabled = true;
     }
 

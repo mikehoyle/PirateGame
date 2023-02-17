@@ -47,9 +47,7 @@ namespace Encounters.ShipPlacement {
     public void BeginShipPlacement(EncounterTile encounter) {
       _encounterProfile = TerrainProfile.BuildFrom(encounter.terrain.Keys);
       _shipProfile = TerrainProfile.BuildFrom(
-          GameState.State.player.ship.components
-              .Where(component => component.Value.isFoundationTile)
-              .Select(component => component.Key));
+          GameState.State.player.ship.foundations.Keys);
       enabled = true;
     }
     

@@ -1,4 +1,5 @@
 ﻿using Common.Events;
+using RuntimeVars.Encounters.Events;
 using UnityEngine;
 
 namespace RuntimeVars.ShipBuilder.Events {
@@ -7,5 +8,7 @@ namespace RuntimeVars.ShipBuilder.Events {
     public BuildSelectedEvent buildSelected;
     public EmptyGameEvent enterConstructionMode;
     public EmptyGameEvent exitConstructionMode;
+    public UnitSelectedEvent unitSelected;
+    public ObjectClickedEvent objectClicked;
   }
 }

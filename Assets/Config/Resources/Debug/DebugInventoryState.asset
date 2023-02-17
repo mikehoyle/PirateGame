@@ -15,4 +15,4 @@ MonoBehaviour:
   items:
     m_keys:
     - {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
-    m_values: 32000000
+    m_values: 64000000

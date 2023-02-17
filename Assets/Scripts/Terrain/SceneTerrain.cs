@@ -197,6 +197,10 @@ namespace Terrain {
       return false;
     }
 
+    private bool IsTileEligibleForUnitOccupation(Vector3Int gridPosition) {
+      return IsGridPositionDefined(gridPosition) && !IsMovementBlocked(gridPosition);
+    }
+
     private bool IsGridPositionDefined(Vector3Int gridPosition) {
       return _terrainMap.Contains(gridPosition);
     }

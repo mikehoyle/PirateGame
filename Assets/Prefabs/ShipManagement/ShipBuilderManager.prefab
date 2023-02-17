@@ -64,7 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildOptions: {fileID: 11400000, guid: c63a3f0ee9d58ca40a04cd0b57ec1235, type: 2}
   shipBuilderEvents: {fileID: 11400000, guid: 8be84bed803b2004da287ee98bde5697, type: 2}
-  currentBuildSelection: {fileID: 0}
+  currentBuildSelection: {fileID: 11400000, guid: fb68cd97d6dfc214c996275ebebab85a, type: 2}
 --- !u!114 &9118583357752667885
 MonoBehaviour:
   m_ObjectHideFlags: 0

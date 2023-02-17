@@ -25,7 +25,7 @@ namespace Construction {
 
     public void SetupShip(Vector3Int offset, bool includeUnits = false) {
       var playerState = GameState.State.player;
-      foreach (var build in playerState.ship.components) {
+      foreach (var build in playerState.ship.Components) {
         var position = build.Key + offset;
         AddBuild(position, build.Value);
       }
@@ -42,7 +42,7 @@ namespace Construction {
     /// Ghost ship, i.e. a placeable immaterial ship that can be easily moved around
     /// </summary>
     public void SetupGhostShip(Transform parent) {
-      foreach (var build in GameState.State.player.ship.components) {
+      foreach (var build in GameState.State.player.ship.Components) {
         var position = build.Key;
         AddBuild(position, build.Value, parent, isGhost: true);
       }

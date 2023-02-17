@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67332f32b784f65a672411f6d065d09, type: 3}
   m_Name: DebugShipState
   m_EditorClassIdentifier: 
-  components:
+  foundations:
     m_keys:
     - {x: 0, y: 0, z: 0}
     - {x: 0, y: 1, z: 0}
@@ -33,3 +33,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 2ad831fbc757d1c498491b8d4602398e, type: 2}
     - {fileID: 11400000, guid: 2ad831fbc757d1c498491b8d4602398e, type: 2}
     - {fileID: 11400000, guid: 2ad831fbc757d1c498491b8d4602398e, type: 2}
+  builds:
+    m_keys: []
+    m_values: []
