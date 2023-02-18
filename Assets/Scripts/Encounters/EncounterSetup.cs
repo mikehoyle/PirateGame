@@ -1,6 +1,7 @@
 ﻿using System;
 using Construction;
 using Encounters.Enemies;
+using Encounters.Obstacles;
 using RuntimeVars.Encounters.Events;
 using State.World;
 using Terrain;
@@ -13,6 +14,7 @@ namespace Encounters {
   public class EncounterSetup : MonoBehaviour {
     [SerializeField] private Sprite landSprite;
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject collectablePrefab;
     [SerializeField] private EncounterEvents encounterEvents;
     
     private SceneTerrain _terrain;
@@ -43,6 +45,7 @@ namespace Encounters {
 
     private void OnEncounterReady() {
       SetUpEnemyUnits();
+      SetUpCollectables();
       encounterEvents.encounterStart.Raise();
       enabled = false;
     }
@@ -51,6 +54,13 @@ namespace Encounters {
       foreach (var enemy in _encounter.enemies) {
         var unitController = Instantiate(enemyPrefab).GetComponent<EnemyUnitController>();
         unitController.Init(enemy);
+      }
+    }
+
+    private void SetUpCollectables() {
+      foreach (var collectable in _encounter.collectables) {
+        Instantiate(collectablePrefab).GetComponent<EncounterCollectable>()
+            .Initialize(collectable.Value, collectable.Key);
       }
     }
 

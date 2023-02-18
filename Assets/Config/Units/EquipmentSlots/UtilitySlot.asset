@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: UtilitySlot
   m_EditorClassIdentifier: 
   id: utility
+  displayName: Utility

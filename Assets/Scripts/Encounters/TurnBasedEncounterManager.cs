@@ -1,5 +1,4 @@
-﻿using System;
-using CameraControl;
+﻿using CameraControl;
 using Common;
 using Controls;
 using Encounters.Grid;
@@ -10,7 +9,6 @@ using Terrain;
 using Units;
 using Units.Abilities;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Encounters {
   public class TurnBasedEncounterManager : EncounterInputReceiver {
@@ -50,7 +48,7 @@ namespace Encounters {
         _controls.TurnBasedEncounter.SetCallbacks(this);
       }
       _controls.TurnBasedEncounter.Enable();
-      encounterEvents.enemyTurnEnd.RegisterListener(OnStartPlayerTurn);
+      encounterEvents.enemyTurnEnd.RegisterListener(OnEnemyTurnEnd);
       encounterEvents.abilitySelected.RegisterListener(OnAbilitySelected);
       encounterEvents.abilityExecutionStart.RegisterListener(OnBeginAbilityExecution);
       encounterEvents.abilityExecutionEnd.RegisterListener(OnEndAbilityExecution);
@@ -58,7 +56,7 @@ namespace Encounters {
 
     private void OnDisable() {
       _controls.TurnBasedEncounter.Disable();
-      encounterEvents.enemyTurnEnd.UnregisterListener(OnStartPlayerTurn);
+      encounterEvents.enemyTurnEnd.UnregisterListener(OnEnemyTurnEnd);
       encounterEvents.abilitySelected.UnregisterListener(OnAbilitySelected);
       encounterEvents.abilityExecutionStart.UnregisterListener(OnBeginAbilityExecution);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnEndAbilityExecution);
@@ -66,9 +64,10 @@ namespace Encounters {
 
     private void OnEncounterStart() {
       enabled = true;
+      encounterEvents.playerTurnStart.Raise();
     }
 
-    private void OnStartPlayerTurn() {
+    private void OnEnemyTurnEnd() {
       currentRound.Value += 1;
       _controls.TurnBasedEncounter.Enable();
       encounterEvents.playerTurnStart.Raise();

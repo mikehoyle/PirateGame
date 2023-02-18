@@ -15,22 +15,24 @@ MonoBehaviour:
   exhaustibleResourceEffects:
   - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
     calculation:
-      calculationsToSum:
-      - operation: 0
+      calculations:
+      - aggregationOperation: 0
+        internalOperation: 0
         operands:
         - type: 0
           constInt: 3
           constFloat: 0
           exhaustibleResource: {fileID: 0}
           stat: {fileID: 0}
-      - operation: 2
+      - aggregationOperation: 0
+        internalOperation: 2
         operands:
         - type: 0
           constInt: 1
           constFloat: 0
           exhaustibleResource: {fileID: 0}
           stat: {fileID: 0}
-        - type: 0
+        - type: 3
           constInt: 1
           constFloat: 0
           exhaustibleResource: {fileID: 0}

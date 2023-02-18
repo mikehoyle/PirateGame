@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backToMapButtonLabel: Back to Map
   shipBuilderEvents: {fileID: 11400000, guid: 8be84bed803b2004da287ee98bde5697, type: 2}
+  currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
 --- !u!114 &9118583357752667886
 MonoBehaviour:
   m_ObjectHideFlags: 0

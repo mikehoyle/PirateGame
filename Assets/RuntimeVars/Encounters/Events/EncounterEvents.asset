@@ -17,6 +17,7 @@ MonoBehaviour:
   abilitySelected: {fileID: 11400000, guid: 939f8e0b967434746b2151d96e0a2352, type: 2}
   encounterReadyToStart: {fileID: 11400000, guid: 82778010f33ccda48a41b5ad49a21134, type: 2}
   encounterStart: {fileID: 11400000, guid: 759af98b73a2e5247a3ee2d17121fdc7, type: 2}
+  encounterEnd: {fileID: 11400000, guid: 16da1ca214aa0eb4cae9b744fc101253, type: 2}
   enemyTurnStart: {fileID: 11400000, guid: 4e22b90e9d6a96149b1e5151f64ef3e9, type: 2}
   enemyTurnEnd: {fileID: 11400000, guid: e40c5da67de458c428a0e7cc203b181e, type: 2}
   playerTurnStart: {fileID: 11400000, guid: 154a6568ff8eb07468504f035bb2d5c4, type: 2}

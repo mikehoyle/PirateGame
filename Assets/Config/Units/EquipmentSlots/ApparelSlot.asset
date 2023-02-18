@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ApparelSlot
   m_EditorClassIdentifier: 
   id: apparel
+  displayName: Apparel

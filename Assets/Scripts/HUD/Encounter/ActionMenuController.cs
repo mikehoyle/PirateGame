@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
-using State;
-using State.Unit;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,20 +7,35 @@ using UnityEngine.UI;
 namespace HUD.Encounter {
   public class ActionMenuController : MonoBehaviour {
     [SerializeField] private GameObject availableActionPrefab;
-    [SerializeField] private UnitSelectedEvent unitSelectedEvent; 
+    [SerializeField] private EncounterEvents encounterEvents;
     
+    private Canvas _canvas;
     private HorizontalLayoutGroup _container;
-    
+
     private void Awake() {
+      _canvas = GetComponent<Canvas>();
       _container = GetComponentInChildren<HorizontalLayoutGroup>();
+      _canvas.enabled = false;
     }
 
     private void OnEnable() {
-      unitSelectedEvent.RegisterListener(RefreshActionMenu);
+      encounterEvents.unitSelected.RegisterListener(RefreshActionMenu);
+      encounterEvents.playerTurnStart.RegisterListener(OnPlayerTurnStart);
+      encounterEvents.playerTurnEnd.RegisterListener(OnPlayerTurnEnd);
     }
 
     private void OnDisable() {
-      unitSelectedEvent.UnregisterListener(RefreshActionMenu);
+      encounterEvents.unitSelected.UnregisterListener(RefreshActionMenu);
+      encounterEvents.playerTurnStart.UnregisterListener(OnPlayerTurnStart);
+      encounterEvents.playerTurnEnd.UnregisterListener(OnPlayerTurnEnd);
+    }
+
+    private void OnPlayerTurnStart() {
+      _canvas.enabled = true;
+    }
+
+    private void OnPlayerTurnEnd() {
+      _canvas.enabled = false;
     }
 
     private void RefreshActionMenu(UnitController unit) {

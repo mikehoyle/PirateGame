@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using State.Encounter;
 using State.Unit;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace State.World {
   public class EncounterTile : WorldTile {
     public bool isInitialized;
     public SparseMatrix3d<TerrainType> terrain;
+    public SparseMatrix3d<CollectableInstance> collectables;
     public List<EnemyUnitState> enemies;
     
     public override Type TileType => Type.Encounter;

@@ -4,13 +4,13 @@ using Terrain;
 using UnityEngine;
 
 namespace Construction {
-  public class InGameConstruction : MonoBehaviour, IPlacedOnGrid {
+  public abstract class InGameConstruction : MonoBehaviour, IPlacedOnGrid {
     private SpriteRenderer _spriteRenderer;
     private SceneTerrain _terrain;
 
     public Vector3Int Position { get; private set; }
 
-    private void Awake() {
+    protected virtual void Awake() {
       _spriteRenderer = GetComponent<SpriteRenderer>();
       _terrain = SceneTerrain.Get();
     }
@@ -20,6 +20,9 @@ namespace Construction {
       Position = position;
       transform.position = constructableObject.isFoundationTile ?
           _terrain.CellAnchorWorld(position) : _terrain.CellBaseWorld(position);
+      InitializeInner(constructableObject, position);
     }
+
+    protected virtual void InitializeInner(ConstructableObject constructableObject, Vector3Int position) { }
   }
 }

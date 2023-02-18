@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d064539a5f734bf6b4e5b4a487ebeda3, type: 3}
   m_Name: MoveAbility
   m_EditorClassIdentifier: 
-  id: move
   skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  incurredEffect: {fileID: 0}
   displayString: Move
-  cost:
-  - amount: 0
-    resource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+  cost: []
   movementResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}

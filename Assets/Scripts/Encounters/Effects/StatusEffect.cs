@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using StaticConfig.Units;
 using Units.Abilities;
 using Units.Abilities.Formulas;
@@ -40,6 +41,20 @@ namespace Encounters.Effects {
     public virtual bool UpdateAndMaybeDestroy(EncounterActor victim) {
       return false;
     }
+
+    public string DisplayString() {
+      var result = new StringBuilder();
+      for (int i = 0; i < exhaustibleResourceEffects.Length; i++) {
+        result.Append($"({exhaustibleResourceEffects[i].calculation.DisplayString()}) ");
+        result.Append($"{exhaustibleResourceEffects[i].resource.displayName}");
+        if (i != exhaustibleResourceEffects.Length - 1) {
+          result.Append(", ");
+        }
+      }
+      
+      return result.ToString();
+    }
+    
 
     public virtual void OnApply() { }
 

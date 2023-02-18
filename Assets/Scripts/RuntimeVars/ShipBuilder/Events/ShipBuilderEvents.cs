@@ -8,7 +8,9 @@ namespace RuntimeVars.ShipBuilder.Events {
     public BuildSelectedEvent buildSelected;
     public EmptyGameEvent enterConstructionMode;
     public EmptyGameEvent exitConstructionMode;
-    public UnitSelectedEvent unitSelected;
+    public PlayerUnitEvent unitSelected;
     public ObjectClickedEvent objectClicked;
+    public PlayerUnitEvent openCharacterSheet;
+    public EmptyGameEvent closeCharacterSheet;
   }
 }

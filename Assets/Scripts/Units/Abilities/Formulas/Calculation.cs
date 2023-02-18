@@ -1,30 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Units.Abilities.Formulas {
   [Serializable]
   public class Calculation {
-    [Serializable]
-    public enum Operation {
-      Add = 0,
-      Subtract = 1,
-      Multiply = 2,
-      Divide = 3,
-    }
-
-    public Operation operation;
+    // Aggregation operation is how the end result of this Calculation is applied to other aggregated values
+    public Operation aggregationOperation;
+    // Internal operation is the operation applied between the members within this Calculation.
+    [FormerlySerializedAs("operation")] public Operation internalOperation;
     public List<DerivedValue> operands;
 
     public float CalculateValue(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
-      return operation switch {
-          Operation.Subtract => ExecuteOperation(context, skillTestResult, (a, b) => a - b),
-          // If I divide by zero using this, it's my own damn fault.
-          Operation.Divide => ExecuteOperation(context, skillTestResult, (a, b) => a / b),
-          Operation.Multiply => ExecuteOperation(context, skillTestResult, (a, b) => a * b),
-          // Default to Add
-          _ => ExecuteOperation(context, skillTestResult, (a, b) => a + b),
-      };
+      return ExecuteOperation(context, skillTestResult, internalOperation.GetOperation());
     }
 
     private float ExecuteOperation(
@@ -40,6 +30,20 @@ namespace Units.Abilities.Formulas {
       }
 
       return result;
+    }
+
+    public string DisplayString() {
+      var result = new StringBuilder("(");
+
+      for (int i = 0; i < operands.Count; i++) {
+        result.Append(operands[i].DisplayString());
+        if (i != operands.Count - 1) {
+          result.Append(internalOperation.DisplayString());
+        }
+      }
+      
+      result.Append(")");
+      return result.ToString();
     }
   }
 }

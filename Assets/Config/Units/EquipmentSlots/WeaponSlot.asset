@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: WeaponSlot
   m_EditorClassIdentifier: 
   id: weapon
+  displayName: Weapon

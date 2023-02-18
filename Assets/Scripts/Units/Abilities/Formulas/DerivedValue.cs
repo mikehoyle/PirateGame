@@ -38,6 +38,18 @@ namespace Units.Abilities.Formulas {
       };
     }
 
+    public string DisplayString() {
+      return type switch {
+          Type.ConstInt => constInt.ToString(),
+          Type.ConstFloat => constFloat.ToString("F1"),
+          Type.ActorExhaustibleResource => exhaustibleResource.displayName,
+          Type.ActorStat => stat.displayName,
+          Type.SkillTestResult => "[skill test]",
+          // Should be unreachable
+          _ => "?",
+      };
+    }
+
     private float LogWarning() {
       Debug.LogWarning("Unknown type used for Calculation");
       return 0f;

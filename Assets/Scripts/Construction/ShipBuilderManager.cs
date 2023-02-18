@@ -7,7 +7,6 @@ using State;
 using StaticConfig.Builds;
 using Terrain;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Construction {

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1415ac1f004c6da5d4dbb8c514f365, type: 3}
   m_Name: Unit2State
   m_EditorClassIdentifier: 
+  firstName: Mr.
+  lastName: Incredible
   startingPosition: {x: 0, y: 1, z: 0}
   encounterState: {fileID: 11400000, guid: 82d564ec585d66f41865269358f6d37e, type: 2}
   equipped:

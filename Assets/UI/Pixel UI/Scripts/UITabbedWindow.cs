@@ -54,7 +54,9 @@ namespace PixelsoftGames.PixelUI
                 return;
             }
 
-            activePane.SetActive(false);
+            if (activePane != null) {
+              activePane.SetActive(false);
+            }
             activePane = ContentPanes[index];
             activePane.SetActive(true);
         }

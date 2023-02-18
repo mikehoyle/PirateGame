@@ -2,10 +2,14 @@
 using CameraControl;
 using Common;
 using Controls;
+using Encounters;
 using HUD.MainMenu;
+using Optional;
+using RuntimeVars.Encounters;
 using RuntimeVars.ShipBuilder.Events;
 using State;
 using Terrain;
+using Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -14,6 +18,7 @@ namespace Construction {
   public class ShipManager : MonoBehaviour, GameControls.IShipManagementActions {
     [SerializeField] private string backToMapButtonLabel = "Back to Map";
     [SerializeField] private ShipBuilderEvents shipBuilderEvents;
+    [SerializeField] private CurrentSelection currentSelection;
 
     private SceneTerrain _terrain;
     private ShipSetup _shipSetup;
@@ -56,6 +61,7 @@ namespace Construction {
     }
 
     private void OnEnterConstruction() {
+      ClearSelection();
       _controls.ShipManagement.Disable();
     }
 
@@ -95,18 +101,51 @@ namespace Construction {
       
       var clickedObject = _cameraController.RaycastFromMousePosition(_unitInteractionLayer).collider?.gameObject;
       var targetTile = _terrain.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
+      if (currentSelection.selectedUnit.TryGet(out var unit)
+          && unit is UnitController playerUnit
+          && _terrain.IsTileEligibleForUnitOccupation(targetTile)) {
+        playerUnit.SetShipPosition(targetTile);
+        ClearSelection();
+        return;
+      }
       
       if (clickedObject != null) {
         shipBuilderEvents.objectClicked.Raise(clickedObject.gameObject);
       }
     }
-    
+
+    public void OnRightClick(InputAction.CallbackContext context) {
+      if (!context.performed || _uiInteraction.isPlayerHoveringUi) {
+        return;
+      }
+      ClearSelection();
+    }
+
+    private void ClearSelection() {
+      currentSelection.selectedUnit = Option.None<EncounterActor>();
+      shipBuilderEvents.unitSelected.Raise(null);
+    }
+
     public void OnPoint(InputAction.CallbackContext context) {
       if (!context.performed || _uiInteraction.isPlayerHoveringUi) {
         return;
       }
-      
-      
+    }
+
+    public void OnOpenCharacterSheet(InputAction.CallbackContext context) {
+      if (!context.performed || !currentSelection.selectedUnit.TryGet(out var selectedUnit)) {
+        return;
+      }
+
+      if (selectedUnit is not UnitController playerUnit) {
+        return;
+      }
+
+      shipBuilderEvents.openCharacterSheet.Raise(playerUnit);
+    }
+
+    public void OnCloseMenu(InputAction.CallbackContext context) {
+      shipBuilderEvents.closeCharacterSheet.Raise();
     }
   }
 }

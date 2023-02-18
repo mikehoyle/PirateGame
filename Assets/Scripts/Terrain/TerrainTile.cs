@@ -89,8 +89,7 @@ namespace Terrain {
     }
 
     public override string ToString() => GridPosition.ToString();
-    
-    
+
     public override bool Equals(object obj) {
       if (ReferenceEquals(null, obj)) {
         return false;

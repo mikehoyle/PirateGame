@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Text;
 using Common;
 using Encounters;
+using Encounters.Effects;
 using Encounters.Grid;
 using Encounters.SkillTest;
 using RuntimeVars.Encounters.Events;
@@ -18,6 +20,8 @@ namespace Units.Abilities {
   public abstract class UnitAbility : ScriptableObject {
     [SerializeField] private GameObject skillTestPrefab;
     [SerializeField] protected EncounterEvents encounterEvents;
+    // Optional
+    [SerializeField] public StatusEffect incurredEffect;
 
     // Result is a quality percentage from 0 - 1.
     public delegate void AbilityEffectivenessCallback(float result);
@@ -68,6 +72,17 @@ namespace Units.Abilities {
         }
       }
       return true;
+    }
+
+    public string CostString() {
+      var result = new StringBuilder();
+      for (int i = 0; i < cost.Length; i++) {
+        result.Append($"{cost[i].amount} {cost[i].resource.displayName}");
+        if (i != cost.Length - 1) {
+          result.Append(", ");
+        }
+      }
+      return result.ToString();
     }
     
     protected void SpendCost(EncounterActor actor) {

@@ -184,7 +184,8 @@ namespace Terrain {
       foreach (var collision in Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), blockingLayer)) {
         // A simple check isn't sufficient, because isometric elevation can overlay elevated tiles on top
         // of lower tiles behind them, so check the Z position of collisions, if possible
-        if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
+        var placedOnGrid = collision.GetComponentInParent<IPlacedOnGrid>(); 
+        if (placedOnGrid != null) {
           if (placedOnGrid.Position.z == tile.z) {
             return true;
           }
@@ -197,7 +198,12 @@ namespace Terrain {
       return false;
     }
 
-    private bool IsTileEligibleForUnitOccupation(Vector3Int gridPosition) {
+    public static GameObject GetTileOccupant(Vector3Int tile) {
+      var blockingLayer = LayerMask.GetMask("BlockMovement");
+      return Physics2D.OverlapPoint(CellCenterWorldStatic(tile), blockingLayer)?.gameObject;
+    }
+
+    public bool IsTileEligibleForUnitOccupation(Vector3Int gridPosition) {
       return IsGridPositionDefined(gridPosition) && !IsMovementBlocked(gridPosition);
     }
 

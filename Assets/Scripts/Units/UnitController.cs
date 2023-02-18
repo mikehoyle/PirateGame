@@ -117,6 +117,12 @@ namespace Units {
       }
     }
 
+    // Here we assume the position is valid and just do the operation.
+    public void SetShipPosition(Vector3Int position) {
+      Position = position;
+      State.startingPosition = position;
+    }
+
     public void TrySelectAbility(int index) {
       var abilities = GetAllCapableAbilities();
       if (abilities.Count <= index) {

@@ -1,4 +1,6 @@
-﻿using RuntimeVars.ShipBuilder.Events;
+﻿using System;
+using RuntimeVars.ShipBuilder.Events;
+using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,14 @@ namespace HUD.Construction {
     private void Awake() {
       _text = GetComponentInChildren<Text>();
       _currentlyInConstructionMode = false;
+      shipBuilderEvents.openCharacterSheet.RegisterListener(OnOpenCharacterSheet);
+      shipBuilderEvents.closeCharacterSheet.RegisterListener(OnCloseCharacterSheet);
+      gameObject.SetActive(true);
+    }
+
+    private void OnDestroy() {
+      shipBuilderEvents.openCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
+      shipBuilderEvents.closeCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
     }
 
     private void OnEnable() {
@@ -34,6 +44,14 @@ namespace HUD.Construction {
     private void OnExitConstruction() {
       _text.text = enterConstructionText;
       _currentlyInConstructionMode = false;
+    }
+
+    private void OnOpenCharacterSheet(UnitController _) {
+      gameObject.SetActive(false);
+    }
+    
+    private void OnCloseCharacterSheet() {
+      gameObject.SetActive(true);
     }
 
     // Button event handler

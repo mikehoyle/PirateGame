@@ -33,85 +33,93 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.size
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.size
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[0].operation
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[0].aggregationOperation
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[0].operands.Array.size
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[0].internalOperation
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[0].operands.Array.size
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[0].operands.Array.data[0].type
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[0].operands.Array.data[0].type
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[0].operands.Array.data[0].constInt
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[0].operands.Array.data[0].constInt
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[0].operands.Array.data[0].constFloat
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[0].operands.Array.data[0].constFloat
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[0].operands.Array.data[0].exhaustibleResource
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[0].operands.Array.data[0].exhaustibleResource
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[0].operands.Array.data[0].stat
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[0].operands.Array.data[0].stat
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operation
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].aggregationOperation
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].internalOperation
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.size
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.size
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[0].type
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[0].type
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[0].constInt
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[0].constInt
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[0].constFloat
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[0].constFloat
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[0].exhaustibleResource
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[0].exhaustibleResource
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[0].stat
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[0].stat
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[1].type
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[1].type
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[1].constInt
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[1].constInt
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[1].constFloat
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[1].constFloat
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[1].exhaustibleResource
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[1].exhaustibleResource
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculationsToSum.Array.data[1].operands.Array.data[1].stat
+    propertyPath: exhaustibleResourceEffects.Array.data[0].calculation.calculations.Array.data[1].operands.Array.data[1].stat
     value: 
-    objectReference: {fileID: 11400000, guid: 27bc55966ccc98747a38b270dc376ebe, type: 2}
+    objectReference: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
   - target: {fileID: 0}
     propertyPath: delayInSeconds
     value: 0

@@ -9,6 +9,7 @@ namespace RuntimeVars.Encounters.Events {
     public AbilitySelectedEvent abilitySelected;
     public EmptyGameEvent encounterReadyToStart;
     public EmptyGameEvent encounterStart;
+    public EmptyGameEvent encounterEnd;
     public EmptyGameEvent enemyTurnStart;
     public EmptyGameEvent enemyTurnEnd;
     public EmptyGameEvent playerTurnStart;
@@ -16,7 +17,7 @@ namespace RuntimeVars.Encounters.Events {
     public EmptyGameEvent newRound;
     public ObjectClickedEvent objectClicked;
     public EmptyGameEvent playerTurnEnd;
-    public UnitSelectedEvent unitSelected;
+    public PlayerUnitEvent unitSelected;
     public AoeEffectEvent applyAoeEffect;
   }
 }

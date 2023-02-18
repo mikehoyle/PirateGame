@@ -150,7 +150,7 @@ MonoBehaviour:
   - {x: -0.023188937, y: -0.15845776, z: 0}
   m_ShapePathHash: 1188215802
   m_Mesh: {fileID: 0}
-  m_InstanceId: 59090
+  m_InstanceId: 46634
 --- !u!70 &-4212642104737918321
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -437,10 +437,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6339843754538318986, guid: b861b5ae824059d45ba810c25e5d5b89, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 374288d196fa30747944237f9aa18efc, type: 2}
     - target: {fileID: 6521324280826940417, guid: b861b5ae824059d45ba810c25e5d5b89, type: 3}
       propertyPath: m_Name
       value: UnitIndicators
