@@ -18,8 +18,8 @@ namespace HUD.ShipManagement {
     }
 
     private void OnOpenCharacterSheet(UnitController unit) {
-      _text.text = $"{unit.State.GetName()}\n\n";
-      foreach (var stat in unit.State.encounterState.stats) {
+      _text.text = $"{unit.Metadata.GetName()}\n\n";
+      foreach (var stat in unit.Metadata.stats) {
         _text.text += $"{stat.stat.displayName}: {stat.current}/{stat.stat.maxValue}\n";
       }
     }

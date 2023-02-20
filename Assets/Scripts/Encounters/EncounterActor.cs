@@ -7,6 +7,7 @@ using State.Unit;
 using StaticConfig.Units;
 using Terrain;
 using Units;
+using Units.Abilities;
 using Units.Abilities.AOE;
 using UnityEngine;
 
@@ -68,6 +69,10 @@ namespace Encounters {
 
     public void PlayOneOffAnimation(string animationName) {
       OneOffAnimation?.Invoke(animationName);
+    }
+
+    public List<UnitAbility> GetAllCapableAbilities() {
+      return EncounterState.metadata.GetAbilities();
     }
 
     public void FaceTowards(Vector3Int target) {

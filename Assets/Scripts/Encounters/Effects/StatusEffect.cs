@@ -31,9 +31,9 @@ namespace Encounters.Effects {
     /// Because status effects can have individual tracking mechanisms, to apply them,
     /// we duplicate and initialize each instance.
     /// </summary>
-    public StatusEffect Apply() {
+    public StatusEffect Apply(EncounterActor victim) {
       var result = Instantiate(this);
-      result.OnApply();
+      result.OnApply(victim);
       return result;
     }
 
@@ -56,9 +56,9 @@ namespace Encounters.Effects {
     }
     
 
-    public virtual void OnApply() { }
+    public virtual void OnApply(EncounterActor victim) { }
 
-    protected void EnactEffect(EncounterActor victim) {
+    protected virtual void EnactEffect(EncounterActor victim) {
       Debug.Log($"Applying effect to to victim {victim.name}");
       foreach (var exhaustibleResourceEffect in exhaustibleResourceEffects) {
         victim.EncounterState.ExpendResource(

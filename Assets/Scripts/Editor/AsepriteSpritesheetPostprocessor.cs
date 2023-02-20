@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -6,6 +7,7 @@ using State.Unit;
 using StaticConfig.Sprites;
 using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace EditorInternal {
   public class AsepriteSpritesheetPostprocessor : AssetPostprocessor {
@@ -34,7 +36,7 @@ namespace EditorInternal {
       if (textureImporter == null || textureImporter.textureType != TextureImporterType.Sprite) {
         return;
       }
-      textureImporter.spriteImportMode = SpriteImportMode.Multiple;
+      textureImporter.spriteImportMode = SpriteImportMode.Multiple; 
       var metadataList = new List<SpriteMetaData>();
       foreach (var frame in jsonContent.frames) {
         var metadata = new SpriteMetaData {
@@ -44,12 +46,22 @@ namespace EditorInternal {
                 width: (float)frame.frame.w,
                 height: (float)frame.frame.h),
             name = (string)frame.filename,
-            // slice pivot is relative to bounding rectangle, so this is dead center.
-            pivot = new Vector2(0.5f, 0.5f),
+            // slice pivot is relative to bounding rectangle, so this is:
+            // center for x
+            // bottom + 16px for Y (which should hopefully be center of the bottom tile)
+            pivot = new Vector2(0.5f, 16f / (float)frame.frame.h),
+            alignment = (int)SpriteAlignment.Custom, 
         };
+        // Metadata.pivot seems to not really take, so set it on the sprite as a whole as well.
+        textureImporter.spritePivot = metadata.pivot;
         metadataList.Add(metadata);
       }
       
+      
+      TextureImporterSettings settings = new TextureImporterSettings();
+      textureImporter.ReadTextureSettings(settings);
+      settings.spriteAlignment = (int)SpriteAlignment.Custom;
+      textureImporter.SetTextureSettings(settings);
       textureImporter.spritesheet = metadataList.ToArray();
     }
     

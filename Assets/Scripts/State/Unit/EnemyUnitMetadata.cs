@@ -1,0 +1,32 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using StaticConfig.Sprites;
+using Units.Abilities;
+using UnityEngine;
+
+namespace State.Unit {
+  [CreateAssetMenu(menuName = "State/EnemyUnitState")]
+  public class EnemyUnitMetadata : UnitMetadata {
+    public string displayName;
+    public int startingHp;
+    public int movementRange;
+    public DirectionalAnimatedSprite sprite;
+    public UnitAbility[] abilities;
+
+    public override List<UnitAbility> GetAbilities() {
+      return abilities.ToList();
+    }
+
+    public override string GetName() {
+      return displayName;
+    }
+
+    public override int GetStartingHp() {
+      return startingHp;
+    }
+    
+    public override int GetMovementRange() {
+      return movementRange;
+    }
+  }
+}

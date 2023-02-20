@@ -1,4 +1,7 @@
-﻿using State.World;
+﻿using System;
+using System.Collections.Generic;
+using State.World;
+using UnityEditor.U2D.Path;
 using UnityEngine;
 using Random = System.Random;
 
@@ -28,9 +31,6 @@ namespace Encounters {
       // TODO
     }
     
-    /// <summary>
-    /// It's a simple flat rectangle of land... with maybe a little pool in the middle.
-    /// </summary>
     private void GenerateTerrain(EncounterTile encounterTile) {
       var width = _rng.Next(6, 12);
       var height = _rng.Next(6, 12);

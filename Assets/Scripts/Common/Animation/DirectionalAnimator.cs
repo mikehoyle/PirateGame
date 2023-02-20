@@ -55,6 +55,10 @@ namespace Common.Animation {
         UpdateSpriteRenderer();
       }
     }
+
+    public void SetSprite(DirectionalAnimatedSprite newSprite) {
+      sprite = newSprite;
+    }
     
     private void UpdateSpriteRenderer() {
       _spriteRenderer.sprite = sprite.frames[_currentFrame];

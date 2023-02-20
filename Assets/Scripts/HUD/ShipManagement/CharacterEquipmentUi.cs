@@ -20,9 +20,9 @@ namespace HUD.ShipManagement {
     }
 
     private void OnOpenCharacterSheet(UnitController unit) {
-      _text.text = $"{unit.State.GetName()}\n\n";
+      _text.text = $"{unit.Metadata.GetName()}\n\n";
       foreach (var equipmentSlot in equipmentSlots) {
-        if (unit.State.equipped.TryGetValue(equipmentSlot, out var equipment)) {
+        if (unit.Metadata.equipped.TryGetValue(equipmentSlot, out var equipment)) {
           _text.text += $"{equipmentSlot.displayName}: {equipment.displayName}\n";
           foreach (var ability in equipment.abilitiesProvided) {
             _text.text += $" - {ability.displayString}: ({ability.CostString()})\n";

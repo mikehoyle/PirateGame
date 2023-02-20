@@ -12,12 +12,6 @@ using UnityEngine;
 
 namespace Units {
   public class UnitController : EncounterActor {
-    // TODO(P3): Configure these elsewhere
-    private const int BaseHp = 10;
-    private const int HpPerLevel = 10;
-    private const int BaseMovement = 4;
-    private const int MovementPerLevel = 1;
-    
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     [SerializeField] private UnitAbilitySet defaultAbilities;
     [SerializeField] private CurrentSelection currentSelection;
@@ -26,12 +20,9 @@ namespace Units {
     
     private SpriteRenderer _selectedIndicator;
 
-    public UnitState State { get; private set; }
+    public PlayerUnitMetadata Metadata => (PlayerUnitMetadata)EncounterState.metadata;
 
-    public override UnitEncounterState EncounterState {
-      get => State.encounterState;
-      protected set => State.encounterState = value;
-    }
+    public override UnitEncounterState EncounterState { get; protected set; }
 
     protected override void Awake() {
       base.Awake();
@@ -59,28 +50,15 @@ namespace Units {
       encounterEvents.playerTurnStart.UnregisterListener(OnNewRound);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
     }
-
-    public void Init(UnitState state) {
-      Init(state, Vector3Int.zero);
-    }
-
-    public void Init(UnitState state, Vector3Int positionOffset) {
-      State = state;
-      state.encounterState.resources = new[] {
-          // TODO(P1): Don't always refresh HP fully.
-          ExhaustibleResourceTracker.NewTracker(
-              exhaustibleResources.hp, BaseHp + (HpPerLevel * state.encounterState.GetStat(constitutionStat))),
-          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.ap, ActionPointsPerRound),
-          ExhaustibleResourceTracker.NewTracker(
-              exhaustibleResources.mp, BaseMovement + (MovementPerLevel * state.encounterState.GetStat(movementStat))),
-      };
-      state.encounterState.NewEncounter(state.startingPosition + positionOffset);
-      Position = State.startingPosition + positionOffset;
+    
+    public void Init(UnitEncounterState encounterState) {
+      EncounterState = encounterState;
+      Position = encounterState.position;
     }
 
     public List<UnitAbility> GetAllCapableAbilities() {
       var result = defaultAbilities.abilities.ToList();
-      result.AddRange(State.GetAbilities());
+      result.AddRange(Metadata.GetAbilities());
       return result;
     }
 
@@ -120,7 +98,7 @@ namespace Units {
     // Here we assume the position is valid and just do the operation.
     public void SetShipPosition(Vector3Int position) {
       Position = position;
-      State.startingPosition = position;
+      Metadata.startingPosition = position;
     }
 
     public void TrySelectAbility(int index) {

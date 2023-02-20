@@ -13,6 +13,6 @@ namespace State {
     public ShipState ship;
     public InventoryState inventory;
     public ArmoryState armory;
-    public List<UnitState> roster;
+    public List<PlayerUnitMetadata> roster;
   }
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb43582c2321480087bf00adc5bc9d42, type: 3}
+  m_Name: LittleBallEnemy
+  m_EditorClassIdentifier: 
+  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  stats:
+  - stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
+    current: 1
+  size: {x: 1, y: 1}
+  displayName: Little Ball
+  startingHp: 8
+  movementRange: 5
+  sprite: {fileID: 11400000, guid: 7d03b5b6eda6cfd4e934383de65b8011, type: 2}
+  abilities:
+  - {fileID: 11400000, guid: 25a6d5d322151734d9b6193c4355bd1b, type: 2}

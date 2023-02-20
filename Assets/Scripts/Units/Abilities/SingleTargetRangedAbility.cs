@@ -60,7 +60,7 @@ namespace Units.Abilities {
 
     private void OnDetermineAbilityEffectiveness(
         AbilityExecutionContext context, float result, EncounterActor target) {
-      var effect = incurredEffect.Apply();
+      var effect = incurredEffect.Apply(target);
       effect.CalculateEffects(context, result);
       target.AddStatusEffect(effect);
       // Animation options should definitely not be here... a future problem.

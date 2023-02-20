@@ -21,8 +21,7 @@ namespace Units.Abilities.AOE {
       var raw = rawAsset.text;
       raw = raw.Replace("\r\n", "\n");
       var lines = raw.Split("\n" , StringSplitOptions.RemoveEmptyEntries);
-      
-      
+
       var targetOffset = GetTargetOffset(lines, rawAsset.name);
       var affectedCoords = new List<Vector3Int>();
       for (int y = 0; y < lines.Length; y++) {

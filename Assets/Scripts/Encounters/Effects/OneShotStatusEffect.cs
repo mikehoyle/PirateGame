@@ -20,7 +20,7 @@ namespace Encounters.Effects {
       return false;
     }
     
-    public override void OnApply() {
+    public override void OnApply(EncounterActor _) {
       _startTime = 0;
     }
   }

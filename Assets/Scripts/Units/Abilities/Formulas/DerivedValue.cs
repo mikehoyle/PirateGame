@@ -31,7 +31,7 @@ namespace Units.Abilities.Formulas {
           Type.ConstInt => constInt,
           Type.ConstFloat => constFloat,
           Type.ActorExhaustibleResource => context.Actor.EncounterState.GetResourceAmount(exhaustibleResource),
-          Type.ActorStat => context.Actor.EncounterState.GetStat(stat),
+          Type.ActorStat => context.Actor.EncounterState.metadata.GetStat(stat),
           Type.SkillTestResult => skillTestResult,
           // Should be unreachable
           _ => LogWarning(),

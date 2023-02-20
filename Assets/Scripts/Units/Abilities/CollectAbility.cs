@@ -25,8 +25,7 @@ namespace Units.Abilities {
 
       return true;
     }
-    
-    
+
     protected override void Execute(AbilityExecutionContext context) {
       var collectableObject = SceneTerrain.GetTileOccupant(context.TargetedTile);
       if (collectableObject == null) {
