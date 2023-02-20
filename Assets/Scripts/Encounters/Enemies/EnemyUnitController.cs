@@ -26,24 +26,28 @@ namespace Encounters.Enemies {
     protected override void OnEnable() {
       base.OnEnable();
       enemiesInEncounter.Add(this);
-      encounterEvents.playerTurnStart.RegisterListener(OnNewRound);
+      encounterEvents.enemyTurnStart.RegisterListener(OnNewRound);
     }
 
     protected override void OnDisable() {
       base.OnDisable();
       enemiesInEncounter.Remove(this);
-      encounterEvents.playerTurnStart.UnregisterListener(OnNewRound);
+      encounterEvents.enemyTurnStart.UnregisterListener(OnNewRound);
     }
 
     private void OnNewRound() {
       EncounterState.NewRound();
     }
 
-    public void Init(UnitEncounterState encounterState) {
-      EncounterState = encounterState;
+    protected override void InitInternal(UnitEncounterState encounterState) {
+      // TODO(P1): remove this and generate it properly at encounter time (like player units do)
       EncounterState.resources = encounterState.metadata.GetEncounterTrackers();
-      _animator.SetSprite(((EnemyUnitMetadata)encounterState.metadata).sprite);
       ApplySize(encounterState.metadata.size);
+      if (encounterState.metadata is not EnemyUnitMetadata enemyUnitMetadata) {
+        Debug.LogWarning("Enemy units need to be initialized with enemy unit state");
+        return;
+      }
+      _animator.SetSprite(enemyUnitMetadata.sprite);
     }
 
     private void ApplySize(Vector2Int size) {

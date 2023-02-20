@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using StaticConfig.Equipment;
 using StaticConfig.Units;
 using Units.Abilities;
@@ -14,6 +15,7 @@ namespace State.Unit {
     private const int BaseMovement = 4;
     private const int MovementPerLevel = 1;
 
+    [SerializeField] private UnitAbilitySet defaultAbilities;
     [SerializeField] private Stat constitutionStat;
     [SerializeField] private Stat movementStat;
 
@@ -24,7 +26,7 @@ namespace State.Unit {
     public SerializableDictionary<EquipmentSlot, Equipment> equipped;
 
     public override List<UnitAbility> GetAbilities() {
-      List<UnitAbility> unitAbilities = new();
+      List<UnitAbility> unitAbilities = defaultAbilities.abilities.ToList();
       foreach (var equipment in equipped.Values) {
         unitAbilities.AddRange(equipment.abilitiesProvided);
       }

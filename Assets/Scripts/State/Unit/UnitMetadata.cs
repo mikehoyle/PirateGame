@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Encounters.Effects;
 using StaticConfig.Units;
 using Units.Abilities;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace State.Unit {
     private const int NumActionPoints = 2;
     
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
+    public StatusEffect[] passiveEffects;
     public StatTracker[] stats;
     public Vector2Int size = Vector2Int.one;
 

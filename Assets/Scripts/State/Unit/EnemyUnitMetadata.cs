@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Encounters.Effects;
 using StaticConfig.Sprites;
 using Units.Abilities;
 using UnityEngine;
@@ -27,6 +28,16 @@ namespace State.Unit {
     
     public override int GetMovementRange() {
       return movementRange;
+    }
+    
+    public UnitEncounterState NewEncounter(Vector3Int position) {
+      return new UnitEncounterState {
+          metadata = this,
+          resources = GetEncounterTrackers(),
+          position = position,
+          facingDirection = FacingDirection.SouthEast,
+          faction = UnitFaction.Enemy,
+      };
     }
   }
 }

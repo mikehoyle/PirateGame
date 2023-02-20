@@ -19,5 +19,6 @@ namespace RuntimeVars.Encounters.Events {
     public EmptyGameEvent playerTurnEnd;
     public PlayerUnitEvent unitSelected;
     public AoeEffectEvent applyAoeEffect;
+    public EncounterActorEvent unitAddedMidEncounter;
   }
 }

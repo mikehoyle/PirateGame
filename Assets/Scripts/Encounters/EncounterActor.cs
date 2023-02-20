@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Animation;
 using Encounters.Effects;
 using RuntimeVars.Encounters.Events;
@@ -52,7 +53,17 @@ namespace Encounters {
     protected virtual void Update() {
       UpdateStatusEffects();
     }
-    
+
+    public void Init(UnitEncounterState encounterState) {
+      EncounterState = encounterState;
+      foreach (var passiveEffect in encounterState.metadata.passiveEffects ?? Enumerable.Empty<StatusEffect>()) {
+        AddStatusEffect(passiveEffect.Apply(this));
+      }
+      InitInternal(encounterState);
+    }
+
+    protected virtual void InitInternal(UnitEncounterState encounterState) { }
+
     private void UpdateStatusEffects() {
       for (int i = activeStatusEffects.Count - 1; i >= 0; i--) {
         if (activeStatusEffects[i].UpdateAndMaybeDestroy(this)) {

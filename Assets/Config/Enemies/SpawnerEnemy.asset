@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SpawnerEnemy
   m_EditorClassIdentifier: 
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  passiveEffects:
+  - {fileID: 11400000, guid: 6916cd79012dbd141bca67d1cba02cca, type: 2}
   stats: []
   size: {x: 2, y: 2}
   displayName: Spawner

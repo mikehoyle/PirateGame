@@ -17,16 +17,24 @@ namespace Units {
       _hpBar = GetComponent<Slider>();
       encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
       encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
+      encounterEvents.unitAddedMidEncounter.RegisterListener(OnUnitAdded);
       gameObject.SetActive(false);
     }
 
     private void OnDestroy() {
       encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
       encounterEvents.encounterEnd.UnregisterListener(OnEncounterEnd);
+      encounterEvents.unitAddedMidEncounter.UnregisterListener(OnUnitAdded);
     }
 
     private void OnEncounterStart() {
       // Only display during encounters.
+      gameObject.SetActive(true);
+    }
+
+    private void OnUnitAdded(EncounterActor _) {
+      // If this event is ever fired, we're mid-encounter, everyone should be showing HP bars
+      // (but most importantly, the new units should).
       gameObject.SetActive(true);
     }
 

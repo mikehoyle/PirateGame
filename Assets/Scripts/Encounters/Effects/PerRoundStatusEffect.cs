@@ -1,14 +1,12 @@
-﻿using System;
-using Common.Events;
+﻿using Common.Events;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Encounters.Effects {
   [CreateAssetMenu(menuName = "Effects/PerRoundStatusEffect")]
   public class PerRoundStatusEffect : StatusEffect {
-    [SerializeField] private EncounterEvents encounterEvents;
+    [SerializeField] protected EncounterEvents encounterEvents;
     public int numRoundsPerEffectEnactment = 1;
     public int numEnactmentsBeforeDeath = -1;
     public bool enactOnceOnApplication;
@@ -67,9 +65,9 @@ namespace Encounters.Effects {
 
     private EmptyGameEvent NewRoundEvent() {
       if (unitFaction == UnitFaction.Enemy) {
-        return encounterEvents.playerTurnStart;
+        return encounterEvents.enemyTurnStart;
       }
-      return encounterEvents.enemyTurnStart;
+      return encounterEvents.playerTurnStart;
     }
   }
 }

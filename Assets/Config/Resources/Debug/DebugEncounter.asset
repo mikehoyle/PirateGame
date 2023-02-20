@@ -152,12 +152,36 @@ MonoBehaviour:
         m_values: 19000000
   enemies:
   - metadata: {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
-    resources: []
-    position: {x: 2, y: 2, z: 0}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 8
+      min: 0
+      current: 8
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 5
+      min: 0
+      current: 5
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 5, y: 1, z: 0}
     faction: 1
-    facingDirection: 2
+    facingDirection: 1
   - metadata: {fileID: 11400000, guid: ca38211c7c0899642a887a4377f995f5, type: 2}
-    resources: []
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 25
+      min: 0
+      current: 25
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 0
+      min: 0
+      current: 0
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
     position: {x: 7, y: 3, z: 0}
-    faction: 0
+    faction: 1
     facingDirection: 2

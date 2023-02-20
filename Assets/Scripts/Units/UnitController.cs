@@ -13,7 +13,6 @@ using UnityEngine;
 namespace Units {
   public class UnitController : EncounterActor {
     [SerializeField] private UnitCollection playerUnitsInEncounter;
-    [SerializeField] private UnitAbilitySet defaultAbilities;
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private Stat constitutionStat;
     [SerializeField] private Stat movementStat;
@@ -49,17 +48,6 @@ namespace Units {
       encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
       encounterEvents.playerTurnStart.UnregisterListener(OnNewRound);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
-    }
-    
-    public void Init(UnitEncounterState encounterState) {
-      EncounterState = encounterState;
-      Position = encounterState.position;
-    }
-
-    public List<UnitAbility> GetAllCapableAbilities() {
-      var result = defaultAbilities.abilities.ToList();
-      result.AddRange(Metadata.GetAbilities());
-      return result;
     }
 
     private void OnObjectClicked(GameObject clickedObject) {
