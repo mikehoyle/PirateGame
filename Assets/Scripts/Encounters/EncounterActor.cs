@@ -123,5 +123,15 @@ namespace Encounters {
     public void AddStatusEffect(StatusEffect effect) {
       activeStatusEffects.Add(effect);
     }
+
+    public void ExpendResource(ExhaustibleResource resource, int amount) {
+      EncounterState.ExpendResource(resource, amount);
+      if (EncounterState.GetResourceAmount(exhaustibleResources.hp) <= 0) {
+        OnDeath();
+        encounterEvents.unitDeath.Raise();
+      }
+    }
+
+    protected abstract void OnDeath();
   }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Common;
 using State.Encounter;
 using State.Unit;
+using StaticConfig.Encounters;
 using UnityEngine;
 
 namespace State.World {
@@ -12,6 +13,7 @@ namespace State.World {
     public int difficultyRating;
     public SparseMatrix3d<TerrainType> terrain;
     public SparseMatrix3d<CollectableInstance> collectables;
+    public SparseMatrix3d<ObstacleConfig> obstacles;
     public List<UnitEncounterState> enemies;
     
     public override Type TileType => Type.Encounter;

@@ -25,7 +25,6 @@ namespace Units.Abilities {
         return false;
       }
       var target = GetTargetIfEligible(context.Actor, context.TargetedObject);
-      Debug.Log($"Was target determined eligible? {target}");
       if (target == null) {
         return false;
       }
@@ -45,21 +44,17 @@ namespace Units.Abilities {
     }
 
     private EncounterActor GetTargetIfEligible(EncounterActor actor, GameObject target) {
-      Debug.Log($"Is target eligible? {target?.name}");
       if (target == null) {
         return null;
       }
       if (target.TryGetComponent<EncounterActor>(out var targetUnit)) {
         if (targetUnit.EncounterState.faction == actor.EncounterState.faction) {
-          Debug.Log($"a");
           return null;
         }
         if (IsInRange(actor.Position, targetUnit.EncounterState.position)) {
-          Debug.Log($"b");
           return targetUnit;
         }
       }
-      Debug.Log($"c");
       return null;
     }
 

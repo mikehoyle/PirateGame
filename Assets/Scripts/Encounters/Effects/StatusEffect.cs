@@ -61,7 +61,7 @@ namespace Encounters.Effects {
     protected virtual void EnactEffect(EncounterActor victim) {
       Debug.Log($"Applying effect {name} to to victim {victim.name}");
       foreach (var exhaustibleResourceEffect in exhaustibleResourceEffects) {
-        victim.EncounterState.ExpendResource(
+        victim.ExpendResource(
             exhaustibleResourceEffect.resource, (int)exhaustibleResourceEffect.CalculatedValue);
       }
     }

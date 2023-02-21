@@ -102,5 +102,14 @@ namespace Units {
       currentSelection.selectedAbility = Option.Some(selectedAbility);
       encounterEvents.abilitySelected.Raise(this, selectedAbility);
     }
+
+    protected override void OnDeath() {
+      if (currentSelection.selectedUnit.Contains(this)) {
+        currentSelection.Clear();
+      }
+      playerUnitsInEncounter.Remove(this);
+      // TODO(P1): play death animation.
+      Destroy(gameObject);
+    }
   }
 }

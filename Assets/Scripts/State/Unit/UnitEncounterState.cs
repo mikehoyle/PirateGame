@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using StaticConfig.Units;
 using UnityEngine;
 
@@ -51,6 +52,20 @@ namespace State.Unit {
       }
       tracker = null;
       return false;
+    }
+    
+    /// <summary>
+    /// All the tiles a unit is on. For most (size=1) units, this will just be the tile they stand on.
+    /// </summary>
+    public List<Vector3Int> OccupiedTiles() {
+      var result = new List<Vector3Int>();
+      for (int x = 0; x < metadata.size.x; x++) {
+        for (int y = 0; y < metadata.size.y; y++) {
+          result.Add(position + new Vector3Int(x, y));
+        }
+      }
+      
+      return result;
     }
   }
 }

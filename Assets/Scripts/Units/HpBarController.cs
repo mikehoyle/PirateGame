@@ -38,7 +38,7 @@ namespace Units {
       gameObject.SetActive(true);
     }
 
-    private void OnEncounterEnd() {
+    private void OnEncounterEnd(EncounterOutcome _) {
       gameObject.SetActive(false);
     }
 

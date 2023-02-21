@@ -55,9 +55,9 @@ namespace Construction {
         return;
       }
 
-      Instantiate(inGameConstructionPrefab, parent)
-          .GetComponent<InGameConstruction>()
-          .Initialize(build, position);
+      var construction = Instantiate(inGameConstructionPrefab, parent)
+          .GetComponent<InGameConstruction>();
+      construction.Initialize(build, position);
     }
   }
 }

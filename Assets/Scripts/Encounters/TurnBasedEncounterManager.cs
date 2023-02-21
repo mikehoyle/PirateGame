@@ -1,4 +1,5 @@
-﻿using CameraControl;
+﻿using System.Linq;
+using CameraControl;
 using Common;
 using Controls;
 using Encounters.Grid;
@@ -9,12 +10,16 @@ using Terrain;
 using Units;
 using Units.Abilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Encounters {
   public class TurnBasedEncounterManager : EncounterInputReceiver {
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private IntegerVar currentRound;
+    [SerializeField] private UnitCollection playerUnitsInEncounter;
+    [SerializeField] private EnemyUnitCollection enemyUnitsInEncounter;
+    [SerializeField] private CollectedResources collectedResources;
     
     private GameControls _controls;
     private CameraController _cameraController;
@@ -52,6 +57,8 @@ namespace Encounters {
       encounterEvents.abilitySelected.RegisterListener(OnAbilitySelected);
       encounterEvents.abilityExecutionStart.RegisterListener(OnBeginAbilityExecution);
       encounterEvents.abilityExecutionEnd.RegisterListener(OnEndAbilityExecution);
+      encounterEvents.unitDeath.RegisterListener(OnUnitDeath);
+      encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
     }
 
     private void OnDisable() {
@@ -60,10 +67,13 @@ namespace Encounters {
       encounterEvents.abilitySelected.UnregisterListener(OnAbilitySelected);
       encounterEvents.abilityExecutionStart.UnregisterListener(OnBeginAbilityExecution);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnEndAbilityExecution);
+      encounterEvents.unitDeath.UnregisterListener(OnUnitDeath);
+      encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
     }
 
     private void OnEncounterStart() {
       enabled = true;
+      collectedResources.Clear();
       encounterEvents.playerTurnStart.Raise();
     }
 
@@ -84,6 +94,28 @@ namespace Encounters {
 
     private void OnEndAbilityExecution() {
       _controls.TurnBasedEncounter.Enable();
+    }
+
+    private void OnUnitDeath() {
+      // Check for end conditions
+      if (!playerUnitsInEncounter.Any()) {
+        encounterEvents.encounterEnd.Raise(EncounterOutcome.PlayerDefeat);
+        return;
+      }
+
+      if (!enemyUnitsInEncounter.Any()) {
+        encounterEvents.encounterEnd.Raise(EncounterOutcome.PlayerVictory);
+        return;
+      }
+    }
+    
+    private void OnEncounterEnd(EncounterOutcome outcome) {
+      Debug.Log($"Encounter ending with outcome: {outcome}");
+      // TODO give player XP etc.
+      if (outcome == EncounterOutcome.PlayerVictory) {
+        collectedResources.GiveResourcesToPlayer();
+      }
+      enabled = false;
     }
 
     protected override void OnClick(Vector2 mousePosition) {

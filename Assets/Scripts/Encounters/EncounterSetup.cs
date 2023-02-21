@@ -15,6 +15,7 @@ namespace Encounters {
     [SerializeField] private Sprite landSprite;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private GameObject collectablePrefab;
+    [SerializeField] private GameObject obstaclePrefab;
     [SerializeField] private EncounterEvents encounterEvents;
     
     private SceneTerrain _terrain;
@@ -45,6 +46,7 @@ namespace Encounters {
 
     private void OnEncounterReady() {
       SetUpEnemyUnits();
+      SetUpObstacles();
       SetUpCollectables();
       encounterEvents.encounterStart.Raise();
       enabled = false;
@@ -54,6 +56,13 @@ namespace Encounters {
       foreach (var enemy in _encounter.enemies) {
         var unitController = Instantiate(enemyPrefab).GetComponent<EnemyUnitController>();
         unitController.Init(enemy);
+      }
+    }
+
+    private void SetUpObstacles() {
+      foreach (var obstacle in _encounter.obstacles) {
+        Instantiate(obstaclePrefab).GetComponent<EncounterObstacle>()
+            .Initialize(obstacle.Value, obstacle.Key);
       }
     }
 

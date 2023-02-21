@@ -28,3 +28,4 @@ MonoBehaviour:
   unitSelected: {fileID: 11400000, guid: 6630b751c39484c438dc0458f7a211ed, type: 2}
   applyAoeEffect: {fileID: 11400000, guid: cca934d769a147a4cb12b0c02992b71f, type: 2}
   unitAddedMidEncounter: {fileID: 11400000, guid: 631a0a2c1baa7894381d1bf497cae90b, type: 2}
+  unitDeath: {fileID: 11400000, guid: 5cca42b05c9abb046b7641d5b3304d2a, type: 2}

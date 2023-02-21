@@ -61,5 +61,11 @@ namespace Encounters.Enemies {
         }
       }
     }
+
+    protected override void OnDeath() {
+      enemiesInEncounter.Remove(this);
+      PlayOneOffAnimation("death");
+      Destroy(gameObject);
+    }
   }
 }

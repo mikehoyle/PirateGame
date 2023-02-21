@@ -20,9 +20,13 @@ namespace Units.Abilities.AOE {
     public static AreaOfEffect ParseAreaOfEffect(TextAsset rawAsset) {
       var raw = rawAsset.text;
       raw = raw.Replace("\r\n", "\n");
+      return ParseAreaOfEffectRaw(raw, rawAsset.name);
+    }
+
+    public static AreaOfEffect ParseAreaOfEffectRaw(string raw, string assetName = "") {
       var lines = raw.Split("\n" , StringSplitOptions.RemoveEmptyEntries);
 
-      var targetOffset = GetTargetOffset(lines, rawAsset.name);
+      var targetOffset = GetTargetOffset(lines, assetName);
       var affectedCoords = new List<Vector3Int>();
       for (int y = 0; y < lines.Length; y++) {
         for (int x = 0; x < lines[y].Length; x++) {
@@ -35,7 +39,7 @@ namespace Units.Abilities.AOE {
       return new AreaOfEffect(affectedCoords);
     }
 
-    private static Vector3Int GetTargetOffset(string[] lines, string assetName) {
+    private static Vector3Int GetTargetOffset(string[] lines, string assetName = "") {
       for (int y = 0; y < lines.Length; y++) {
         for (int x = 0; x < lines[y].Length; x++) {
           if (lines[y][x] == TargetOn || lines[y][x] == TargetOff) {

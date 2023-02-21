@@ -1,6 +1,8 @@
-﻿using Encounters;
+﻿using Common;
+using Encounters;
 using StaticConfig.Builds;
 using Terrain;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Construction {
@@ -20,6 +22,9 @@ namespace Construction {
       Position = position;
       transform.position = constructableObject.isFoundationTile ?
           _terrain.CellAnchorWorld(position) : _terrain.CellBaseWorld(position);
+      if (constructableObject.isFoundationTile) {
+        _spriteRenderer.sortingLayerName = SortingLayers.Terrain;
+      }
       InitializeInner(constructableObject, position);
     }
 
