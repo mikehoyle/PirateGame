@@ -14,5 +14,6 @@ namespace State {
     public InventoryState inventory;
     public ArmoryState armory;
     public List<PlayerUnitMetadata> roster;
+    public int VisionRange = 1;
   }
 }

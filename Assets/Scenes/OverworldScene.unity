@@ -1255,6 +1255,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6780469848234092492, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: heartTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 1a8a72aacb1985b46822ae8d98c2c473, type: 2}
+    - target: {fileID: 6780469848234092492, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: foodResource
+      value: 
+      objectReference: {fileID: 11400000, guid: aebcc41147d51014d98b024a480bc6e0, type: 2}
+    - target: {fileID: 6780469848234092492, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
+      propertyPath: waterResource
+      value: 
+      objectReference: {fileID: 11400000, guid: 7df085faf4d303743a3c3b3de1cc7f13, type: 2}
     - target: {fileID: 6780469848234092493, guid: 909c1dcd5c775054994e0f189b3a6019, type: 3}
       propertyPath: m_Name
       value: OverworldGameManager

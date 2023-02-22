@@ -13,6 +13,10 @@ namespace State.World {
     public uint currentDay;
     public WorldContentsDictionary tileContents;
 
+    public void Awake() {
+      tileContents = new WorldContentsDictionary();
+    }
+
     public void SetTile(int x, int y, WorldTile tile) {
       var coordinates = new WorldCoordinates(x, y);
       tile.coordinates = coordinates;

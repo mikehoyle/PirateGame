@@ -8,8 +8,10 @@ namespace State.World {
     public enum Type {
       OpenSea,
       Encounter,
+      Heart
     }
 
+    public bool IsCovered { get; set; } = true;
     public WorldCoordinates coordinates;
     public abstract Type TileType { get; }
 

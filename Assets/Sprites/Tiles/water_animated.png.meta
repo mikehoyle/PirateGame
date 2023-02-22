@@ -421,20 +421,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      water_animated_12: 1826065327
-      water_animated_2: -140339481
-      water_animated_5: -1781748085
-      water_animated_13: -40941227
-      water_animated_7: 1454281034
-      water_animated_9: -40581737
-      water_animated_3: 573083996
-      water_animated_4: -976987593
-      water_animated_6: -1989208536
-      water_animated_10: -265335320
       water_animated_0: -922579617
       water_animated_1: 1217630604
-      water_animated_8: 37252668
+      water_animated_10: -265335320
       water_animated_11: 1282008042
+      water_animated_12: 1826065327
+      water_animated_13: -40941227
+      water_animated_2: -140339481
+      water_animated_3: 573083996
+      water_animated_4: -976987593
+      water_animated_5: -1781748085
+      water_animated_6: -1989208536
+      water_animated_7: 1454281034
+      water_animated_8: 37252668
+      water_animated_9: -40581737
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -422,19 +422,19 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       movement_arrow_0: 978243471
-      movement_arrow_3: -1238521949
-      movement_arrow_5: -774834527
-      movement_arrow_2: 33085785
-      movement_arrow_8: -1659006037
+      movement_arrow_1: 1290208420
+      movement_arrow_10: 1241893443
+      movement_arrow_11: -1984121491
+      movement_arrow_12: 571479041
       movement_arrow_13: 1418399537
+      movement_arrow_2: 33085785
+      movement_arrow_3: -1238521949
+      movement_arrow_4: 1812626557
+      movement_arrow_5: -774834527
       movement_arrow_6: 1731175652
       movement_arrow_7: -1094281547
-      movement_arrow_10: 1241893443
-      movement_arrow_12: 571479041
-      movement_arrow_11: -1984121491
-      movement_arrow_4: 1812626557
+      movement_arrow_8: -1659006037
       movement_arrow_9: -1355304227
-      movement_arrow_1: 1290208420
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

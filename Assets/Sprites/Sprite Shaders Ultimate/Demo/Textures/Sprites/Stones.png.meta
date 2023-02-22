@@ -495,16 +495,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Stones_5: 21300010
-      Stones_9: 21300018
-      Stones_6: 21300012
-      Stones_4: 21300008
-      Stones_7: 21300014
-      Stones_3: 21300006
-      Stones_8: 21300016
-      Stones_2: 21300004
       Stones_0: 21300000
       Stones_1: 21300002
+      Stones_2: 21300004
+      Stones_3: 21300006
+      Stones_4: 21300008
+      Stones_5: 21300010
+      Stones_6: 21300012
+      Stones_7: 21300014
+      Stones_8: 21300016
+      Stones_9: 21300018
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

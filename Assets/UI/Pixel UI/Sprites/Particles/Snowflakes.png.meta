@@ -511,22 +511,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Snowflakes_14: 21300028
-      Snowflakes_3: 21300006
-      Snowflakes_9: 21300018
-      Snowflakes_13: 21300026
-      Snowflakes_1: 21300002
-      Snowflakes_12: 21300024
-      Snowflakes_6: 21300012
-      Snowflakes_8: 21300016
-      Snowflakes_5: 21300010
-      Snowflakes_11: 21300022
       Snowflakes_0: 21300000
+      Snowflakes_1: 21300002
       Snowflakes_10: 21300020
-      Snowflakes_7: 21300014
-      Snowflakes_4: 21300008
-      Snowflakes_2: 21300004
+      Snowflakes_11: 21300022
+      Snowflakes_12: 21300024
+      Snowflakes_13: 21300026
+      Snowflakes_14: 21300028
       Snowflakes_15: 21300030
+      Snowflakes_2: 21300004
+      Snowflakes_3: 21300006
+      Snowflakes_4: 21300008
+      Snowflakes_5: 21300010
+      Snowflakes_6: 21300012
+      Snowflakes_7: 21300014
+      Snowflakes_8: 21300016
+      Snowflakes_9: 21300018
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

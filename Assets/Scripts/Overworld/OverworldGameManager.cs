@@ -6,6 +6,8 @@ using HUD.MainMenu;
 using Overworld.MapGeneration;
 using State;
 using State.World;
+using StaticConfig;
+using StaticConfig.RawResources;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -19,13 +21,16 @@ namespace Overworld {
   /// </summary>
   public class OverworldGameManager : MonoBehaviour, GameControls.IOverworldActions {
     [SerializeField] private string buildMenuItemLabel = "Construction";
-    
+    [SerializeField] private RawResource foodResource;
+    [SerializeField] private RawResource waterResource;
+
     // Tiles 
     [SerializeField] private TileBase indicatorTile;
     [SerializeField] private TileBase openSeaTile;
     [SerializeField] private TileBase encounterTile;
     [SerializeField] private TileBase fogOfWarTile;
-    
+    [SerializeField] private TileBase heartTile;
+
     private Tilemap _overlayTilemap;
     private Tilemap _overworldTilemap;
     private AsyncOperation _loadShipBuilderSceneOperation;
@@ -57,8 +62,10 @@ namespace Overworld {
     }
 
     private void Start() {
+      GameState.State.world = new OverworldGenerator(width: 100, height: 100, seed: 1).GenerateWorld();
       DisplayWorld();
       DisplayPlayerIndicator();
+      RemoveFogOfWar();
       _gameMenu = MainMenuController.Get();
       _gameMenu.AddMenuItem(buildMenuItemLabel, OnConstructionMode);
       // Because the ship builder scene will be a common destination from here, pre-load it
@@ -68,15 +75,29 @@ namespace Overworld {
               (Vector3Int)GameState.State.player.overworldGridPosition));
     }
 
+    private void UpdateTile (WorldTile mapTile) {
+      var tile = mapTile.IsCovered ? fogOfWarTile : mapTile.TileType switch {
+        WorldTile.Type.OpenSea => openSeaTile,
+        WorldTile.Type.Encounter => encounterTile,
+        WorldTile.Type.Heart => heartTile,
+        _ => fogOfWarTile,
+      };
+      _overworldTilemap.SetTile(
+          new Vector3Int(mapTile.coordinates.X, mapTile.coordinates.Y, 0), tile);
+    }
+
+    private void RemoveFogOfWar() {
+      Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;
+      HexGridUtils.ForEachAdjacentTileNotInVision(currentPlayerPosition, cell => {
+        WorldTile mapTile = GameState.State.world.GetTile(cell.x, cell.y);
+        mapTile.IsCovered = false;
+        UpdateTile(GameState.State.world.GetTile(cell.x, cell.y));
+      });
+    }
+
     private void DisplayWorld() {
       foreach (var mapTile in GameState.State.world.tileContents.Values) {
-        var tile = mapTile.TileType switch {
-            WorldTile.Type.OpenSea => openSeaTile,
-            WorldTile.Type.Encounter => encounterTile,
-            _ => fogOfWarTile,
-        };
-        _overworldTilemap.SetTile(
-            new Vector3Int(mapTile.coordinates.X, mapTile.coordinates.Y, 0), tile);
+        UpdateTile(mapTile);
       }
     }
     
@@ -108,13 +129,31 @@ namespace Overworld {
       worldPoint.z = 0;
       var gridCell = _overworldTilemap.layoutGrid.WorldToCell(worldPoint);
 
-      ExecuteMapMove(gridCell);
+      if (CanExecuteMapMove(gridCell)) {
+        ExecuteMapMove(gridCell);
+      }
+    }
+
+    private bool CanExecuteMapMove(Vector3Int gridCell) {
+      Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;
+      bool isInBoundsX = (gridCell.x >= currentPlayerPosition.x - 1 && gridCell.x <= currentPlayerPosition.x + 1);
+      bool isInBoundsY = (gridCell.y >= currentPlayerPosition.y - 1 && gridCell.y <= currentPlayerPosition.y + 1);
+      bool hasFood = GameState.State.player.inventory.GetQuantity(foodResource) > 0;
+      bool hasWater = GameState.State.player.inventory.GetQuantity(waterResource) > 0;
+
+      return isInBoundsX && isInBoundsY && hasFood && hasWater;
     }
     
     private void ExecuteMapMove(Vector3Int gridCell) {
       // TODO(P1): Make a lot of changes and refinements here, like expending resources to travel,
       //     and doing any sort of adjacency checks.
+      
+      GameState.State.player.inventory.ReduceQuantity(foodResource, 1);
+      GameState.State.player.inventory.ReduceQuantity(waterResource, 1);
+
       MovePlayer(gridCell);
+      RemoveFogOfWar();
+
       var destination = GameState.State.world.GetTile(gridCell.x, gridCell.y);
       switch (destination.TileType) {
         case WorldTile.Type.Encounter:
@@ -123,6 +162,7 @@ namespace Overworld {
           break;
       }
     }
+
     private void MovePlayer(Vector3Int gridCell) {
       GameState.State.player.overworldGridPosition = (Vector2Int)gridCell;
       _cameraMover.MoveCursorDirectly(_overworldTilemap.GetCellCenterWorld(gridCell));

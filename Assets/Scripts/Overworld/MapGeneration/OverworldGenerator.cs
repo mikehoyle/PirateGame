@@ -23,7 +23,7 @@ namespace Overworld.MapGeneration {
     }
     
     public WorldState GenerateWorld() {
-      var world = new WorldState();
+      var world = ScriptableObject.CreateInstance<WorldState>();
       GenerateTiles(world);
       return world;
     }
@@ -73,8 +73,8 @@ namespace Overworld.MapGeneration {
 
     private WorldTile RandomTile() {
       return _rng.NextDouble() switch {
-          var x when x < 0.2 => ScriptableObject.CreateInstance<EncounterTile>(),
-          _ => ScriptableObject.CreateInstance<OpenSeaTile>(),
+        var x when x < 0.2 => ScriptableObject.CreateInstance<EncounterTile>(),
+        _ => ScriptableObject.CreateInstance<OpenSeaTile>(),
       };
     }
   }
