@@ -19,3 +19,4 @@ MonoBehaviour:
   objectClicked: {fileID: 11400000, guid: 330e4182eca7bcf45bb4cf657c0b26c4, type: 2}
   openCharacterSheet: {fileID: 11400000, guid: 715babbe1b5730d44b9bac67d1315719, type: 2}
   closeCharacterSheet: {fileID: 11400000, guid: 8dbdd9ddaf95f11498f8b287a7d27289, type: 2}
+  unitLevelUpStat: {fileID: 11400000, guid: 04ef14b9a33666b4286a5dbe613abb80, type: 2}

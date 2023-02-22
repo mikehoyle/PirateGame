@@ -1,5 +1,4 @@
-﻿using System;
-using Common;
+﻿using Common;
 using Controls;
 using Encounters;
 using RuntimeVars.Encounters.Events;

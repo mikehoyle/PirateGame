@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace StaticConfig.Units {
   [Serializable]
@@ -11,6 +12,19 @@ namespace StaticConfig.Units {
           stat = stat,
           current = current,
       };
+    }
+
+    public void LevelUp() {
+      if (!CanBeLeveledUp()) {
+        Debug.LogWarning($"Cannot level up beyond max possible value for stat {stat}");
+        return;
+      }
+      
+      current++;
+    }
+
+    public bool CanBeLeveledUp() {
+      return current < stat.maxValue;
     }
   }
 }

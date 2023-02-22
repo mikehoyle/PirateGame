@@ -6,6 +6,8 @@ using Encounters.Grid;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
+using State;
+using State.World;
 using Terrain;
 using Units;
 using Units.Abilities;
@@ -111,12 +113,15 @@ namespace Encounters {
     
     private void OnEncounterEnd(EncounterOutcome outcome) {
       Debug.Log($"Encounter ending with outcome: {outcome}");
-      // TODO give player XP etc.
       if (outcome == EncounterOutcome.PlayerVictory) {
         collectedResources.GiveResourcesToPlayer();
+        foreach (var unit in GameState.State.player.roster) {
+          unit.GrantXp(ExperienceCalculations.GetXpForVictoryInEncounter(
+              GameState.State.world.GetActiveTile().DownCast<EncounterTile>()));
+        }
       }
       enabled = false;
-    }
+    } 
 
     protected override void OnClick(Vector2 mousePosition) {
       if (_uiInteraction.isPlayerHoveringUi) {

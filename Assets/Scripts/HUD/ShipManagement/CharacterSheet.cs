@@ -17,6 +17,10 @@ namespace HUD.ShipManagement {
       _window = GetComponentInChildren<UITabbedWindow>();
       shipBuilderEvents.openCharacterSheet.RegisterListener(OnOpenCharacterSheet);
       shipBuilderEvents.closeCharacterSheet.RegisterListener(OnCloseCharacterSheet);
+    }
+
+    private void Start() {
+      // Deactivate in start so children get a chance to Awake
       gameObject.SetActive(false);
     }
 

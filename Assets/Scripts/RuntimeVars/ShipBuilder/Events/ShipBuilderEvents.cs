@@ -12,5 +12,6 @@ namespace RuntimeVars.ShipBuilder.Events {
     public ObjectClickedEvent objectClicked;
     public PlayerUnitEvent openCharacterSheet;
     public EmptyGameEvent closeCharacterSheet;
+    public PlayerUnitEvent unitLevelUpStat;
   }
 }

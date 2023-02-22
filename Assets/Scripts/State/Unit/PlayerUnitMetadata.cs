@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Encounters;
 using StaticConfig.Equipment;
 using StaticConfig.Units;
 using Units.Abilities;
@@ -21,7 +22,8 @@ namespace State.Unit {
 
     public string firstName;
     public string lastName;
-
+    public int currentLevel = 1;
+    public int xp;
     public Vector3Int startingPosition;
     public SerializableDictionary<EquipmentSlot, Equipment> equipped;
 
@@ -53,6 +55,14 @@ namespace State.Unit {
           facingDirection = FacingDirection.SouthEast,
           faction = UnitFaction.PlayerParty,
       };
+    }
+
+    public void GrantXp(int xpGained) {
+      xp += xpGained;
+      if (xp >= ExperienceCalculations.GetLevelRequirement(currentLevel + 1)) {
+        // TODO(P2): Add some fanfare for leveling up.
+        currentLevel += 1;
+      }
     }
   }
 }
