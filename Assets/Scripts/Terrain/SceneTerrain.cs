@@ -10,8 +10,8 @@ namespace Terrain {
   /// Represents the walkable terrain of the scene.
   /// </summary>
   public class SceneTerrain : MonoBehaviour {
-    private const float CellWidthInWorldUnits = 1;
-    private const float CellHeightInWorldUnits = 0.5f;
+    public const float CellWidthInWorldUnits = 1;
+    public const float CellHeightInWorldUnits = 0.5f;
     private const float ZHeight = 1.5f;
     private const int MaxZ = 6;
     
@@ -203,8 +203,7 @@ namespace Terrain {
       // Because movement blockers are on their own layer, they must be children to the primary object. This makes
       // the bold assumption they will always be direct children. Surely will cause a bug in the future, but it's the
       // easiest way for now.
-      return Physics2D.OverlapPoint(CellCenterWorldStatic(tile), blockingLayer)
-          ?.transform.parent.gameObject;
+      return Physics2D.OverlapPoint(CellCenterWorldStatic(tile), blockingLayer)?.gameObject;
     }
 
     public bool IsTileEligibleForUnitOccupation(Vector3Int gridPosition) {

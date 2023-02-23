@@ -47,9 +47,11 @@ namespace EditorInternal {
                 height: (float)frame.frame.h),
             name = (string)frame.filename,
             // slice pivot is relative to bounding rectangle, so this is:
-            // center for x
-            // bottom + 16px for Y (which should hopefully be center of the bottom tile)
-            pivot = new Vector2(0.5f, 16f / (float)frame.frame.h),
+            // - center for x
+            // - bottom + 16px for Y (which should hopefully be center of the bottom tile)
+            //pivot = new Vector2(0.5f, 16f / (float)frame.frame.h),
+            // Instead just do dead center for now.
+            pivot = new Vector2(0.5f, 0.5f),
             alignment = (int)SpriteAlignment.Custom, 
         };
         // Metadata.pivot seems to not really take, so set it on the sprite as a whole as well.

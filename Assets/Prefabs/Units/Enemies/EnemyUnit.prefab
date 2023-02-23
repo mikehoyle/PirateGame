@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2938806043710237440}
   - component: {fileID: -160105272764826462}
   - component: {fileID: 4072349022230282683}
-  - component: {fileID: 9048316107894136840}
-  m_Layer: 7
+  - component: {fileID: 3021715932713076003}
+  m_Layer: 6
   m_Name: EnemyUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,8 +105,6 @@ MonoBehaviour:
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   enemiesInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
-  defaultAbilities: {fileID: 11400000, guid: a87722db31238824da8b5f61d1250f75, type: 2}
-  movementBlockerPrefab: {fileID: 556284427752592944, guid: a8dd0754b1246e345b80a250135760d1, type: 3}
 --- !u!114 &-160105272764826462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,8 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 11400000, guid: 7d03b5b6eda6cfd4e934383de65b8011, type: 2}
---- !u!61 &9048316107894136840
-BoxCollider2D:
+--- !u!60 &3021715932713076003
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -146,7 +144,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -156,9 +154,12 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.3627818, y: 0.36279345}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0}
+      - {x: -1, y: 0.5}
+      - {x: 0, y: 1}
+      - {x: 1, y: 0.5}
 --- !u!1001 &5184742110410809148
 PrefabInstance:
   m_ObjectHideFlags: 0

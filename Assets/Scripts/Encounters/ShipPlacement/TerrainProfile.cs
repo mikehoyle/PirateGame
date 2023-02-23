@@ -80,7 +80,7 @@ namespace Encounters.ShipPlacement {
       var maxTopOverlap = int.MinValue;
       foreach (var x in TopEdge.Keys) {
         if (otherProfile.BottomEdge.TryGetValue(x + offset.x, out var y)) {
-          maxTopOverlap = Math.Max(maxTopOverlap, (TopEdge[x] + offset.y) + y);
+          maxTopOverlap = Math.Max(maxTopOverlap, (TopEdge[x] + offset.y) - y);
         }
       }
       result.Top = maxTopOverlap;
@@ -96,7 +96,7 @@ namespace Encounters.ShipPlacement {
       var maxRightOverlap = int.MinValue;
       foreach (var y in RightEdge.Keys) {
         if (otherProfile.LeftEdge.TryGetValue(y + offset.y, out var x)) {
-          maxRightOverlap = Math.Max(maxRightOverlap, (RightEdge[y] + offset.x) + x);
+          maxRightOverlap = Math.Max(maxRightOverlap, (RightEdge[y] + offset.x) - x);
         }
       }
       result.Right = maxRightOverlap;

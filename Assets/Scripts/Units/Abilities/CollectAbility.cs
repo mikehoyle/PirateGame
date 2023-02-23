@@ -1,6 +1,7 @@
 ﻿using Encounters;
 using Encounters.Grid;
 using Encounters.Obstacles;
+using Optional;
 using Terrain;
 using UnityEngine;
 
@@ -14,30 +15,27 @@ namespace Units.Abilities {
     }
     
     public override bool CouldExecute(AbilityExecutionContext context) {
-      var collectableObject = SceneTerrain.GetTileOccupant(context.TargetedTile);
-      if (collectableObject == null) {
-        return false;
-      }
-      var collectable = collectableObject.GetComponent<EncounterCollectable>();
-      if (collectable == null) {
-        return false;
-      }
-
-      return true;
+      return TryGetCollectable(context.TargetedObject).HasValue;
     }
 
     protected override void Execute(AbilityExecutionContext context) {
-      var collectableObject = SceneTerrain.GetTileOccupant(context.TargetedTile);
-      if (collectableObject == null) {
-        return;
+      TryGetCollectable(context.TargetedObject).MatchSome(collectable => {
+        collectable.Collect();
+      });
+      
+      encounterEvents.abilityExecutionEnd.Raise();
+    }
+
+    private Option<EncounterCollectable> TryGetCollectable(GameObject gameObject) {
+      if (gameObject == null) {
+        return Option.None<EncounterCollectable>();
       }
-      var collectable = collectableObject.GetComponent<EncounterCollectable>();
-      if (collectable == null) {
-        return;
+
+      if (gameObject.TryGetComponent<EncounterCollectable>(out var collectable)) {
+        return Option.Some<EncounterCollectable>(collectable);
       }
       
-      collectable.Collect();
-      encounterEvents.abilityExecutionEnd.Raise();
+      return Option.None<EncounterCollectable>();
     }
   }
 }

@@ -1,5 +1,4 @@
-﻿using System.IO.Compression;
-using System.Linq;
+﻿using System.Linq;
 using Common;
 using Controls;
 using Encounters.Grid;

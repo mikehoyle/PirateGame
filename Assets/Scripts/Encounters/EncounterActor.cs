@@ -14,14 +14,13 @@ using UnityEngine;
 
 namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable {
-    // TODO(P3): Configure this elsewhere
-    protected const int ActionPointsPerRound = 2;
-    
     [SerializeField] protected List<StatusEffect> activeStatusEffects;
     [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
     
     private UnitMover _mover;
+    private PolygonCollider2D _collider;
+    
     public Vector3Int Position {
       get => EncounterState.position;
       set => EncounterState.position = value;
@@ -39,6 +38,7 @@ namespace Encounters {
 
     protected virtual void Awake() {
       _mover = GetComponent<UnitMover>();
+      _collider = GetComponent<PolygonCollider2D>();
       AnimationState = AnimationNames.Idle;
     }
 
@@ -59,7 +59,18 @@ namespace Encounters {
       foreach (var passiveEffect in encounterState.metadata.passiveEffects ?? Enumerable.Empty<StatusEffect>()) {
         AddStatusEffect(passiveEffect.Apply(this));
       }
+      ApplySize(encounterState.metadata.size);
       InitInternal(encounterState);
+    }
+
+    private void ApplySize(Vector2Int size) {
+      _collider.offset = new Vector2(0, -SceneTerrain.CellHeightInWorldUnits / 2);
+      _collider.SetPath(0, new Vector2[] {
+          SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, 0)),
+          SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, size.y)),
+          SceneTerrain.CellBaseWorldStatic(new Vector3Int(size.x, size.y)),
+          SceneTerrain.CellBaseWorldStatic(new Vector3Int(size.x, 0)),
+      });
     }
 
     protected virtual void InitInternal(UnitEncounterState encounterState) { }
