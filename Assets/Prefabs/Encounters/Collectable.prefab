@@ -98,7 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090428c1c22a42ea8dc6e9b7c48f8c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectionRange: 1
   collectedResources: {fileID: 11400000, guid: b87d6defe34405749ae5afefdd1e5b15, type: 2}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
 --- !u!60 &3897865844743954265
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -125,6 +128,6 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 0}
-      - {x: -1, y: 0.5}
-      - {x: 0, y: 1}
-      - {x: 1, y: 0.5}
+      - {x: -0.5, y: 0.25}
+      - {x: 0, y: 0.5}
+      - {x: 0.5, y: 0.25}

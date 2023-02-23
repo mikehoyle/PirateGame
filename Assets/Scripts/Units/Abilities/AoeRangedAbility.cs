@@ -29,10 +29,11 @@ namespace Units.Abilities {
     
     public override void ShowIndicator(
         EncounterActor actor,
+        Vector3Int source,
         GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
-      if (IsInRange(actor.Position, hoveredTile)) {
+      if (IsInRange(source, hoveredTile)) {
         indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTarget(hoveredTile));
         return;
       }

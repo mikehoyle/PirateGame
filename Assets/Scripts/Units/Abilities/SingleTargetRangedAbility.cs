@@ -1,6 +1,7 @@
 ﻿using Common.Animation;
 using Encounters;
 using Encounters.Grid;
+using Optional;
 using UnityEngine;
 
 namespace Units.Abilities {
@@ -9,10 +10,11 @@ namespace Units.Abilities {
 
     public override void ShowIndicator(
         EncounterActor actor,
+        Vector3Int source,
         GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
-      var target = GetTargetIfEligible(actor, hoveredObject);
+      var target = GetTargetIfEligible(actor, source, hoveredObject);
       if (target != null) {
         indicators.TargetingIndicator.TargetTile(target.EncounterState.position);
         return;
@@ -24,7 +26,7 @@ namespace Units.Abilities {
       if (!CanAfford(context.Actor)) {
         return false;
       }
-      var target = GetTargetIfEligible(context.Actor, context.TargetedObject);
+      var target = GetTargetIfEligible(context.Actor, context.Source, context.TargetedObject);
       if (target == null) {
         return false;
       }
@@ -33,7 +35,7 @@ namespace Units.Abilities {
     }
 
     protected override void Execute(AbilityExecutionContext context) {
-      var target = GetTargetIfEligible(context.Actor, context.TargetedObject);
+      var target = GetTargetIfEligible(context.Actor, context.Source, context.TargetedObject);
       if (target == null) {
         Debug.LogWarning("Could not find target when executing");
         return;
@@ -43,7 +45,7 @@ namespace Units.Abilities {
           context.Actor, result => OnDetermineAbilityEffectiveness(context, result, target));
     }
 
-    private EncounterActor GetTargetIfEligible(EncounterActor actor, GameObject target) {
+    private EncounterActor GetTargetIfEligible(EncounterActor actor, Vector3Int source, GameObject target) {
       if (target == null) {
         return null;
       }
@@ -51,7 +53,7 @@ namespace Units.Abilities {
         if (targetUnit.EncounterState.faction == actor.EncounterState.faction) {
           return null;
         }
-        if (IsInRange(actor.Position, targetUnit.EncounterState.position)) {
+        if (IsInRange(source, targetUnit.EncounterState.position)) {
           return targetUnit;
         }
       }

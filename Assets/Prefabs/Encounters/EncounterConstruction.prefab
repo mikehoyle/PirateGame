@@ -55,6 +55,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8267643256906588311, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267643256906588311, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267643256906588311, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267643256906588311, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267643256906588311, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267643256906588311, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267643256906588311, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3258872164308506692, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
@@ -75,3 +103,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe40ff113a89437bb4764ea96dc6d06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}

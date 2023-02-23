@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be85eede7294efca173d1cce1829ca0, type: 3}
   m_Name: CurrentSelection
   m_EditorClassIdentifier: 
-  selectedTile: {x: 0, y: 0, z: 0}
-  selectedAbility: {fileID: 0}
-  selectedUnit: {fileID: 0}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  abilitySource: {x: -2, y: 4, z: 0}

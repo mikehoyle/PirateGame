@@ -34,6 +34,7 @@ namespace Units.Abilities {
 
     public class AbilityExecutionContext {
       public EncounterActor Actor { get; set; }
+      public Vector3Int Source { get; set; }
       public GameObject TargetedObject { get; set; }
       public Vector3Int TargetedTile { get; set; }
       public SceneTerrain Terrain { get; set; }
@@ -43,10 +44,14 @@ namespace Units.Abilities {
     public string displayString;
     public UnitAbilityCost[] cost;
 
-    public virtual void OnSelected(EncounterActor actor, GridIndicators indicators) { }
+    public virtual void OnSelected(EncounterActor actor, GridIndicators indicators, Vector3Int source) { }
     
     public virtual void ShowIndicator(
-        EncounterActor actor, GameObject hoveredObject, Vector3Int hoveredTile, GridIndicators indicators) { }
+        EncounterActor actor,
+        Vector3Int source,
+        GameObject hoveredObject, 
+        Vector3Int hoveredTile,
+        GridIndicators indicators) { }
 
     public abstract bool CouldExecute(AbilityExecutionContext context);
 

@@ -9,13 +9,16 @@ namespace Units.Abilities {
   public class MoveAbility : UnitAbility {
     [SerializeField] private ExhaustibleResource movementResource;
     
-    public override void OnSelected(EncounterActor actor, GridIndicators indicators) {
-      indicators.RangeIndicator.DisplayMovementRange(
-          actor.Position, actor.EncounterState.GetResourceAmount(movementResource));
+    public override void OnSelected(EncounterActor actor, GridIndicators indicators, Vector3Int source) {
+      indicators.RangeIndicator.DisplayMovementRange(source, actor.EncounterState.GetResourceAmount(movementResource));
     }
 
     public override void ShowIndicator(
-        EncounterActor actor, GameObject hoveredObject, Vector3Int hoveredTile, GridIndicators indicators) {
+        EncounterActor actor,
+        Vector3Int source,
+        GameObject hoveredObject,
+        Vector3Int hoveredTile,
+        GridIndicators indicators) {
       indicators.PathIndicator.DisplayMovementPath(
           actor.Position,
           actor.EncounterState.GetResourceAmount(movementResource),

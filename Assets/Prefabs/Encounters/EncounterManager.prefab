@@ -82,9 +82,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75252ca3fd934124ba656e506cb52d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildOptions: {fileID: 11400000, guid: c63a3f0ee9d58ca40a04cd0b57ec1235, type: 2}
   unitPrefab: {fileID: 4998738781700405355, guid: ff877b2eb33443c44b77de9f2f3b9e9c, type: 3}
-  inGameConstructionPrefab: {fileID: 263394899586910802, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+  inGameConstructionPrefab: {fileID: 1435102907362953376, guid: df58abea6c8bbeb49b48b9058cfbb21a, type: 3}
 --- !u!114 &1915456236
 MonoBehaviour:
   m_ObjectHideFlags: 0

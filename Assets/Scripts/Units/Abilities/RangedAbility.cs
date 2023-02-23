@@ -8,8 +8,8 @@ namespace Units.Abilities {
     [SerializeField] protected int rangeMin;
     [SerializeField] protected int rangeMax;
 
-    public override void OnSelected(EncounterActor actor, GridIndicators indicators) {
-      indicators.RangeIndicator.DisplayTargetingRange(actor.Position, rangeMin, rangeMax);
+    public override void OnSelected(EncounterActor actor, GridIndicators indicators, Vector3Int source) {
+      indicators.RangeIndicator.DisplayTargetingRange(source, rangeMin, rangeMax);
     }
 
     protected bool IsInRange(Vector3Int source, Vector3Int target) {

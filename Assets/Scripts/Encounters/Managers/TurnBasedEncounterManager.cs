@@ -76,9 +76,9 @@ namespace Encounters.Managers {
       encounterEvents.playerTurnStart.Raise();
     }
 
-    private void OnAbilitySelected(UnitController actor, UnitAbility ability) {
+    private void OnAbilitySelected(UnitController actor, UnitAbility ability, Vector3Int source) {
       _gridIndicators.Clear();
-      ability.OnSelected(actor, _gridIndicators);
+      ability.OnSelected(actor, _gridIndicators, source);
     }
 
     private void OnBeginAbilityExecution() {
@@ -126,6 +126,7 @@ namespace Encounters.Managers {
       if (currentSelection.TryGet(out var ability, out var unit)) {
         if (ability.TryExecute(new UnitAbility.AbilityExecutionContext {
             Actor = unit,
+            Source = currentSelection.abilitySource,  
             TargetedObject = clickedObject,
             TargetedTile = targetTile,
             Terrain =  _terrain,
@@ -149,7 +150,7 @@ namespace Encounters.Managers {
       var hoveredTile = _terrain.TileAtScreenCoordinate(mousePosition);
       var hoveredObject = SceneTerrain.GetTileOccupant(hoveredTile);
       if (currentSelection.TryGet(out var ability, out var unit)) {
-        ability.ShowIndicator(unit, hoveredObject, hoveredTile, _gridIndicators);
+        ability.ShowIndicator(unit, currentSelection.abilitySource, hoveredObject, hoveredTile, _gridIndicators);
       }
       encounterEvents.mouseHover.Raise(mousePosition);
     }

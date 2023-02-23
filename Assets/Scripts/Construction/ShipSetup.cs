@@ -9,7 +9,6 @@ namespace Construction {
   /// Sets up the player's ship to appear in a scene with an isometric grid.
   /// </summary>
   public class ShipSetup : MonoBehaviour {
-    [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
     [SerializeField] private GameObject unitPrefab;
     [SerializeField] private GameObject inGameConstructionPrefab;
     

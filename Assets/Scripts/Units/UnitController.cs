@@ -99,8 +99,7 @@ namespace Units {
       if (!selectedAbility.CanAfford(this)) {
         return;
       }
-      currentSelection.selectedAbility = Option.Some(selectedAbility);
-      encounterEvents.abilitySelected.Raise(this, selectedAbility);
+      currentSelection.SelectAbility(this, selectedAbility);
     }
 
     protected override void OnDeath() {

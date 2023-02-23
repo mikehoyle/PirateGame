@@ -1,22 +1,44 @@
 ﻿using Common;
-using Encounters;
-using Encounters.AbilityProviders;
 using Optional;
-using Units.Abilities;
+using RuntimeVars.Encounters;
+using RuntimeVars.Encounters.Events;
+using Units;
+using UnityEngine;
 
 namespace Construction {
-  public class EncounterConstruction : InGameConstruction, IAbilityProvider {
-    public Option<UnitAbility> TryProvideAbility(EncounterActor actor) {
-      if (Metadata.providedAbility.ability == null) {
-        return Option.None<UnitAbility>();
+  public class EncounterConstruction : InGameConstruction {
+    [SerializeField] private EncounterEvents encounterEvents;
+    [SerializeField] private CurrentSelection currentSelection;
+    
+    private void OnEnable() {
+      encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
+    }
+
+    private void OnDisable() {
+      encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
+    }
+
+    private void OnObjectClicked(GameObject clickedObject) {
+      if (clickedObject == gameObject) {
+        TryProvideAbility();
+      }
+    }
+
+    private void TryProvideAbility() {
+      if (Metadata.providedAbility.ability == null
+          || !currentSelection.selectedUnit.TryGet(out var actor)
+          || actor is not UnitController playerActor
+          || !Metadata.providedAbility.ability.CanAfford(actor)) {
+        return;
       }
       
-      var distance = GridUtils.DistanceBetween(Position, actor.Position);
+      var distance = GridUtils.DistanceBetween(Position, playerActor.Position);
       if (distance > Metadata.providedAbility.useRange) {
-        return Option.None<UnitAbility>();
+        Debug.Log("Actor too far to use provided ability");
+        return;
       }
-      
-      return Option.Some(Metadata.providedAbility.ability);
+
+      currentSelection.SelectAbility(playerActor, Metadata.providedAbility.ability, Position);
     }
   }
 }
