@@ -200,7 +200,11 @@ namespace Terrain {
 
     public static GameObject GetTileOccupant(Vector3Int tile) {
       var blockingLayer = LayerMask.GetMask("BlockMovement");
-      return Physics2D.OverlapPoint(CellCenterWorldStatic(tile), blockingLayer)?.gameObject;
+      // Because movement blockers are on their own layer, they must be children to the primary object. This makes
+      // the bold assumption they will always be direct children. Surely will cause a bug in the future, but it's the
+      // easiest way for now.
+      return Physics2D.OverlapPoint(CellCenterWorldStatic(tile), blockingLayer)
+          ?.transform.parent.gameObject;
     }
 
     public bool IsTileEligibleForUnitOccupation(Vector3Int gridPosition) {

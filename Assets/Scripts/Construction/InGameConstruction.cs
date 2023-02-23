@@ -2,7 +2,6 @@
 using Encounters;
 using StaticConfig.Builds;
 using Terrain;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Construction {
@@ -10,6 +9,7 @@ namespace Construction {
     private SpriteRenderer _spriteRenderer;
     private SceneTerrain _terrain;
 
+    public ConstructableObject Metadata { get; private set; }
     public Vector3Int Position { get; private set; }
 
     protected virtual void Awake() {
@@ -18,6 +18,7 @@ namespace Construction {
     }
 
     public void Initialize(ConstructableObject constructableObject, Vector3Int position) {
+      Metadata = constructableObject;
       _spriteRenderer.sprite = constructableObject.inGameSprite;
       Position = position;
       transform.position = constructableObject.isFoundationTile ?

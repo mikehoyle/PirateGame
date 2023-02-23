@@ -1,7 +1,6 @@
 ﻿using System;
 using StaticConfig.RawResources;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace StaticConfig.Builds {
   /// <summary>
@@ -22,10 +21,9 @@ namespace StaticConfig.Builds {
     public bool isFoundationTile;
     // Indicates the tile can be walked through.
     public bool isTraversable;
-    
     public Sprite inGameSprite;
-
     // TODO(P1): Actually support builds bigger than one tile
     public Vector3Int dimensions = Vector3Int.one;
+    public ProvidedAbility providedAbility;
   }
 }

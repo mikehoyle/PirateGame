@@ -1,6 +1,6 @@
 ﻿using State.World;
 
-namespace Encounters {
+namespace Units {
   /// <summary>
   /// A place to aggregate all the highly tweaked logic around XP.
   /// </summary>

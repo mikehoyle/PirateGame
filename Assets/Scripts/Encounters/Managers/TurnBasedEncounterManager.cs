@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using CameraControl;
+﻿using System.IO.Compression;
+using System.Linq;
 using Common;
 using Controls;
 using Encounters.Grid;
@@ -12,9 +12,8 @@ using Terrain;
 using Units;
 using Units.Abilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Encounters {
+namespace Encounters.Managers {
   public class TurnBasedEncounterManager : EncounterInputReceiver {
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private EncounterEvents encounterEvents;
@@ -24,24 +23,17 @@ namespace Encounters {
     [SerializeField] private CollectedResources collectedResources;
     
     private GameControls _controls;
-    private CameraController _cameraController;
     private GridIndicators _gridIndicators;
     private SceneTerrain _terrain;
-    private LayerMask _unitInteractionLayer;
     private UiInteractionTracker _uiInteraction;
 
     private void Awake() {
-      _cameraController = CameraController.Get();
       _gridIndicators = GridIndicators.Get();
       _terrain = SceneTerrain.Get();
       _uiInteraction = GetComponent<UiInteractionTracker>();
       currentSelection.Clear();
       currentRound.Value = 1;
       encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
-    }
-
-    private void Start() {
-      _unitInteractionLayer = LayerMask.GetMask("Clickable");
     }
 
     private void OnDestroy() {
@@ -124,13 +116,14 @@ namespace Encounters {
     } 
 
     protected override void OnClick(Vector2 mousePosition) {
+      
       if (_uiInteraction.isPlayerHoveringUi) {
         // Ignore UI-intended events
         return;
       }
       
-      var clickedObject = _cameraController.RaycastFromMousePosition(_unitInteractionLayer).collider?.gameObject;
       var targetTile = _terrain.TileAtScreenCoordinate(mousePosition);
+      var clickedObject = SceneTerrain.GetTileOccupant(targetTile);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         if (ability.TryExecute(new UnitAbility.AbilityExecutionContext {
             Actor = unit,
@@ -154,8 +147,8 @@ namespace Encounters {
         return;
       }
       
-      var hoveredObject = _cameraController.RaycastFromMousePosition(_unitInteractionLayer).collider?.gameObject;
       var hoveredTile = _terrain.TileAtScreenCoordinate(mousePosition);
+      var hoveredObject = SceneTerrain.GetTileOccupant(hoveredTile);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         ability.ShowIndicator(unit, hoveredObject, hoveredTile, _gridIndicators);
       }

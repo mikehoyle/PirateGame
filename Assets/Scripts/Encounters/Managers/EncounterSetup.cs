@@ -1,13 +1,11 @@
-﻿using System;
-using Construction;
-using Encounters.Enemies;
+﻿using Encounters.Enemies;
 using Encounters.Obstacles;
 using RuntimeVars.Encounters.Events;
 using State.World;
 using Terrain;
 using UnityEngine;
 
-namespace Encounters {
+namespace Encounters.Managers {
   /// <summary>
   /// Sets up the scene-tree objects associated with the encounter.
   /// </summary>

@@ -1,11 +1,10 @@
 ﻿using System;
-using Encounters.Grid;
 using Encounters.ShipPlacement;
 using State;
 using State.World;
 using UnityEngine;
 
-namespace Encounters {
+namespace Encounters.Managers {
   public class EncounterLoader : MonoBehaviour {
     private EncounterTile _encounter;
     private EncounterGenerator _encounterGenerator;

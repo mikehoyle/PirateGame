@@ -18,6 +18,9 @@ MonoBehaviour:
   - resource: {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
     cost: 30
   isFoundationTile: 0
-  inGameTile: {fileID: 11400000, guid: a90b87fb408403f4eb9f5cbed7348148, type: 2}
+  isTraversable: 0
   inGameSprite: {fileID: 21300000, guid: 10f408efde6c49b4b97f2053b567ae8f, type: 3}
   dimensions: {x: 1, y: 1, z: 1}
+  providedAbility:
+    ability: {fileID: 0}
+    useRange: 1

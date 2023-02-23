@@ -3,6 +3,7 @@ using System.Linq;
 using Encounters;
 using StaticConfig.Equipment;
 using StaticConfig.Units;
+using Units;
 using Units.Abilities;
 using UnityEngine;
 

@@ -18,7 +18,7 @@ namespace Units.Abilities {
       if (collectableObject == null) {
         return false;
       }
-      var collectable = collectableObject.GetComponentInParent<EncounterCollectable>();
+      var collectable = collectableObject.GetComponent<EncounterCollectable>();
       if (collectable == null) {
         return false;
       }
@@ -31,7 +31,7 @@ namespace Units.Abilities {
       if (collectableObject == null) {
         return;
       }
-      var collectable = collectableObject.GetComponentInParent<EncounterCollectable>();
+      var collectable = collectableObject.GetComponent<EncounterCollectable>();
       if (collectable == null) {
         return;
       }

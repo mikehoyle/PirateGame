@@ -10,7 +10,7 @@ using StaticConfig.RawResources;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Encounters {
+namespace Encounters.Managers {
   /// <summary>
   /// Encapsulates generation of an encounter. This happens at interaction time rather than
   /// upfront at map generation time, for a few reasons:
