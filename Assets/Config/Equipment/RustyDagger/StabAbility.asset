@@ -14,10 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  incurredEffect: {fileID: 11400000, guid: 69dcf4501f338304dab0f4be46f6bdd0, type: 2}
   displayString: Stab
   cost:
   - amount: 1
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
-  rangeMin: 1
-  rangeMax: 1
-  incurredEffect: {fileID: 11400000, guid: 69dcf4501f338304dab0f4be46f6bdd0, type: 2}
+  range:
+    rid: 4252309007281946627
+  references:
+    version: 2
+    RefIds:
+    - rid: 4252309007281946627
+      type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
+      data:
+        rangeMin: 1
+        rangeMax: 1

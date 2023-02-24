@@ -53,7 +53,7 @@ namespace Units.Abilities {
         if (targetUnit.EncounterState.faction == actor.EncounterState.faction) {
           return null;
         }
-        if (IsInRange(source, targetUnit.EncounterState.position)) {
+        if (range.IsInRange(actor, source, targetUnit.EncounterState.position)) {
           return targetUnit;
         }
       }

@@ -33,7 +33,7 @@ namespace Units.Abilities {
         GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
-      if (IsInRange(source, hoveredTile)) {
+      if (range.IsInRange(actor, source, hoveredTile)) {
         indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTarget(hoveredTile));
         return;
       }
@@ -41,7 +41,7 @@ namespace Units.Abilities {
     }
 
     public override bool CouldExecute(AbilityExecutionContext context) {
-      return IsInRange(context.Actor.Position, context.TargetedTile);
+      return range.IsInRange(context.Actor, context.Source, context.TargetedTile);
     }
     
     protected override void Execute(AbilityExecutionContext context) {

@@ -94,29 +94,7 @@ namespace Encounters {
     }
 
     public void FaceTowards(Vector3Int target) {
-      var directionVector = (Vector2Int)target - (Vector2Int)Position;
-      // Strategy: choose the "dominant" difference in direction, and use that to determine facing. If the x and y
-      // diff are equal, it's a diagonal (wash), so prefer the more negative of the two (i.e. facing camera).
-      bool preferX = directionVector switch {
-          { x: var x, y: var y } when Math.Abs(x) > Math.Abs(y) => true,
-          { x: var x, y: var y } when Math.Abs(x) < Math.Abs(y) => false,
-          { x: var x, y: var y } when x < y => true,
-          _ => false,
-      };
-
-      if (preferX) {
-        if (directionVector.x > 0) {
-          FacingDirection = FacingDirection.NorthEast;
-          return;
-        }
-        FacingDirection = FacingDirection.SouthWest;
-        return;
-      }
-      if (directionVector.y > 0) {
-        FacingDirection = FacingDirection.NorthWest;
-        return;
-      }
-      FacingDirection = FacingDirection.SouthEast;
+      FacingDirection = FacingUtilities.DirectionBetween((Vector2Int)Position, (Vector2Int)target);
     }
 
     public void MoveAlongPath(TravelPath path, Action callback) {

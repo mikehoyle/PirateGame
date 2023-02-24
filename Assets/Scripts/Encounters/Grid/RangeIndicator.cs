@@ -12,6 +12,8 @@ namespace Encounters.Grid {
     private Tilemap _tilemap;
     private SceneTerrain _terrain;
 
+    public delegate bool ExcludeTile(Vector3Int tile);
+
     private void Awake() {
       _tilemap = GetComponent<Tilemap>();
       _terrain = SceneTerrain.Get();
@@ -45,6 +47,11 @@ namespace Encounters.Grid {
     /// TODO(P1): include line-of-sight.
     /// </summary>
     public void DisplayTargetingRange(Vector3Int source, int rangeMin, int rangeMax) {
+      DisplayTargetingRangeWithExclusions(source, rangeMin, rangeMax, _ => false);
+    }
+
+    public void DisplayTargetingRangeWithExclusions(
+        Vector3Int source, int rangeMin, int rangeMax, ExcludeTile excludeFunc) {
       enabled = true;
       Clear();
       // TODO(P2): Make a targeting-specific sprite
@@ -57,10 +64,11 @@ namespace Encounters.Grid {
             continue;
           }
           var tile = _terrain.GetElevation(new Vector2Int(source.x + x, source.y + y));
-          _tilemap.SetTile(tile, eligibleTileOverlay);
+          if (!excludeFunc(tile)) {
+            _tilemap.SetTile(tile, eligibleTileOverlay);
+          }
         }
       }
-
     }
 
     public void Clear() {

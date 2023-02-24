@@ -12,10 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e4d0f8688c4968a7d05a6662b60e01, type: 3}
   m_Name: LittleBallSwipe
   m_EditorClassIdentifier: 
-  skillTestPrefab: {fileID: 0}
-  encounterEvents: {fileID: 0}
-  incurredEffect: {fileID: 0}
-  displayString: 
+  skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  incurredEffect: {fileID: 11400000, guid: fffe6609aab3f554a936c8cfd52b7d0f, type: 2}
+  displayString: Swipe
   cost: []
-  rangeMin: 0
-  rangeMax: 0
+  range:
+    rid: 4252309007281946630
+  references:
+    version: 2
+    RefIds:
+    - rid: 4252309007281946630
+      type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
+      data:
+        rangeMin: 1
+        rangeMax: 1

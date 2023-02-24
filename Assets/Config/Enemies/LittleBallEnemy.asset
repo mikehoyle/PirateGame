@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LittleBallEnemy
   m_EditorClassIdentifier: 
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  passiveEffects: []
   stats:
   - stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
     current: 1
@@ -22,4 +23,4 @@ MonoBehaviour:
   movementRange: 5
   sprite: {fileID: 11400000, guid: 7d03b5b6eda6cfd4e934383de65b8011, type: 2}
   abilities:
-  - {fileID: 11400000, guid: 25a6d5d322151734d9b6193c4355bd1b, type: 2}
+  - {fileID: 11400000, guid: c6ffd3e2e8fc22c4ba10a07f59867717, type: 2}

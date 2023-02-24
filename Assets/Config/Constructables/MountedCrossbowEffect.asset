@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17e7cfa7354e479d9d9f2c8e13869b0f, type: 3}
-  m_Name: LittleBallSwipeEffect
+  m_Name: MountedCrossbowEffect
   m_EditorClassIdentifier: 
   exhaustibleResourceEffects:
   - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
@@ -20,7 +20,7 @@ MonoBehaviour:
         internalOperation: 0
         operands:
         - type: 0
-          constInt: 1
+          constInt: 5
           constFloat: 0
           exhaustibleResource: {fileID: 0}
           stat: {fileID: 0}
@@ -28,7 +28,7 @@ MonoBehaviour:
         internalOperation: 2
         operands:
         - type: 0
-          constInt: 1
+          constInt: 2
           constFloat: 0
           exhaustibleResource: {fileID: 0}
           stat: {fileID: 0}
@@ -36,5 +36,5 @@ MonoBehaviour:
           constInt: 0
           constFloat: 0
           exhaustibleResource: {fileID: 0}
-          stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
+          stat: {fileID: 11400000, guid: c6379a07df65c92448227fa47fd5ebdd, type: 2}
   delayInSeconds: 0

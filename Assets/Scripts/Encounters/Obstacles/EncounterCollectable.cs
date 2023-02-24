@@ -49,6 +49,7 @@ namespace Encounters.Obstacles {
       }
       
       // TODO(P1): Any animation/sound/anything
+      playerActor.FaceTowards(Position);
       Collect();
     }
     
