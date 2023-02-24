@@ -13,8 +13,8 @@ namespace State.World {
     public uint currentDay;
     public WorldContentsDictionary tileContents;
 
-    public void Awake() {
-      tileContents = new WorldContentsDictionary();
+    private WorldState() {
+      tileContents = new();
     }
 
     public void SetTile(int x, int y, WorldTile tile) {

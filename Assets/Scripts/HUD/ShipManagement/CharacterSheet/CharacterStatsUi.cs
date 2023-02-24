@@ -3,7 +3,7 @@ using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HUD.ShipManagement {
+namespace HUD.ShipManagement.CharacterSheet {
   public class CharacterStatsUi : MonoBehaviour {
     [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     private Text _text;

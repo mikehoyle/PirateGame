@@ -24,3 +24,8 @@ MonoBehaviour:
   providedAbility:
     ability: {fileID: 11400000, guid: 1190cd056e555a44ba7e6fcfb2c02d86, type: 2}
     useRange: 1
+  providedCraftables:
+  - result: {fileID: 11400000, guid: 20afacb69a2d4bb459de5d6d789f66bc, type: 2}
+    cost:
+    - resource: {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
+      cost: 20

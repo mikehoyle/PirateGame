@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using JetBrains.Annotations;
-using StaticConfig;
 using StaticConfig.Builds;
 using StaticConfig.RawResources;
 using UnityEngine;
@@ -14,6 +12,10 @@ namespace State {
 
     // Maps item to quantity held, where the keys are RawResourceScriptableObject.ids
     [SerializeField] private InventoryContentsDictionary items;
+
+    private InventoryState() {
+      items = new();
+    }
 
     public int GetQuantity(RawResource item) {
       items.TryGetValue(item, out var quantity);

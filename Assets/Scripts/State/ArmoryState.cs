@@ -5,6 +5,10 @@ using UnityEngine;
 namespace State {
   [CreateAssetMenu(menuName = "State/ArmoryState")]
   public class ArmoryState : ScriptableObject {
-    public List<Equipment> equipment;
+    public List<EquipmentItemInstance> equipment;
+
+    private ArmoryState() {
+      equipment = new();
+    }
   }
 }

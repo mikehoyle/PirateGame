@@ -15,8 +15,9 @@ MonoBehaviour:
   overworldGridPosition: {x: 0, y: 0}
   ship: {fileID: 11400000, guid: d417f1d14e753f2418061c83216bfd5f, type: 2}
   inventory: {fileID: 11400000, guid: 0134d077c78b46e49afbcddde1f058ef, type: 2}
-  armory: {fileID: 0}
+  armory: {fileID: 11400000, guid: 968c59d5626ad9246b5464c5666db424, type: 2}
   roster:
   - {fileID: 11400000, guid: cc90ffd02d3f29b469d85e609d5204f2, type: 2}
   - {fileID: 11400000, guid: 4f0ddc5deff11564aad78e05d000d798, type: 2}
   - {fileID: 11400000, guid: 47adfa52c73616d46b4c72f094bb32fa, type: 2}
+  VisionRange: 1

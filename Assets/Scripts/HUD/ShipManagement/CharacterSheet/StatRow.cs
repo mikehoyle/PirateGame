@@ -9,14 +9,14 @@ using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HUD.ShipManagement {
+namespace HUD.ShipManagement.CharacterSheet {
   public class StatRow : MonoBehaviour {
     [SerializeField] private Stat displayStat;
     [SerializeField] private ShipBuilderEvents shipBuilderEvents;
-    [SerializeField] private CurrentSelection currentSelection; 
-    
-    private Text _text;
+    [SerializeField] private CurrentSelection currentSelection;
     private Button _levelUpButton;
+
+    private Text _text;
 
     private void Awake() {
       _text = GetComponentInChildren<Text>();
@@ -54,7 +54,7 @@ namespace HUD.ShipManagement {
           .FirstOrNone()
           .Map(statTracker => statTracker.CanBeLeveledUp())
           .ValueOr(false);
-      return playerUnit.currentLevel > (totalStatLevels + 1) && canStatBeLeveled;
+      return (playerUnit.currentLevel > totalStatLevels + 1) && canStatBeLeveled;
     }
 
     private void OnLevelUpClick() {
@@ -63,7 +63,7 @@ namespace HUD.ShipManagement {
           || !IsLevelUpAvailable(playerUnit)) {
         return;
       }
-      
+
       foreach (var stat in playerUnit.stats) {
         if (stat.stat == displayStat) {
           stat.LevelUp();

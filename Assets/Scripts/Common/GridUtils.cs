@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terrain;
 using UnityEngine;
 
 namespace Common {
@@ -29,6 +30,15 @@ namespace Common {
 
     public static int DistanceBetween(Vector3Int source, Vector3Int destination) {
       return Math.Abs(source.x - destination.x) + Math.Abs(source.y - destination.y);
+    }
+
+    public static Vector2[] GetFootprintPolygon(Vector2Int size) {
+      return new Vector2[] {
+          SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, 0)),
+          SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, size.y)),
+          SceneTerrain.CellBaseWorldStatic(new Vector3Int(size.x, size.y)),
+          SceneTerrain.CellBaseWorldStatic(new Vector3Int(size.x, 0)),
+      };
     }
   }
 }

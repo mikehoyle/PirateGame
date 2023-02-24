@@ -17,8 +17,8 @@ namespace Construction {
       if (gameObject != clickedObject) {
         return;
       }
-      
-      // TODO(P0): Open context menu for construction.
+
+      shipBuilderEvents.inGameBuildClicked.Raise(Metadata);
     }
   }
 }

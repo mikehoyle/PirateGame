@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common;
 using Common.Animation;
 using Encounters.Effects;
 using RuntimeVars.Encounters.Events;
@@ -65,12 +66,7 @@ namespace Encounters {
 
     private void ApplySize(Vector2Int size) {
       _collider.offset = new Vector2(0, -SceneTerrain.CellHeightInWorldUnits / 2);
-      _collider.SetPath(0, new Vector2[] {
-          SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, 0)),
-          SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, size.y)),
-          SceneTerrain.CellBaseWorldStatic(new Vector3Int(size.x, size.y)),
-          SceneTerrain.CellBaseWorldStatic(new Vector3Int(size.x, 0)),
-      });
+      _collider.SetPath(0, GridUtils.GetFootprintPolygon(size));
     }
 
     protected virtual void InitInternal(UnitEncounterState encounterState) { }

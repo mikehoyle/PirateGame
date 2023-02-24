@@ -26,12 +26,14 @@ namespace State.Unit {
     public int currentLevel = 1;
     public int xp;
     public Vector3Int startingPosition;
-    public SerializableDictionary<EquipmentSlot, Equipment> equipped;
+    public SerializableDictionary<EquipmentSlot, EquipmentItemInstance> equipped;
 
     public override List<UnitAbility> GetAbilities() {
       List<UnitAbility> unitAbilities = defaultAbilities.abilities.ToList();
       foreach (var equipment in equipped.Values) {
-        unitAbilities.AddRange(equipment.abilitiesProvided);
+        if (equipment.item is not null) {
+          unitAbilities.AddRange(equipment.item.abilitiesProvided);
+        }
       }
       return unitAbilities;
     }

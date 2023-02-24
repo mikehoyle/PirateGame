@@ -21,6 +21,11 @@ namespace State {
     
     public IEnumerable<KeyValuePair<Vector3Int, ConstructableObject>> Components => foundations.Concat(builds);
 
+    private ShipState() {
+      foundations = new();
+      builds = new();
+    }
+    
     public void Add(Vector3Int coords, ConstructableObject constructable) {
       if (constructable.isFoundationTile) {
         foundations.Add(coords, constructable);
