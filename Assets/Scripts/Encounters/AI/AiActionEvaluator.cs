@@ -63,6 +63,7 @@ namespace Encounters.AI {
             enemy.Position = destination; 
             var executionContext = new UnitAbility.AbilityExecutionContext {
                 Actor = enemy,
+                Source = enemy.Position,
                 Indicators = _indicators,
                 TargetedObject = playerUnit.gameObject,
                 TargetedTile = playerUnit.Position,
