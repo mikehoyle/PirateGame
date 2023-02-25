@@ -15,9 +15,10 @@ using UnityEngine;
 
 namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable {
-    [SerializeField] protected List<StatusEffect> activeStatusEffects;
     [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
+    [SerializeReference, SerializeReferenceButton]
+    protected List<IStatusEffectInstance> activeStatusEffects;
     
     private UnitMover _mover;
     private PolygonCollider2D _collider;
@@ -58,7 +59,7 @@ namespace Encounters {
     public void Init(UnitEncounterState encounterState) {
       EncounterState = encounterState;
       foreach (var passiveEffect in encounterState.metadata.passiveEffects ?? Enumerable.Empty<StatusEffect>()) {
-        AddStatusEffect(passiveEffect.Apply(this));
+        AddStatusEffect(passiveEffect.NewInstance(this));
       }
       ApplySize(encounterState.metadata.size);
       InitInternal(encounterState);
@@ -79,9 +80,9 @@ namespace Encounters {
       }
     }
 
-    private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffect effect) {
+    private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffectInstanceFactory effect) {
       if (aoe.AffectsPoint(Position)) {
-        AddStatusEffect(effect);
+        AddStatusEffect(effect.GetInstance(this));
       }
     }
 
@@ -105,7 +106,7 @@ namespace Encounters {
       _mover.ExecuteMovement(path.Path, callback);
     }
 
-    public void AddStatusEffect(StatusEffect effect) {
+    public void AddStatusEffect(IStatusEffectInstance effect) {
       activeStatusEffects.Add(effect);
     }
 

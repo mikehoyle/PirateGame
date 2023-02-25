@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
-  incurredEffect: {fileID: 11400000, guid: de253eec197698d4980a26432b6a3a63, type: 2}
+  incurredEffect:
+    rid: 4252309007281946660
   displayString: Swing
   cost:
   - amount: 2
@@ -29,3 +30,40 @@ MonoBehaviour:
       data:
         rangeMin: 1
         rangeMax: 1
+    - rid: 4252309007281946660
+      type: {class: OneShotStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
+      data:
+        exhaustibleResourceEffects:
+        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+          value:
+            rid: 4252309007281946661
+        delayInSeconds: 0
+    - rid: 4252309007281946661
+      type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        operation: 0
+        operands:
+        - rid: 4252309007281946662
+        - rid: 4252309007281946663
+    - rid: 4252309007281946662
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 2
+    - rid: 4252309007281946663
+      type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        operation: 0
+        operands:
+        - rid: 4252309007281946664
+        - rid: 4252309007281946665
+        - rid: 4252309007281946666
+    - rid: 4252309007281946664
+      type: {class: FloatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 1.5
+    - rid: 4252309007281946665
+      type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
+    - rid: 4252309007281946666
+      type: {class: SkillTestResultValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
