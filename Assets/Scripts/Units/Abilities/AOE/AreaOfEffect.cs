@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using State.Unit;
 using UnityEngine;
 
 namespace Units.Abilities.AOE {
@@ -28,6 +29,22 @@ namespace Units.Abilities.AOE {
 
     public AreaOfEffect WithTarget(Vector3Int target) {
       return new AreaOfEffect(affectedCoords, target);
+    }
+
+    /// <summary>
+    /// Assumes the provided AOE pattern is facing +Y (NW)
+    /// </summary>
+    public AreaOfEffect WithTargetAndRotation(Vector3Int source, Vector3Int target) {
+      var direction = FacingUtilities.DirectionBetween((Vector2Int)source, (Vector2Int)target);
+      return WithRotation(direction).WithTarget(target);
+    }
+
+    public AreaOfEffect WithRotation(FacingDirection direction) {
+      var newAffectedPoints = new List<Vector3Int>();
+      foreach (var affectedCoord in affectedCoords) {
+        newAffectedPoints.Add(direction.RotateAroundOrigin(affectedCoord));
+      }
+      return new AreaOfEffect(newAffectedPoints);
     }
 
     public IEnumerable<Vector3Int> AffectedPoints() {

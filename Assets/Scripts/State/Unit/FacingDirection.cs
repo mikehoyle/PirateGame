@@ -60,5 +60,18 @@ namespace State.Unit {
           _ => directionVector.x <= 0 && Math.Abs(directionVector.y) <= Math.Abs(directionVector.x), 
       };
     }
+
+    /// <summary>
+    /// Assume that the current state is +Y, aka NorthWest
+    /// </summary>
+    public static Vector3Int RotateAroundOrigin(this FacingDirection direction, Vector3Int point) {
+      return direction switch {
+          NorthEast => new Vector3Int(point.y, -point.x, point.z),
+          SouthEast => new Vector3Int(-point.x, -point.y, point.z),
+          SouthWest => new Vector3Int(-point.y, point.x, point.z),
+          // Default to NorthWest because it's no-change, but still clone it
+          _ => new Vector3Int(point.x, point.y, point.z),
+      };
+    }
   }
 }

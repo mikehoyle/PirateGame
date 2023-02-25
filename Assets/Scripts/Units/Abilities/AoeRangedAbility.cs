@@ -35,7 +35,7 @@ namespace Units.Abilities {
         Vector3Int hoveredTile,
         GridIndicators indicators) {
       if (range.IsInRange(actor, source, hoveredTile)) {
-        indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTarget(hoveredTile));
+        indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTargetAndRotation(source, hoveredTile));
         return;
       }
       indicators.TargetingIndicator.Clear();
@@ -46,7 +46,7 @@ namespace Units.Abilities {
     }
     
     protected override void Execute(AbilityExecutionContext context) {
-      var aoe = _areaOfEffect.WithTarget(context.TargetedTile);
+      var aoe = _areaOfEffect.WithTargetAndRotation(context.Source, context.TargetedTile);
       DetermineAbilityEffectiveness(
           context.Actor, result => OnDetermineAbilityEffectiveness(context, aoe, result));
     }
