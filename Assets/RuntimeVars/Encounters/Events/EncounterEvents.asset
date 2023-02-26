@@ -18,8 +18,10 @@ MonoBehaviour:
   encounterReadyToStart: {fileID: 11400000, guid: 82778010f33ccda48a41b5ad49a21134, type: 2}
   encounterStart: {fileID: 11400000, guid: 759af98b73a2e5247a3ee2d17121fdc7, type: 2}
   encounterEnd: {fileID: 11400000, guid: 16da1ca214aa0eb4cae9b744fc101253, type: 2}
+  enemyTurnPreStart: {fileID: 11400000, guid: 5c885d554d23c604a81644fcc037b797, type: 2}
   enemyTurnStart: {fileID: 11400000, guid: 4e22b90e9d6a96149b1e5151f64ef3e9, type: 2}
   enemyTurnEnd: {fileID: 11400000, guid: e40c5da67de458c428a0e7cc203b181e, type: 2}
+  playerTurnPreStart: {fileID: 11400000, guid: 3db9704573628fd40adc8245700b5a38, type: 2}
   playerTurnStart: {fileID: 11400000, guid: 154a6568ff8eb07468504f035bb2d5c4, type: 2}
   mouseHover: {fileID: 11400000, guid: 69c65d5cc56cb354cbdee6a4b52a80cd, type: 2}
   newRound: {fileID: 11400000, guid: 165633ce61d51174483a20babcf989c5, type: 2}

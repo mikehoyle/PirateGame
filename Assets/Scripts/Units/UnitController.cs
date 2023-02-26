@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.Events;
 using Encounters;
 using Optional;
 using RuntimeVars;
@@ -14,14 +15,13 @@ namespace Units {
   public class UnitController : EncounterActor {
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     [SerializeField] private CurrentSelection currentSelection;
-    [SerializeField] private Stat constitutionStat;
-    [SerializeField] private Stat movementStat;
     
     private SpriteRenderer _selectedIndicator;
 
     public PlayerUnitMetadata Metadata => (PlayerUnitMetadata)EncounterState.metadata;
 
     public override UnitEncounterState EncounterState { get; protected set; }
+    protected override EmptyGameEvent TurnPreStartEvent => encounterEvents.playerTurnPreStart;
 
     protected override void Awake() {
       base.Awake();
@@ -37,7 +37,6 @@ namespace Units {
       base.OnEnable();
       playerUnitsInEncounter.Add(this);
       encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
-      encounterEvents.playerTurnStart.RegisterListener(OnNewRound);
       encounterEvents.abilityExecutionEnd.RegisterListener(OnAbilityEndExecution);
       encounterEvents.unitSelected.RegisterListener(OnUnitSelected);
     }
@@ -46,7 +45,6 @@ namespace Units {
       base.OnDisable();
       playerUnitsInEncounter.Remove(this);
       encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
-      encounterEvents.playerTurnStart.UnregisterListener(OnNewRound);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
     }
 
@@ -69,10 +67,6 @@ namespace Units {
         return;
       }
       _selectedIndicator.enabled = false;
-    }
-
-    private void OnNewRound() {
-      EncounterState.NewRound();
     }
 
     private void OnAbilityEndExecution() {

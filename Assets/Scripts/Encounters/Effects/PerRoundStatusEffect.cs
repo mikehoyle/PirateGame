@@ -2,7 +2,6 @@
 using Common.Events;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
-using Units.Abilities;
 using UnityEngine;
 
 namespace Encounters.Effects {

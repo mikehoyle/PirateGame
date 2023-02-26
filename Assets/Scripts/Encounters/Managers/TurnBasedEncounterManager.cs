@@ -67,12 +67,14 @@ namespace Encounters.Managers {
     private void OnEncounterStart() {
       enabled = true;
       collectedResources.Clear();
+      encounterEvents.playerTurnPreStart.Raise();
       encounterEvents.playerTurnStart.Raise();
     }
 
     private void OnEnemyTurnEnd() {
       currentRound.Value += 1;
       _controls.TurnBasedEncounter.Enable();
+      encounterEvents.playerTurnPreStart.Raise();
       encounterEvents.playerTurnStart.Raise();
     }
 
@@ -168,6 +170,7 @@ namespace Encounters.Managers {
       _controls.TurnBasedEncounter.Disable();
       _gridIndicators.Clear();
       encounterEvents.playerTurnEnd.Raise();
+      encounterEvents.playerTurnPreStart.Raise();
       encounterEvents.enemyTurnStart.Raise();
     }
   }

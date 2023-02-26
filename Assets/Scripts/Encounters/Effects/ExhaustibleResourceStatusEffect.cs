@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Text;
-using StaticConfig.Units;
-using Units.Abilities.Formulas.Values;
-using UnityEngine;
 
 namespace Encounters.Effects {
   /// <summary>
@@ -10,13 +7,6 @@ namespace Encounters.Effects {
   /// </summary>
   [Serializable]
   public abstract class ExhaustibleResourceStatusEffect : StatusEffect {
-    [Serializable]
-    public class ExhaustibleResourceEffect {
-      public ExhaustibleResource resource;
-      [SerializeReference, SerializeReferenceButton]
-      public IDerivedValue value;
-    }
-    
     public ExhaustibleResourceEffect[] exhaustibleResourceEffects;
 
     public override string DisplayString() {

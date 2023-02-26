@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Common.Animation;
+using Common.Events;
 using Encounters.Effects;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
@@ -37,6 +38,7 @@ namespace Encounters {
     public event IDirectionalAnimatable.RequestOneOffAnimation OneOffAnimation;
 
     public abstract UnitEncounterState EncounterState { get; protected set; }
+    protected abstract EmptyGameEvent TurnPreStartEvent { get; }
 
     protected virtual void Awake() {
       _mover = GetComponent<UnitMover>();
@@ -46,10 +48,12 @@ namespace Encounters {
 
     protected virtual void OnEnable() {
       encounterEvents.applyAoeEffect.RegisterListener(OnApplyAoeEffect);
+      TurnPreStartEvent.RegisterListener(PerformNewRoundSetup);
     }
 
     protected virtual void OnDisable() {
       encounterEvents.applyAoeEffect.UnregisterListener(OnApplyAoeEffect);
+      TurnPreStartEvent.UnregisterListener(PerformNewRoundSetup);
     }
 
     protected virtual void Update() {
@@ -63,6 +67,10 @@ namespace Encounters {
       }
       ApplySize(encounterState.metadata.size);
       InitInternal(encounterState);
+    }
+
+    private void PerformNewRoundSetup() {
+      EncounterState.NewRound();
     }
 
     private void ApplySize(Vector2Int size) {

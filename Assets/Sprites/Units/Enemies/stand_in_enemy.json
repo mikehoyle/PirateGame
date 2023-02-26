@@ -1,0 +1,259 @@
+{ "frames": [
+   {
+    "filename": "stand_in_enemy_0",
+    "frame": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 300
+   },
+   {
+    "filename": "stand_in_enemy_1",
+    "frame": { "x": 76, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 300
+   },
+   {
+    "filename": "stand_in_enemy_2",
+    "frame": { "x": 152, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 300
+   },
+   {
+    "filename": "stand_in_enemy_3",
+    "frame": { "x": 228, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 300
+   },
+   {
+    "filename": "stand_in_enemy_4",
+    "frame": { "x": 304, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_5",
+    "frame": { "x": 380, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_6",
+    "frame": { "x": 456, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_7",
+    "frame": { "x": 532, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_8",
+    "frame": { "x": 608, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_9",
+    "frame": { "x": 684, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_10",
+    "frame": { "x": 760, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_11",
+    "frame": { "x": 836, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_12",
+    "frame": { "x": 912, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_13",
+    "frame": { "x": 988, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_14",
+    "frame": { "x": 1064, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_15",
+    "frame": { "x": 1140, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_16",
+    "frame": { "x": 1216, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_17",
+    "frame": { "x": 1292, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_18",
+    "frame": { "x": 1368, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_19",
+    "frame": { "x": 1444, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_20",
+    "frame": { "x": 1520, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_21",
+    "frame": { "x": 1596, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_22",
+    "frame": { "x": 1672, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_23",
+    "frame": { "x": 1748, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_24",
+    "frame": { "x": 1824, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "stand_in_enemy_25",
+    "frame": { "x": 1900, "y": 0, "w": 76, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 76, "h": 48 },
+    "sourceSize": { "w": 76, "h": 48 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "stand_in_enemy.png",
+  "format": "RGBA8888",
+  "size": { "w": 1976, "h": 48 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle_sw", "from": 0, "to": 1, "direction": "forward" },
+   { "name": "idle_nw", "from": 2, "to": 3, "direction": "forward" },
+   { "name": "walk_sw", "from": 4, "to": 8, "direction": "forward" },
+   { "name": "walk_nw", "from": 9, "to": 13, "direction": "forward" },
+   { "name": "attack_sw", "from": 14, "to": 19, "direction": "forward" },
+   { "name": "attack_nw", "from": 20, "to": 25, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "shadow", "opacity": 255, "blendMode": "normal" },
+   { "name": "body", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

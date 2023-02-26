@@ -10,8 +10,10 @@ namespace RuntimeVars.Encounters.Events {
     public EmptyGameEvent encounterReadyToStart;
     public EmptyGameEvent encounterStart;
     public EncounterOutcomeEvent encounterEnd;
+    public EmptyGameEvent enemyTurnPreStart;
     public EmptyGameEvent enemyTurnStart;
     public EmptyGameEvent enemyTurnEnd;
+    public EmptyGameEvent playerTurnPreStart;
     public EmptyGameEvent playerTurnStart;
     public Vector3Event mouseHover;
     public EmptyGameEvent newRound;

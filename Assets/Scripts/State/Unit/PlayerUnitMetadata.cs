@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Encounters;
 using StaticConfig.Equipment;
 using StaticConfig.Units;
 using Units;
@@ -8,8 +7,7 @@ using Units.Abilities;
 using UnityEngine;
 
 namespace State.Unit {
-  // TODO(P1): Create reasonable separation for far-less-capable enemy units or NPCs.
-  [CreateAssetMenu(menuName = "State/UnitState")]
+  [CreateAssetMenu(menuName = "State/UnitMetadata")]
   public class PlayerUnitMetadata : UnitMetadata {
     // TODO(P3): Make these configurable in an asset.
     private const int BaseHp = 10;

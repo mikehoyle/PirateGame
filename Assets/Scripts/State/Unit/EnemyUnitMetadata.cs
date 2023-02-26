@@ -5,7 +5,7 @@ using Units.Abilities;
 using UnityEngine;
 
 namespace State.Unit {
-  [CreateAssetMenu(menuName = "State/EnemyUnitState")]
+  [CreateAssetMenu(menuName = "State/EnemyUnitMetadata")]
   public class EnemyUnitMetadata : UnitMetadata {
     public string displayName;
     public int startingHp;

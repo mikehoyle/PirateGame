@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7a64b44f884d3d9b7fb52eb79b7de5, type: 3}
+  m_Name: stand_in_enemy
+  m_EditorClassIdentifier: 
+  frames:
+  - {fileID: 3767616535630732181, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 152134983049460473, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -3900040068496964339, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 2669421002561856928, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 2227268641612040076, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -1387338315606851514, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -9021995141594775095, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -7730101656904362800, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 4468117425624063190, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -1952365278080231478, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 975723054787058396, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -8545585340075115305, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -5064835040702019961, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -5485943966064621822, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -2981036723740253606, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -5548646502008237367, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -3595900578020039264, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -5566675978340507578, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 2269154893579827571, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 7268215886007709270, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 7108047419092254083, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 7690578808565643599, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 1147833065972796777, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -4856396766925866662, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: -8345467381861590845, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  - {fileID: 8795183659951202577, guid: c9daa2feb301837498ad4ed585079814, type: 3}
+  animations:
+    m_keys:
+    - idle
+    - walk
+    - attack
+    m_values:
+    - animations:
+        m_keys: 0300000001000000
+        m_values:
+        - direction: 3
+          name: idle
+          isMirrored: 0
+          startFrame: 0
+          endFrame: 1
+          frameDurationSecs: 0.3
+        - direction: 1
+          name: idle
+          isMirrored: 0
+          startFrame: 2
+          endFrame: 3
+          frameDurationSecs: 0.3
+      animationName: idle
+      loop: 1
+    - animations:
+        m_keys: 0300000001000000
+        m_values:
+        - direction: 3
+          name: walk
+          isMirrored: 0
+          startFrame: 4
+          endFrame: 8
+          frameDurationSecs: 0.1
+        - direction: 1
+          name: walk
+          isMirrored: 0
+          startFrame: 9
+          endFrame: 13
+          frameDurationSecs: 0.1
+      animationName: walk
+      loop: 1
+    - animations:
+        m_keys: 0300000001000000
+        m_values:
+        - direction: 3
+          name: attack
+          isMirrored: 0
+          startFrame: 14
+          endFrame: 19
+          frameDurationSecs: 0.1
+        - direction: 1
+          name: attack
+          isMirrored: 0
+          startFrame: 20
+          endFrame: 25
+          frameDurationSecs: 0.1
+      animationName: attack
+      loop: 1
