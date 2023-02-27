@@ -5,6 +5,7 @@ using RuntimeVars.Encounters;
 using State.Unit;
 using Units.Abilities;
 using UnityEngine;
+using EnemyUnitCollection = RuntimeVars.Encounters.EnemyUnitCollection;
 
 namespace Encounters.Enemies {
   public class EnemyUnitController : EncounterActor {

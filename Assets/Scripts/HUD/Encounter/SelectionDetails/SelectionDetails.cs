@@ -1,6 +1,4 @@
-﻿using System;
-using RuntimeVars.Encounters;
-using RuntimeVars.Encounters.Events;
+﻿using RuntimeVars.Encounters.Events;
 using Units;
 using UnityEngine;
 

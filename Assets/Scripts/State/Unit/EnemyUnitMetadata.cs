@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using StaticConfig.Encounters;
 using StaticConfig.Sprites;
 using Units.Abilities;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace State.Unit {
     public int movementRange;
     public DirectionalAnimatedSprite sprite;
     public UnitAbility[] abilities;
+    public EnemySpawnConfig spawnConfig;
 
     public override List<UnitAbility> GetAbilities() {
       return abilities.ToList();

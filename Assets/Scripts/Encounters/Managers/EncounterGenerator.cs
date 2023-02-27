@@ -7,6 +7,7 @@ using State.Unit;
 using State.World;
 using StaticConfig.Encounters;
 using StaticConfig.RawResources;
+using Units.Abilities.AOE;
 using UnityEngine;
 using Random = System.Random;
 
@@ -19,12 +20,13 @@ namespace Encounters.Managers {
   ///  - We can make dynamic choices mid-save about what is encountered.
   /// </summary>
   public class EncounterGenerator : MonoBehaviour {
-    [SerializeField] private EnemyUnitMetadata basicEnemy;
+    [SerializeField] private EnemyUnitTypeCollection spawnableEnemies;
     [SerializeField] private EnemyUnitMetadata spawnerEnemy;
     [SerializeField] private ObstaclePrefab rockObstacle;
     [SerializeField] private RawResource lumberResource;
     
     private Random _rng;
+    private HashSet<Vector3Int> _availableTiles;
     
     private void Awake() {
       _rng = new Random();
@@ -36,10 +38,13 @@ namespace Encounters.Managers {
     /// TODO(P1): oh so much more/different than this
     /// </summary>
     public void Generate(EncounterTile encounterTile) {
+      Debug.Log($"Generating encounter of DR: {encounterTile.difficultyRating}");
       GenerateTerrain(encounterTile);
-      var claimedTiles = GenerateObstacles(encounterTile);
-      claimedTiles = GenerateCollectables(encounterTile, claimedTiles);
-      GenerateUnits(encounterTile, claimedTiles);
+      
+      _availableTiles = new HashSet<Vector3Int>(encounterTile.terrain.Keys);
+      GenerateObstacles(encounterTile);
+      GenerateCollectables(encounterTile);
+      GenerateUnits(encounterTile);
       encounterTile.isInitialized = true;
     }
 
@@ -66,102 +71,129 @@ namespace Encounters.Managers {
     }
     
     /// <summary>
-    /// This method is definitely un-fun but for now, just generate a number of units similar
-    /// to what the player has, and hard-code their stats.
-    ///
-    /// Returns the tiles that have been claimed by units
+    /// Generate units with an individual DR which sums to the DR of the encounter.
     /// </summary>
-    private HashSet<Vector3Int> GenerateUnits(EncounterTile encounterTile, HashSet<Vector3Int> claimedTiles) {
+    private void GenerateUnits(EncounterTile encounterTile) {
       encounterTile.enemies = new();
-      var playerUnits = GameState.State.player.roster.Count;
-      var numUnits = _rng.Next(
-          Math.Max(playerUnits - 1, 1), playerUnits + 2);
-
-      using var randomPositions = encounterTile.terrain.Keys.OrderBy(_ => _rng.Next()).GetEnumerator();
-      randomPositions.MoveNext();
-      var spawner = spawnerEnemy.NewEncounter(randomPositions.Current);
+      var spawnVars = new EnemySpawnVariables {
+          DifficultyRating = encounterTile.difficultyRating,
+      };
+      
+      // For now, always add spawner
+      var spawner = spawnerEnemy.NewEncounter(ClaimRandomTile(spawnerEnemy.size));
       encounterTile.enemies.Add(spawner);
-      claimedTiles.UnionWith(spawner.OccupiedTiles());
+      
+      // Now pick the remainder of enemies by weighted chance.
+      var remainingDr = (float)encounterTile.difficultyRating;
+      while (remainingDr > 0) {
+        var currentRemainingDr = remainingDr;
+        var candidates = spawnableEnemies.enemyUnits
+            .Where(enemy => enemy.spawnConfig.individualDifficultyRating <= currentRemainingDr)
+            .ToList();
+        var totalWeight = candidates.Sum(enemy => enemy.spawnConfig.GetSpawnWeight(spawnVars));
+        Debug.Log($"Currently {candidates.Count} possible candidates with a total weight of {totalWeight}");
+        var choice = _rng.NextDouble() * totalWeight;
+        var chosenEnemy = candidates.FirstOrDefault(enemy => {
+          choice -= enemy.spawnConfig.GetSpawnWeight(spawnVars);
+          return choice <= 0;
+        });
 
-      int unitsCreated = 0;
-      while (unitsCreated < numUnits) {
-        randomPositions.MoveNext();
-        if (claimedTiles.Contains(randomPositions.Current)) {
+        if (chosenEnemy == null) {
+          Debug.LogError("Failed to choose enemy for encounter, this shouldn't be possible");
           continue;
         }
-        
-        var enemy = basicEnemy.NewEncounter(randomPositions.Current);
-        encounterTile.enemies.Add(enemy);
-        claimedTiles.UnionWith(enemy.OccupiedTiles());
-        unitsCreated++;
-      }
 
-      return claimedTiles;
+        var enemy = chosenEnemy.NewEncounter(ClaimRandomTile(chosenEnemy.size));
+        encounterTile.enemies.Add(enemy);
+        remainingDr -= chosenEnemy.spawnConfig.individualDifficultyRating;
+      }
     }
-    
-    
+
+
     /// <summary>
     /// Once again, far too simple to actually be reasonable, but for now just pick
     /// a few spots and put the most basic obstacle there.
     /// </summary>
-    /// <returns>The tiles that have been claimed by obstacles</returns>
-    private HashSet<Vector3Int> GenerateObstacles(EncounterTile encounterTile) {
+    private void GenerateObstacles(EncounterTile encounterTile) {
       encounterTile.obstacles = new();
-      var claimedTiles = new HashSet<Vector3Int>();
-      var obstaclesToCreate = 4;
-      using var randomPositions = encounterTile.terrain.Keys.OrderBy(_ => _rng.Next()).GetEnumerator();
-      
-      while (obstaclesToCreate > 0) {
-        randomPositions.MoveNext();
-        // This method is inefficient and could theoretically exhaust all the possible terrain points and
-        // error out. Eventually rework it (along with the rest of this class).
-        var positionIsInvalid = false;
-        foreach (var obstacleFootprintCoord in
-            rockObstacle.Footprint.WithTarget(randomPositions.Current).AffectedPoints()) {
-          if (claimedTiles.Contains(obstacleFootprintCoord)) {
-            positionIsInvalid = true;
-            break;
-          }
-        }
-        if (positionIsInvalid) {
-          continue;
-        }
-
+      // Arbitrarily make 4 obstacles
+      for (int i = 0; i < 4; i++) {
+        var tile = ClaimRandomTile(rockObstacle.Footprint);
         foreach (var obstacle in rockObstacle.obstacles) {
-          encounterTile.obstacles[randomPositions.Current + obstacle.Key] = obstacle.Value.RandomVariant();
+          encounterTile.obstacles[tile + obstacle.Key] = obstacle.Value.RandomVariant();
         }
-         
-        claimedTiles.UnionWith(rockObstacle.Footprint.WithTarget(randomPositions.Current).AffectedPoints());
-        obstaclesToCreate--;
       }
-
-      return claimedTiles;
     }
     
     /// <summary>
     /// Rework this entirely, it's just a hard-coded stub.
     /// </summary>
-    private HashSet<Vector3Int> GenerateCollectables(EncounterTile encounterTile, HashSet<Vector3Int> claimedTiles) {
+    private void GenerateCollectables(EncounterTile encounterTile) {
       encounterTile.collectables = new();
-      var collectablesToCreate = 3;
-      using var randomPositions = encounterTile.terrain.Keys.OrderBy(_ => _rng.Next()).GetEnumerator();
 
-      while (collectablesToCreate > 0) {
-        randomPositions.MoveNext();
-        if (claimedTiles.Contains(randomPositions.Current)) {
-          continue;
-        }
-
-        var collectable = new CollectableInstance {
+      // Arbitrarily make 3 collectables
+      for (int i = 0; i < 3; i++) {
+        var tile = ClaimRandomTile(Vector2Int.one);
+        encounterTile.collectables.Add(tile, new CollectableInstance {
             contents = new() {
+                // Arbitrary amount
                 [lumberResource] = _rng.Next(15, 30),
             },
-        };
-        encounterTile.collectables.Add(randomPositions.Current, collectable);
-        collectablesToCreate--;
+        });
       }
+    }
 
-      return claimedTiles;
+    // TODO(P1): This breaks if we have no valid tile options.
+    private Vector3Int ClaimRandomTile(Vector2Int size) {
+      using var randomizedTiles = _availableTiles.OrderBy(_ => _rng.Next()).GetEnumerator();
+      while (true) {
+        randomizedTiles.MoveNext();
+        var tile = randomizedTiles.Current;
+        if (AllTilesAreFreeForSize(tile, size)) {
+          for (int x = 0; x < size.x; x++) {
+            for (int y = 0; y < size.y; y++) {
+              _availableTiles.Remove(new Vector3Int(tile.x + x, tile.y + y, tile.z));
+            }
+          }
+          return tile;
+        }
+      }
+    }
+    
+    // TODO(P1): This breaks if we have no valid tile options.
+    private Vector3Int ClaimRandomTile(AreaOfEffect aoe) {
+      using var randomizedTiles = _availableTiles.OrderBy(_ => _rng.Next()).GetEnumerator();
+      while (true) {
+        randomizedTiles.MoveNext();
+        var tile = randomizedTiles.Current;
+        if (AllTilesAreFreeForArea(tile, aoe)) {
+          foreach (var aoeCoord in aoe.WithTarget(tile).AffectedPoints()) {
+            _availableTiles.Remove(aoeCoord);
+          }
+          return tile;
+        }
+      }
+    }
+
+    private bool AllTilesAreFreeForSize(Vector3Int tile, Vector2Int size) {
+      for (int x = 0; x < size.x; x++) {
+        for (int y = 0; y < size.y; y++) {
+          if (!_availableTiles.Contains(new Vector3Int(tile.x + x, tile.y + y, tile.z))) {
+            return false;
+          }
+        }
+      }
+      
+      return true;
+    }
+
+    private bool AllTilesAreFreeForArea(Vector3Int tile, AreaOfEffect aoe) {
+      foreach (var aoeCoord in aoe.WithTarget(tile).AffectedPoints()) {
+        if (!_availableTiles.Contains(aoeCoord)) {
+          return false;
+        }
+      }
+      return true;
     }
   }
 }

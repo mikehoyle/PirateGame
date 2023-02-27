@@ -3,6 +3,7 @@ using Common.Events;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Encounters.Effects {
   [Serializable]
@@ -11,17 +12,9 @@ namespace Encounters.Effects {
     public int numRoundsPerEffectEnactment = 1;
     public int numEnactmentsBeforeDeath = -1;
     public bool enactOnceOnApplication;
-    public UnitFaction unitFaction;
     
     public override string DisplayString() {
       return "Per-round status effect";
-    }
-
-    protected EmptyGameEvent NewRoundEvent() {
-      if (unitFaction == UnitFaction.Enemy) {
-        return encounterEvents.enemyTurnStart;
-      }
-      return encounterEvents.playerTurnStart;
     }
 
     public abstract class PerRoundStatusEffectInstance : IStatusEffectInstance {
@@ -30,6 +23,11 @@ namespace Encounters.Effects {
       private bool _isDestroyed = false;
       protected readonly EncounterActor _victim;
       protected readonly PerRoundStatusEffect _sourceEffect;
+
+      private EmptyGameEvent NewRoundEvent => 
+          _victim.EncounterState.faction == UnitFaction.Enemy
+              ? _sourceEffect.encounterEvents.enemyTurnStart
+              : _sourceEffect.encounterEvents.playerTurnStart;
 
       protected PerRoundStatusEffectInstance(
           PerRoundStatusEffect sourceEffect,
@@ -40,13 +38,12 @@ namespace Encounters.Effects {
         _enactmentsUntilDeath = sourceEffect.numEnactmentsBeforeDeath < 1 ?
             int.MaxValue : sourceEffect.numEnactmentsBeforeDeath;
         _isDestroyed = false;
-        sourceEffect.NewRoundEvent().RegisterListener(OnNewRound);
+        NewRoundEvent.RegisterListener(OnNewRound);
         if (sourceEffect.enactOnceOnApplication) {
           EnactEffect(victim);
         }
       }
-      
-      
+
       public bool UpdateAndMaybeDestroy(EncounterActor victim) {
         // This is necessary to get removed from the actor's status effect list (and ultimately get GC'ed).
         // Janky design but here we are.
@@ -79,7 +76,7 @@ namespace Encounters.Effects {
       }
       
       private void OnDestroy() {
-        _sourceEffect.NewRoundEvent().UnregisterListener(OnNewRound);
+        NewRoundEvent.UnregisterListener(OnNewRound);
       }
     }
   }

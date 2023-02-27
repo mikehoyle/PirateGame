@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3361d9ba7594883bacc8ee375bc73b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicEnemy: {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
+  spawnableEnemies: {fileID: 11400000, guid: 74a244f7052cd8e4dbe85654dce54cac, type: 2}
   spawnerEnemy: {fileID: 11400000, guid: ca38211c7c0899642a887a4377f995f5, type: 2}
   rockObstacle: {fileID: 11400000, guid: d99fe2c7d5625d04a81988b19a3c469f, type: 2}
   lumberResource: {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
