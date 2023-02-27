@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Encounters.Enemies;
 using State.Unit;
 using Terrain;
+using Units.Abilities;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Encounters.Effects {
-  [CreateAssetMenu(menuName = "Effects/SpawnerStatusEffect")]
+  [Serializable]
   public class SpawnerStatusEffect : PerRoundStatusEffect {
     // A square around what we expect to be a 2x2 spawner.
     private static readonly List<Vector3Int> ValidSpawnLocations = new List<Vector3Int> {
@@ -29,32 +33,41 @@ namespace Encounters.Effects {
     [SerializeField] private int maxUnitsToSpawn;
     [SerializeField] private EnemyUnitMetadata unitToSpawn;
     [SerializeField] private GameObject enemyUnitPrefab;
-
-    protected override void EnactEffect(EncounterActor victim) {
-      base.EnactEffect(victim);
-
-      var terrain = SceneTerrain.Get();
-      if (terrain == null) {
-        Debug.LogWarning("Cannot spawn units, no known terrain");
-      }
-
-      var validSpawnPositions = GetValidSpawnPositions(terrain, victim.Position);
-      var numUnitsToSpawn = Random.Range(minUnitsToSpawn, maxUnitsToSpawn + 1);
-      for (int i = 0; i < numUnitsToSpawn; i++) {
-        if (validSpawnPositions.Count == 0) {
-          Debug.LogWarning("No valid spawn positions in which to spawn units");
-          return;
-        }
-        
-        var unit = Instantiate(enemyUnitPrefab).GetComponent<EnemyUnitController>();
-        unit.Init(unitToSpawn.NewEncounter(victim.Position + validSpawnPositions.Pop()));
-        encounterEvents.unitAddedMidEncounter.Raise(unit);
-      }
+    
+    public override IStatusEffectInstance NewInstance(EncounterActor victim) {
+      return new SpawnerStatusEffectInstance(this, victim);
     }
-    private Stack<Vector3Int> GetValidSpawnPositions(SceneTerrain terrain, Vector3Int origin) {
-      return new(ValidSpawnLocations
-          .Where(offset => terrain.IsTileEligibleForUnitOccupation(origin + offset))
-          .OrderBy(_ => Random.Range(0f, 1f)));
+    
+    public class SpawnerStatusEffectInstance : PerRoundStatusEffectInstance {
+      public SpawnerStatusEffectInstance(
+          SpawnerStatusEffect sourceEffect, EncounterActor victim) : base(sourceEffect, victim) {}
+
+      public override void EnactEffect(EncounterActor victim) {
+        var sourceEffect = (SpawnerStatusEffect)_sourceEffect;
+        var terrain = SceneTerrain.Get();
+        if (terrain == null) {
+          Debug.LogWarning("Cannot spawn units, no known terrain");
+        }
+
+        var validSpawnPositions = GetValidSpawnPositions(terrain, victim.Position);
+        var numUnitsToSpawn = Random.Range(sourceEffect.minUnitsToSpawn, sourceEffect.maxUnitsToSpawn + 1);
+        for (int i = 0; i < numUnitsToSpawn; i++) {
+          if (validSpawnPositions.Count == 0) {
+            Debug.LogWarning("No valid spawn positions in which to spawn units");
+            return;
+          }
+        
+          var unit = Object.Instantiate(sourceEffect.enemyUnitPrefab).GetComponent<EnemyUnitController>();
+          unit.Init(sourceEffect.unitToSpawn.NewEncounter(victim.Position + validSpawnPositions.Pop()));
+          sourceEffect.encounterEvents.unitAddedMidEncounter.Raise(unit);
+        }
+      }
+    
+      private Stack<Vector3Int> GetValidSpawnPositions(SceneTerrain terrain, Vector3Int origin) {
+        return new(SpawnerStatusEffect.ValidSpawnLocations
+            .Where(offset => terrain.IsTileEligibleForUnitOccupation(origin + offset))
+            .OrderBy(_ => Random.Range(0f, 1f)));
+      }
     }
   }
 }

@@ -5,5 +5,5 @@ using UnityEngine;
 
 namespace RuntimeVars.Encounters.Events {
   [CreateAssetMenu(menuName = "Events/Encounters/AoeEffectEvent")]
-  public class AoeEffectEvent : ParameterizedGameEvent<AreaOfEffect, StatusEffect> {}
+  public class AoeEffectEvent : ParameterizedGameEvent<AreaOfEffect, StatusEffectInstanceFactory> {}
 }

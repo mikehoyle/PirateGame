@@ -20,3 +20,8 @@ MonoBehaviour:
   openCharacterSheet: {fileID: 11400000, guid: 715babbe1b5730d44b9bac67d1315719, type: 2}
   closeCharacterSheet: {fileID: 11400000, guid: 8dbdd9ddaf95f11498f8b287a7d27289, type: 2}
   unitLevelUpStat: {fileID: 11400000, guid: 04ef14b9a33666b4286a5dbe613abb80, type: 2}
+  inGameBuildClicked: {fileID: 11400000, guid: e3d7ff854a679ef4580207adf71a001e, type: 2}
+  closeCraftingMenu: {fileID: 11400000, guid: 8dbdd9ddaf95f11498f8b287a7d27289, type: 2}
+  equipmentCraftedEvent: {fileID: 11400000, guid: 5a9286be671775d47b9704925788fad9, type: 2}
+  attemptEquipItem: {fileID: 11400000, guid: 27426876b696a9c4386ecfa727d46a18, type: 2}
+  itemEquipped: {fileID: 11400000, guid: 5d8d62f232e70ac438006fce41105149, type: 2}

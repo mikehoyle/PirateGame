@@ -47,9 +47,8 @@ namespace Construction {
     }
 
     private void ShowIndicator(Vector3Int gridPosition, ConstructableObject build) {
-      transform.position = build.isFoundationTile ?
-          _terrain.CellAnchorWorld(gridPosition) : _terrain.CellBaseWorld(gridPosition);
-
+      transform.position = build.WorldPosition(gridPosition);
+      _spriteRenderer.sortingLayerName = build.SortingLayer();
       _spriteRenderer.enabled = true;
     }
 

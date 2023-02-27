@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Unit3State
   m_EditorClassIdentifier: 
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  passiveEffects: []
   stats:
   - stat: {fileID: 11400000, guid: d6f0cf594fbe2ca4782833aa62fd60c4, type: 2}
     current: 1
@@ -30,9 +31,11 @@ MonoBehaviour:
   movementStat: {fileID: 11400000, guid: f0645ee535e419d4cb5f55bba8e17304, type: 2}
   firstName: Tyrion
   lastName: Schmerion
+  currentLevel: 1
+  xp: 0
   startingPosition: {x: 0, y: 2, z: 0}
   equipped:
     m_keys:
     - {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}
     m_values:
-    - {fileID: 11400000, guid: 56038abc45c30c749b46f00aca6a1cb2, type: 2}
+    - item: {fileID: 11400000, guid: 56038abc45c30c749b46f00aca6a1cb2, type: 2}

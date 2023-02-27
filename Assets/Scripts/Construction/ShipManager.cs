@@ -99,8 +99,9 @@ namespace Construction {
       }
       
       
-      var clickedObject = _cameraController.RaycastFromMousePosition(_unitInteractionLayer).collider?.gameObject;
+      
       var targetTile = _terrain.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
+      var clickedObject = SceneTerrain.GetTileOccupant(targetTile);
       if (currentSelection.selectedUnit.TryGet(out var unit)
           && unit is UnitController playerUnit
           && _terrain.IsTileEligibleForUnitOccupation(targetTile)) {
@@ -146,6 +147,7 @@ namespace Construction {
 
     public void OnCloseMenu(InputAction.CallbackContext context) {
       shipBuilderEvents.closeCharacterSheet.Raise();
+      shipBuilderEvents.closeCraftingMenu.Raise();
     }
   }
 }

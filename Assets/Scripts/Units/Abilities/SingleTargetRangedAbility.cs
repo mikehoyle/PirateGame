@@ -1,13 +1,11 @@
 ﻿using Common.Animation;
 using Encounters;
 using Encounters.Grid;
-using Optional;
 using UnityEngine;
 
 namespace Units.Abilities {
   [CreateAssetMenu(menuName = "Units/Abilities/SingleTargetRangedAbility")]
   public class SingleTargetRangedAbility : RangedAbility {
-
     public override void ShowIndicator(
         EncounterActor actor,
         Vector3Int source,
@@ -53,7 +51,7 @@ namespace Units.Abilities {
         if (targetUnit.EncounterState.faction == actor.EncounterState.faction) {
           return null;
         }
-        if (IsInRange(source, targetUnit.EncounterState.position)) {
+        if (range.IsInRange(actor, source, targetUnit.EncounterState.position)) {
           return targetUnit;
         }
       }
@@ -62,8 +60,8 @@ namespace Units.Abilities {
 
     private void OnDetermineAbilityEffectiveness(
         AbilityExecutionContext context, float result, EncounterActor target) {
-      var effect = incurredEffect.Apply(target);
-      effect.CalculateEffects(context, result);
+      var effect = incurredEffect.NewInstance(target);
+      effect.PreCalculateEffect(context, result);
       target.AddStatusEffect(effect);
       // Animation options should definitely not be here... a future problem.
       context.Actor.FaceTowards(target.Position);

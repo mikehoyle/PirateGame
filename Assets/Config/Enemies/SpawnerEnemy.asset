@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   passiveEffects:
-  - {fileID: 11400000, guid: 6916cd79012dbd141bca67d1cba02cca, type: 2}
+  - rid: 4252309007281946637
   stats: []
   size: {x: 2, y: 2}
   displayName: Spawner
@@ -22,3 +22,18 @@ MonoBehaviour:
   movementRange: 0
   sprite: {fileID: 11400000, guid: 18f8ab82f4e42a84a9163292e13d52c9, type: 2}
   abilities: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 4252309007281946637
+      type: {class: SpawnerStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
+      data:
+        encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+        numRoundsPerEffectEnactment: 3
+        numEnactmentsBeforeDeath: -1
+        enactOnceOnApplication: 0
+        unitFaction: 1
+        minUnitsToSpawn: 2
+        maxUnitsToSpawn: 3
+        unitToSpawn: {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
+        enemyUnitPrefab: {fileID: 2938806043710237447, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common;
 using Common.Animation;
 using Encounters.Effects;
 using RuntimeVars.Encounters.Events;
@@ -14,9 +15,10 @@ using UnityEngine;
 
 namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable {
-    [SerializeField] protected List<StatusEffect> activeStatusEffects;
     [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
+    [SerializeReference, SerializeReferenceButton]
+    protected List<IStatusEffectInstance> activeStatusEffects;
     
     private UnitMover _mover;
     private PolygonCollider2D _collider;
@@ -57,7 +59,7 @@ namespace Encounters {
     public void Init(UnitEncounterState encounterState) {
       EncounterState = encounterState;
       foreach (var passiveEffect in encounterState.metadata.passiveEffects ?? Enumerable.Empty<StatusEffect>()) {
-        AddStatusEffect(passiveEffect.Apply(this));
+        AddStatusEffect(passiveEffect.NewInstance(this));
       }
       ApplySize(encounterState.metadata.size);
       InitInternal(encounterState);
@@ -65,12 +67,7 @@ namespace Encounters {
 
     private void ApplySize(Vector2Int size) {
       _collider.offset = new Vector2(0, -SceneTerrain.CellHeightInWorldUnits / 2);
-      _collider.SetPath(0, new Vector2[] {
-          SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, 0)),
-          SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, size.y)),
-          SceneTerrain.CellBaseWorldStatic(new Vector3Int(size.x, size.y)),
-          SceneTerrain.CellBaseWorldStatic(new Vector3Int(size.x, 0)),
-      });
+      _collider.SetPath(0, GridUtils.GetFootprintPolygon(size));
     }
 
     protected virtual void InitInternal(UnitEncounterState encounterState) { }
@@ -83,9 +80,9 @@ namespace Encounters {
       }
     }
 
-    private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffect effect) {
+    private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffectInstanceFactory effect) {
       if (aoe.AffectsPoint(Position)) {
-        AddStatusEffect(effect);
+        AddStatusEffect(effect.GetInstance(this));
       }
     }
 
@@ -98,29 +95,7 @@ namespace Encounters {
     }
 
     public void FaceTowards(Vector3Int target) {
-      var directionVector = (Vector2Int)target - (Vector2Int)Position;
-      // Strategy: choose the "dominant" difference in direction, and use that to determine facing. If the x and y
-      // diff are equal, it's a diagonal (wash), so prefer the more negative of the two (i.e. facing camera).
-      bool preferX = directionVector switch {
-          { x: var x, y: var y } when Math.Abs(x) > Math.Abs(y) => true,
-          { x: var x, y: var y } when Math.Abs(x) < Math.Abs(y) => false,
-          { x: var x, y: var y } when x < y => true,
-          _ => false,
-      };
-
-      if (preferX) {
-        if (directionVector.x > 0) {
-          FacingDirection = FacingDirection.NorthEast;
-          return;
-        }
-        FacingDirection = FacingDirection.SouthWest;
-        return;
-      }
-      if (directionVector.y > 0) {
-        FacingDirection = FacingDirection.NorthWest;
-        return;
-      }
-      FacingDirection = FacingDirection.SouthEast;
+      FacingDirection = FacingUtilities.DirectionBetween((Vector2Int)Position, (Vector2Int)target);
     }
 
     public void MoveAlongPath(TravelPath path, Action callback) {
@@ -131,7 +106,7 @@ namespace Encounters {
       _mover.ExecuteMovement(path.Path, callback);
     }
 
-    public void AddStatusEffect(StatusEffect effect) {
+    public void AddStatusEffect(IStatusEffectInstance effect) {
       activeStatusEffects.Add(effect);
     }
 

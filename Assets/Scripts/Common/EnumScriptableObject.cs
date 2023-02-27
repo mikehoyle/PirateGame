@@ -6,7 +6,7 @@ namespace Common {
   /// ID equality is used. 
   /// </summary>
   public abstract class EnumScriptableObject : ScriptableObject {
-    [SerializeField] protected string id;
+    public string id;
     
     // This doesn't work because Unity might try to reference it before it's
     // deserialized. That shouldn't be a problem for now.

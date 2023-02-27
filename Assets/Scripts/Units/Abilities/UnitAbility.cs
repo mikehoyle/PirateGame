@@ -21,7 +21,7 @@ namespace Units.Abilities {
     [SerializeField] private GameObject skillTestPrefab;
     [SerializeField] protected EncounterEvents encounterEvents;
     // Optional
-    [SerializeField] public StatusEffect incurredEffect;
+    [SerializeReference, SerializeReferenceButton] public StatusEffect incurredEffect;
 
     // Result is a quality percentage from 0 - 1.
     public delegate void AbilityEffectivenessCallback(float result);

@@ -15,5 +15,9 @@ namespace State {
     public ArmoryState armory;
     public List<PlayerUnitMetadata> roster;
     public int VisionRange = 1;
+
+    private PlayerState() {
+      roster = new();
+    }
   }
 }

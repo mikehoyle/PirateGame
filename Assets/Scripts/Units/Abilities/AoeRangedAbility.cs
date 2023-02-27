@@ -1,4 +1,5 @@
 ﻿using Encounters;
+using Encounters.Effects;
 using Encounters.Grid;
 using Units.Abilities.AOE;
 using UnityEngine;
@@ -33,19 +34,27 @@ namespace Units.Abilities {
         GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
-      if (IsInRange(source, hoveredTile)) {
-        indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTarget(hoveredTile));
+      if (range.IsInRange(actor, source, hoveredTile)) {
+        indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTargetAndRotation(source, hoveredTile));
         return;
       }
       indicators.TargetingIndicator.Clear();
     }
 
     public override bool CouldExecute(AbilityExecutionContext context) {
-      return IsInRange(context.Actor.Position, context.TargetedTile);
+      return range.IsInRange(context.Actor, context.Source, context.TargetedTile);
     }
     
     protected override void Execute(AbilityExecutionContext context) {
-      encounterEvents.applyAoeEffect.Raise(_areaOfEffect.WithTarget(context.TargetedTile), incurredEffect);
+      var aoe = _areaOfEffect.WithTargetAndRotation(context.Source, context.TargetedTile);
+      DetermineAbilityEffectiveness(
+          context.Actor, result => OnDetermineAbilityEffectiveness(context, aoe, result));
+    }
+
+    private void OnDetermineAbilityEffectiveness(
+        AbilityExecutionContext context, AreaOfEffect aoe, float skillTestResult) {
+      var instanceFactory = new StatusEffectInstanceFactory(incurredEffect, context, skillTestResult);
+      encounterEvents.applyAoeEffect.Raise(aoe, instanceFactory);
       // TODO(P1): Account for animation time
       encounterEvents.abilityExecutionEnd.Raise();
     }

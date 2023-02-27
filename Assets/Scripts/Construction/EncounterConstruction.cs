@@ -38,6 +38,7 @@ namespace Construction {
         return;
       }
 
+      playerActor.FaceTowards(Position);
       currentSelection.SelectAbility(playerActor, Metadata.providedAbility.ability, Position);
     }
   }

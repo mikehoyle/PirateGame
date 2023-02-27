@@ -9,6 +9,7 @@ namespace State.Unit {
     private const int NumActionPoints = 2;
     
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
+    [SerializeReference, SerializeReferenceButton]
     public StatusEffect[] passiveEffects;
     public StatTracker[] stats;
     public Vector2Int size = Vector2Int.one;
