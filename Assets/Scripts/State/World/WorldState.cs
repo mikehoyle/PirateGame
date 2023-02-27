@@ -22,6 +22,12 @@ namespace State.World {
       tile.coordinates = coordinates;
       tileContents[coordinates] = tile;
     }
+
+    public void SetTileDifficulty(int x, int y, int difficulty) {
+        if (tileContents.TryGetValue(new WorldCoordinates(x, y), out var tile)) {
+          tile.difficulty = difficulty;
+        }
+    }
     
     public WorldTile GetTile(int x, int y) {
       if (tileContents.TryGetValue(new WorldCoordinates(x, y), out var tile)) {

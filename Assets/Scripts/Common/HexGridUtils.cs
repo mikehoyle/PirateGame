@@ -6,6 +6,37 @@ using UnityEngine;
 namespace Common {
   public class HexGridUtils {
 
+    public static int HexDistance(int x1, int y1, int x2, int y2) {
+
+      int xd = x1 - x2;
+      int yd = y1 - ((x1 + (x1 & 1)) / 2) - (y2 - (x2 + (x2 & 1)) / 2);
+      int dist = (Mathf.Abs(xd) + Mathf.Abs(xd + yd) + Mathf.Abs(yd)) / 2;
+      return dist;
+    }
+
+    public static int HexDistanceOne(int x1, int y1, int x2, int y2) {
+
+      if (x1 == x2) {
+        return Math.Abs(y2 - y1);
+      } else if(y1 == y2) {
+        return Math.Abs(x2 - x1);
+      } else {
+        var dx = Math.Abs(x2 - x1);
+        var dy = Math.Abs(y2 - y1);
+        if (y1 < y2) {
+          return dx + dy - (int)Math.Ceiling((double)(dx / 2));
+        } else {
+          return dx + dy - (int)Math.Floor((double)dx / 2);
+        }
+      }
+
+    
+    }
+
+
+
+
+
     public static void ForEachAdjacentTileNotInVision(Vector2Int tile, Action<Vector2Int> action) {
       var visionRange = GameState.State.player.VisionRange;
       int[] adjRows;

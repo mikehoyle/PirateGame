@@ -11,6 +11,8 @@ namespace State.World {
       Heart
     }
 
+
+    public int difficulty { get; set; } = 0;
     public bool IsCovered { get; set; } = true;
     public WorldCoordinates coordinates;
     public abstract Type TileType { get; }
