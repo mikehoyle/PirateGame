@@ -40,8 +40,8 @@ namespace Overworld.MapGeneration {
     /// Current strategy is just spiral out and place random stuff.
     /// </summary>
     private void GenerateTiles(WorldState world) {
-      GenerateRandomSpiral(world);
       GenerateHeart(world);
+      GenerateRandomSpiral(world);
       // Overwrite some starter tiles
       // Starter tile is always open ocean
       world.SetTile(0, 0, ScriptableObject.CreateInstance<OpenSeaTile>());
@@ -84,6 +84,20 @@ namespace Overworld.MapGeneration {
       });
       var currentDirection = directions.First;
       
+       
+      var playerHeartDistanceNw = _hexLibrary.GetDistance(
+          new HexOffsetCoordinates(0, 0),
+          new HexOffsetCoordinates(heartPositionNW.x, heartPositionNW.y));
+      var playerHeartDistanceNe = _hexLibrary.GetDistance(
+          new HexOffsetCoordinates(0, 0),
+          new HexOffsetCoordinates(heartPositionNE.x, heartPositionNE.y));
+      var playerHeartDistanceSw = _hexLibrary.GetDistance(
+          new HexOffsetCoordinates(0, 0),
+          new HexOffsetCoordinates(heartPositionSW.x, heartPositionSW.y));
+      Debug.Log($"player distance to NW heart: {playerHeartDistanceNw}");
+      Debug.Log($"player distance to NE heart: {playerHeartDistanceNe}");
+      Debug.Log($"player distance to SW heart: {playerHeartDistanceSw}");
+
       while (true) {
         if (Math.Abs(currentTile.x) > _width / 2 || Math.Abs(currentTile.y) > _height / 2) {
           return;
@@ -94,10 +108,16 @@ namespace Overworld.MapGeneration {
           !(currentTile.x == heartPositionNW.x && currentTile.y == heartPositionNW.y) && !(currentTile.x == heartPositionSW.x && currentTile.y == heartPositionSW.y)) {
           world.SetTile(currentTile.x, currentTile.y, RandomTile());
           var currentWorldTile = world.GetTile(currentTile.x, currentTile.y);
-          if(currentWorldTile.TileType == WorldTile.Type.Encounter) {
+          if(currentWorldTile is EncounterTile encounterTile) {
             var nodeDistanceNW = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionNW.x, heartPositionNW.y));
             var nodeDistanceNE = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionNE.x, heartPositionNE.y));
             var nodeDistanceSW = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionSW.x, heartPositionSW.y));
+            // mikehoyle: I added this just provisionally to have a DR set, update however you like.
+            encounterTile.difficultyRating =
+                Math.Max(
+                    Math.Max(playerHeartDistanceSw - nodeDistanceSW,
+                        playerHeartDistanceNe - nodeDistanceNE),
+                    playerHeartDistanceNw - nodeDistanceNW);
           }
         }
 

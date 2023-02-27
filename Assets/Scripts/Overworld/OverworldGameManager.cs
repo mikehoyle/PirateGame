@@ -62,7 +62,6 @@ namespace Overworld {
     }
 
     private void Start() {
-      GameState.State.world = new OverworldGenerator(width: 100, height: 100, seed: 1).GenerateWorld();
       DisplayWorld();
       DisplayPlayerIndicator();
       RemoveFogOfWar();
