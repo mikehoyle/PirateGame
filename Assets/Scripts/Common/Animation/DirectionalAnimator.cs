@@ -1,12 +1,15 @@
 ﻿using StaticConfig.Sprites;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Common.Animation {
   public class DirectionalAnimator : MonoBehaviour {
-    [SerializeField] private DirectionalAnimatedSprite sprite;
+    [FormerlySerializedAs("sprite")] [SerializeField]
+    protected DirectionalAnimatedSprite referenceSprite;
     
     private SpriteRenderer _spriteRenderer;
-    private IDirectionalAnimatable _animationTarget;
+    
+    protected IDirectionalAnimatable AnimationTarget { get; set; }
     
     // State for animation execution
     private DirectionalAnimation.Animation _currentAnimation;
@@ -16,8 +19,8 @@ namespace Common.Animation {
 
     private void Awake() {
       _spriteRenderer = GetComponent<SpriteRenderer>();
-      _animationTarget = GetComponent<IDirectionalAnimatable>();
-      if (_animationTarget == null) {
+      AnimationTarget = GetComponent<IDirectionalAnimatable>();
+      if (AnimationTarget == null) {
         Debug.LogWarning($"No animatable component on {name} for DirectionalAnimator to use");
         enabled = false;
       }
@@ -25,16 +28,16 @@ namespace Common.Animation {
     }
 
     private void OnEnable() {
-      _animationTarget.OneOffAnimation += OnOneOffAnimationRequest;
+      AnimationTarget.OneOffAnimation += OnOneOffAnimationRequest;
     }
 
     private void OnDisable() {
-      _animationTarget.OneOffAnimation -= OnOneOffAnimationRequest;
+      AnimationTarget.OneOffAnimation -= OnOneOffAnimationRequest;
     }
 
     private void Update() {
-      if (_currentAnimation.direction != _animationTarget.FacingDirection
-          || _currentAnimation.name != _animationTarget.AnimationState) {
+      if (_currentAnimation.direction != AnimationTarget.FacingDirection
+          || _currentAnimation.name != AnimationTarget.AnimationState) {
         UpdateAnimationState();
       }
 
@@ -52,17 +55,17 @@ namespace Common.Animation {
           _currentFrame = _currentAnimation.startFrame;
         }
 
-        UpdateSpriteRenderer();
+        UpdateSpriteRenderer(_currentFrame, _currentAnimation.isMirrored);
       }
     }
 
     public void SetSprite(DirectionalAnimatedSprite newSprite) {
-      sprite = newSprite;
+      referenceSprite = newSprite;
     }
     
-    private void UpdateSpriteRenderer() {
-      _spriteRenderer.sprite = sprite.frames[_currentFrame];
-      _spriteRenderer.flipX = _currentAnimation.isMirrored;
+    protected virtual void UpdateSpriteRenderer(int currentFrame, bool isMirrored) {
+      _spriteRenderer.sprite = referenceSprite.frames[currentFrame];
+      _spriteRenderer.flipX = isMirrored;
     }
 
     private void UpdateAnimationState() {
@@ -71,7 +74,7 @@ namespace Common.Animation {
         return;
       }
       
-      NewAnimation(_animationTarget.AnimationState, isOneOff: false);
+      NewAnimation(AnimationTarget.AnimationState, isOneOff: false);
     }
 
     private void OnOneOffAnimationRequest(string animationName) {
@@ -80,7 +83,7 @@ namespace Common.Animation {
     }
 
     private void NewAnimation(string animationName, bool isOneOff) {
-      var newAnimation = sprite.GetAnimation(animationName, _animationTarget.FacingDirection);
+      var newAnimation = referenceSprite.GetAnimation(animationName, AnimationTarget.FacingDirection);
       if (!newAnimation.HasValue) {
         Debug.LogWarning($"No known animation for {animationName}, not updating animation state");
         return;
@@ -89,7 +92,7 @@ namespace Common.Animation {
       _currentFrame = _currentAnimation.startFrame;
       _currentFrameStartTime = Time.time;
       _currentAnimationIsOneOff = isOneOff;
-      UpdateSpriteRenderer();
+      UpdateSpriteRenderer(_currentFrame, _currentAnimation.isMirrored);
     }
   }
 }

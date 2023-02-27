@@ -8,6 +8,7 @@ using UnityEngine;
 
 // Avoiding Editor namespace because it messes with a lot of things.
 namespace EditorInternal {
+  
   public class UnitSpritePostprocessor : AssetPostprocessor {
     private const string UnitAssetPath = "Sprites/Units/Composite";
     private const string SpritesPath = "Sprites/";
@@ -17,6 +18,8 @@ namespace EditorInternal {
     private const int UnitSpritesheetFrameHeight = 128;
     private const int SpritePixelsPerUnit = 64;
     
+    // This is handled differently now, keeping for posterity
+    /*
     private void OnPreprocessTexture() {
       var normalizedPath = assetPath.Replace("\\", "/");
       if (normalizedPath.Contains(SpritesPath)) {
@@ -207,6 +210,6 @@ namespace EditorInternal {
     private static bool IsUnitPath(string assetPath) {
       var normalizedPath = assetPath.Replace("\\", "/");
       return normalizedPath.Contains(UnitAssetPath);
-    }
+    }*/
   }
 }

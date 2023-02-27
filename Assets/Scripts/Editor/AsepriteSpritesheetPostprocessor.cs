@@ -78,17 +78,35 @@ namespace EditorInternal {
     }
     
     private static void AddAllAnimationAssets(IEnumerable<string> importedAssets) {
+      var shouldRefresh = false;
       foreach (var importedAssetPath in importedAssets) {
+        if (importedAssetPath.Contains("Sprites") && Path.GetExtension(importedAssetPath) == "json") {
+          // If we're freshly importing the json, it's very likely at the same time as the png, so it won't have gotten
+          // properly processed. To handle this, mark the associated png as dirty to trigger a reimport after the json
+          // is already imported.
+          var pngAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(Path.ChangeExtension(importedAssetPath, "png"));
+          if (pngAsset == null) {
+            continue;
+          }
+          
+          EditorUtility.SetDirty(pngAsset);
+          shouldRefresh = true;
+        }
+        
         if (AssetDatabase.GetMainAssetTypeAtPath(importedAssetPath) != typeof(Texture2D)) {
-          return;
+          continue;
         }
         
         var jsonAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(Path.ChangeExtension(importedAssetPath, "json"));
         if (jsonAsset == null) {
-          return;
+          continue;
         }
         
         AddAnimationAsset(importedAssetPath, jsonAsset);
+      }
+
+      if (shouldRefresh) {
+        AssetDatabase.Refresh();
       }
     }
     

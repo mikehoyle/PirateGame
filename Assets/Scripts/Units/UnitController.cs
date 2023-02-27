@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.Animation;
 using Common.Events;
 using Encounters;
 using Optional;
@@ -8,7 +9,6 @@ using RuntimeVars.Encounters;
 using State.Unit;
 using StaticConfig.Units;
 using Units.Abilities;
-using Units.Rendering;
 using UnityEngine;
 
 namespace Units {
@@ -30,7 +30,7 @@ namespace Units {
     }
 
     private void Start() {
-      GetComponentInChildren<AnimatedCompositeSprite>().SetColorForFaction(EncounterState.faction);
+      GetComponentInChildren<CompositeDirectionalAnimator>().SetColorForFaction(EncounterState.faction);
     }
 
     protected override void OnEnable() {
