@@ -14,7 +14,7 @@ namespace Units.Abilities {
         GridIndicators indicators) {
       var target = GetTargetIfEligible(actor, source, hoveredObject);
       if (target != null) {
-        indicators.TargetingIndicator.TargetTile(target.EncounterState.position);
+        indicators.TargetingIndicator.TargetTile(hoveredTile);
         return;
       }
       indicators.TargetingIndicator.Clear();

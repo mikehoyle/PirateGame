@@ -100,6 +100,15 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelSelection"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ce0d297-464c-45bc-a44c-4923abf2be2b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -199,6 +208,17 @@ namespace Controls
                     ""processors"": """",
                     ""groups"": ""KBM"",
                     ""action"": ""EndTurn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""547469e6-de95-4e6e-95e5-94c6ede1e68f"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""CancelSelection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1050,6 +1070,7 @@ namespace Controls
             m_TurnBasedEncounter_SelectActionFour = m_TurnBasedEncounter.FindAction("SelectActionFour", throwIfNotFound: true);
             m_TurnBasedEncounter_SelectActionFive = m_TurnBasedEncounter.FindAction("SelectActionFive", throwIfNotFound: true);
             m_TurnBasedEncounter_EndTurn = m_TurnBasedEncounter.FindAction("EndTurn", throwIfNotFound: true);
+            m_TurnBasedEncounter_CancelSelection = m_TurnBasedEncounter.FindAction("CancelSelection", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1161,6 +1182,7 @@ namespace Controls
         private readonly InputAction m_TurnBasedEncounter_SelectActionFour;
         private readonly InputAction m_TurnBasedEncounter_SelectActionFive;
         private readonly InputAction m_TurnBasedEncounter_EndTurn;
+        private readonly InputAction m_TurnBasedEncounter_CancelSelection;
         public struct TurnBasedEncounterActions
         {
             private @GameControls m_Wrapper;
@@ -1173,6 +1195,7 @@ namespace Controls
             public InputAction @SelectActionFour => m_Wrapper.m_TurnBasedEncounter_SelectActionFour;
             public InputAction @SelectActionFive => m_Wrapper.m_TurnBasedEncounter_SelectActionFive;
             public InputAction @EndTurn => m_Wrapper.m_TurnBasedEncounter_EndTurn;
+            public InputAction @CancelSelection => m_Wrapper.m_TurnBasedEncounter_CancelSelection;
             public InputActionMap Get() { return m_Wrapper.m_TurnBasedEncounter; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1206,6 +1229,9 @@ namespace Controls
                 @EndTurn.started += instance.OnEndTurn;
                 @EndTurn.performed += instance.OnEndTurn;
                 @EndTurn.canceled += instance.OnEndTurn;
+                @CancelSelection.started += instance.OnCancelSelection;
+                @CancelSelection.performed += instance.OnCancelSelection;
+                @CancelSelection.canceled += instance.OnCancelSelection;
             }
 
             private void UnregisterCallbacks(ITurnBasedEncounterActions instance)
@@ -1234,6 +1260,9 @@ namespace Controls
                 @EndTurn.started -= instance.OnEndTurn;
                 @EndTurn.performed -= instance.OnEndTurn;
                 @EndTurn.canceled -= instance.OnEndTurn;
+                @CancelSelection.started -= instance.OnCancelSelection;
+                @CancelSelection.performed -= instance.OnCancelSelection;
+                @CancelSelection.canceled -= instance.OnCancelSelection;
             }
 
             public void RemoveCallbacks(ITurnBasedEncounterActions instance)
@@ -1804,6 +1833,7 @@ namespace Controls
             void OnSelectActionFour(InputAction.CallbackContext context);
             void OnSelectActionFive(InputAction.CallbackContext context);
             void OnEndTurn(InputAction.CallbackContext context);
+            void OnCancelSelection(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

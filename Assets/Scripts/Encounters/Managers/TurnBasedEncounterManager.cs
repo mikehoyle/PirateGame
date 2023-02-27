@@ -169,5 +169,11 @@ namespace Encounters.Managers {
       encounterEvents.playerTurnPreStart.Raise();
       encounterEvents.enemyTurnStart.Raise();
     }
+
+    protected override void OnCancelSelection() {
+      currentSelection.Clear();
+      _gridIndicators.Clear();
+      encounterEvents.unitSelected.Raise(null);
+    }
   }
 }

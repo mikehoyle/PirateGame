@@ -63,9 +63,17 @@ namespace Encounters {
       OnEndTurn();
     }
 
+    public void OnCancelSelection(InputAction.CallbackContext context) {
+      if (!context.performed) {
+        return;
+      }
+      OnCancelSelection();
+    }
+
     protected abstract void OnTrySelectAction(int index);
     protected abstract void OnClick(Vector2 mouseLocation);
     protected abstract void OnPoint(Vector2 mouseLocation);
     protected abstract void OnEndTurn();
+    protected abstract void OnCancelSelection();
   }
 }

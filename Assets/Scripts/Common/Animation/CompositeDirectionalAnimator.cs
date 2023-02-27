@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using State.Unit;
+﻿using System;
+using System.Collections.Generic;
 using StaticConfig.Sprites;
 using UnityEngine;
 
@@ -29,15 +29,12 @@ namespace Common.Animation {
       }
     }
 
-    // For now, wholesale change color so faction is apparent
-    public void SetColorForFaction(UnitFaction faction) {
-      var targetColor = faction switch {
-          // greenish
-          UnitFaction.PlayerParty => new Color(5/255f, 100/255f, 45/255f),
-          // redish
-          _ => new Color(190/255f, 100/255f, 45/255f),
-      };
-
+    // For now, random colors just to differentiate the units
+    public void SetColor(string unitName) {
+      // hacky way for consistent colors, just seed based on unit's name hash
+      var rng = new System.Random(unitName.GetHashCode());
+      var targetColor = new Color(
+          (float)rng.NextDouble(), (float)rng.NextDouble(), (float)rng.NextDouble(), 1f);
       foreach (var spriteRenderer in _layerRenderers) {
         spriteRenderer.material.SetColor("_ShirtColor", targetColor);
       }

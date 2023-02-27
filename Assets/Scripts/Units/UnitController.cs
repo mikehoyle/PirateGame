@@ -30,7 +30,7 @@ namespace Units {
     }
 
     private void Start() {
-      GetComponentInChildren<CompositeDirectionalAnimator>().SetColorForFaction(EncounterState.faction);
+      GetComponentInChildren<CompositeDirectionalAnimator>().SetColor(Metadata.GetName());
     }
 
     protected override void OnEnable() {

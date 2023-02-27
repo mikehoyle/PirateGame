@@ -1,5 +1,4 @@
-﻿using System;
-using RuntimeVars.Encounters.Events;
+﻿using RuntimeVars.Encounters.Events;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +39,10 @@ namespace HUD.Encounter {
 
     private void RefreshActionMenu(UnitController unit) {
       Clear();
+      if (unit == null) {
+        return;
+      }
+      
       var currentHotkey = 1;
       foreach (var capableAction in unit.GetAllCapableAbilities()) {
         var item = Instantiate(availableActionPrefab, _container.transform).GetComponent<AvailableAction>();
