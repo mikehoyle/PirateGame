@@ -39,6 +39,7 @@ namespace Units {
       encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
       encounterEvents.abilityExecutionEnd.RegisterListener(OnAbilityEndExecution);
       encounterEvents.unitSelected.RegisterListener(OnUnitSelected);
+      encounterEvents.trySelectAbilityByIndex.RegisterListener(TrySelectAbility);
     }
 
     protected override void OnDisable() {
@@ -46,6 +47,7 @@ namespace Units {
       playerUnitsInEncounter.Remove(this);
       encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
+      encounterEvents.trySelectAbilityByIndex.UnregisterListener(TrySelectAbility);
     }
 
     private void OnObjectClicked(GameObject clickedObject) {
@@ -83,7 +85,11 @@ namespace Units {
       Metadata.startingPosition = position;
     }
 
-    public void TrySelectAbility(int index) {
+    private void TrySelectAbility(int index) {
+      if (!currentSelection.selectedUnit.Contains(this)) {
+        return;
+      }
+
       var abilities = GetAllCapableAbilities();
       if (abilities.Count <= index) {
         return;

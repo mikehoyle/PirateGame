@@ -1,30 +1,46 @@
-﻿using UnityEngine;
+﻿using RuntimeVars.Encounters.Events;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Encounter {
   public class AvailableAction : MonoBehaviour {
+    [SerializeField] private EncounterEvents encounterEvents;
+    
     private Text _costField;
     private Text _hotkeyField;
     private Text _descriptionField;
     private Button _button;
+    private int _abilityIndex;
 
     private void Awake() {
       _costField = transform.Find("Cost").GetComponent<Text>();
       _hotkeyField = transform.Find("Hotkey").GetComponent<Text>();
       _descriptionField = transform.Find("Description").GetComponent<Text>();
       
-      // TODO(P1): If these stay buttons, make them actually work
       _button = GetComponent<Button>();
+    }
+
+    private void OnEnable() {
+      _button.onClick.AddListener(OnButtonClick);
+    }
+
+    private void OnDisable() {
+      _button.onClick.RemoveListener(OnButtonClick);
     }
 
     public void SetUnavailable() {
       _button.interactable = false;
     }
 
-    public void Init(string cost, string hotkey, string actionDescription) {
+    public void Init(string cost, int abilityIndex, string actionDescription) {
       _costField.text = cost;
-      _hotkeyField.text = hotkey;
+      _abilityIndex = abilityIndex;
+      _hotkeyField.text = abilityIndex.ToString();
       _descriptionField.text = actionDescription;
+    }
+
+    private void OnButtonClick() {
+      encounterEvents.trySelectAbilityByIndex.Raise(_abilityIndex - 1);
     }
   }
 }

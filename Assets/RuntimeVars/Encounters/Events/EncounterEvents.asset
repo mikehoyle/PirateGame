@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityExecutionStart: {fileID: 11400000, guid: e72e234224fa90248ba82f81f82798b7, type: 2}
   abilityExecutionEnd: {fileID: 11400000, guid: af6abd0c6ee03714eaaac215c3d39728, type: 2}
+  trySelectAbilityByIndex: {fileID: 11400000, guid: 5baf32c061e81b44b8e7b86a60f1dcf4, type: 2}
   abilitySelected: {fileID: 11400000, guid: 939f8e0b967434746b2151d96e0a2352, type: 2}
   encounterReadyToStart: {fileID: 11400000, guid: 82778010f33ccda48a41b5ad49a21134, type: 2}
   encounterStart: {fileID: 11400000, guid: 759af98b73a2e5247a3ee2d17121fdc7, type: 2}

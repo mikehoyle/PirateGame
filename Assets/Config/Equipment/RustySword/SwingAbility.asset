@@ -18,7 +18,7 @@ MonoBehaviour:
     rid: 4252309007281946660
   displayString: Swing
   cost:
-  - amount: 1
+  - amount: 2
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
   range:
     rid: 4252309007281946628
@@ -48,7 +48,7 @@ MonoBehaviour:
     - rid: 4252309007281946662
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 2
+        value: 3
     - rid: 4252309007281946663
       type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:

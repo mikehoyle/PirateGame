@@ -6,6 +6,7 @@ namespace RuntimeVars.Encounters.Events {
   public class EncounterEvents : ScriptableObject {
     public EmptyGameEvent abilityExecutionStart;
     public EmptyGameEvent abilityExecutionEnd;
+    public IntegerGameEvent trySelectAbilityByIndex;
     public AbilitySelectedEvent abilitySelected;
     public EmptyGameEvent encounterReadyToStart;
     public EmptyGameEvent encounterStart;

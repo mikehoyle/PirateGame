@@ -158,11 +158,7 @@ namespace Encounters.Managers {
     }
 
     protected override void OnTrySelectAction(int index) {
-      if (currentSelection.TryGet(out _, out var unit)) {
-        if (unit is UnitController playerUnit) {
-          playerUnit.TrySelectAbility(index);  
-        }
-      }
+      encounterEvents.trySelectAbilityByIndex.Raise(index);
     }
 
     protected override void OnEndTurn() {

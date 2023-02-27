@@ -18,7 +18,7 @@ MonoBehaviour:
   stats: []
   size: {x: 2, y: 2}
   displayName: Spawner
-  startingHp: 25
+  startingHp: 20
   movementRange: 0
   sprite: {fileID: 11400000, guid: 18f8ab82f4e42a84a9163292e13d52c9, type: 2}
   abilities: []
