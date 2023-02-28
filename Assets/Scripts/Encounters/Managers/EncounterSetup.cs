@@ -1,6 +1,7 @@
 ﻿using Encounters.Enemies;
 using Encounters.Obstacles;
 using RuntimeVars.Encounters.Events;
+using State.Unit;
 using State.World;
 using Terrain;
 using UnityEngine;
@@ -11,7 +12,6 @@ namespace Encounters.Managers {
   /// </summary>
   public class EncounterSetup : MonoBehaviour {
     [SerializeField] private Sprite landSprite;
-    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private GameObject collectablePrefab;
     [SerializeField] private GameObject obstaclePrefab;
     [SerializeField] private EncounterEvents encounterEvents;
@@ -52,7 +52,11 @@ namespace Encounters.Managers {
 
     private void SetUpEnemyUnits() {
       foreach (var enemy in _encounter.enemies) {
-        var unitController = Instantiate(enemyPrefab).GetComponent<EnemyUnitController>();
+        if (enemy.metadata is not EnemyUnitMetadata enemyMetadata) {
+          Debug.LogWarning("Non-enemy in enemy encounter");
+          continue;
+        }
+        var unitController = Instantiate(enemyMetadata.prefab).GetComponent<EnemyUnitController>();
         unitController.Init(enemy);
       }
     }

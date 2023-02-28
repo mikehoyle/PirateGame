@@ -91,6 +91,78 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 263394899586910802, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
   m_PrefabInstance: {fileID: 1174672291141305074}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6073382345937424420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435102907362953376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4ab6ba76a19a947b8fd15e8cf78623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowLayer: 0
+  maskLayer: 0
+  shadowType: 1
+  maskType: 0
+  shadowEffect: 1
+  shadowDistance: 0.6
+  shadowThickness: 1
+  shadowSoftness: 0
+  shadowTranslucency: 0.6
+  maskLit: 0
+  depth: 0
+  depthFalloff: 0
+  depthCustomValue: 0
+  mainShape:
+    shadowType: 1
+    maskType: 0
+    transform: {fileID: 3019562012765411831}
+    height: 0.6
+    thickness: 1
+    isStatic: 0
+  normalMapMode:
+    textureType: 0
+    texture: {fileID: 0}
+    sprite: {fileID: 0}
+--- !u!114 &-3142015102507086903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435102907362953376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4ab6ba76a19a947b8fd15e8cf78623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowLayer: 0
+  maskLayer: 0
+  shadowType: 8
+  maskType: 0
+  shadowEffect: 1
+  shadowDistance: 0.6
+  shadowThickness: 1
+  shadowSoftness: 0
+  shadowTranslucency: 0.6
+  maskLit: 0
+  depth: 0
+  depthFalloff: 0
+  depthCustomValue: 0
+  mainShape:
+    shadowType: 8
+    maskType: 0
+    transform: {fileID: 3019562012765411831}
+    height: 0.6
+    thickness: 1
+    isStatic: 0
+  normalMapMode:
+    textureType: 0
+    texture: {fileID: 0}
+    sprite: {fileID: 0}
 --- !u!114 &7546896233804604948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,3 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
+--- !u!4 &3019562012765411831 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4155386078823291653, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+  m_PrefabInstance: {fileID: 1174672291141305074}
+  m_PrefabAsset: {fileID: 0}

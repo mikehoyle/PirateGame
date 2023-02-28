@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Common.Animation;
+﻿using Common.Animation;
 using Common.Events;
 using Encounters;
 using Optional;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using State.Unit;
-using StaticConfig.Units;
-using Units.Abilities;
 using UnityEngine;
 
 namespace Units {

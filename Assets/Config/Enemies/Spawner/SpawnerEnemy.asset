@@ -20,6 +20,7 @@ MonoBehaviour:
   displayName: Spawner
   startingHp: 20
   movementRange: 0
+  prefab: {fileID: 9054530435983179144, guid: 7bbffd2cd21f1df4fbe882a8badcc113, type: 3}
   sprite: {fileID: 11400000, guid: 18f8ab82f4e42a84a9163292e13d52c9, type: 2}
   abilities: []
   spawnConfig:

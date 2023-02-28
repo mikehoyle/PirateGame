@@ -21,6 +21,7 @@ MonoBehaviour:
   displayName: Little Ball
   startingHp: 8
   movementRange: 3
+  prefab: {fileID: 2938806043710237447, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
   sprite: {fileID: 11400000, guid: 7d03b5b6eda6cfd4e934383de65b8011, type: 2}
   abilities:
   - {fileID: 11400000, guid: c6ffd3e2e8fc22c4ba10a07f59867717, type: 2}

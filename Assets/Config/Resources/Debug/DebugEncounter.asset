@@ -15,7 +15,7 @@ MonoBehaviour:
   coordinates:
     X: 0
     Y: 0
-  isInitialized: 0
+  isInitialized: 1
   difficultyRating: 4
   terrain:
     m_keys:
@@ -56,73 +56,100 @@ MonoBehaviour:
     - {x: 4, y: 2, z: 0}
     - {x: 4, y: 3, z: 0}
     - {x: 4, y: 4, z: 0}
-    - {x: 4, y: 5, z: 0}
-    - {x: 4, y: 6, z: 0}
-    - {x: 4, y: 7, z: 0}
     - {x: 5, y: 0, z: 0}
+    - {x: 5, y: 1, z: 0}
+    - {x: 5, y: 2, z: 0}
+    - {x: 5, y: 3, z: 0}
     - {x: 5, y: 4, z: 0}
-    - {x: 5, y: 5, z: 0}
-    - {x: 5, y: 6, z: 0}
-    - {x: 5, y: 7, z: 0}
     - {x: 6, y: 0, z: 0}
+    - {x: 6, y: 1, z: 0}
+    - {x: 6, y: 2, z: 0}
+    - {x: 6, y: 3, z: 0}
     - {x: 6, y: 4, z: 0}
     - {x: 6, y: 5, z: 0}
     - {x: 6, y: 6, z: 0}
     - {x: 6, y: 7, z: 0}
     - {x: 7, y: 0, z: 0}
+    - {x: 7, y: 1, z: 0}
+    - {x: 7, y: 2, z: 0}
+    - {x: 7, y: 3, z: 0}
     - {x: 7, y: 4, z: 0}
     - {x: 7, y: 5, z: 0}
     - {x: 7, y: 6, z: 0}
     - {x: 7, y: 7, z: 0}
-    m_values: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    - {x: 8, y: 0, z: 0}
+    - {x: 8, y: 1, z: 0}
+    - {x: 8, y: 2, z: 0}
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 4, z: 0}
+    - {x: 8, y: 5, z: 0}
+    - {x: 8, y: 6, z: 0}
+    - {x: 8, y: 7, z: 0}
+    - {x: 9, y: 0, z: 0}
+    - {x: 9, y: 1, z: 0}
+    - {x: 9, y: 2, z: 0}
+    - {x: 9, y: 3, z: 0}
+    - {x: 9, y: 4, z: 0}
+    - {x: 9, y: 5, z: 0}
+    - {x: 9, y: 6, z: 0}
+    - {x: 9, y: 7, z: 0}
+    - {x: 10, y: 0, z: 0}
+    - {x: 10, y: 1, z: 0}
+    - {x: 10, y: 2, z: 0}
+    - {x: 10, y: 3, z: 0}
+    - {x: 10, y: 4, z: 0}
+    - {x: 10, y: 5, z: 0}
+    - {x: 10, y: 6, z: 0}
+    - {x: 10, y: 7, z: 0}
+    m_values: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   collectables:
     m_keys:
-    - {x: 1, y: 6, z: 0}
-    - {x: 6, y: 5, z: 0}
-    - {x: 7, y: 0, z: 0}
+    - {x: 9, y: 1, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 6, y: 7, z: 0}
     m_values:
     - contents:
         m_keys:
         - {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
-        m_values: 14000000
+        m_values: 1a000000
+    - contents:
+        m_keys:
+        - {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
+        m_values: 12000000
     - contents:
         m_keys:
         - {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
         m_values: 19000000
-    - contents:
-        m_keys:
-        - {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
-        m_values: 1b000000
   obstacles:
     m_keys:
-    - {x: 0, y: 3, z: 0}
-    - {x: 5, y: 5, z: 0}
-    - {x: 3, y: 1, z: 0}
-    - {x: 7, y: 7, z: 0}
+    - {x: 8, y: 7, z: 0}
+    - {x: 5, y: 3, z: 0}
+    - {x: 6, y: 4, z: 0}
+    - {x: 2, y: 3, z: 0}
     m_values:
-    - maxHp: 10
-      currentHp: 10
-      sprite: {fileID: 1723487272, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
-      size: {x: 1, y: 1}
     - maxHp: 10
       currentHp: 10
       sprite: {fileID: -1050702268, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
       size: {x: 1, y: 1}
     - maxHp: 10
       currentHp: 10
-      sprite: {fileID: 813290875, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
+      sprite: {fileID: 1723487272, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
       size: {x: 1, y: 1}
     - maxHp: 10
       currentHp: 10
-      sprite: {fileID: 813290875, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
+      sprite: {fileID: 1723487272, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
+      size: {x: 1, y: 1}
+    - maxHp: 10
+      currentHp: 10
+      sprite: {fileID: -746317878, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
       size: {x: 1, y: 1}
   enemies:
   - metadata: {fileID: 11400000, guid: ca38211c7c0899642a887a4377f995f5, type: 2}
     resources:
     - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
-      max: 25
+      max: 20
       min: 0
-      current: 25
+      current: 20
     - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
       max: 0
       min: 0
@@ -131,7 +158,7 @@ MonoBehaviour:
       max: 2
       min: 0
       current: 2
-    position: {x: 1, y: 4, z: 0}
+    position: {x: 2, y: 6, z: 0}
     faction: 1
     facingDirection: 2
   - metadata: {fileID: 11400000, guid: 4a87f39f45dee124b9d070185ad4cbf0, type: 2}
@@ -148,7 +175,41 @@ MonoBehaviour:
       max: 2
       min: 0
       current: 2
-    position: {x: 5, y: 4, z: 0}
+    position: {x: 3, y: 0, z: 0}
+    faction: 1
+    facingDirection: 2
+  - metadata: {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 8
+      min: 0
+      current: 8
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 3
+      min: 0
+      current: 3
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 5, y: 1, z: 0}
+    faction: 1
+    facingDirection: 2
+  - metadata: {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 8
+      min: 0
+      current: 8
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 3
+      min: 0
+      current: 3
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 2, y: 0, z: 0}
     faction: 1
     facingDirection: 2
   - metadata: {fileID: 11400000, guid: 4a87f39f45dee124b9d070185ad4cbf0, type: 2}
@@ -165,6 +226,74 @@ MonoBehaviour:
       max: 2
       min: 0
       current: 2
-    position: {x: 4, y: 6, z: 0}
+    position: {x: 4, y: 0, z: 0}
+    faction: 1
+    facingDirection: 0
+  - metadata: {fileID: 11400000, guid: 4a87f39f45dee124b9d070185ad4cbf0, type: 2}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 15
+      min: 0
+      current: 15
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 4
+      min: 0
+      current: 4
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 6, y: 0, z: 0}
+    faction: 1
+    facingDirection: 3
+  - metadata: {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 8
+      min: 0
+      current: 2
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 3
+      min: 0
+      current: 3
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 5, y: -1, z: 0}
+    faction: 1
+    facingDirection: 1
+  - metadata: {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 8
+      min: 0
+      current: 8
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 3
+      min: 0
+      current: 3
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 6, y: -1, z: 0}
     faction: 1
     facingDirection: 2
+  - metadata: {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 8
+      min: 0
+      current: 8
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 3
+      min: 0
+      current: 3
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 2, y: 1, z: 0}
+    faction: 1
+    facingDirection: 0

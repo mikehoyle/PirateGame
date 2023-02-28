@@ -4,7 +4,6 @@ using Optional.Unsafe;
 using RuntimeVars.Encounters.Events;
 using Units;
 using Units.Abilities;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,14 +19,14 @@ namespace RuntimeVars.Encounters {
     private void Awake() {
       SceneManager.activeSceneChanged += OnSceneChanged;
 #if UNITY_EDITOR
-      EditorSceneManager.activeSceneChangedInEditMode += OnSceneChanged;
+      UnityEditor.SceneManagement.EditorSceneManager.activeSceneChangedInEditMode += OnSceneChanged;
 #endif
     }
 
     private void OnDestroy() {
       SceneManager.activeSceneChanged -= OnSceneChanged;
 #if UNITY_EDITOR
-      EditorSceneManager.activeSceneChangedInEditMode -= OnSceneChanged;
+      UnityEditor.SceneManagement.EditorSceneManager.activeSceneChangedInEditMode -= OnSceneChanged;
 #endif
     }
 
