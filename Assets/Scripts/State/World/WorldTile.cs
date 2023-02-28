@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace State.World {
   /// <summary>
@@ -12,8 +13,8 @@ namespace State.World {
     }
 
 
-    public int difficulty { get; set; } = 0;
-    public bool IsCovered { get; set; } = true;
+    public int difficulty = 0;
+    public bool isCovered = true;
     public WorldCoordinates coordinates;
     public abstract Type TileType { get; }
 

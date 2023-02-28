@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using State.Unit;
 using UnityEngine;
 
@@ -14,10 +13,22 @@ namespace State {
     public InventoryState inventory;
     public ArmoryState armory;
     public List<PlayerUnitMetadata> roster;
-    public int VisionRange = 1;
+    public int visionRange = 1;
 
     private PlayerState() {
       roster = new();
+    }
+
+    public PlayerState DeepCopy() {
+      var copy = Instantiate(this);
+      copy.ship = Instantiate(ship);
+      copy.roster = new();
+
+      foreach (var unit in roster) {
+        copy.roster.Add(Instantiate(unit));
+      }
+      
+      return copy;
     }
   }
 }

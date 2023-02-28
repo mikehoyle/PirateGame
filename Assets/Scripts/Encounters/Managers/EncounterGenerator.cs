@@ -38,7 +38,7 @@ namespace Encounters.Managers {
     /// TODO(P1): oh so much more/different than this
     /// </summary>
     public void Generate(EncounterTile encounterTile) {
-      Debug.Log($"Generating encounter of DR: {encounterTile.difficultyRating}");
+      Debug.Log($"Generating encounter of DR: {encounterTile.difficulty}");
       GenerateTerrain(encounterTile);
       
       _availableTiles = new HashSet<Vector3Int>(encounterTile.terrain.Keys);
@@ -76,7 +76,7 @@ namespace Encounters.Managers {
     private void GenerateUnits(EncounterTile encounterTile) {
       encounterTile.enemies = new();
       var spawnVars = new EnemySpawnVariables {
-          DifficultyRating = encounterTile.difficultyRating,
+          DifficultyRating = encounterTile.difficulty,
       };
       
       // For now, always add spawner
@@ -84,7 +84,7 @@ namespace Encounters.Managers {
       encounterTile.enemies.Add(spawner);
       
       // Now pick the remainder of enemies by weighted chance.
-      var remainingDr = (float)encounterTile.difficultyRating;
+      var remainingDr = (float)encounterTile.difficulty;
       while (remainingDr > 0) {
         var currentRemainingDr = remainingDr;
         var candidates = spawnableEnemies.enemyUnits

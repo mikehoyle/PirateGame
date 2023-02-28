@@ -201,7 +201,8 @@ MonoBehaviour:
     gain power.\n- Build mounted weapons on your ship to aid you in your encounters.\n-
     Craft better items and unlock improved abilities.\n- Engage in turn-based combat\n 
     - Each Unit can move up to their movement score, and use abilities up to their
-    ability score (2)\n"
+    ability score (2)\n  - Press [ENTER] to pass the turn.\n  - Press [TAB] to open
+    the main menu."
 --- !u!222 &38186484
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -512,6 +513,7 @@ GameObject:
   m_Component:
   - component: {fileID: 736085813}
   - component: {fileID: 736085812}
+  - component: {fileID: 736085814}
   m_Layer: 0
   m_Name: TitleSceneManager
   m_TagString: Untagged
@@ -546,6 +548,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &736085814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736085811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222716a8dffb4077828241d0568273f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newGamePlayerState: {fileID: 11400000, guid: 3877df8e299d57d4a9b10a300e492d33, type: 2}
+  mapWidth: 100
+  mapHeight: 100
 --- !u!1 &1292315054
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,11 +683,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5047839540492226062, guid: ccefaa1e52e480d46a578c60e4d4b84c, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 1
+      value: 0.99976104
       objectReference: {fileID: 0}
     - target: {fileID: 5047839540492226062, guid: ccefaa1e52e480d46a578c60e4d4b84c, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 1
+      value: 0.99936306
       objectReference: {fileID: 0}
     - target: {fileID: 6908462396012183312, guid: ccefaa1e52e480d46a578c60e4d4b84c, type: 3}
       propertyPath: m_Name

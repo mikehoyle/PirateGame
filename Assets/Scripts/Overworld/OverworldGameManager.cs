@@ -75,7 +75,7 @@ namespace Overworld {
     }
 
     private void UpdateTile (WorldTile mapTile) {
-      var tile = mapTile.IsCovered ? fogOfWarTile : mapTile.TileType switch {
+      var tile = mapTile.isCovered ? fogOfWarTile : mapTile.TileType switch {
         WorldTile.Type.OpenSea => openSeaTile,
         WorldTile.Type.Encounter => encounterTile,
         WorldTile.Type.Heart => heartTile,
@@ -89,7 +89,7 @@ namespace Overworld {
       Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;
       HexGridUtils.ForEachAdjacentTileNotInVision(currentPlayerPosition, cell => {
         WorldTile mapTile = GameState.State.world.GetTile(cell.x, cell.y);
-        mapTile.IsCovered = false;
+        mapTile.isCovered = false;
         UpdateTile(GameState.State.world.GetTile(cell.x, cell.y));
       });
     }

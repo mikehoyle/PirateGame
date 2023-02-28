@@ -10,7 +10,6 @@ namespace State.World {
   [CreateAssetMenu(menuName = "State/EncounterTile")]
   public class EncounterTile : WorldTile {
     public bool isInitialized;
-    public int difficultyRating;
     public SparseMatrix3d<TerrainType> terrain;
     public SparseMatrix3d<CollectableInstance> collectables;
     public SparseMatrix3d<ObstacleConfig> obstacles;

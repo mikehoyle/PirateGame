@@ -20,13 +20,18 @@ namespace State {
       }
     }
 
+    public static GameState New() {
+      _self = CreateInstance<GameState>();
+      return _self;
+    }
+
     private static GameState Load() {
       if (Debug.isDebugBuild) {
         return Resources.Load<GameState>("Debug/DebugGameState");
       }
       
-      // TODO(P1): This does nothing, should load from file
-      // or default gamestate.
+      // TODO(P1): This does nothing, should load from file or default game-state.
+      //    non-dev builds would be expected to enter via a new-game flow that would bypass this.
       return CreateInstance<GameState>();
     }
   }

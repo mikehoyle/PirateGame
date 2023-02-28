@@ -5,6 +5,7 @@ using Common;
 using StaticConfig;
 using StaticConfig.Builds;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace State {
   /// <summary>

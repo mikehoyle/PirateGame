@@ -1,14 +1,17 @@
-﻿using System;
-using Common;
-using Overworld.MapGeneration;
-using State;
+﻿using Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace MainTitle {
   public class TitleSceneManager : MonoBehaviour {
+    private NewGameCreator _newGameCreator;
+
+    private void Awake() {
+      _newGameCreator = GetComponent<NewGameCreator>();
+    }
+
     private void Start() {
-      GameState.State.world = new OverworldGenerator(width: 100, height: 100, seed: 1).GenerateWorld();
+      _newGameCreator.SetUpNewGame();
     }
 
     public void OnPlayButtonClick() {

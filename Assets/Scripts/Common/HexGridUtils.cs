@@ -38,7 +38,7 @@ namespace Common {
 
 
     public static void ForEachAdjacentTileNotInVision(Vector2Int tile, Action<Vector2Int> action) {
-      var visionRange = GameState.State.player.VisionRange;
+      var visionRange = GameState.State.player.visionRange;
       int[] adjRows;
       int[] adjCols;
       for (int range = 0; range < visionRange; range++) {
@@ -53,7 +53,7 @@ namespace Common {
 
         for (int x = 0; x < adjCols.Length; x++) {
           Vector2Int gridCell = new(adjRows[x], adjCols[x]);
-          if (GameState.State.world.GetTile(gridCell.x, gridCell.y).IsCovered) {
+          if (GameState.State.world.GetTile(gridCell.x, gridCell.y).isCovered) {
             action(gridCell);
           }
         }

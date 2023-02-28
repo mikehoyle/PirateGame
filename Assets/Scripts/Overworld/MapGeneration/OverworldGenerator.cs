@@ -23,7 +23,7 @@ namespace Overworld.MapGeneration {
     private Vector2Int heartPositionNE;
     private Vector2Int heartPositionSW;
     private HexLibrary _hexLibrary;
-    public OverworldGenerator(int width, int height, int? seed) {
+    public OverworldGenerator(int width, int height, int? seed = null) {
       _width = width;
       _height = height;
       _rng = seed.HasValue ? new Random(seed.Value) : new Random();
@@ -45,6 +45,7 @@ namespace Overworld.MapGeneration {
       // Overwrite some starter tiles
       // Starter tile is always open ocean
       world.SetTile(0, 0, ScriptableObject.CreateInstance<OpenSeaTile>());
+      world.currentDay = 0;
     }
 
     private void GenerateHeart(WorldState world) {
@@ -107,18 +108,17 @@ namespace Overworld.MapGeneration {
         if (!(currentTile.x == 0 && currentTile.y == 0) && !(currentTile.x == heartPositionNE.x && currentTile.y == heartPositionNE.y) &&
           !(currentTile.x == heartPositionNW.x && currentTile.y == heartPositionNW.y) && !(currentTile.x == heartPositionSW.x && currentTile.y == heartPositionSW.y)) {
           world.SetTile(currentTile.x, currentTile.y, RandomTile());
-          var currentWorldTile = world.GetTile(currentTile.x, currentTile.y);
-          if(currentWorldTile is EncounterTile encounterTile) {
-            var nodeDistanceNW = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionNW.x, heartPositionNW.y));
-            var nodeDistanceNE = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionNE.x, heartPositionNE.y));
-            var nodeDistanceSW = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionSW.x, heartPositionSW.y));
-            // mikehoyle: I added this just provisionally to have a DR set, update however you like.
-            encounterTile.difficultyRating =
-                Math.Max(
-                    Math.Max(playerHeartDistanceSw - nodeDistanceSW,
-                        playerHeartDistanceNe - nodeDistanceNE),
-                    playerHeartDistanceNw - nodeDistanceNW);
-          }
+          
+          // Set difficulty rating based on heart proximity
+          var nodeDistanceNW = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionNW.x, heartPositionNW.y));
+          var nodeDistanceNE = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionNE.x, heartPositionNE.y));
+          var nodeDistanceSW = _hexLibrary.GetDistance(new HexOffsetCoordinates(currentTile.x, currentTile.y), new HexOffsetCoordinates(heartPositionSW.x, heartPositionSW.y));
+          // mikehoyle: I added this just provisionally to have a DR set, update however you like.
+          var tileDifficulty = Math.Max(
+              Math.Max(playerHeartDistanceSw - nodeDistanceSW,
+                  playerHeartDistanceNe - nodeDistanceNE),
+              playerHeartDistanceNw - nodeDistanceNW);
+          world.SetTileDifficulty(currentTile.x, currentTile.y, tileDifficulty);
         }
 
         currentTile += currentDirection.Value;

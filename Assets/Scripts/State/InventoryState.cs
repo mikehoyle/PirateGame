@@ -5,13 +5,10 @@ using StaticConfig.RawResources;
 using UnityEngine;
 
 namespace State {
-  [CreateAssetMenu(menuName = "State/InventoryState")]
-  public class InventoryState : ScriptableObject {
-    [Serializable]
-    public class InventoryContentsDictionary : SerializableDictionary<RawResource, int> { }
-
+  [Serializable]
+  public class InventoryState {
     // Maps item to quantity held, where the keys are RawResourceScriptableObject.ids
-    [SerializeField] private InventoryContentsDictionary items;
+    [SerializeField] private SerializableDictionary<RawResource, int> items;
 
     private InventoryState() {
       items = new();

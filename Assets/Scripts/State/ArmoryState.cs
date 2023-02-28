@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StaticConfig.Equipment;
-using UnityEngine;
 
 namespace State {
-  [CreateAssetMenu(menuName = "State/ArmoryState")]
-  public class ArmoryState : ScriptableObject {
+  [Serializable]
+  public class ArmoryState {
     public List<EquipmentItemInstance> equipment;
 
     private ArmoryState() {
