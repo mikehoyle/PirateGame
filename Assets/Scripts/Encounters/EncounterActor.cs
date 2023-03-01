@@ -18,8 +18,6 @@ namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable {
     [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
-    [SerializeReference, SerializeReferenceButton]
-    protected List<IStatusEffectInstance> activeStatusEffects;
     
     private UnitMover _mover;
     private PolygonCollider2D _collider;
@@ -36,6 +34,8 @@ namespace Encounters {
     
     public string AnimationState { get; set; }
     public event IDirectionalAnimatable.RequestOneOffAnimation OneOffAnimation;
+    
+    public GameObject StatusEffects { get; private set; }
 
     public abstract UnitEncounterState EncounterState { get; protected set; }
     protected abstract EmptyGameEvent TurnPreStartEvent { get; }
@@ -44,6 +44,8 @@ namespace Encounters {
       _mover = GetComponent<UnitMover>();
       _collider = GetComponent<PolygonCollider2D>();
       AnimationState = AnimationNames.Idle;
+      StatusEffects = new GameObject("Status Effects");
+      StatusEffects.transform.parent = transform;
     }
 
     protected virtual void OnEnable() {
@@ -56,14 +58,10 @@ namespace Encounters {
       TurnPreStartEvent.UnregisterListener(PerformNewRoundSetup);
     }
 
-    protected virtual void Update() {
-      UpdateStatusEffects();
-    }
-
     public void Init(UnitEncounterState encounterState) {
       EncounterState = encounterState;
       foreach (var passiveEffect in encounterState.metadata.passiveEffects ?? Enumerable.Empty<StatusEffect>()) {
-        AddStatusEffect(passiveEffect.NewInstance(this));
+        passiveEffect.ApplyTo(this);
       }
       ApplySize(encounterState.metadata.size);
       InitInternal(encounterState);
@@ -80,17 +78,9 @@ namespace Encounters {
 
     protected virtual void InitInternal(UnitEncounterState encounterState) { }
 
-    private void UpdateStatusEffects() {
-      for (int i = activeStatusEffects.Count - 1; i >= 0; i--) {
-        if (activeStatusEffects[i].UpdateAndMaybeDestroy(this)) {
-          activeStatusEffects.RemoveAt(i);
-        }
-      }
-    }
-
-    private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffectInstanceFactory effect) {
+    private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffectApplier effect) {
       if (aoe.AffectsPoint(Position)) {
-        AddStatusEffect(effect.GetInstance(this));
+        effect.ApplyTo(this);
       }
     }
 
@@ -112,10 +102,6 @@ namespace Encounters {
         return;
       }
       _mover.ExecuteMovement(path.Path, callback);
-    }
-
-    public void AddStatusEffect(IStatusEffectInstance effect) {
-      activeStatusEffects.Add(effect);
     }
 
     public void ExpendResource(ExhaustibleResource resource, int amount) {

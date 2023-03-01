@@ -12,7 +12,7 @@ namespace Units.Abilities {
         GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
-      var target = GetTargetIfEligible(actor, source, hoveredObject);
+      var target = GetTargetIfEligible(actor, source, hoveredTile, hoveredObject);
       if (target != null) {
         indicators.TargetingIndicator.TargetTile(hoveredTile);
         return;
@@ -24,7 +24,8 @@ namespace Units.Abilities {
       if (!CanAfford(context.Actor)) {
         return false;
       }
-      var target = GetTargetIfEligible(context.Actor, context.Source, context.TargetedObject);
+      var target = GetTargetIfEligible(
+          context.Actor, context.Source, context.TargetedTile, context.TargetedObject);
       if (target == null) {
         return false;
       }
@@ -33,7 +34,8 @@ namespace Units.Abilities {
     }
 
     protected override void Execute(AbilityExecutionContext context) {
-      var target = GetTargetIfEligible(context.Actor, context.Source, context.TargetedObject);
+      var target = GetTargetIfEligible(
+          context.Actor, context.Source, context.TargetedTile, context.TargetedObject);
       if (target == null) {
         Debug.LogWarning("Could not find target when executing");
         return;
@@ -43,7 +45,8 @@ namespace Units.Abilities {
           context.Actor, result => OnDetermineAbilityEffectiveness(context, result, target));
     }
 
-    private EncounterActor GetTargetIfEligible(EncounterActor actor, Vector3Int source, GameObject target) {
+    private EncounterActor GetTargetIfEligible(
+        EncounterActor actor, Vector3Int source, Vector3Int targetTile, GameObject target) {
       if (target == null) {
         return null;
       }
@@ -51,7 +54,7 @@ namespace Units.Abilities {
         if (targetUnit.EncounterState.faction == actor.EncounterState.faction) {
           return null;
         }
-        if (range.IsInRange(actor, source, targetUnit.EncounterState.position)) {
+        if (range.IsInRange(actor, source, targetTile)) {
           return targetUnit;
         }
       }
@@ -60,9 +63,8 @@ namespace Units.Abilities {
 
     private void OnDetermineAbilityEffectiveness(
         AbilityExecutionContext context, float result, EncounterActor target) {
-      var effect = incurredEffect.NewInstance(target);
+      var effect = incurredEffect.ApplyTo(target);
       effect.PreCalculateEffect(context, result);
-      target.AddStatusEffect(effect);
       // Animation options should definitely not be here... a future problem.
       context.Actor.FaceTowards(target.Position);
       context.Actor.PlayOneOffAnimation(AnimationNames.Attack);

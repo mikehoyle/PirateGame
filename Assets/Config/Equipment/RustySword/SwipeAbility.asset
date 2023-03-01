@@ -49,7 +49,7 @@ MonoBehaviour:
     - rid: 4252309007281946677
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 1
+        value: 2
     - rid: 4252309007281946678
       type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:

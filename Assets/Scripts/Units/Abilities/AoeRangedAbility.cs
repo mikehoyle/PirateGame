@@ -53,7 +53,7 @@ namespace Units.Abilities {
 
     private void OnDetermineAbilityEffectiveness(
         AbilityExecutionContext context, AreaOfEffect aoe, float skillTestResult) {
-      var instanceFactory = new StatusEffectInstanceFactory(incurredEffect, context, skillTestResult);
+      var instanceFactory = new StatusEffectApplier(incurredEffect, context, skillTestResult);
       encounterEvents.applyAoeEffect.Raise(aoe, instanceFactory);
       // TODO(P1): Account for animation time
       encounterEvents.abilityExecutionEnd.Raise();
