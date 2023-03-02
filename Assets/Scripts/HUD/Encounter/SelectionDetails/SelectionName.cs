@@ -1,4 +1,5 @@
-﻿using RuntimeVars.Encounters.Events;
+﻿using Encounters;
+using RuntimeVars.Encounters.Events;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,9 +19,9 @@ namespace HUD.Encounter.SelectionDetails {
       encounterEvents.unitSelected.UnregisterListener(OnUnitSelected);
     }
     
-    private void OnUnitSelected(UnitController unit) {
+    private void OnUnitSelected(EncounterActor unit) {
       if (unit != null) {
-        _text.text = unit.Metadata.GetName();
+        _text.text = unit.EncounterState.metadata.GetName();
       }
     }
   }

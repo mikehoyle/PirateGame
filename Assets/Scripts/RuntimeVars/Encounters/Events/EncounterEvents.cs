@@ -20,7 +20,7 @@ namespace RuntimeVars.Encounters.Events {
     public EmptyGameEvent newRound;
     public ObjectClickedEvent objectClicked;
     public EmptyGameEvent playerTurnEnd;
-    public PlayerUnitEvent unitSelected;
+    public UnitEvent unitSelected;
     public AoeEffectEvent applyAoeEffect;
     public EncounterActorEvent unitAddedMidEncounter;
     public EmptyGameEvent unitDeath;

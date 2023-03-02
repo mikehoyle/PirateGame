@@ -39,7 +39,7 @@ namespace Encounters.Obstacles {
     }
 
     private void TryCollect() {
-      if (!currentSelection.TryGetUnit<UnitController>(out var playerActor)) {
+      if (!currentSelection.TryGetUnit<PlayerUnitController>(out var playerActor)) {
         return;
       }
       

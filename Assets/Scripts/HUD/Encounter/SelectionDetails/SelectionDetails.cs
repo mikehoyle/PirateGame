@@ -1,4 +1,5 @@
-﻿using RuntimeVars.Encounters.Events;
+﻿using Encounters;
+using RuntimeVars.Encounters.Events;
 using Units;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace HUD.Encounter.SelectionDetails {
       gameObject.SetActive(false);
     }
 
-    private void OnUnitSelected(UnitController unit) {
+    private void OnUnitSelected(EncounterActor unit) {
       gameObject.SetActive(unit != null);
     }
   }

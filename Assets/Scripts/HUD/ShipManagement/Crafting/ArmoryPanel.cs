@@ -1,4 +1,5 @@
 ﻿using System;
+using Encounters;
 using RuntimeVars.ShipBuilder.Events;
 using State;
 using StaticConfig.Builds;
@@ -33,7 +34,7 @@ namespace HUD.ShipManagement.Crafting {
       RefreshDisplay();
     }
 
-    private void OnOpenCharacterSheet(UnitController _) {
+    private void OnOpenCharacterSheet(EncounterActor _) {
       RefreshDisplay();
     }
 

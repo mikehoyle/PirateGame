@@ -1,4 +1,5 @@
 ﻿using Common;
+using Encounters;
 using RuntimeVars.Encounters;
 using RuntimeVars.ShipBuilder.Events;
 using State;
@@ -15,7 +16,7 @@ namespace HUD.ShipManagement.CharacterSheet {
     
     private Text _text;
     private bool _characterSheetActive;
-    private UnitController _unit;
+    private PlayerUnitController _unit;
 
     private void Awake() {
       shipBuilderEvents.openCharacterSheet.RegisterListener(OnOpenCharacterSheet);
@@ -31,16 +32,19 @@ namespace HUD.ShipManagement.CharacterSheet {
       shipBuilderEvents.attemptEquipItem.UnregisterListener(OnAttemptEquipItem);
     }
 
-    private void OnOpenCharacterSheet(UnitController unit) {
-      _unit = unit;
-      Refresh(unit);
+    private void OnOpenCharacterSheet(EncounterActor unit) {
+      if (unit is not PlayerUnitController playerUnit) {
+        return;
+      }
+      _unit = playerUnit;
+      Refresh(playerUnit);
     }
     
     private void OnItemEquipped(EquipmentItemInstance param) {
       Refresh(_unit);
     }
 
-    private void Refresh(UnitController unit) {
+    private void Refresh(PlayerUnitController unit) {
       _characterSheetActive = true;
       _text.text = $"{unit.Metadata.GetName()}\n\n";
       foreach (var equipmentSlot in equipmentSlots) {
@@ -59,7 +63,7 @@ namespace HUD.ShipManagement.CharacterSheet {
     private void OnAttemptEquipItem(EquipmentItemInstance itemInstance) {
       if (!_characterSheetActive
           || !currentSelection.selectedUnit.TryGet(out var unit)
-          || unit is not UnitController playerUnit) {
+          || unit is not PlayerUnitController playerUnit) {
         return;
       }
       

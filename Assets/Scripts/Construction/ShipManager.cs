@@ -102,7 +102,7 @@ namespace Construction {
       
       var targetTile = _terrain.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
       var clickedObject = SceneTerrain.GetTileOccupant(targetTile);
-      if (currentSelection.TryGetUnit<UnitController>(out var playerUnit)
+      if (currentSelection.TryGetUnit<PlayerUnitController>(out var playerUnit)
           && _terrain.IsTileEligibleForUnitOccupation(targetTile)) {
         playerUnit.SetShipPosition(targetTile);
         ClearSelection();
@@ -137,7 +137,7 @@ namespace Construction {
         return;
       }
 
-      if (selectedUnit is not UnitController playerUnit) {
+      if (selectedUnit is not PlayerUnitController playerUnit) {
         return;
       }
 

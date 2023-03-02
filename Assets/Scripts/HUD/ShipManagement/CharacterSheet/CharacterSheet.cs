@@ -1,4 +1,5 @@
-﻿using PixelsoftGames.PixelUI;
+﻿using Encounters;
+using PixelsoftGames.PixelUI;
 using RuntimeVars.ShipBuilder.Events;
 using Units;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace HUD.ShipManagement.CharacterSheet {
       shipBuilderEvents.closeCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
     }
 
-    private void OnOpenCharacterSheet(UnitController unit) {
+    private void OnOpenCharacterSheet(EncounterActor unit) {
       _canvas.enabled = true;
       _window.ActivateContentPane(0);
     }

@@ -80,7 +80,7 @@ namespace Encounters.Managers {
       encounterEvents.playerTurnStart.Raise();
     }
 
-    private void OnAbilitySelected(UnitController actor, UnitAbility ability, Vector3Int source) {
+    private void OnAbilitySelected(PlayerUnitController actor, UnitAbility ability, Vector3Int source) {
       _gridIndicators.Clear();
       ability.OnSelected(actor, _gridIndicators, source);
     }

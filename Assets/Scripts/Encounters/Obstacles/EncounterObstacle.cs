@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using HUD.Encounter.HoverDetails;
+﻿using HUD.Encounter.HoverDetails;
 using StaticConfig.Encounters;
 using Terrain;
 using UnityEngine;

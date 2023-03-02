@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6e1b4e36f741a29af748fea1cd7b85, type: 3}
   m_Name: DebugEncounter
   m_EditorClassIdentifier: 
-  difficulty: 0
+  difficulty: 3
   isCovered: 1
   coordinates:
     X: 0
@@ -22,24 +22,16 @@ MonoBehaviour:
     m_keys:
     - {x: 0, y: 0, z: 0}
     - {x: 0, y: 1, z: 0}
-    - {x: 0, y: 2, z: 0}
-    - {x: 0, y: 3, z: 0}
     - {x: 0, y: 4, z: 0}
     - {x: 0, y: 5, z: 0}
     - {x: 0, y: 6, z: 0}
     - {x: 0, y: 7, z: 0}
-    - {x: 0, y: 8, z: 0}
-    - {x: 0, y: 9, z: 0}
     - {x: 1, y: 0, z: 0}
     - {x: 1, y: 1, z: 0}
-    - {x: 1, y: 2, z: 0}
-    - {x: 1, y: 3, z: 0}
     - {x: 1, y: 4, z: 0}
     - {x: 1, y: 5, z: 0}
     - {x: 1, y: 6, z: 0}
     - {x: 1, y: 7, z: 0}
-    - {x: 1, y: 8, z: 0}
-    - {x: 1, y: 9, z: 0}
     - {x: 2, y: 0, z: 0}
     - {x: 2, y: 1, z: 0}
     - {x: 2, y: 2, z: 0}
@@ -48,8 +40,6 @@ MonoBehaviour:
     - {x: 2, y: 5, z: 0}
     - {x: 2, y: 6, z: 0}
     - {x: 2, y: 7, z: 0}
-    - {x: 2, y: 8, z: 0}
-    - {x: 2, y: 9, z: 0}
     - {x: 3, y: 0, z: 0}
     - {x: 3, y: 1, z: 0}
     - {x: 3, y: 2, z: 0}
@@ -58,8 +48,6 @@ MonoBehaviour:
     - {x: 3, y: 5, z: 0}
     - {x: 3, y: 6, z: 0}
     - {x: 3, y: 7, z: 0}
-    - {x: 3, y: 8, z: 0}
-    - {x: 3, y: 9, z: 0}
     - {x: 4, y: 0, z: 0}
     - {x: 4, y: 1, z: 0}
     - {x: 4, y: 2, z: 0}
@@ -68,8 +56,6 @@ MonoBehaviour:
     - {x: 4, y: 5, z: 0}
     - {x: 4, y: 6, z: 0}
     - {x: 4, y: 7, z: 0}
-    - {x: 4, y: 8, z: 0}
-    - {x: 4, y: 9, z: 0}
     - {x: 5, y: 0, z: 0}
     - {x: 5, y: 1, z: 0}
     - {x: 5, y: 2, z: 0}
@@ -78,8 +64,6 @@ MonoBehaviour:
     - {x: 5, y: 5, z: 0}
     - {x: 5, y: 6, z: 0}
     - {x: 5, y: 7, z: 0}
-    - {x: 5, y: 8, z: 0}
-    - {x: 5, y: 9, z: 0}
     - {x: 6, y: 0, z: 0}
     - {x: 6, y: 1, z: 0}
     - {x: 6, y: 2, z: 0}
@@ -88,8 +72,6 @@ MonoBehaviour:
     - {x: 6, y: 5, z: 0}
     - {x: 6, y: 6, z: 0}
     - {x: 6, y: 7, z: 0}
-    - {x: 6, y: 8, z: 0}
-    - {x: 6, y: 9, z: 0}
     - {x: 7, y: 0, z: 0}
     - {x: 7, y: 1, z: 0}
     - {x: 7, y: 2, z: 0}
@@ -97,42 +79,40 @@ MonoBehaviour:
     - {x: 7, y: 4, z: 0}
     - {x: 7, y: 5, z: 0}
     - {x: 7, y: 6, z: 0}
-    - {x: 8, y: 0, z: 0}
-    - {x: 8, y: 1, z: 0}
-    - {x: 8, y: 2, z: 0}
-    - {x: 8, y: 3, z: 0}
-    - {x: 8, y: 4, z: 0}
-    - {x: 8, y: 5, z: 0}
-    - {x: 8, y: 6, z: 0}
-    m_values: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    - {x: 7, y: 7, z: 0}
+    m_values: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   collectables:
     m_keys:
-    - {x: 8, y: 2, z: 0}
-    - {x: 8, y: 3, z: 0}
-    - {x: 7, y: 5, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 6, y: 2, z: 0}
+    - {x: 1, y: 0, z: 0}
     m_values:
     - contents:
         m_keys:
         - {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
-        m_values: 1d000000
+        m_values: 1c000000
     - contents:
         m_keys:
         - {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
-        m_values: 12000000
+        m_values: 16000000
     - contents:
         m_keys:
         - {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
-        m_values: 1b000000
+        m_values: 1a000000
   obstacles:
     m_keys:
-    - {x: 5, y: 5, z: 0}
-    - {x: 2, y: 2, z: 0}
-    - {x: 7, y: 6, z: 0}
-    - {x: 4, y: 7, z: 0}
+    - {x: 2, y: 0, z: 0}
+    - {x: 0, y: 4, z: 0}
+    - {x: 7, y: 5, z: 0}
+    - {x: 5, y: 0, z: 0}
     m_values:
     - maxHp: 10
       currentHp: 10
-      sprite: {fileID: -746317878, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
+      sprite: {fileID: 1723487272, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
+      size: {x: 1, y: 1}
+    - maxHp: 10
+      currentHp: 10
+      sprite: {fileID: 813290875, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
       size: {x: 1, y: 1}
     - maxHp: 10
       currentHp: 10
@@ -142,17 +122,13 @@ MonoBehaviour:
       currentHp: 10
       sprite: {fileID: 813290875, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
       size: {x: 1, y: 1}
-    - maxHp: 10
-      currentHp: 10
-      sprite: {fileID: 1723487272, guid: 5cd954b2476be1e4183fc410c4673bf0, type: 3}
-      size: {x: 1, y: 1}
   enemies:
   - metadata: {fileID: 11400000, guid: ca38211c7c0899642a887a4377f995f5, type: 2}
     resources:
     - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
       max: 20
       min: 0
-      current: 0
+      current: 20
     - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
       max: 0
       min: 0
@@ -161,6 +137,40 @@ MonoBehaviour:
       max: 2
       min: 0
       current: 2
-    position: {x: 3, y: 3, z: 0}
+    position: {x: 2, y: 5, z: 0}
+    faction: 1
+    facingDirection: 2
+  - metadata: {fileID: 11400000, guid: 4a87f39f45dee124b9d070185ad4cbf0, type: 2}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 15
+      min: 0
+      current: 15
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 4
+      min: 0
+      current: 4
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 4, y: 7, z: 0}
+    faction: 1
+    facingDirection: 2
+  - metadata: {fileID: 11400000, guid: 4a87f39f45dee124b9d070185ad4cbf0, type: 2}
+    resources:
+    - exhaustibleResource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+      max: 15
+      min: 0
+      current: 9
+    - exhaustibleResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+      max: 4
+      min: 0
+      current: 4
+    - exhaustibleResource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+      max: 2
+      min: 0
+      current: 2
+    position: {x: 4, y: 1, z: 0}
     faction: 1
     facingDirection: 2

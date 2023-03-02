@@ -28,7 +28,7 @@ namespace Construction {
 
     private void TryProvideAbility() {
       if (Metadata.providedAbility.ability == null
-          || !currentSelection.TryGetUnit<UnitController>(out var playerActor)
+          || !currentSelection.TryGetUnit<PlayerUnitController>(out var playerActor)
           || !Metadata.providedAbility.ability.CanAfford(playerActor)) {
         return;
       }

@@ -6,6 +6,8 @@ using Common.Animation;
 using Common.Events;
 using Encounters.Effects;
 using HUD.Encounter.HoverDetails;
+using Optional;
+using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
@@ -18,6 +20,7 @@ using UnityEngine;
 namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable, IDisplayDetailsProvider {
     [SerializeField] protected EncounterEvents encounterEvents;
+    [SerializeField] protected CurrentSelection currentSelection;
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
     
     private UnitMover _mover;
@@ -51,11 +54,13 @@ namespace Encounters {
 
     protected virtual void OnEnable() {
       encounterEvents.applyAoeEffect.RegisterListener(OnApplyAoeEffect);
+      encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
       TurnPreStartEvent.RegisterListener(PerformNewRoundSetup);
     }
 
     protected virtual void OnDisable() {
       encounterEvents.applyAoeEffect.UnregisterListener(OnApplyAoeEffect);
+      encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
       TurnPreStartEvent.UnregisterListener(PerformNewRoundSetup);
     }
 
@@ -82,6 +87,19 @@ namespace Encounters {
     private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffectApplier effect) {
       if (aoe.AffectsPoint(Position)) {
         effect.ApplyTo(this);
+      }
+    }
+    
+    private void OnObjectClicked(GameObject clickedObject) {
+      if (clickedObject == gameObject) {
+        if (currentSelection.selectedUnit.Contains(this)) {
+          // Unit clicked but already selected, do nothing.
+          return;
+        }
+        
+        currentSelection.selectedUnit = Option.Some(this);
+        currentSelection.selectedAbility = Option.None<UnitAbility>();
+        encounterEvents.unitSelected.Raise(this);
       }
     }
 

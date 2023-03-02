@@ -31,7 +31,7 @@ namespace Construction {
 
       if (includeUnits) {
         foreach (var unit in playerState.roster) {
-          var unitController = Instantiate(unitPrefab).GetComponent<UnitController>();
+          var unitController = Instantiate(unitPrefab).GetComponent<PlayerUnitController>();
           unitController.Init(unit.NewEncounter(offset));
         }
       }

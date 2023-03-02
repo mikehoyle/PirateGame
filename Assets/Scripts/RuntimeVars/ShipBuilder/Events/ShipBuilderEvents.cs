@@ -8,11 +8,11 @@ namespace RuntimeVars.ShipBuilder.Events {
     public BuildSelectedEvent buildSelected;
     public EmptyGameEvent enterConstructionMode;
     public EmptyGameEvent exitConstructionMode;
-    public PlayerUnitEvent unitSelected;
+    public UnitEvent unitSelected;
     public ObjectClickedEvent objectClicked;
-    public PlayerUnitEvent openCharacterSheet;
+    public UnitEvent openCharacterSheet;
     public EmptyGameEvent closeCharacterSheet;
-    public PlayerUnitEvent unitLevelUpStat;
+    public UnitEvent unitLevelUpStat;
     public BuildSelectedEvent inGameBuildClicked;
     public EmptyGameEvent closeCraftingMenu;
     public EquipmentEvent equipmentCraftedEvent;

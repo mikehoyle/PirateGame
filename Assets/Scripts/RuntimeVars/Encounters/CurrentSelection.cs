@@ -34,17 +34,17 @@ namespace RuntimeVars.Encounters {
       Clear();
     }
 
-    public void SelectAbility(UnitController actor, UnitAbility ability, Vector3Int? source = null) {
+    public void SelectAbility(PlayerUnitController actor, UnitAbility ability, Vector3Int? source = null) {
       selectedAbility = Option.Some(ability);
       abilitySource = source ?? actor.Position;
       encounterEvents.abilitySelected.Raise(actor, ability, abilitySource);
     }
 
-    public bool TryGet(out UnitAbility ability, out UnitController playerUnit) {
+    public bool TryGet(out UnitAbility ability, out PlayerUnitController playerUnit) {
       if (selectedAbility.HasValue && selectedUnit.HasValue) {
         ability = selectedAbility.ValueOrFailure();
         var unit = selectedUnit.ValueOrFailure();
-        if (unit is UnitController pUnit) {
+        if (unit is PlayerUnitController pUnit) {
           playerUnit = pUnit;
           return true;
         }

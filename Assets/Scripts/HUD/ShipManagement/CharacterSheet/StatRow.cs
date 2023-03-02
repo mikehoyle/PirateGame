@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Common;
+using Encounters;
 using Optional.Collections;
 using RuntimeVars.Encounters;
 using RuntimeVars.ShipBuilder.Events;
@@ -35,9 +36,12 @@ namespace HUD.ShipManagement.CharacterSheet {
       shipBuilderEvents.unitLevelUpStat.UnregisterListener(UpdateDisplay);
     }
 
-    private void UpdateDisplay(UnitController unit) {
-      _levelUpButton.gameObject.SetActive(IsLevelUpAvailable(unit.Metadata));
-      foreach (var stat in unit.Metadata.stats) {
+    private void UpdateDisplay(EncounterActor unit) {
+      if (unit is not PlayerUnitController playerUnit) {
+        return;
+      }
+      _levelUpButton.gameObject.SetActive(IsLevelUpAvailable(playerUnit.Metadata));
+      foreach (var stat in playerUnit.Metadata.stats) {
         if (stat.stat == displayStat) {
           _text.text = $"{displayStat.displayName}: {stat.current}/{stat.stat.maxValue}\n";
           return;
@@ -67,7 +71,7 @@ namespace HUD.ShipManagement.CharacterSheet {
       foreach (var stat in playerUnit.stats) {
         if (stat.stat == displayStat) {
           stat.LevelUp();
-          shipBuilderEvents.unitLevelUpStat.Raise((UnitController)unit);
+          shipBuilderEvents.unitLevelUpStat.Raise((PlayerUnitController)unit);
           return;
         }
       }

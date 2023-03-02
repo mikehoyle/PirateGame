@@ -1,4 +1,5 @@
-﻿using RuntimeVars.ShipBuilder.Events;
+﻿using Encounters;
+using RuntimeVars.ShipBuilder.Events;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,9 +18,12 @@ namespace HUD.ShipManagement.CharacterSheet {
       shipBuilderEvents.openCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
     }
 
-    private void OnOpenCharacterSheet(UnitController unit) {
-      _text.text = $"{unit.Metadata.GetName()}\n\n";
-      _text.text += $"Level: {unit.Metadata.currentLevel}";
+    private void OnOpenCharacterSheet(EncounterActor unit) {
+      if (unit is not PlayerUnitController playerUnit) {
+        return;
+      }
+      _text.text = $"{playerUnit.Metadata.GetName()}\n\n";
+      _text.text += $"Level: {playerUnit.Metadata.currentLevel}";
     }
   }
 }

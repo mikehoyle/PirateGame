@@ -9,5 +9,5 @@ namespace RuntimeVars.Encounters.Events {
   /// Params: actor, ability, source
   /// </summary>
   [CreateAssetMenu(menuName = "Events/Encounters/AbilitySelected")]
-  public class AbilitySelectedEvent : ParameterizedGameEvent<UnitController, UnitAbility, Vector3Int> { }
+  public class AbilitySelectedEvent : ParameterizedGameEvent<PlayerUnitController, UnitAbility, Vector3Int> { }
 }

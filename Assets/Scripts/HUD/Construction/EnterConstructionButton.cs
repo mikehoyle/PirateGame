@@ -1,4 +1,5 @@
 ﻿using System;
+using Encounters;
 using RuntimeVars.ShipBuilder.Events;
 using Units;
 using UnityEngine;
@@ -46,7 +47,7 @@ namespace HUD.Construction {
       _currentlyInConstructionMode = false;
     }
 
-    private void OnOpenCharacterSheet(UnitController _) {
+    private void OnOpenCharacterSheet(EncounterActor _) {
       gameObject.SetActive(false);
     }
     

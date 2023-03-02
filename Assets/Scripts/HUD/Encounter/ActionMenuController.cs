@@ -1,4 +1,6 @@
-﻿using RuntimeVars.Encounters.Events;
+﻿using Encounters;
+using RuntimeVars.Encounters.Events;
+using State.Unit;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,9 +39,9 @@ namespace HUD.Encounter {
       _canvas.enabled = false;
     }
 
-    private void RefreshActionMenu(UnitController unit) {
+    private void RefreshActionMenu(EncounterActor unit) {
       Clear();
-      if (unit == null) {
+      if (unit == null || unit.EncounterState.faction != UnitFaction.PlayerParty) {
         return;
       }
       
