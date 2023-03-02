@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Encounters.Effects {
   public class AppliedPerRoundExhaustibleResourceStatusEffect : AppliedPerRoundStatusEffect {
-    private Dictionary<ExhaustibleResource, float> _calculatedEffects;
+    private readonly Dictionary<ExhaustibleResource, float> _calculatedEffects = new();
     
     public override void PreCalculateEffect(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
       _calculatedEffects.Clear();

@@ -23,6 +23,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1371288965870780416
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 2
     - rid: 4252309007281946682
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
@@ -39,7 +43,10 @@ MonoBehaviour:
         - resource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
           value:
             rid: 4252309007281946684
+        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+          value:
+            rid: 1371288965870780416
     - rid: 4252309007281946684
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 10
+        value: 2

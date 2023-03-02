@@ -10,9 +10,9 @@ namespace State.Unit {
   [CreateAssetMenu(menuName = "State/UnitMetadata")]
   public class PlayerUnitMetadata : UnitMetadata {
     // TODO(P3): Make these configurable in an asset.
-    private const int BaseHp = 10;
-    private const int HpPerLevel = 10;
-    private const int BaseMovement = 4;
+    private const int BaseHp = 4;
+    private const int HpPerLevel = 9;
+    private const int BaseMovement = 3;
     private const int MovementPerLevel = 1;
 
     [SerializeField] private UnitAbilitySet defaultAbilities;
