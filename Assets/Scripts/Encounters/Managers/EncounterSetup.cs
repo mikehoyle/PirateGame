@@ -52,12 +52,7 @@ namespace Encounters.Managers {
 
     private void SetUpEnemyUnits() {
       foreach (var enemy in _encounter.enemies) {
-        if (enemy.metadata is not EnemyUnitMetadata enemyMetadata) {
-          Debug.LogWarning("Non-enemy in enemy encounter");
-          continue;
-        }
-        var unitController = Instantiate(enemyMetadata.prefab).GetComponent<EnemyUnitController>();
-        unitController.Init(enemy);
+        encounterEvents.spawnEnemyRequest.Raise(enemy, 1);
       }
     }
 

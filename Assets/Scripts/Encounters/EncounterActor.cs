@@ -25,7 +25,8 @@ namespace Encounters {
     
     private UnitMover _mover;
     private PolygonCollider2D _collider;
-    
+    private UnitShadow _shadow;
+
     public Vector3Int Position {
       get => EncounterState.position;
       set => EncounterState.position = value;
@@ -47,6 +48,7 @@ namespace Encounters {
     protected virtual void Awake() {
       _mover = GetComponent<UnitMover>();
       _collider = GetComponent<PolygonCollider2D>();
+      _shadow = GetComponentInChildren<UnitShadow>();
       AnimationState = AnimationNames.Idle;
       StatusEffects = new GameObject("Status Effects");
       StatusEffects.transform.parent = transform;
@@ -120,7 +122,15 @@ namespace Encounters {
         callback();
         return;
       }
-      _mover.ExecuteMovement(path.Path, callback);
+      StartCoroutine(_mover.ExecuteMovement(path.Path, callback));
+    }
+
+    public void DropIn(Action callback) {
+      StartCoroutine(_mover.DropIn(callback));
+    }
+
+    public void EnableShadow(bool isEnabled) {
+      _shadow.SetEnabled(isEnabled);
     }
 
     public void ExpendResource(ExhaustibleResource resource, int amount) {

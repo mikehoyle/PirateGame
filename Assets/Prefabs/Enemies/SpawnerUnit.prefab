@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -160105272764826462, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
+      propertyPath: dropInShake
+      value: 
+      objectReference: {fileID: 11400000, guid: 2c933a6da9294e941adc345869bca4a2, type: 2}
     - target: {fileID: 850124305682205254, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: 0.5728592
@@ -414,10 +418,10 @@ PrefabInstance:
     - target: {fileID: 5042581022930790278, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2956541825629854486, guid: 4aa275af0bc3d6d4db3f7a13b8fc20e7, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5042581022930790278, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5378244717959814381, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
       propertyPath: m_LocalPosition.x

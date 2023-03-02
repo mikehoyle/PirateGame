@@ -1,7 +1,6 @@
 ﻿using Encounters;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
-using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,41 +15,41 @@ namespace HUD.Encounter {
     private void Awake() {
       _canvas = GetComponent<Canvas>();
       _container = GetComponentInChildren<HorizontalLayoutGroup>();
-      _canvas.enabled = false;
+      SetVisible(false);
     }
 
     private void OnEnable() {
       encounterEvents.unitSelected.RegisterListener(RefreshActionMenu);
-      encounterEvents.playerTurnStart.RegisterListener(OnPlayerTurnStart);
       encounterEvents.playerTurnEnd.RegisterListener(OnPlayerTurnEnd);
     }
 
     private void OnDisable() {
       encounterEvents.unitSelected.UnregisterListener(RefreshActionMenu);
-      encounterEvents.playerTurnStart.UnregisterListener(OnPlayerTurnStart);
       encounterEvents.playerTurnEnd.UnregisterListener(OnPlayerTurnEnd);
     }
 
-    private void OnPlayerTurnStart() {
-      _canvas.enabled = true;
-    }
-
     private void OnPlayerTurnEnd() {
-      _canvas.enabled = false;
+      SetVisible(false);
     }
 
     private void RefreshActionMenu(EncounterActor unit) {
       Clear();
       if (unit == null || unit.EncounterState.faction != UnitFaction.PlayerParty) {
+        SetVisible(false);
         return;
       }
       
+      SetVisible(true);
       var currentHotkey = 1;
       foreach (var capableAction in unit.GetAllCapableAbilities()) {
         var item = Instantiate(availableActionPrefab, _container.transform).GetComponent<AvailableAction>();
         item.Init(capableAction.CostString(), currentHotkey, capableAction.displayString);
         currentHotkey++;
       }
+    }
+
+    private void SetVisible(bool isVisible) {
+      _canvas.enabled = isVisible;
     }
 
     private void Clear() {

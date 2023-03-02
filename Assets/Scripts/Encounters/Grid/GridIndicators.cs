@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 
 namespace Encounters.Grid {
   public class GridIndicators : MonoBehaviour {

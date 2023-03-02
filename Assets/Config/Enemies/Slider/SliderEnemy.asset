@@ -22,7 +22,7 @@ MonoBehaviour:
   prefab: {fileID: 6882444367959471412, guid: e4763d54310b49c4eb6057e996a56310, type: 3}
   sprite: {fileID: 11400000, guid: 69d8c2fe878279c45a21b8269d2b96e8, type: 2}
   abilities:
-  - {fileID: 11400000, guid: 88188d1d1aed7ea4da8f9d597dd3e74e, type: 2}
+  - {fileID: 11400000, guid: 77d22039c76803b48ade156b604377f0, type: 2}
   spawnConfig:
     minDifficultyRating: 0
     maxDifficultyRating: 100

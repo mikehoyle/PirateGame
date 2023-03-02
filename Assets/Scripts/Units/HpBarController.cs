@@ -1,52 +1,33 @@
 ﻿using System;
+using Common;
 using Encounters;
 using RuntimeVars.Encounters.Events;
 using StaticConfig.Units;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Units {
   public class HpBarController : MonoBehaviour {
     [SerializeField] private ExhaustibleResource hpResource;
-    [SerializeField] private EncounterEvents encounterEvents;
     
     private Slider _hpBar;
     private ExhaustibleResourceTracker _hpTracker;
 
     private void Awake() {
       _hpBar = GetComponent<Slider>();
-      encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
-      encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
-      encounterEvents.unitAddedMidEncounter.RegisterListener(OnUnitAdded);
-      gameObject.SetActive(false);
-    }
-
-    private void OnDestroy() {
-      encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
-      encounterEvents.encounterEnd.UnregisterListener(OnEncounterEnd);
-      encounterEvents.unitAddedMidEncounter.UnregisterListener(OnUnitAdded);
-    }
-
-    private void OnEncounterStart() {
-      // Only display during encounters.
-      gameObject.SetActive(true);
-    }
-
-    private void OnUnitAdded(EncounterActor _) {
-      // If this event is ever fired, we're mid-encounter, everyone should be showing HP bars
-      // (but most importantly, the new units should).
-      gameObject.SetActive(true);
-    }
-
-    private void OnEncounterEnd(EncounterOutcome _) {
-      gameObject.SetActive(false);
     }
 
     private void Start() {
+      if (SceneManager.GetActiveScene().name != Scenes.Name.Encounter.SceneName()) {
+        // This is super janky, but the easiest way for now.
+        gameObject.SetActive(false);
+        return;
+      }
+      
       var unit = GetComponentInParent<EncounterActor>();
-
       if (!unit.EncounterState.TryGetResourceTracker(hpResource, out _hpTracker)) {
-        enabled = false;
+        gameObject.SetActive(false);
         return;
       }
       

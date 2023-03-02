@@ -51,13 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
-  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
-  activeStatusEffects: []
-  playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
-  references:
-    version: 2
-    RefIds: []
+  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
 --- !u!114 &2573591084334462572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +67,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedUnitsPerSec: 3.5
+  dropInHeight: 6
+  dropInGravity: 15
+  dropInShake: {fileID: 11400000, guid: 2c933a6da9294e941adc345869bca4a2, type: 2}
 --- !u!60 &7100612996877513888
 PolygonCollider2D:
   m_ObjectHideFlags: 0

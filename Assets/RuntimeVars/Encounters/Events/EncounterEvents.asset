@@ -21,6 +21,7 @@ MonoBehaviour:
   encounterEnd: {fileID: 11400000, guid: 16da1ca214aa0eb4cae9b744fc101253, type: 2}
   enemyTurnPreStart: {fileID: 11400000, guid: 5c885d554d23c604a81644fcc037b797, type: 2}
   enemyTurnStart: {fileID: 11400000, guid: 4e22b90e9d6a96149b1e5151f64ef3e9, type: 2}
+  enemyTurnPreEnd: {fileID: 11400000, guid: 39b3372281c6b4446a1df108fb77de12, type: 2}
   enemyTurnEnd: {fileID: 11400000, guid: e40c5da67de458c428a0e7cc203b181e, type: 2}
   playerTurnPreStart: {fileID: 11400000, guid: 3db9704573628fd40adc8245700b5a38, type: 2}
   playerTurnStart: {fileID: 11400000, guid: 154a6568ff8eb07468504f035bb2d5c4, type: 2}
@@ -32,3 +33,4 @@ MonoBehaviour:
   applyAoeEffect: {fileID: 11400000, guid: cca934d769a147a4cb12b0c02992b71f, type: 2}
   unitAddedMidEncounter: {fileID: 11400000, guid: 631a0a2c1baa7894381d1bf497cae90b, type: 2}
   unitDeath: {fileID: 11400000, guid: 5cca42b05c9abb046b7641d5b3304d2a, type: 2}
+  spawnEnemyRequest: {fileID: 11400000, guid: cd077312e8a28cf448fbd0ad65638c49, type: 2}

@@ -32,6 +32,9 @@ namespace Common {
       return Math.Abs(source.x - destination.x) + Math.Abs(source.y - destination.y);
     }
 
+    /// <summary>
+    /// From the base (0,0), moving clockwise.
+    /// </summary>
     public static Vector2[] GetFootprintPolygon(Vector2Int size) {
       return new Vector2[] {
           SceneTerrain.CellBaseWorldStatic(new Vector3Int(0, 0)),

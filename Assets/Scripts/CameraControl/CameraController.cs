@@ -1,18 +1,22 @@
-﻿using System;
+﻿using Common;
+using MilkShake;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace CameraControl {
   public class CameraController : MonoBehaviour {
     public float moveTime;
+    public ShakePreset defaultShake;
     
     private bool _isPointFocused;
     private Vector3 _focusPoint;
     private Vector3 _velocity = Vector3.zero;
     private Camera _camera;
+    private Shaker _shaker;
 
     private void Awake() {
       _camera = Camera.main;
+      _shaker = GetComponentInChildren<Shaker>();
     }
 
     private void LateUpdate() {
@@ -39,7 +43,7 @@ namespace CameraControl {
     }
 
     public static CameraController Get() {
-      return Camera.main.GetComponent<CameraController>();
+      return GameObject.FindWithTag(Tags.MainCameraContainer).GetComponent<CameraController>();
     }
   }
 }

@@ -31,6 +31,11 @@ namespace Encounters.AI {
     }
 
     private void OnEnemyTurnStart() {
+      if (enemiesInEncounter.Count == 0) {
+        encounterEvents.enemyTurnPreEnd.Raise();
+        return;
+      }
+      
       _enemyMovementsComplete = 0;
       _actionPlans = new();
       var claimedTiles = new List<Vector3Int>();
@@ -61,7 +66,7 @@ namespace Encounters.AI {
         }
       }
       // TODO(P0): Big! Actually wait for actions to complete
-      encounterEvents.enemyTurnEnd.Raise();
+      encounterEvents.enemyTurnPreEnd.Raise();
     }
   }
 }
