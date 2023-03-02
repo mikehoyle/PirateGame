@@ -23,6 +23,10 @@ namespace StaticConfig.Units {
       current = Math.Max(min, current - amount);
     }
 
+    public string DisplayString() {
+      return $"{exhaustibleResource.displayName}: {current}/{max}";
+    }
+
     public static ExhaustibleResourceTracker NewTracker(ExhaustibleResource resource, int max) {
       return new ExhaustibleResourceTracker() {
           exhaustibleResource = resource,

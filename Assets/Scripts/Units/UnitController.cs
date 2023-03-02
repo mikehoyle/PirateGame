@@ -43,6 +43,7 @@ namespace Units {
       playerUnitsInEncounter.Remove(this);
       encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
       encounterEvents.abilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
+      encounterEvents.unitSelected.UnregisterListener(OnUnitSelected);
       encounterEvents.trySelectAbilityByIndex.UnregisterListener(TrySelectAbility);
     }
 
@@ -59,7 +60,7 @@ namespace Units {
     }
 
     private void OnUnitSelected(UnitController selectedUnit) {
-      if (this == selectedUnit) {
+      if (selectedUnit != null && this == selectedUnit) {
         TrySelectAbility(0);
         _selectedIndicator.enabled = true;
         return;

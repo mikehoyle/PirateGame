@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Common;
 using Encounters;
+using Roy_T.AStar.Primitives;
 using StaticConfig.Terrain;
 using UnityEngine;
 
@@ -98,18 +99,24 @@ namespace Terrain {
       return result;
     }
 
-    public List<Vector3Int> GetAllViableDestinations(Vector3Int position, int moveRange) {
-      var result = new List<Vector3Int>();
+    public HashSet<Vector3Int> GetAllViableDestinations(Vector3Int position, int moveRange) {
+      var result = new HashSet<Vector3Int>();
       for (int x = -moveRange; x <= moveRange; x++) {
         var yMoveRange = moveRange - Math.Abs(x);
         for (int y = -yMoveRange; y <= yMoveRange; y++) {
-          // OPTIMIZE: memoize paths
-          var path = GetPath(position, new Vector3Int(position.x + x, position.y + y));
+          var possibleDestination = new Vector3Int(position.x + x, position.y + y);
+          if (result.Contains(possibleDestination)) {
+            // OPTIMIZE: memoize paths better
+            continue;
+          }
+          var path = GetPath(position, possibleDestination);
           if (path.IsViableAndWithinRange(moveRange)) {
-            result.Add(path.Path.Last.Value);
+            result.UnionWith(path.Path);
           }
         }
       }
+
+      result.Remove(position);
 
       return result;
     }

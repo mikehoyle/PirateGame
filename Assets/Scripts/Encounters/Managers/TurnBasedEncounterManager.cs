@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Common;
 using Controls;
 using Encounters.Grid;
@@ -25,6 +26,7 @@ namespace Encounters.Managers {
     private GridIndicators _gridIndicators;
     private SceneTerrain _terrain;
     private UiInteractionTracker _uiInteraction;
+    private Vector3Int _lastKnownHoveredTile = new(int.MaxValue, int.MaxValue, 0);
 
     private void Awake() {
       _gridIndicators = GridIndicators.Get();
@@ -114,10 +116,9 @@ namespace Encounters.Managers {
         }
       }
       enabled = false;
-    } 
+    }
 
     protected override void OnClick(Vector2 mousePosition) {
-      
       if (_uiInteraction.isPlayerHoveringUi) {
         // Ignore UI-intended events
         return;
@@ -150,11 +151,16 @@ namespace Encounters.Managers {
       }
       
       var hoveredTile = _terrain.TileAtScreenCoordinate(mousePosition);
+      if (hoveredTile == _lastKnownHoveredTile) {
+        // No need to update if the selected tile is the same
+        return;
+      }
+      _lastKnownHoveredTile = hoveredTile;
       var hoveredObject = SceneTerrain.GetTileOccupant(hoveredTile);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         ability.ShowIndicator(unit, currentSelection.abilitySource, hoveredObject, hoveredTile, _gridIndicators);
       }
-      encounterEvents.mouseHover.Raise(mousePosition);
+      encounterEvents.mouseHover.Raise(hoveredTile);
     }
 
     protected override void OnTrySelectAction(int index) {

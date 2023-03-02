@@ -59,7 +59,7 @@ MonoBehaviour:
     - rid: 4252309007281946644
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 1
+        value: 100
     - rid: 4252309007281946645
       type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:

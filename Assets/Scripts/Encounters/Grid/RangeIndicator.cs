@@ -28,6 +28,7 @@ namespace Encounters.Grid {
     }
 
     private void OnPlayerTurnEnd() {
+      Clear();
       enabled = false;
     }
 
@@ -35,9 +36,6 @@ namespace Encounters.Grid {
       enabled = true;
       Clear();
       foreach (var tile in _terrain.GetAllViableDestinations(unitPosition, unitMoveRange)) {
-        if (tile.x == 0 && tile.y == 0) {
-          continue;
-        }
         _tilemap.SetTile(tile, eligibleTileOverlay);
       }
     }

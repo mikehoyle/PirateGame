@@ -40,13 +40,29 @@ namespace RuntimeVars.Encounters {
       encounterEvents.abilitySelected.Raise(actor, ability, abilitySource);
     }
 
-    public bool TryGet(out UnitAbility ability, out EncounterActor unit) {
+    public bool TryGet(out UnitAbility ability, out UnitController playerUnit) {
       if (selectedAbility.HasValue && selectedUnit.HasValue) {
         ability = selectedAbility.ValueOrFailure();
-        unit = selectedUnit.ValueOrFailure();
-        return true;
+        var unit = selectedUnit.ValueOrFailure();
+        if (unit is UnitController pUnit) {
+          playerUnit = pUnit;
+          return true;
+        }
       }
       ability = null;
+      playerUnit = null;
+      return false;
+    }
+
+    public bool TryGetUnit<T>(out T unit) where T : EncounterActor {
+      if (selectedUnit.HasValue) {
+        var untypedUnit = selectedUnit.ValueOrFailure();
+        if (untypedUnit is T typedUnit) {
+          unit = typedUnit;
+          return true;
+        }
+      }
+
       unit = null;
       return false;
     }

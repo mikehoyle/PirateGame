@@ -1,4 +1,6 @@
-﻿using Common;
+﻿using System.Collections.Generic;
+using Common;
+using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
@@ -6,7 +8,7 @@ using Units;
 using UnityEngine;
 
 namespace Construction {
-  public class EncounterConstruction : InGameConstruction {
+  public class EncounterConstruction : InGameConstruction, IDisplayDetailsProvider {
     [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private CurrentSelection currentSelection;
     
@@ -26,9 +28,8 @@ namespace Construction {
 
     private void TryProvideAbility() {
       if (Metadata.providedAbility.ability == null
-          || !currentSelection.selectedUnit.TryGet(out var actor)
-          || actor is not UnitController playerActor
-          || !Metadata.providedAbility.ability.CanAfford(actor)) {
+          || !currentSelection.TryGetUnit<UnitController>(out var playerActor)
+          || !Metadata.providedAbility.ability.CanAfford(playerActor)) {
         return;
       }
       
@@ -40,6 +41,17 @@ namespace Construction {
 
       playerActor.FaceTowards(Position);
       currentSelection.SelectAbility(playerActor, Metadata.providedAbility.ability, Position);
+    }
+    
+    public DisplayDetails GetDisplayDetails() {
+      var additionalDetails = new List<string>();
+      if (Metadata.providedAbility != null) {
+        additionalDetails.Add(Metadata.providedAbility.DisplayString());
+      }
+      return new DisplayDetails {
+          Name = Metadata.buildDisplayName,
+          AdditionalDetails = additionalDetails,
+      };
     }
   }
 }

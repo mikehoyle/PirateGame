@@ -1,4 +1,6 @@
-﻿using Common;
+﻿using System.Collections.Generic;
+using Common;
+using HUD.Encounter.HoverDetails;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using State.Encounter;
@@ -7,7 +9,7 @@ using Units;
 using UnityEngine;
 
 namespace Encounters.Obstacles {
-  public class EncounterCollectable : MonoBehaviour, IPlacedOnGrid {
+  public class EncounterCollectable : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider {
     [SerializeField] private int collectionRange = 1;
     [SerializeField] CollectedResources collectedResources;
     [SerializeField] private EncounterEvents encounterEvents;
@@ -37,8 +39,7 @@ namespace Encounters.Obstacles {
     }
 
     private void TryCollect() {
-      if (!currentSelection.selectedUnit.TryGet(out var actor)
-          || actor is not UnitController playerActor) {
+      if (!currentSelection.TryGetUnit<UnitController>(out var playerActor)) {
         return;
       }
       
@@ -58,6 +59,17 @@ namespace Encounters.Obstacles {
       //var encounter = GameState.State.world.GetActiveTile().DownCast<EncounterTile>();
       //encounter.collectables.Remove(Position);
       Destroy(gameObject);
+    }
+    
+    public DisplayDetails GetDisplayDetails() {
+      var additionalDetails = new List<string>();
+      foreach (var resource in Metadata.contents) {
+        additionalDetails.Add($"{resource.Key.displayName}: {resource.Value}");
+      }
+      return new DisplayDetails {
+          Name = "Resource Crate",
+          AdditionalDetails = additionalDetails,
+      };
     }
   }
 }

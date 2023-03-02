@@ -19,6 +19,7 @@ namespace Units.Abilities {
         GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
+      indicators.RangeIndicator.DisplayMovementRange(source, actor.EncounterState.GetResourceAmount(movementResource));
       indicators.PathIndicator.DisplayMovementPath(
           actor.Position,
           actor.EncounterState.GetResourceAmount(movementResource),

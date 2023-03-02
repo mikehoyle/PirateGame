@@ -1,4 +1,6 @@
-﻿using StaticConfig.Encounters;
+﻿using System.Collections.Generic;
+using HUD.Encounter.HoverDetails;
+using StaticConfig.Encounters;
 using Terrain;
 using UnityEngine;
 
@@ -6,7 +8,7 @@ namespace Encounters.Obstacles {
   /// <summary>
   /// Represents an obstacle placed on the grid.
   /// </summary>
-  public class EncounterObstacle : MonoBehaviour, IPlacedOnGrid {
+  public class EncounterObstacle : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider {
     private SpriteRenderer _spriteRenderer;
     
     public ObstacleConfig Metadata { get; private set; }
@@ -21,6 +23,15 @@ namespace Encounters.Obstacles {
       Position = position;
       _spriteRenderer.sprite = obstacle.sprite;
       transform.position = SceneTerrain.CellBaseWorldStatic(position);
+    }
+    public DisplayDetails GetDisplayDetails() {
+      return new DisplayDetails {
+          // TODO(P3): Give obstacles flavorful names.
+          Name = "Obstacle",
+          AdditionalDetails = new() {
+              $"HP: {Metadata.currentHp}/{Metadata.maxHp}",
+          },
+      };
     }
   }
 }

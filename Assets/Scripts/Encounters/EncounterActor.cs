@@ -5,6 +5,7 @@ using Common;
 using Common.Animation;
 using Common.Events;
 using Encounters.Effects;
+using HUD.Encounter.HoverDetails;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
@@ -15,7 +16,7 @@ using Units.Abilities.AOE;
 using UnityEngine;
 
 namespace Encounters {
-  public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable {
+  public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable, IDisplayDetailsProvider {
     [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
     
@@ -113,5 +114,16 @@ namespace Encounters {
     }
 
     protected abstract void OnDeath();
+
+    public DisplayDetails GetDisplayDetails() {
+      var additionalDetails = new List<string>();
+      foreach (var resource in EncounterState.resources) {
+        additionalDetails.Add(resource.DisplayString());
+      }
+      return new DisplayDetails {
+          Name = EncounterState.metadata.GetName(),
+          AdditionalDetails = additionalDetails,
+      };
+    }
   }
 }
