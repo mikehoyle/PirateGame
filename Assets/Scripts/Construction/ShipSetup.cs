@@ -1,4 +1,5 @@
-﻿using State;
+﻿using CameraControl;
+using State;
 using StaticConfig.Builds;
 using Terrain;
 using Units;
@@ -13,9 +14,11 @@ namespace Construction {
     [SerializeField] private GameObject inGameConstructionPrefab;
     
     private SceneTerrain _terrain;
+    private CameraCursorMover _cameraMover;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
+      _cameraMover = GetComponent<CameraCursorMover>();
     }
 
     public void SetupShip(bool includeUnits = false) {
@@ -35,6 +38,8 @@ namespace Construction {
           unitController.Init(unit.NewEncounter(offset));
         }
       }
+      // Update cursor bounds to include ship "terrain" we just added.
+      _cameraMover.SetGridBounds(_terrain.GetBoundingRect());
     }
 
     /// <summary>
@@ -56,7 +61,7 @@ namespace Construction {
 
       var construction = Instantiate(inGameConstructionPrefab, parent)
           .GetComponent<InGameConstruction>();
-      construction.Initialize(build, position);
+      construction.Initialize(build, position, isGhost);
     }
   }
 }

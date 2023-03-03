@@ -1,7 +1,5 @@
-﻿using Encounters.Enemies;
-using Encounters.Obstacles;
+﻿using Encounters.Obstacles;
 using RuntimeVars.Encounters.Events;
-using State.Unit;
 using State.World;
 using Terrain;
 using UnityEngine;

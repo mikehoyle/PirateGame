@@ -13,6 +13,8 @@ namespace Terrain {
   public class SceneTerrain : MonoBehaviour {
     public const float CellWidthInWorldUnits = 1;
     public const float CellHeightInWorldUnits = 0.5f;
+    private const float CellHalfWidth = CellWidthInWorldUnits / 2;
+    private const float CellHalfHeight = CellHeightInWorldUnits / 2;
     private const float ZHeight = 1.5f;
     private const int MaxZ = 6;
     
@@ -172,9 +174,8 @@ namespace Terrain {
     /// </summary>
     public static Vector3 CellBaseWorldStatic(Vector3Int coord) {
       return new Vector3(
-          (coord.x - coord.y) * (CellWidthInWorldUnits / 2),
-          ((coord.x + coord.y) * (CellHeightInWorldUnits / 2))
-          + (coord.z * ZHeight * (CellHeightInWorldUnits / 2)),
+          (coord.x - coord.y) * CellHalfWidth,
+          ((coord.x + coord.y) * CellHalfHeight) + (coord.z * ZHeight * CellHalfHeight),
           coord.z * ZHeight);
     }
 
@@ -184,6 +185,17 @@ namespace Terrain {
     
     public static Vector3 CellAnchorWorldStatic(Vector3Int coord) {
       return CellBaseWorldStatic(coord) + new Vector3(0, CellHeightInWorldUnits, 0);
+    }
+
+    /// <summary>
+    /// World -> Cell transformation. But notably does not confine to integer, so also includes
+    /// data on where in the cell the coordinate lies. Also ignores any Z height.
+    /// </summary>
+    public static Vector3 WorldToCell(Vector3 worldCoord) {
+      return new Vector3(
+          ((worldCoord.x / CellHalfWidth) + (worldCoord.y / CellHalfHeight)) / 2,
+          ((worldCoord.y / CellHalfHeight) - (worldCoord.x / CellHalfWidth)) / 2,
+          worldCoord.z);
     }
 
     public static bool IsMovementBlocked(Vector3Int tile) {
@@ -203,6 +215,10 @@ namespace Terrain {
       }
 
       return false;
+    }
+
+    public RectInt GetBoundingRect() {
+      return _terrainMap.GetBoundingRect();
     }
 
     public static GameObject GetTileOccupant(Vector3Int tile) {

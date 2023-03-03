@@ -16,9 +16,12 @@ namespace Construction {
       _collider = GetComponent<PolygonCollider2D>();
     }
 
-    public void Initialize(ConstructableObject constructableObject, Vector3Int position) {
+    public void Initialize(ConstructableObject constructableObject, Vector3Int position, bool isGhost = false) {
       Metadata = constructableObject;
       _spriteRenderer.sprite = constructableObject.inGameSprite;
+      if (isGhost) {
+        _spriteRenderer.color = new Color(1, 1, 1, 0.5f); // Translucent
+      }
       Position = position;
       transform.position = constructableObject.WorldPosition(position);
       _spriteRenderer.sortingLayerName = constructableObject.SortingLayer();

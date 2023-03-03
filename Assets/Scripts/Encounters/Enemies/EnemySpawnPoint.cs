@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Common;
-using Optional;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using Terrain;

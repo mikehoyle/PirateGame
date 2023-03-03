@@ -1,4 +1,7 @@
 ﻿using Controls;
+using FunkyCode.Utilities.Polygon2DTriangulation;
+using Optional;
+using Terrain;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,9 +20,11 @@ namespace CameraControl {
     private Vector3 _cameraCursorVelocity;
     private CameraController _camera;
     private GameControls _controls;
+    private Option<Rect> _bounds; 
 
     private void Awake() {
       _camera = CameraController.Get();
+      _bounds = Option.None<Rect>();
     }
     
     private void OnEnable() {
@@ -36,7 +41,15 @@ namespace CameraControl {
     }
 
     private void Update() {
-      _cameraCursor += _cameraCursorVelocity * Time.deltaTime;
+      var destination = _cameraCursor + (_cameraCursorVelocity * Time.deltaTime);
+      _bounds.Match(
+          bounds => {
+            var destinationOnGrid = SceneTerrain.WorldToCell(destination);
+            if (bounds.Contains(destinationOnGrid)) {
+              _cameraCursor = destination;
+            }
+          },
+          () => _cameraCursor = destination);
       _camera.SetFocusPoint(_cameraCursor);
     }
 
@@ -48,6 +61,15 @@ namespace CameraControl {
     public void MoveCursorDirectly(Vector3 targetPosition) {
       _cameraCursor = targetPosition;
       _cameraCursorVelocity = Vector3.zero;
+    }
+
+    public void SetGridBounds(RectInt gridBounds) {
+      _bounds = Option.Some(new Rect(
+          gridBounds.x,
+          gridBounds.y,
+          // +1 because coordinates are for cell base, and we want to go to cell edges.
+          gridBounds.width + 1f,
+          gridBounds.height + 1f));
     }
     
     public void OnMoveCamera(InputAction.CallbackContext context) {
