@@ -9,7 +9,8 @@ namespace State.World {
     public enum Type {
       OpenSea,
       Encounter,
-      Heart
+      Heart,
+      DefeatedEncounter,
     }
 
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Common;
 using Controls;
 using Encounters.Grid;
@@ -109,11 +108,12 @@ namespace Encounters.Managers {
     private void OnEncounterEnd(EncounterOutcome outcome) {
       Debug.Log($"Encounter ending with outcome: {outcome}");
       if (outcome == EncounterOutcome.PlayerVictory) {
+        var encounter = GameState.State.world.GetActiveTile().DownCast<EncounterTile>(); 
         collectedResources.GiveResourcesToPlayer();
         foreach (var unit in GameState.State.player.roster) {
-          unit.GrantXp(ExperienceCalculations.GetXpForVictoryInEncounter(
-              GameState.State.world.GetActiveTile().DownCast<EncounterTile>()));
+          unit.GrantXp(ExperienceCalculations.GetXpForVictoryInEncounter(encounter));
         }
+        encounter.MarkDefeated();
       }
       enabled = false;
     }

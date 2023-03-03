@@ -16,6 +16,15 @@ namespace State.World {
     public List<UnitEncounterState> enemies;
     
     public override Type TileType => Type.Encounter;
+
+    public void MarkDefeated() {
+      var defeatedTile = CreateInstance<DefeatedEncounterTile>();
+      defeatedTile.coordinates = coordinates;
+      defeatedTile.difficulty = difficulty;
+      defeatedTile.isCovered = isCovered;
+      
+      GameState.State.world.SetTile(coordinates.X, coordinates.Y, defeatedTile);
+    }
   }
   
   [Serializable]

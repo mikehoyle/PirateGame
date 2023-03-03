@@ -3,10 +3,8 @@ using CameraControl;
 using Common;
 using Controls;
 using HUD.MainMenu;
-using Overworld.MapGeneration;
 using State;
 using State.World;
-using StaticConfig;
 using StaticConfig.RawResources;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,6 +28,7 @@ namespace Overworld {
     [SerializeField] private TileBase encounterTile;
     [SerializeField] private TileBase fogOfWarTile;
     [SerializeField] private TileBase heartTile;
+    [SerializeField] private TileBase defeatedEncounterTile;
 
     private Tilemap _overlayTilemap;
     private Tilemap _overworldTilemap;
@@ -79,6 +78,7 @@ namespace Overworld {
         WorldTile.Type.OpenSea => openSeaTile,
         WorldTile.Type.Encounter => encounterTile,
         WorldTile.Type.Heart => heartTile,
+        WorldTile.Type.DefeatedEncounter => defeatedEncounterTile,
         _ => fogOfWarTile,
       };
       _overworldTilemap.SetTile(
@@ -134,6 +134,10 @@ namespace Overworld {
     }
 
     private bool CanExecuteMapMove(Vector3Int gridCell) {
+      var destination = GameState.State.world.GetTile(gridCell.x, gridCell.y);
+      if (destination.TileType == WorldTile.Type.DefeatedEncounter) {
+        return false;
+      }
       Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;
       bool isInBoundsX = (gridCell.x >= currentPlayerPosition.x - 1 && gridCell.x <= currentPlayerPosition.x + 1);
       bool isInBoundsY = (gridCell.y >= currentPlayerPosition.y - 1 && gridCell.y <= currentPlayerPosition.y + 1);

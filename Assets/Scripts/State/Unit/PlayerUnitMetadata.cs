@@ -18,6 +18,7 @@ namespace State.Unit {
     [SerializeField] private UnitAbilitySet defaultAbilities;
     [SerializeField] private Stat constitutionStat;
     [SerializeField] private Stat movementStat;
+    [SerializeField] private UnitAbility debugGodSmite;
 
     public string firstName;
     public string lastName;
@@ -33,6 +34,11 @@ namespace State.Unit {
           unitAbilities.AddRange(equipment.item.abilitiesProvided);
         }
       }
+
+      if (Debug.isDebugBuild && debugGodSmite != null) {
+        unitAbilities.Add(debugGodSmite);
+      }
+      
       return unitAbilities;
     }
 

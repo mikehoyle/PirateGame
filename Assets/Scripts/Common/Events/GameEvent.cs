@@ -7,7 +7,12 @@ namespace Common.Events {
   public abstract class GameEvent<T> : ScriptableObject where T : Delegate {
     protected List<T> Listeners;
     
-    private void Awake() {
+    private void OnValidate() {
+      OnEnable();
+    }
+
+    private void OnEnable() {
+      Listeners = new();
       SceneManager.activeSceneChanged -= OnSceneChanged;
       SceneManager.activeSceneChanged += OnSceneChanged;
 #if UNITY_EDITOR
@@ -16,15 +21,12 @@ namespace Common.Events {
 #endif
     }
 
-    private void OnDestroy() {
+    private void OnDisable() {
+      Listeners.Clear();
       SceneManager.activeSceneChanged -= OnSceneChanged;
 #if UNITY_EDITOR
       UnityEditor.SceneManagement.EditorSceneManager.activeSceneChangedInEditMode -= OnSceneChanged;
 #endif
-    }
-
-    private void OnValidate() {
-      Awake();
     }
 
     private void OnSceneChanged(Scene a, Scene b) {
@@ -32,18 +34,10 @@ namespace Common.Events {
       // that may have forgotten to remove themselves. This shouldn't be relied upon,
       // but should clean up any missed corner cases.
       for (int i = Listeners.Count - 1; i >= 0; i--) {
-        if (Listeners[i] == null) {
+        if (Listeners[i].Target == null) {
           Listeners.RemoveAt(i);
         }
       }
-    }
-
-    private void OnEnable() {
-      Listeners = new();
-    }
-
-    private void OnDisable() {
-      Listeners.Clear();
     }
 
     public void RegisterListener(T listener) {

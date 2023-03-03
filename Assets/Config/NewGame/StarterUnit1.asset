@@ -29,6 +29,7 @@ MonoBehaviour:
   defaultAbilities: {fileID: 11400000, guid: 54e2bca7f99bf894699d7cf5e3ed1368, type: 2}
   constitutionStat: {fileID: 11400000, guid: d6f0cf594fbe2ca4782833aa62fd60c4, type: 2}
   movementStat: {fileID: 11400000, guid: f0645ee535e419d4cb5f55bba8e17304, type: 2}
+  debugGodSmite: {fileID: 11400000, guid: e83e63e8c16872748a986c161fb0785d, type: 2}
   firstName: Hugh
   lastName: Manmonk
   currentLevel: 1

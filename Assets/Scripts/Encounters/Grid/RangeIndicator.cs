@@ -24,7 +24,7 @@ namespace Encounters.Grid {
     }
 
     private void OnDisable() {
-      playerTurnEndEvent.RegisterListener(OnPlayerTurnEnd);
+      playerTurnEndEvent.UnregisterListener(OnPlayerTurnEnd);
     }
 
     private void OnPlayerTurnEnd() {
