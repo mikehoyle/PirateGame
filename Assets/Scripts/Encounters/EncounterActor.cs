@@ -87,8 +87,11 @@ namespace Encounters {
     protected virtual void InitInternal(UnitEncounterState encounterState) { }
 
     private void OnApplyAoeEffect(AreaOfEffect aoe, StatusEffectApplier effect) {
-      if (aoe.AffectsPoint(Position)) {
-        effect.ApplyTo(this);
+      foreach (var occupiedTile in EncounterState.OccupiedTiles()) {
+        if (aoe.AffectsPoint(occupiedTile)) {
+          effect.ApplyTo(this);
+          return;
+        }
       }
     }
     

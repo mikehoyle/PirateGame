@@ -29,15 +29,35 @@ namespace Encounters.AI {
     }
 
     private void OnEnemyTurnStart() {
+      StartCoroutine(ExecuteEnemyAi());
+    }
+    private IEnumerator ExecuteEnemyAi() {
       if (enemiesInEncounter.Count == 0) {
         encounterEvents.enemyTurnPreEnd.Raise();
-        return;
+        yield break;
+      }
+      
+      // First, make all movements simultaneously
+      var actionPlans = new List<AiActionPlan>();
+      var enemyMovements = new List<Coroutine>();
+      SparseMatrix3d<bool> claimedTileOverrides = new();
+      foreach (var enemy in enemiesInEncounter) {
+        var actionPlan = _evaluator.GetActionPlan(enemy, claimedTileOverrides);
+        actionPlans.Add(actionPlan);
+        var path = _terrain.GetPath(actionPlan.Actor.Position, actionPlan.MoveDestination);
+        enemyMovements.Add(enemy.MoveAlongPath(path));
+        claimedTileOverrides[actionPlan.Actor.Position] = true;
+        claimedTileOverrides[actionPlan.MoveDestination] = false;
       }
 
+      foreach (var enemyMovement in enemyMovements) {
+        yield return enemyMovement;
+      }
+      
+      // Then make actions sequentially
       Coroutine previousUnitAction = null;
-      foreach (var enemy in enemiesInEncounter) {
-        var actionPlan = _evaluator.GetActionPlan(enemy);
-        previousUnitAction = StartCoroutine(ExecuteAction(enemy, actionPlan, previousUnitAction));
+      foreach (var actionPlan in actionPlans) {
+        previousUnitAction = StartCoroutine(ExecuteAction(actionPlan.Actor, actionPlan, previousUnitAction));
       }
 
       StartCoroutine(EndAiTurn(previousUnitAction));
@@ -45,8 +65,6 @@ namespace Encounters.AI {
 
     private IEnumerator ExecuteAction(EncounterActor enemy, AiActionPlan actionPlan, Coroutine previousUnitAction) {
       yield return previousUnitAction;
-      var path = _terrain.GetPath(actionPlan.Actor.Position, actionPlan.MoveDestination);
-      yield return enemy.MoveAlongPath(path);
       if (actionPlan.Action.TryGet(out var action)) {
         if (action.Ability.TryExecute(action.Context, () => { }).TryGet(out var abilityExecution)) {
           yield return StartCoroutine(abilityExecution);

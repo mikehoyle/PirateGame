@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Common;
 using Encounters;
-using Roy_T.AStar.Primitives;
 using StaticConfig.Terrain;
 using UnityEngine;
 
@@ -89,19 +88,40 @@ namespace Terrain {
     /// Always ignores enabled status of origin tile, to ensure units never block themselves.
     /// </summary>
     public TravelPath GetPath(Vector3Int origin, Vector3Int destination) {
+      return GetPath(origin, destination, new SparseMatrix3d<bool>());
+    }
+    
+    public TravelPath GetPath(Vector3Int origin, Vector3Int destination, SparseMatrix3d<bool> enablementOverrides) {
       if (!IsGridPositionDefined(origin) || !IsGridPositionDefined(destination)) {
         return new TravelPath(null);
       }
+      
+      // Always set origin to enabled, otherwise the actor is locked out by themselves.
+      enablementOverrides[origin] = true;
+      var originalEnablements = new SparseMatrix3d<bool>();
+      foreach (var enablementOverride in enablementOverrides) {
+        if (_terrainMap.TryGetValue(enablementOverride.Key, out var terrainTile)) {
+          originalEnablements[enablementOverride.Key] = terrainTile.Enabled;
+          terrainTile.Enabled = enablementOverride.Value;
+        }
+      }
 
-      var originNode = _terrainMap[origin];
-      var originNodeEnabledStatus = originNode.Enabled;
-      originNode.Enabled = true;
-      var result = _pathfinder.GetPath(originNode, _terrainMap[destination]);
-      originNode.Enabled = originNodeEnabledStatus;
+      var result = _pathfinder.GetPath(_terrainMap[origin], _terrainMap[destination]);
+      
+      foreach (var originalEnablement in originalEnablements) {
+        if (_terrainMap.TryGetValue(originalEnablement.Key, out var terrainTile)) {
+          terrainTile.Enabled = originalEnablements[originalEnablement.Key];
+        }
+      }
       return result;
     }
 
     public HashSet<Vector3Int> GetAllViableDestinations(Vector3Int position, int moveRange) {
+      return GetAllViableDestinations(position, moveRange, new());
+    }
+
+    public HashSet<Vector3Int> GetAllViableDestinations(
+        Vector3Int position, int moveRange, SparseMatrix3d<bool> enablementOverrides) {
       var result = new HashSet<Vector3Int>();
       for (int x = -moveRange; x <= moveRange; x++) {
         var yMoveRange = moveRange - Math.Abs(x);
@@ -111,7 +131,7 @@ namespace Terrain {
             // OPTIMIZE: memoize paths better
             continue;
           }
-          var path = GetPath(position, possibleDestination);
+          var path = GetPath(position, possibleDestination, enablementOverrides);
           if (path.IsViableAndWithinRange(moveRange)) {
             result.UnionWith(path.Path);
           }

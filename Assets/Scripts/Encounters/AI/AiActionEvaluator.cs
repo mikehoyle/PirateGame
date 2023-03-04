@@ -35,9 +35,10 @@ namespace Encounters.AI {
       _indicators = GridIndicators.Get();
     }
 
-    public AiActionPlan GetActionPlan(EnemyUnitController enemy) {
+    public AiActionPlan GetActionPlan(EnemyUnitController enemy, SparseMatrix3d<bool> claimedTileOverrides) {
       var possibleDestinations = _terrain.GetAllViableDestinations(
-          enemy.Position, enemy.EncounterState.GetResourceAmount(movementResource)).Append(enemy.Position);
+          enemy.Position, enemy.EncounterState.GetResourceAmount(movementResource), claimedTileOverrides)
+          .Append(enemy.Position);
       var abilities = enemy.GetAllCapableAbilities();
 
       var bestActionPlan = new AiActionPlan(enemy);
