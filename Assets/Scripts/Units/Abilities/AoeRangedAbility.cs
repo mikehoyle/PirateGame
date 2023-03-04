@@ -1,4 +1,5 @@
-﻿using Encounters;
+﻿using Common.Animation;
+using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
 using Units.Abilities.AOE;
@@ -55,6 +56,10 @@ namespace Units.Abilities {
         AbilityExecutionContext context, AreaOfEffect aoe, float skillTestResult) {
       var instanceFactory = new StatusEffectApplier(incurredEffect, context, skillTestResult);
       encounterEvents.applyAoeEffect.Raise(aoe, instanceFactory);
+      // Animation options should definitely not be here... a future problem.
+      context.Actor.FaceTowards(aoe.GetTarget());
+      context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
+      PlaySound();
       // TODO(P1): Account for animation time
       encounterEvents.abilityExecutionEnd.Raise();
     }

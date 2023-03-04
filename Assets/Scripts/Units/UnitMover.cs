@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Common;
 using Common.Animation;
 using Encounters;
+using FMODUnity;
 using MilkShake;
+using Optional;
 using State.Unit;
 using Terrain;
 using UnityEngine;
@@ -18,10 +20,12 @@ namespace Units {
     
     private SceneTerrain _terrain;
     private EncounterActor _unit;
+    private Option<StudioEventEmitter> _footstepsSound;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
       _unit = GetComponent<EncounterActor>();
+      _footstepsSound = GetComponent<StudioEventEmitter>().SomeNotNull();
     }
 
     private void Start() {
@@ -41,7 +45,7 @@ namespace Units {
         worldPath.AddLast(_terrain.CellCenterWorld(gridCell));
       }
       var motionPath = worldPath.First;
-
+      _footstepsSound.MatchSome(sound => sound.Play());
       while (motionPath.Next != null) {
         SetFacingDirection(motionPath.Value, motionPath.Next.Value);
         _unit.AnimationState = AnimationNames.Walk;
@@ -95,6 +99,7 @@ namespace Units {
     }
 
     private void OnMovementComplete(Action callback) {
+      _footstepsSound.MatchSome(sound => sound.Stop());
       _unit.AnimationState = AnimationNames.Idle;
       transform.position = _terrain.CellCenterWorld(_unit.Position);
       callback();

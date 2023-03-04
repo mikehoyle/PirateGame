@@ -68,6 +68,7 @@ namespace Units.Abilities {
       // Animation options should definitely not be here... a future problem.
       context.Actor.FaceTowards(target.Position);
       context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
+      PlaySound();
       // TODO(P1): Account for animation time
       encounterEvents.abilityExecutionEnd.Raise();
     }

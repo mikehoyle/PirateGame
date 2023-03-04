@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{d117d5ab-7daf-4ad3-a040-998c1a0f386a}">
+		<property name="assetPath">
+			<value>Medieval Combat Sounds/Footsteps/Armored Concrete Surface/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{7947621e-65a8-4bb3-827a-fa36cd0ddd42}</destination>
+		</relationship>
+	</object>
+</objects>

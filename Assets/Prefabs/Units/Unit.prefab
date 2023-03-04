@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2573591084334462572}
   - component: {fileID: 7100612996877513888}
   - component: {fileID: 2160667627937808238}
+  - component: {fileID: 5969419922174882323}
   m_Layer: 6
   m_Name: Unit
   m_TagString: PlayerUnit
@@ -120,6 +121,36 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c473fcf1af6f3b4418ffbccef3f18960, type: 2}
   - {fileID: 11400000, guid: 0e0eebca92821e140adff51157428899, type: 2}
   - {fileID: 11400000, guid: 425cbbcf52659ca4c8c1724636d13766, type: 2}
+--- !u!114 &5969419922174882323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998738781700405355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1356894665
+      Data2: 1114986896
+      Data3: 468964783
+      Data4: -1839958724
+    Path: event:/Units/Movement/Footsteps
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &5345710228520051683
 GameObject:
   m_ObjectHideFlags: 0

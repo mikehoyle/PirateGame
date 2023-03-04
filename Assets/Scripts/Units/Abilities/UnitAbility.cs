@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
-using Common;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
 using Encounters.SkillTest;
+using FMODUnity;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
@@ -20,6 +20,7 @@ namespace Units.Abilities {
   public abstract class UnitAbility : ScriptableObject {
     [SerializeField] private GameObject skillTestPrefab;
     [SerializeField] protected EncounterEvents encounterEvents;
+    [SerializeField] protected EventReference soundOnActivate;
     // Optional
     [SerializeReference, SerializeReferenceButton] public StatusEffect incurredEffect;
 
@@ -66,7 +67,12 @@ namespace Units.Abilities {
       Execute(context);
       return true;
     }
-
+    
+    protected void PlaySound() {
+      if (!soundOnActivate.IsNull) {
+        RuntimeManager.PlayOneShot(soundOnActivate);
+      }
+    }
     
     protected abstract void Execute(AbilityExecutionContext context); 
 

@@ -54,5 +54,9 @@ namespace Units.Abilities.AOE {
     public bool AffectsPoint(Vector3Int point) {
       return AffectedPoints().Any(affectedPoint => affectedPoint == point);
     }
+
+    public Vector3Int GetTarget() {
+      return targetPoint;
+    }
   }
 }
