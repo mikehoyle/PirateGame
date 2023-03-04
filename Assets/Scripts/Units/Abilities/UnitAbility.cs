@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Text;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
 using Encounters.SkillTest;
 using FMODUnity;
+using Optional;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
@@ -26,7 +28,8 @@ namespace Units.Abilities {
 
     // Result is a quality percentage from 0 - 1.
     public delegate void AbilityEffectivenessCallback(float result);
-    
+    public delegate void AbilityExecutionCompleteCallback();
+
     [Serializable]
     public struct UnitAbilityCost {
       public int amount;
@@ -56,16 +59,18 @@ namespace Units.Abilities {
 
     public abstract bool CouldExecute(AbilityExecutionContext context);
 
-    /// <returns>Whether the ability is successfully executing</returns>
-    public bool TryExecute(AbilityExecutionContext context) {
+    /// <returns>A coroutine enumrator for the ability, if it can be performed.</returns>
+    public Option<IEnumerator> TryExecute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
       if (!CouldExecute(context) || !CanAfford(context.Actor)) {
-        return false;
+        return Option.None<IEnumerator>();
       }
 
       encounterEvents.abilityExecutionStart.Raise();
       SpendCost(context.Actor);
-      Execute(context);
-      return true;
+      return Option.Some(Execute(context, () => {
+        encounterEvents.abilityExecutionEnd.Raise();
+        callback();
+      }));
     }
     
     protected void PlaySound() {
@@ -74,7 +79,7 @@ namespace Units.Abilities {
       }
     }
     
-    protected abstract void Execute(AbilityExecutionContext context); 
+    protected abstract IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback); 
 
     public bool CanAfford(EncounterActor actor) {
       foreach (var abilityCost in cost) {

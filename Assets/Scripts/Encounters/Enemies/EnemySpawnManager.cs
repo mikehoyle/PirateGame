@@ -41,6 +41,7 @@ namespace Encounters.Enemies {
     }
 
     private void OnSpawnComplete() {
+      Debug.Log("On Spawn complete callback");
       _unitsCurrentlySpawning--;
       if (_unitsCurrentlySpawning <= 0) {
         encounterEvents.enemyTurnEnd.Raise();

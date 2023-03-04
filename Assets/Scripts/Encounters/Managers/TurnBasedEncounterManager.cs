@@ -49,8 +49,6 @@ namespace Encounters.Managers {
       _controls.TurnBasedEncounter.Enable();
       encounterEvents.enemyTurnEnd.RegisterListener(OnEnemyTurnEnd);
       encounterEvents.abilitySelected.RegisterListener(OnAbilitySelected);
-      encounterEvents.abilityExecutionStart.RegisterListener(OnBeginAbilityExecution);
-      encounterEvents.abilityExecutionEnd.RegisterListener(OnEndAbilityExecution);
       encounterEvents.unitDeath.RegisterListener(OnUnitDeath);
       encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
     }
@@ -59,8 +57,6 @@ namespace Encounters.Managers {
       _controls.TurnBasedEncounter.Disable();
       encounterEvents.enemyTurnEnd.UnregisterListener(OnEnemyTurnEnd);
       encounterEvents.abilitySelected.UnregisterListener(OnAbilitySelected);
-      encounterEvents.abilityExecutionStart.UnregisterListener(OnBeginAbilityExecution);
-      encounterEvents.abilityExecutionEnd.UnregisterListener(OnEndAbilityExecution);
       encounterEvents.unitDeath.UnregisterListener(OnUnitDeath);
       encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
     }
@@ -127,14 +123,18 @@ namespace Encounters.Managers {
       var targetTile = _terrain.TileAtScreenCoordinate(mousePosition);
       var clickedObject = SceneTerrain.GetTileOccupant(targetTile);
       if (currentSelection.TryGet(out var ability, out var unit)) {
-        if (ability.TryExecute(new UnitAbility.AbilityExecutionContext {
+        var executionContext = new UnitAbility.AbilityExecutionContext {
             Actor = unit,
-            Source = currentSelection.abilitySource,  
+            Source = currentSelection.abilitySource,
             TargetedObject = clickedObject,
             TargetedTile = targetTile,
-            Terrain =  _terrain,
+            Terrain = _terrain,
             Indicators = _gridIndicators,
-        })) {
+        };
+        var attemptedExecution = ability.TryExecute(executionContext, OnEndAbilityExecution);
+        if (attemptedExecution.TryGet(out var abilityExecution)) {
+          OnBeginAbilityExecution();
+          StartCoroutine(abilityExecution);
           return;
         }
       }

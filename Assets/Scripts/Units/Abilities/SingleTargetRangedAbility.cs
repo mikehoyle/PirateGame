@@ -1,6 +1,9 @@
-﻿using Common.Animation;
+﻿using System.Collections;
+using Common.Animation;
 using Encounters;
 using Encounters.Grid;
+using Optional;
+using Optional.Unsafe;
 using UnityEngine;
 
 namespace Units.Abilities {
@@ -33,16 +36,27 @@ namespace Units.Abilities {
       return true;
     }
 
-    protected override void Execute(AbilityExecutionContext context) {
+    protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
       var target = GetTargetIfEligible(
           context.Actor, context.Source, context.TargetedTile, context.TargetedObject);
       if (target == null) {
         Debug.LogWarning("Could not find target when executing");
-        return;
+        callback();
+        yield break;
       }
+
+      var skillTestResult = Option.None<float>();
+      DetermineAbilityEffectiveness(context.Actor, result => skillTestResult = Option.Some(result));
+      yield return new WaitUntil(() => skillTestResult.HasValue);
       
-      DetermineAbilityEffectiveness(
-          context.Actor, result => OnDetermineAbilityEffectiveness(context, result, target));
+      var effect = incurredEffect.ApplyTo(target);
+      effect.PreCalculateEffect(context, skillTestResult.ValueOrFailure());
+      // Animation options should definitely not be here... a future problem.
+      context.Actor.FaceTowards(target.Position);
+      context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
+      PlaySound();
+      // TODO(P1): Account for animation time
+      callback();
     }
 
     private EncounterActor GetTargetIfEligible(
@@ -59,18 +73,6 @@ namespace Units.Abilities {
         }
       }
       return null;
-    }
-
-    private void OnDetermineAbilityEffectiveness(
-        AbilityExecutionContext context, float result, EncounterActor target) {
-      var effect = incurredEffect.ApplyTo(target);
-      effect.PreCalculateEffect(context, result);
-      // Animation options should definitely not be here... a future problem.
-      context.Actor.FaceTowards(target.Position);
-      context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
-      PlaySound();
-      // TODO(P1): Account for animation time
-      encounterEvents.abilityExecutionEnd.Raise();
     }
   }
 }

@@ -43,6 +43,7 @@ namespace Encounters.Enemies {
     private void SpawnEnemy(OnSpawnComplete callback) {
       if (_enemyToSpawn.metadata is not EnemyUnitMetadata enemyMetadata) {
         Debug.LogWarning("Cannot spawn non-enemy");
+        OnDropInComplete(callback);
         return;
       }
       var unitController = Instantiate(enemyMetadata.prefab).GetComponent<EnemyUnitController>();

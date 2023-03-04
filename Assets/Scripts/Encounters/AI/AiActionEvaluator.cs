@@ -26,6 +26,7 @@ namespace Encounters.AI {
     private static class ActionPreferences {
       public const float PlayerUnitAdjacency = 5f;
       public const float PlayerUnitDistanceFalloff = 0.1f;
+      public const float StayStationary = 0.05f; 
       public const float CanPerformAbility = 10f;
     }
 
@@ -34,20 +35,15 @@ namespace Encounters.AI {
       _indicators = GridIndicators.Get();
     }
 
-    public AiActionPlan GetActionPlan(EnemyUnitController enemy, List<Vector3Int> claimedTiles) {
+    public AiActionPlan GetActionPlan(EnemyUnitController enemy) {
       var possibleDestinations = _terrain.GetAllViableDestinations(
-          enemy.Position, enemy.EncounterState.GetResourceAmount(movementResource));
+          enemy.Position, enemy.EncounterState.GetResourceAmount(movementResource)).Append(enemy.Position);
       var abilities = enemy.GetAllCapableAbilities();
 
       var bestActionPlan = new AiActionPlan(enemy);
       var bestScore = 0f;
       
-      foreach (var destination in possibleDestinations.Append(enemy.Position)) {
-        if (claimedTiles.Contains(destination)) {
-          // Never choose to walk where someone already decided to walk. As with everything else here,
-          // this is janky and not ideal, but it'll do for now.
-          continue;
-        }
+      foreach (var destination in possibleDestinations) {
         foreach (var playerUnit in playerUnits) {
           foreach (var ability in abilities) {
             // TODO(P1): this ignores any obstacles, and could result in dumb AI that never moves around
@@ -56,6 +52,9 @@ namespace Encounters.AI {
             var score = ActionPreferences.PlayerUnitAdjacency
                 - (distanceFromPlayer * ActionPreferences.PlayerUnitDistanceFalloff);
             score = Math.Max(score, 0);
+            if (destination == enemy.Position) {
+              score += ActionPreferences.StayStationary;
+            }
             var currentActionPlan = new AiActionPlan(enemy) {
                 MoveDestination = destination,
             };

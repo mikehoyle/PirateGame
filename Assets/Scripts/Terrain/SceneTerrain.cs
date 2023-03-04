@@ -119,7 +119,6 @@ namespace Terrain {
       }
 
       result.Remove(position);
-
       return result;
     }
     

@@ -117,12 +117,11 @@ namespace Encounters {
       FacingDirection = FacingUtilities.DirectionBetween((Vector2Int)Position, (Vector2Int)target);
     }
 
-    public void MoveAlongPath(TravelPath path, Action callback) {
+    public Coroutine MoveAlongPath(TravelPath path) {
       if (!path.IsViable()) {
-        callback();
-        return;
+        return null;
       }
-      StartCoroutine(_mover.ExecuteMovement(path.Path, callback));
+      return StartCoroutine(_mover.ExecuteMovement(path.Path));
     }
 
     public void DropIn(Action callback) {

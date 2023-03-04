@@ -33,7 +33,7 @@ namespace Units {
       transform.position = _terrain.CellCenterWorld(_unit.Position);
     }
 
-    public IEnumerator ExecuteMovement(LinkedList<Vector3Int> path, Action onCompleteCallback) {
+    public IEnumerator ExecuteMovement(LinkedList<Vector3Int> path) {
       var progressToNextNode = 0f;
 
       // Mark unit as in new position immediately.
@@ -59,7 +59,7 @@ namespace Units {
         yield return null;
       }
       
-      OnMovementComplete(onCompleteCallback);
+      OnMovementComplete();
     }
     
     private void SetFacingDirection(Vector3 source, Vector3 destination) {
@@ -95,14 +95,14 @@ namespace Units {
       
       _unit.EnableShadow(true);
       Shaker.ShakeAll(dropInShake);
-      OnMovementComplete(onCompleteCallback);
+      OnMovementComplete();
+      onCompleteCallback();
     }
 
-    private void OnMovementComplete(Action callback) {
+    private void OnMovementComplete() {
       _footstepsSound.MatchSome(sound => sound.Stop());
       _unit.AnimationState = AnimationNames.Idle;
       transform.position = _terrain.CellCenterWorld(_unit.Position);
-      callback();
     }
   }
 }

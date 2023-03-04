@@ -1,7 +1,10 @@
-﻿using Common.Animation;
+﻿using System.Collections;
+using Common.Animation;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
+using Optional;
+using Optional.Unsafe;
 using Units.Abilities.AOE;
 using UnityEngine;
 
@@ -46,22 +49,21 @@ namespace Units.Abilities {
       return range.IsInRange(context.Actor, context.Source, context.TargetedTile);
     }
     
-    protected override void Execute(AbilityExecutionContext context) {
+    protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
       var aoe = _areaOfEffect.WithTargetAndRotation(context.Source, context.TargetedTile);
-      DetermineAbilityEffectiveness(
-          context.Actor, result => OnDetermineAbilityEffectiveness(context, aoe, result));
-    }
-
-    private void OnDetermineAbilityEffectiveness(
-        AbilityExecutionContext context, AreaOfEffect aoe, float skillTestResult) {
-      var instanceFactory = new StatusEffectApplier(incurredEffect, context, skillTestResult);
+      
+      var skillTestResult = Option.None<float>();
+      DetermineAbilityEffectiveness(context.Actor, result => skillTestResult = Option.Some(result));
+      yield return new WaitUntil(() => skillTestResult.HasValue);
+      
+      var instanceFactory = new StatusEffectApplier(incurredEffect, context, skillTestResult.ValueOrFailure());
       encounterEvents.applyAoeEffect.Raise(aoe, instanceFactory);
       // Animation options should definitely not be here... a future problem.
       context.Actor.FaceTowards(aoe.GetTarget());
       context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
       PlaySound();
       // TODO(P1): Account for animation time
-      encounterEvents.abilityExecutionEnd.Raise();
+      callback();
     }
   }
 }

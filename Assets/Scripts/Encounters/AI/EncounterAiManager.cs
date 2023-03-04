@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Common;
 using Optional.Unsafe;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
@@ -12,10 +14,6 @@ namespace Encounters.AI {
     
     private AiActionEvaluator _evaluator;
     private SceneTerrain _terrain;
-    
-    // Per-round state
-    private int _enemyMovementsComplete;
-    private List<AiActionPlan> _actionPlans;
 
     private void Awake() {
       _evaluator = GetComponent<AiActionEvaluator>();
@@ -35,37 +33,29 @@ namespace Encounters.AI {
         encounterEvents.enemyTurnPreEnd.Raise();
         return;
       }
-      
-      _enemyMovementsComplete = 0;
-      _actionPlans = new();
-      var claimedTiles = new List<Vector3Int>();
+
+      Coroutine previousUnitAction = null;
       foreach (var enemy in enemiesInEncounter) {
-        var actionPlan = _evaluator.GetActionPlan(enemy, claimedTiles);
-        claimedTiles.Add(actionPlan.MoveDestination);
-        _actionPlans.Add(actionPlan);
+        var actionPlan = _evaluator.GetActionPlan(enemy);
+        previousUnitAction = StartCoroutine(ExecuteAction(enemy, actionPlan, previousUnitAction));
       }
 
-      foreach (var actionPlan in _actionPlans) {
-        var path = _terrain.GetPath(actionPlan.Actor.Position, actionPlan.MoveDestination);
-        actionPlan.Actor.MoveAlongPath(path, OnCompleteMovement);
-      }
+      StartCoroutine(EndAiTurn(previousUnitAction));
     }
 
-    private void OnCompleteMovement() {
-      _enemyMovementsComplete += 1;
-      if (_enemyMovementsComplete == enemiesInEncounter.Count) {
-        PerformUnitActions();
-      }
-    }
-
-    private void PerformUnitActions() {
-      foreach (var actionPlan in _actionPlans) {
-        if (actionPlan.Action.HasValue) {
-          var ability = actionPlan.Action.ValueOrFailure();
-          ability.Ability.TryExecute(ability.Context);
+    private IEnumerator ExecuteAction(EncounterActor enemy, AiActionPlan actionPlan, Coroutine previousUnitAction) {
+      yield return previousUnitAction;
+      var path = _terrain.GetPath(actionPlan.Actor.Position, actionPlan.MoveDestination);
+      yield return enemy.MoveAlongPath(path);
+      if (actionPlan.Action.TryGet(out var action)) {
+        if (action.Ability.TryExecute(action.Context, () => { }).TryGet(out var abilityExecution)) {
+          yield return StartCoroutine(abilityExecution);
         }
       }
-      // TODO(P0): Big! Actually wait for actions to complete
+    }
+
+    private IEnumerator EndAiTurn(Coroutine lastUnitAction) {
+      yield return lastUnitAction;
       encounterEvents.enemyTurnPreEnd.Raise();
     }
   }

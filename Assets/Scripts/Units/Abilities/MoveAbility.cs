@@ -1,4 +1,5 @@
-﻿using Encounters;
+﻿using System.Collections;
+using Encounters;
 using Encounters.Grid;
 using RuntimeVars.Encounters.Events;
 using StaticConfig.Units;
@@ -31,21 +32,18 @@ namespace Units.Abilities {
       return path.IsViableAndWithinRange(context.Actor.EncounterState.GetResourceAmount(movementResource));
     }
 
-    protected override void Execute(AbilityExecutionContext context) {
+    protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
       var path = context.Terrain.GetPath(context.Actor.Position, context.TargetedTile);
       if (!path.IsViableAndWithinRange(context.Actor.EncounterState.GetResourceAmount(movementResource))) {
-        Debug.LogWarning("Path became non-viable during movement execution. This should not happene");
-        return;
+        Debug.LogWarning("Path became non-viable during movement execution. This should not happen");
+        callback();
+        yield break;
       }
       
       // Manually spend cost because it is dynamic.
       context.Actor.EncounterState.ExpendResource(movementResource, path.Length());
-      context.Actor.MoveAlongPath(path, OnMoveComplete);
-      encounterEvents.abilityExecutionStart.Raise();
-    }
-
-    private void OnMoveComplete() {
-      encounterEvents.abilityExecutionEnd.Raise();
+      yield return context.Actor.MoveAlongPath(path);
+      callback();
     }
   }
 }
