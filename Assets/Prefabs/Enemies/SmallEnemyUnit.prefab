@@ -122,6 +122,13 @@ MonoBehaviour:
   dropInHeight: 6
   dropInGravity: 15
   dropInShake: {fileID: 11400000, guid: 7918ea23731f4444099e0f61bb61d2ce, type: 2}
+  dropInImpactSound:
+    Guid:
+      Data1: -489537298
+      Data2: 1236233903
+      Data3: -109247347
+      Data4: -1894127419
+    Path: event:/Units/Movement/DropInImpact
 --- !u!114 &4072349022230282683
 MonoBehaviour:
   m_ObjectHideFlags: 0

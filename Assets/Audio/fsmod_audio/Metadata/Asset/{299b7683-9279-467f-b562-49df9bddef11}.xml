@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{299b7683-9279-467f-b562-49df9bddef11}">
+		<property name="assetPath">
+			<value>Medieval Combat Sounds/Punch and Melee/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{7947621e-65a8-4bb3-827a-fa36cd0ddd42}</destination>
+		</relationship>
+	</object>
+</objects>

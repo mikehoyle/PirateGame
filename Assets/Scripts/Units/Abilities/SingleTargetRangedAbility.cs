@@ -55,7 +55,8 @@ namespace Units.Abilities {
       context.Actor.FaceTowards(target.Position);
       context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
       PlaySound();
-      // TODO(P1): Account for animation time
+      yield return new WaitForSeconds(impactAnimationDelaySec);
+      yield return CreateImpactAnimation(target.Position);
       callback();
     }
 

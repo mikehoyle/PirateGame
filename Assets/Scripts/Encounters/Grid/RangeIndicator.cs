@@ -69,6 +69,32 @@ namespace Encounters.Grid {
       }
     }
 
+    public void DisplayStraightLineRange(
+        Vector3Int source, int diagonalRangeMin, int diagonalRangeMax, int straightRangeMin, int straightRangeMax) {
+      enabled = true;
+      Clear();
+      // TODO(P2): Make a targeting-specific sprite
+      _tilemap.color = Color.red;
+
+      if (diagonalRangeMax > 0) {
+        for (int i = diagonalRangeMin; i <= diagonalRangeMax; i++) {
+          _tilemap.SetTile(source + new Vector3Int(i, i, 0), eligibleTileOverlay);
+          _tilemap.SetTile(source + new Vector3Int(i, -i, 0), eligibleTileOverlay);
+          _tilemap.SetTile(source + new Vector3Int(-i, i, 0), eligibleTileOverlay);
+          _tilemap.SetTile(source + new Vector3Int(-i, -i, 0), eligibleTileOverlay);
+        }
+      }
+
+      if (straightRangeMax > 0) {
+        for (int i = straightRangeMin; i <= straightRangeMax; i++) {
+          _tilemap.SetTile(source + new Vector3Int(i, 0, 0), eligibleTileOverlay);
+          _tilemap.SetTile(source + new Vector3Int(0, i, 0), eligibleTileOverlay);
+          _tilemap.SetTile(source + new Vector3Int(-i, 0, 0), eligibleTileOverlay);
+          _tilemap.SetTile(source + new Vector3Int(0, -i, 0), eligibleTileOverlay);
+        }
+      }
+    }
+
     public void Clear() {
       _tilemap.ClearAllTiles();
       _tilemap.color = Color.white;

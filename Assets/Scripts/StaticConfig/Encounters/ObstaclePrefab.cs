@@ -31,7 +31,7 @@ namespace StaticConfig.Encounters {
       if (string.IsNullOrEmpty(requiredFootprint)) {
         return;
       }
-      Footprint = AoeParser.ParseAreaOfEffectRaw(requiredFootprint);
+      Footprint = AoeParser.ParseAreaOfEffect(requiredFootprint);
     }
   }
 }

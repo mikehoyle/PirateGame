@@ -5,6 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using State.Unit;
 using StaticConfig.Sprites;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -36,9 +37,24 @@ namespace EditorInternal {
       if (textureImporter == null || textureImporter.textureType != TextureImporterType.Sprite) {
         return;
       }
-      textureImporter.spriteImportMode = SpriteImportMode.Multiple; 
+      textureImporter.spriteImportMode = SpriteImportMode.Multiple;
+      Vector2Int? pixelPivot = null;
+      if (jsonContent.meta.slices != null) {
+        foreach (var slice in jsonContent.meta.slices) {
+          if (((string)slice.name).ToLower() == "pivot") {
+            pixelPivot = new Vector2Int((int)slice.keys[0].bounds["x"], (int)slice.keys[0].bounds["y"]);
+          }
+        }        
+      }
+      
       var metadataList = new List<SpriteMetaData>();
       foreach (var frame in jsonContent.frames) {
+        var pivot = pixelPivot.HasValue ?
+            new Vector2(
+                pixelPivot.Value.x / (float)frame.frame.w,
+                ((float)frame.frame.h - pixelPivot.Value.y) / (float)frame.frame.h) :
+            // Default to dead center
+            new Vector2(0.5f, 0.5f);
         var metadata = new SpriteMetaData {
             rect = new Rect(
                 x: (float)frame.frame.x,
@@ -46,12 +62,7 @@ namespace EditorInternal {
                 width: (float)frame.frame.w,
                 height: (float)frame.frame.h),
             name = (string)frame.filename,
-            // slice pivot is relative to bounding rectangle, so this is:
-            // - center for x
-            // - bottom + 16px for Y (which should hopefully be center of the bottom tile)
-            //pivot = new Vector2(0.5f, 16f / (float)frame.frame.h),
-            // Instead just do dead center for now.
-            pivot = new Vector2(0.5f, 0.5f),
+            pivot = pivot,
             alignment = (int)SpriteAlignment.Custom, 
         };
         // Metadata.pivot seems to not really take, so set it on the sprite as a whole as well.

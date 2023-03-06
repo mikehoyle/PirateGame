@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7a64b44f884d3d9b7fb52eb79b7de5, type: 3}
+  m_Name: default_ability
+  m_EditorClassIdentifier: 
+  frames:
+  - {fileID: -858277799, guid: ce6dc410758fc0d42b63de1e3ccf7aa2, type: 3}
+  - {fileID: -2046761594, guid: ce6dc410758fc0d42b63de1e3ccf7aa2, type: 3}
+  - {fileID: 1643284285, guid: ce6dc410758fc0d42b63de1e3ccf7aa2, type: 3}
+  - {fileID: 1084231902, guid: ce6dc410758fc0d42b63de1e3ccf7aa2, type: 3}
+  - {fileID: -541447234, guid: ce6dc410758fc0d42b63de1e3ccf7aa2, type: 3}
+  animations:
+    m_keys:
+    - effect
+    m_values:
+    - animations:
+        m_keys: 02000000
+        m_values:
+        - direction: 2
+          name: effect
+          isMirrored: 0
+          startFrame: 0
+          endFrame: 4
+          frameDurationSecs: 0.1
+      animationName: effect
+      loop: 1

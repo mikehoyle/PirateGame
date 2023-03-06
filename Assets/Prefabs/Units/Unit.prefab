@@ -71,6 +71,13 @@ MonoBehaviour:
   dropInHeight: 6
   dropInGravity: 15
   dropInShake: {fileID: 11400000, guid: 2c933a6da9294e941adc345869bca4a2, type: 2}
+  dropInImpactSound:
+    Guid:
+      Data1: -489537298
+      Data2: 1236233903
+      Data3: -109247347
+      Data4: -1894127419
+    Path: event:/Units/Movement/DropInImpact
 --- !u!60 &7100612996877513888
 PolygonCollider2D:
   m_ObjectHideFlags: 0

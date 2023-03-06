@@ -14,7 +14,7 @@ namespace Units.Abilities {
   /// </summary>
   [CreateAssetMenu(menuName = "Units/Abilities/AoeRangedAbility")]
   public class AoeRangedAbility : RangedAbility {
-    [SerializeField] private TextAsset aoeDefinition;
+    [SerializeField] [Multiline] private string aoeDefinition;
     private AreaOfEffect _areaOfEffect;
 
     private void Awake() {
@@ -61,6 +61,8 @@ namespace Units.Abilities {
       // Animation options should definitely not be here... a future problem.
       context.Actor.FaceTowards(aoe.GetTarget());
       context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
+      yield return new WaitForSeconds(impactAnimationDelaySec);
+      yield return CreateImpactAnimation(context.TargetedTile);
       PlaySound();
       // TODO(P1): Account for animation time
       callback();

@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1753957539f948dbb176a9af2bd3fdd0, type: 3}
+  m_Name: ScattershotAbility
+  m_EditorClassIdentifier: 
+  skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  soundOnActivate:
+    Guid:
+      Data1: -296483996
+      Data2: 1076354558
+      Data3: 644675969
+      Data4: -1234379365
+    Path: event:/Units/Weapons/Slingshot
+  impactAnimation: {fileID: 11400000, guid: 4bb5cfbd223147d479bbaf312530b10d, type: 2}
+  impactAnimationDelaySec: 0.4
+  canStillMoveAfter: 0
+  incurredEffect:
+    rid: 1371289066063003649
+  displayString: Scatter Shot
+  cost:
+  - amount: 2
+    resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+  range:
+    rid: 1371289066063003654
+  aoeDefinition: '_X_
+
+    1_1'
+  references:
+    version: 2
+    RefIds:
+    - rid: 1371289066063003649
+      type: {class: PerRoundExhaustibleResourceStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
+      data:
+        encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+        numRoundsPerEffectEnactment: 1
+        numEnactmentsBeforeDeath: 1
+        enactOnceOnApplication: 0
+        exhaustibleResourceEffects:
+        - resource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+          value:
+            rid: 1371289066063003650
+        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+          value:
+            rid: 1371289066063003651
+    - rid: 1371289066063003650
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 2
+    - rid: 1371289066063003651
+      type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        operation: 0
+        operands:
+        - rid: 1371289066063003652
+        - rid: 1371289066063003653
+    - rid: 1371289066063003652
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 1
+    - rid: 1371289066063003653
+      type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: 27bc55966ccc98747a38b270dc376ebe, type: 2}
+    - rid: 1371289066063003654
+      type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
+      data:
+        rangeMin: 2
+        rangeMax: 5

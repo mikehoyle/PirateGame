@@ -14,7 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
-  incurredEffect: {fileID: 0}
+  soundOnActivate:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  canStillMoveAfter: 1
+  incurredEffect:
+    rid: -2
   displayString: Move
   cost: []
   movementResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

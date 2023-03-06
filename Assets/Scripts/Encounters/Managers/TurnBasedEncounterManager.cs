@@ -78,6 +78,8 @@ namespace Encounters.Managers {
     private void OnAbilitySelected(PlayerUnitController actor, UnitAbility ability, Vector3Int source) {
       _gridIndicators.Clear();
       ability.OnSelected(actor, _gridIndicators, source);
+      ability.ShowIndicator(
+          actor, source, SceneTerrain.GetTileOccupant(_lastKnownHoveredTile), _lastKnownHoveredTile, _gridIndicators);
     }
 
     private void OnBeginAbilityExecution() {

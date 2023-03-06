@@ -17,6 +17,7 @@ namespace Units {
     [SerializeField] private int dropInHeight;
     [SerializeField] private float dropInGravity;
     [SerializeField] private ShakePreset dropInShake;
+    [SerializeField] private EventReference dropInImpactSound;
     
     private SceneTerrain _terrain;
     private EncounterActor _unit;
@@ -95,6 +96,7 @@ namespace Units {
       
       _unit.EnableShadow(true);
       Shaker.ShakeAll(dropInShake);
+      RuntimeManager.PlayOneShot(dropInImpactSound);
       OnMovementComplete();
       onCompleteCallback();
     }

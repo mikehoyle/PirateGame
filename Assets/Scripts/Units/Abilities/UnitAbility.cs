@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using Common.Animation;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
@@ -9,8 +10,10 @@ using FMODUnity;
 using Optional;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
+using StaticConfig.Sprites;
 using StaticConfig.Units;
 using Terrain;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -23,6 +26,9 @@ namespace Units.Abilities {
     [SerializeField] private GameObject skillTestPrefab;
     [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected EventReference soundOnActivate;
+    [SerializeField] protected DirectionalAnimatedSprite impactAnimation;
+    [SerializeField] protected float impactAnimationDelaySec;
+    [SerializeField] protected bool canStillMoveAfter;
     // Optional
     [SerializeReference, SerializeReferenceButton] public StatusEffect incurredEffect;
 
@@ -59,7 +65,7 @@ namespace Units.Abilities {
 
     public abstract bool CouldExecute(AbilityExecutionContext context);
 
-    /// <returns>A coroutine enumrator for the ability, if it can be performed.</returns>
+    /// <returns>A coroutine enumerator for the ability, if it can be performed.</returns>
     public Option<IEnumerator> TryExecute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
       if (!CouldExecute(context) || !CanAfford(context.Actor)) {
         return Option.None<IEnumerator>();
@@ -105,6 +111,10 @@ namespace Units.Abilities {
       foreach (var abilityCost in cost) {
         actor.EncounterState.ExpendResource(abilityCost.resource, abilityCost.amount);
       }
+
+      if (!canStillMoveAfter) {
+        actor.EncounterState.ExpendResource(ExhaustibleResources.Instance.mp, int.MaxValue);
+      }
     }
 
     // TODO(P1): Determine this far more maturely, for the player and AI.
@@ -115,6 +125,17 @@ namespace Units.Abilities {
       }
 
       callback(Random.Range(0.5f, 1f));
+    }
+
+    protected Coroutine CreateImpactAnimation(Vector3Int target) {
+      if (impactAnimation == null) {
+        return null;
+      }
+      
+      var impactObject = new GameObject("Impact Animation");
+      impactObject.AddComponent<SpriteRenderer>();
+      var animation = impactObject.AddComponent<EphemeralAnimation>();
+      return animation.PlayThenDie(target, impactAnimation, "effect");
     }
   }
 }

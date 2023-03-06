@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{0ce4cdea-7c1e-45df-9f59-ee930f94b4c5}">
+		<property name="assetPath">
+			<value>Fantasy Interface Sounds/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{7947621e-65a8-4bb3-827a-fa36cd0ddd42}</destination>
+		</relationship>
+	</object>
+</objects>

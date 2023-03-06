@@ -34,6 +34,10 @@ namespace StaticConfig.Sprites {
         return new Animation(
             GetMirroredDirection(direction), name, startFrame, endFrame, frameDurationSecs, !isMirrored);
       }
+
+      public float GetDurationSec() {
+        return (endFrame - startFrame) * frameDurationSecs;
+      }
     }
     
     public SerializableDictionary<FacingDirection, Animation> animations;

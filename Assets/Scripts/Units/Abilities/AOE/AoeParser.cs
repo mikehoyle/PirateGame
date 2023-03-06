@@ -17,16 +17,10 @@ namespace Units.Abilities.AOE {
     private const char On = '1';
 
     // No big focus on efficiency here, it won't matter
-    public static AreaOfEffect ParseAreaOfEffect(TextAsset rawAsset) {
-      var raw = rawAsset.text;
-      raw = raw.Replace("\r\n", "\n");
-      return ParseAreaOfEffectRaw(raw, rawAsset.name);
-    }
-
-    public static AreaOfEffect ParseAreaOfEffectRaw(string raw, string assetName = "") {
+    public static AreaOfEffect ParseAreaOfEffect(string raw) {
       var lines = raw.Split("\n" , StringSplitOptions.RemoveEmptyEntries);
 
-      var targetOffset = GetTargetOffset(lines, assetName);
+      var targetOffset = GetTargetOffset(lines);
       var affectedCoords = new List<Vector3Int>();
       for (int y = 0; y < lines.Length; y++) {
         for (int x = 0; x < lines[y].Length; x++) {
@@ -39,7 +33,7 @@ namespace Units.Abilities.AOE {
       return new AreaOfEffect(affectedCoords);
     }
 
-    private static Vector3Int GetTargetOffset(string[] lines, string assetName = "") {
+    private static Vector3Int GetTargetOffset(string[] lines) {
       for (int y = 0; y < lines.Length; y++) {
         for (int x = 0; x < lines[y].Length; x++) {
           if (lines[y][x] == TargetOn || lines[y][x] == TargetOff) {
@@ -50,7 +44,7 @@ namespace Units.Abilities.AOE {
         }
       }
       
-      Debug.LogError($"Unable to find target tile in AOE file {assetName}");
+      Debug.LogError("Unable to find target tile in AOE.");
       return Vector3Int.zero;
     }
   }
