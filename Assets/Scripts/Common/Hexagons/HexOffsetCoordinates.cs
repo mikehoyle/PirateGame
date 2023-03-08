@@ -1,17 +1,42 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace Zen.Hexagons
 {
+  /// <summary>
+  /// Minorly edited to be Unity-serializable.
+  /// </summary>
     [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
-    public readonly struct HexOffsetCoordinates
-    {
-        public int Col { get; }
-        public int Row { get; }
+    [Serializable]
+    public struct HexOffsetCoordinates {
+        [NonSerialized]
+        public static readonly HexOffsetCoordinates Origin = new(0, 0);
 
-        public HexOffsetCoordinates(int col, int row)
-        {
-            Col = col;
-            Row = row;
+        [SerializeField] private int col;
+        [SerializeField] private int row;
+        public int Col => col;
+        public int Row => row;
+
+        public HexOffsetCoordinates(int col, int row) {
+            this.col = col;
+            this.row = row;
+        }
+
+        public Vector3Int AsVector3Int() {
+          // Row as X (swapped), because bafflingly, Unity uses X as the vertical axis
+          // in its grids.
+          return new Vector3Int(Row, Col, 0);
+        }
+
+        public static HexOffsetCoordinates From(Vector3Int vec) {
+          // Once again, swapped to accomodate Unity weirdness.
+          return new HexOffsetCoordinates(vec.y, vec.x);
+        }
+        
+        public static HexOffsetCoordinates From(int x, int y) {
+          // Once again, swapped to accomodate Unity weirdness.
+          return new HexOffsetCoordinates(y, x);
         }
 
         #region Overrides and Overloads

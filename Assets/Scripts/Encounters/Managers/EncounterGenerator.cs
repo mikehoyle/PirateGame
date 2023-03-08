@@ -37,7 +37,7 @@ namespace Encounters.Managers {
     /// development, but for now, it's very simple.
     /// TODO(P1): oh so much more/different than this
     /// </summary>
-    public void Generate(EncounterTile encounterTile) {
+    public void Generate(EncounterWorldTile encounterTile) {
       Debug.Log($"Generating encounter of DR: {encounterTile.difficulty}");
       GenerateTerrain(encounterTile);
       
@@ -48,7 +48,7 @@ namespace Encounters.Managers {
       encounterTile.isInitialized = true;
     }
 
-    private void GenerateTerrain(EncounterTile encounterTile) {
+    private void GenerateTerrain(EncounterWorldTile encounterTile) {
       encounterTile.terrain = new();
       var width = _rng.Next(6, 12);
       var height = _rng.Next(6, 12);
@@ -73,7 +73,7 @@ namespace Encounters.Managers {
     /// <summary>
     /// Generate units with an individual DR which sums to the DR of the encounter.
     /// </summary>
-    private void GenerateUnits(EncounterTile encounterTile) {
+    private void GenerateUnits(EncounterWorldTile encounterTile) {
       encounterTile.enemies = new();
       var spawnVars = new EnemySpawnVariables {
           DifficultyRating = encounterTile.difficulty,
@@ -114,7 +114,7 @@ namespace Encounters.Managers {
     /// Once again, far too simple to actually be reasonable, but for now just pick
     /// a few spots and put the most basic obstacle there.
     /// </summary>
-    private void GenerateObstacles(EncounterTile encounterTile) {
+    private void GenerateObstacles(EncounterWorldTile encounterTile) {
       encounterTile.obstacles = new();
       // Arbitrarily make 4 obstacles
       for (int i = 0; i < 4; i++) {
@@ -128,7 +128,7 @@ namespace Encounters.Managers {
     /// <summary>
     /// Rework this entirely, it's just a hard-coded stub.
     /// </summary>
-    private void GenerateCollectables(EncounterTile encounterTile) {
+    private void GenerateCollectables(EncounterWorldTile encounterTile) {
       encounterTile.collectables = new();
 
       // Arbitrarily make 3 collectables

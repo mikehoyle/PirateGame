@@ -12,7 +12,7 @@ namespace HUD.Overworld {
     }
 
     private void Update() {
-      _text.text = Text + GameState.State.world.currentDay;
+      //_text.text = Text + GameState.State.world.currentDay;
     }
   }
 }

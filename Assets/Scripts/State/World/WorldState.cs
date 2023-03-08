@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Zen.Hexagons;
 
 namespace State.World {
   /// <summary>
@@ -8,29 +9,30 @@ namespace State.World {
   [CreateAssetMenu(menuName = "State/WorldState")]
   public class WorldState : ScriptableObject {
     [Serializable]
-    public class WorldContentsDictionary : SerializableDictionary<WorldCoordinates, WorldTile> { }
-
-    public uint currentDay;
+    public class WorldContentsDictionary : SerializableDictionary<HexOffsetCoordinates, WorldTile> { }
     public WorldContentsDictionary tileContents;
 
     private WorldState() {
       tileContents = new();
     }
 
-    public void SetTile(int x, int y, WorldTile tile) {
-      var coordinates = new WorldCoordinates(x, y);
-      tile.coordinates = coordinates;
-      tileContents[coordinates] = tile;
+    public void UpdateTile(WorldTile tile) {
+      tileContents[tile.coordinates] = tile;
     }
 
-    public void SetTileDifficulty(int x, int y, int difficulty) {
-        if (tileContents.TryGetValue(new WorldCoordinates(x, y), out var tile)) {
-          tile.difficulty = difficulty;
-        }
+    // Does not overwrite
+    public void TrySetTile(WorldTile tile) {
+      if (!tileContents.ContainsKey(tile.coordinates)) {
+        UpdateTile(tile);
+      }
     }
     
     public WorldTile GetTile(int x, int y) {
-      if (tileContents.TryGetValue(new WorldCoordinates(x, y), out var tile)) {
+      return GetTile(HexOffsetCoordinates.From(x, y));
+    }
+    
+    public WorldTile GetTile(HexOffsetCoordinates coordinates) {
+      if (tileContents.TryGetValue(coordinates, out var tile)) {
         return tile;
       }
 
@@ -40,17 +42,6 @@ namespace State.World {
     public WorldTile GetActiveTile() {
       var activeTile = GameState.State.player.overworldGridPosition;
       return GetTile(activeTile.x, activeTile.y);
-    }
-  }
-
-  [Serializable]
-  public struct WorldCoordinates {
-    public int X;
-    public int Y;
-
-    public WorldCoordinates(int x, int y) {
-      X = x;
-      Y = y;
     }
   }
 }

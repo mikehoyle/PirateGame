@@ -15,7 +15,7 @@ namespace Encounters.Managers {
     [SerializeField] private EncounterEvents encounterEvents;
     
     private SceneTerrain _terrain;
-    private EncounterTile _encounter;
+    private EncounterWorldTile _encounter;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
@@ -31,7 +31,7 @@ namespace Encounters.Managers {
       encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
     }
 
-    public void SetUpMap(EncounterTile encounter) {
+    public void SetUpMap(EncounterWorldTile encounter) {
       _encounter = encounter;
       foreach (var tile in encounter.terrain) {
         // For now, ignoring tile type because there's only one. In the future, probably use a scriptable

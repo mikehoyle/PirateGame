@@ -9,7 +9,7 @@ namespace Units {
       return (100 * (level * level)) - (100 * level);
     }
 
-    public static int GetXpForVictoryInEncounter(EncounterTile encounterTile) {
+    public static int GetXpForVictoryInEncounter(EncounterWorldTile encounterTile) {
       return encounterTile.difficulty * 10;
     }
   }

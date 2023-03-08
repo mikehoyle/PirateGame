@@ -3,6 +3,7 @@ using CameraControl;
 using Common;
 using Controls;
 using HUD.MainMenu;
+using IngameDebugConsole;
 using State;
 using State.World;
 using StaticConfig.RawResources;
@@ -27,7 +28,7 @@ namespace Overworld {
     [SerializeField] private TileBase openSeaTile;
     [SerializeField] private TileBase encounterTile;
     [SerializeField] private TileBase fogOfWarTile;
-    [SerializeField] private TileBase heartTile;
+    [SerializeField] private TileBase outOfBoundsTile;
     [SerializeField] private TileBase defeatedEncounterTile;
 
     private Tilemap _overlayTilemap;
@@ -54,10 +55,12 @@ namespace Overworld {
       }
 
       _controls.Overworld.Enable();
+      DebugLogConsole.AddCommand("reveal", "Reveal all map tiles", RevealMap);
     }
 
     private void OnDisable() {
       _controls.Overworld.Disable();
+      DebugLogConsole.RemoveCommand("reveal");
     }
 
     private void Start() {
@@ -74,23 +77,22 @@ namespace Overworld {
     }
 
     private void UpdateTile (WorldTile mapTile) {
-      var tile = mapTile.isCovered ? fogOfWarTile : mapTile.TileType switch {
-        WorldTile.Type.OpenSea => openSeaTile,
-        WorldTile.Type.Encounter => encounterTile,
-        WorldTile.Type.Heart => heartTile,
-        WorldTile.Type.DefeatedEncounter => defeatedEncounterTile,
-        _ => fogOfWarTile,
+      var tile = mapTile.state == TileState.Obscured ? fogOfWarTile : mapTile switch {
+          var x when x.state == TileState.Cleared => defeatedEncounterTile,
+          OpenSeaWorldTile => openSeaTile,
+          EncounterWorldTile => encounterTile,
+          OutOfBoundsWorldTile => outOfBoundsTile,
+          _ => fogOfWarTile,
       };
-      _overworldTilemap.SetTile(
-          new Vector3Int(mapTile.coordinates.X, mapTile.coordinates.Y, 0), tile);
+      _overworldTilemap.SetTile(mapTile.coordinates.AsVector3Int(), tile);
     }
 
     private void RemoveFogOfWar() {
       Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;
       HexGridUtils.ForEachAdjacentTileNotInVision(currentPlayerPosition, cell => {
         WorldTile mapTile = GameState.State.world.GetTile(cell.x, cell.y);
-        mapTile.isCovered = false;
-        UpdateTile(GameState.State.world.GetTile(cell.x, cell.y));
+        mapTile.Reveal();
+        UpdateTile(mapTile);
       });
     }
 
@@ -132,38 +134,36 @@ namespace Overworld {
         ExecuteMapMove(gridCell);
       }
     }
+    
+    // Exists for debugging only, for now
+    public void OnRightClick(InputAction.CallbackContext context) {
+      if (!context.performed || _uiInteraction.isPlayerHoveringUi) {
+        return;
+      }
+      
+      var worldPoint = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+      worldPoint.z = 0;
+      var gridCell = _overworldTilemap.layoutGrid.WorldToCell(worldPoint);
+      Debug.Log($"Clicked cell: {gridCell}");
+    }
 
     private bool CanExecuteMapMove(Vector3Int gridCell) {
       var destination = GameState.State.world.GetTile(gridCell.x, gridCell.y);
-      if (destination.TileType == WorldTile.Type.DefeatedEncounter) {
+      if (!destination.isTraversable) {
         return false;
       }
       Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;
       bool isInBoundsX = (gridCell.x >= currentPlayerPosition.x - 1 && gridCell.x <= currentPlayerPosition.x + 1);
       bool isInBoundsY = (gridCell.y >= currentPlayerPosition.y - 1 && gridCell.y <= currentPlayerPosition.y + 1);
-      bool hasFood = GameState.State.player.inventory.GetQuantity(foodResource) > 0;
-      bool hasWater = GameState.State.player.inventory.GetQuantity(waterResource) > 0;
-
-      return isInBoundsX && isInBoundsY && hasFood && hasWater;
+      return isInBoundsX && isInBoundsY;
     }
     
     private void ExecuteMapMove(Vector3Int gridCell) {
-      // TODO(P1): Make a lot of changes and refinements here, like expending resources to travel,
-      //     and doing any sort of adjacency checks.
-      
-      GameState.State.player.inventory.ReduceQuantity(foodResource, 1);
-      GameState.State.player.inventory.ReduceQuantity(waterResource, 1);
-
       MovePlayer(gridCell);
       RemoveFogOfWar();
 
       var destination = GameState.State.world.GetTile(gridCell.x, gridCell.y);
-      switch (destination.TileType) {
-        case WorldTile.Type.Encounter:
-          // TODO(P0): Actually load up the encounter from known encounter params
-          SceneManager.LoadScene(Scenes.Name.Encounter.SceneName());
-          break;
-      }
+      destination.OnVisit();
     }
 
     private void MovePlayer(Vector3Int gridCell) {
@@ -171,6 +171,13 @@ namespace Overworld {
       _cameraMover.MoveCursorDirectly(_overworldTilemap.GetCellCenterWorld(gridCell));
       _overlayTilemap.ClearAllTiles();
       _overlayTilemap.SetTile(gridCell, indicatorTile);
+    }
+    
+    public void RevealMap() {
+      foreach (var gameTile in GameState.State.world.tileContents.Values) {
+        gameTile.Reveal();
+        UpdateTile(gameTile);
+      }
     }
   }
 }

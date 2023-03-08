@@ -44,7 +44,7 @@ namespace Encounters.ShipPlacement {
       _controls.ShipPlacement.Disable();
     }
 
-    public void BeginShipPlacement(EncounterTile encounter) {
+    public void BeginShipPlacement(EncounterWorldTile encounter) {
       _encounterProfile = TerrainProfile.BuildFrom(encounter.terrain.Keys);
       _shipProfile = TerrainProfile.BuildFrom(
           GameState.State.player.ship.foundations.Keys);

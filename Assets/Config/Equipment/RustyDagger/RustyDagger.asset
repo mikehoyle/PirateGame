@@ -17,3 +17,4 @@ MonoBehaviour:
   applicableSlot: {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}
   abilitiesProvided:
   - {fileID: 11400000, guid: ee97f25b231883d4ea7e2a4f2172fce3, type: 2}
+  - {fileID: 11400000, guid: e9dbef57d2296d249b30daf3330224ce, type: 2}

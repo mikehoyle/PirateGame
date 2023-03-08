@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42432f8901a940a7a607a478060e0f10, type: 3}
   m_Name: DebugWorldState
   m_EditorClassIdentifier: 
-  currentDay: 1
   tileContents:
-    m_keys:
-    - X: 0
-      Y: 0
-    m_values:
-    - {fileID: 11400000, guid: 8f60e138bcbf0384fb089c36392a066d, type: 2}
+    m_keys: []

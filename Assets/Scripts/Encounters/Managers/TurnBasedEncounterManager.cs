@@ -2,6 +2,7 @@
 using Common;
 using Controls;
 using Encounters.Grid;
+using IngameDebugConsole;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
@@ -51,6 +52,9 @@ namespace Encounters.Managers {
       encounterEvents.abilitySelected.RegisterListener(OnAbilitySelected);
       encounterEvents.unitDeath.RegisterListener(OnUnitDeath);
       encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
+      
+      DebugLogConsole.AddCommand("win", "Automatically win the encounter", DebugWin);
+      DebugLogConsole.AddCommand("lose", "Automatically lose the encounter", DebugWin);
     }
 
     private void OnDisable() {
@@ -59,6 +63,9 @@ namespace Encounters.Managers {
       encounterEvents.abilitySelected.UnregisterListener(OnAbilitySelected);
       encounterEvents.unitDeath.UnregisterListener(OnUnitDeath);
       encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
+      
+      DebugLogConsole.RemoveCommand("win");
+      DebugLogConsole.RemoveCommand("lose");
     }
 
     private void OnEncounterStart() {
@@ -106,7 +113,7 @@ namespace Encounters.Managers {
     private void OnEncounterEnd(EncounterOutcome outcome) {
       Debug.Log($"Encounter ending with outcome: {outcome}");
       if (outcome == EncounterOutcome.PlayerVictory) {
-        var encounter = GameState.State.world.GetActiveTile().DownCast<EncounterTile>(); 
+        var encounter = GameState.State.world.GetActiveTile().DownCast<EncounterWorldTile>(); 
         collectedResources.GiveResourcesToPlayer();
         foreach (var unit in GameState.State.player.roster) {
           unit.GrantXp(ExperienceCalculations.GetXpForVictoryInEncounter(encounter));
@@ -182,6 +189,14 @@ namespace Encounters.Managers {
       currentSelection.Clear();
       _gridIndicators.Clear();
       encounterEvents.unitSelected.Raise(null);
+    }
+
+    private void DebugWin() {
+      encounterEvents.encounterEnd.Raise(EncounterOutcome.PlayerVictory);
+    }
+    
+    private void DebugLose() {
+      encounterEvents.encounterEnd.Raise(EncounterOutcome.PlayerDefeat);
     }
   }
 }

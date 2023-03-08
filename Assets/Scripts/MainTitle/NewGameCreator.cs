@@ -9,12 +9,11 @@ namespace MainTitle {
   /// </summary>
   public class NewGameCreator : MonoBehaviour {
     [SerializeField] private PlayerState newGamePlayerState;
-    [SerializeField] private int mapWidth = 100;
-    [SerializeField] private int mapHeight = 100;
+    [SerializeField] private int mapRadius = 30;
 
     public void SetUpNewGame() {
       var gameState = GameState.New();
-      gameState.world = new OverworldGenerator(mapWidth, mapHeight).GenerateWorld();
+      gameState.world = new WorldGenerator(mapRadius).GenerateWorld();
       gameState.player = newGamePlayerState.DeepCopy();
     }
   }

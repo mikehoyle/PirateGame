@@ -619,6 +619,15 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""1bea8166-988f-41a2-9d11-a96f5f620c07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -630,6 +639,17 @@ namespace Controls
                     ""processors"": """",
                     ""groups"": ""KBM"",
                     ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f45f6309-d03d-41fa-a552-dc60bbe19926"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1093,6 +1113,7 @@ namespace Controls
             // Overworld
             m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
             m_Overworld_Click = m_Overworld.FindAction("Click", throwIfNotFound: true);
+            m_Overworld_RightClick = m_Overworld.FindAction("RightClick", throwIfNotFound: true);
             // CameraCursorMovement
             m_CameraCursorMovement = asset.FindActionMap("CameraCursorMovement", throwIfNotFound: true);
             m_CameraCursorMovement_MoveCamera = m_CameraCursorMovement.FindAction("MoveCamera", throwIfNotFound: true);
@@ -1503,11 +1524,13 @@ namespace Controls
         private readonly InputActionMap m_Overworld;
         private List<IOverworldActions> m_OverworldActionsCallbackInterfaces = new List<IOverworldActions>();
         private readonly InputAction m_Overworld_Click;
+        private readonly InputAction m_Overworld_RightClick;
         public struct OverworldActions
         {
             private @GameControls m_Wrapper;
             public OverworldActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Click => m_Wrapper.m_Overworld_Click;
+            public InputAction @RightClick => m_Wrapper.m_Overworld_RightClick;
             public InputActionMap Get() { return m_Wrapper.m_Overworld; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1520,6 +1543,9 @@ namespace Controls
                 @Click.started += instance.OnClick;
                 @Click.performed += instance.OnClick;
                 @Click.canceled += instance.OnClick;
+                @RightClick.started += instance.OnRightClick;
+                @RightClick.performed += instance.OnRightClick;
+                @RightClick.canceled += instance.OnRightClick;
             }
 
             private void UnregisterCallbacks(IOverworldActions instance)
@@ -1527,6 +1553,9 @@ namespace Controls
                 @Click.started -= instance.OnClick;
                 @Click.performed -= instance.OnClick;
                 @Click.canceled -= instance.OnClick;
+                @RightClick.started -= instance.OnRightClick;
+                @RightClick.performed -= instance.OnRightClick;
+                @RightClick.canceled -= instance.OnRightClick;
             }
 
             public void RemoveCallbacks(IOverworldActions instance)
@@ -1860,6 +1889,7 @@ namespace Controls
         public interface IOverworldActions
         {
             void OnClick(InputAction.CallbackContext context);
+            void OnRightClick(InputAction.CallbackContext context);
         }
         public interface ICameraCursorMovementActions
         {

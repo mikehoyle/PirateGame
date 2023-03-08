@@ -1,6 +1,7 @@
 ﻿using State;
 using System;
 using System.Collections.Generic;
+using State.World;
 using UnityEngine;
 
 namespace Common {
@@ -29,13 +30,7 @@ namespace Common {
           return dx + dy - (int)Math.Floor((double)dx / 2);
         }
       }
-
-    
     }
-
-
-
-
 
     public static void ForEachAdjacentTileNotInVision(Vector2Int tile, Action<Vector2Int> action) {
       var visionRange = GameState.State.player.visionRange;
@@ -53,7 +48,7 @@ namespace Common {
 
         for (int x = 0; x < adjCols.Length; x++) {
           Vector2Int gridCell = new(adjRows[x], adjCols[x]);
-          if (GameState.State.world.GetTile(gridCell.x, gridCell.y).isCovered) {
+          if (GameState.State.world.GetTile(gridCell.x, gridCell.y).state == TileState.Obscured) {
             action(gridCell);
           }
         }

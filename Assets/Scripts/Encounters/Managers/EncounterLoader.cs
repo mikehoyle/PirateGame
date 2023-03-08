@@ -5,22 +5,24 @@ using State;
 using State.World;
 using Terrain;
 using UnityEngine;
+using Zen.Hexagons;
 
 namespace Encounters.Managers {
   public class EncounterLoader : MonoBehaviour {
-    private EncounterTile _encounter;
+    private EncounterWorldTile _encounter;
     private EncounterGenerator _encounterGenerator;
     private EncounterSetup _encounterSetup;
     private ShipPlacementManager _shipPlacementManager;
     private CameraCursorMover _cameraCursor;
 
     private void Awake() {
-      _encounter = GameState.State.world.GetActiveTile().DownCast<EncounterTile>();
+      MaybeLoadDebugEncounter();
+      _encounter = GameState.State.world.GetActiveTile().DownCast<EncounterWorldTile>();
       if (_encounter == null) {
         throw new NotSupportedException(
             "Cannot load an encounter on a non-encounter tile." +
             $"Tile: {GameState.State.player.overworldGridPosition}," +
-            $"Tile type: {GameState.State.world.GetActiveTile().TileType}");
+            $"Tile type: {GameState.State.world.GetActiveTile().GetType()}");
       }
 
       _encounterGenerator = GetComponent<EncounterGenerator>();
@@ -46,6 +48,17 @@ namespace Encounters.Managers {
       _cameraCursor.Initialize(
           SceneTerrain.CellCenterWorldStatic(new Vector3Int((int)center.x, (int)center.y, 0)));
       _cameraCursor.SetGridBounds(boundingRect);
+    }
+    
+    
+    private void MaybeLoadDebugEncounter() {
+      if (Debug.isDebugBuild && GameState.State.world.GetActiveTile() == null) {
+        var position = GameState.State.player.overworldGridPosition;
+        var encounter = new EncounterWorldTile(HexOffsetCoordinates.From((Vector3Int)position)) {
+            difficulty = 4,
+        };
+        GameState.State.world.UpdateTile(encounter);
+      }
     }
   }
 }

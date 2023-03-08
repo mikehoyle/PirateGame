@@ -53,7 +53,7 @@ MonoBehaviour:
   openSeaTile: {fileID: 11400000, guid: fd357e98dd025534db1d2b6b62b7ec5a, type: 2}
   encounterTile: {fileID: 11400000, guid: f65ecbf0e08a41c40be8df41f96dad91, type: 2}
   fogOfWarTile: {fileID: 11400000, guid: d8beb59f28246c4438fd6d5ec55d66fc, type: 2}
-  heartTile: {fileID: 11400000, guid: 1a8a72aacb1985b46822ae8d98c2c473, type: 2}
+  outOfBoundsTile: {fileID: 11400000, guid: 1a8a72aacb1985b46822ae8d98c2c473, type: 2}
   defeatedEncounterTile: {fileID: 11400000, guid: bc1f51193745af047aaa961bde2d9568, type: 2}
 --- !u!114 &6780469848234092494
 MonoBehaviour:
