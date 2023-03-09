@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Loading;
 using State.Encounter;
 using State.Unit;
 using StaticConfig.Encounters;

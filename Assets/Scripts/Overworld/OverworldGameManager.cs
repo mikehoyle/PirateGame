@@ -4,6 +4,7 @@ using System.Linq;
 using CameraControl;
 using Common;
 using Common.Grid;
+using Common.Loading;
 using Controls;
 using HUD.MainMenu;
 using IngameDebugConsole;
