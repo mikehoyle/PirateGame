@@ -33,6 +33,10 @@ namespace Common.Grid {
       });
       return result;
     }
+
+    public bool HasEndpoint(HexOffsetCoordinates coord) {
+      return endpointOne == coord || endpointTwo == coord;
+    }
     
     #region Equality Overrides
     protected bool Equals(HexPath other) {

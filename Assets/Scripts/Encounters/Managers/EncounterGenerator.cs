@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using State;
 using State.Encounter;
 using State.Unit;
 using State.World;

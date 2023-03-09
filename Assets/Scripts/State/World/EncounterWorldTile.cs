@@ -23,12 +23,16 @@ namespace State.World {
 
     public void MarkDefeated() {
       state = TileState.Cleared;
-      isTraversable = false;
+      connectsToBoundaries = false;
+
+      GameState.State.world.outpostBorders.RemoveWhere(border => border.HasEndpoint(coordinates));
     }
 
     public override void OnVisit() {
       base.OnVisit();
-      SceneManager.LoadScene(Scenes.Name.Encounter.SceneName());
+      if (state != TileState.Cleared) {
+        SceneManager.LoadScene(Scenes.Name.Encounter.SceneName());
+      }
     }
   }
   
