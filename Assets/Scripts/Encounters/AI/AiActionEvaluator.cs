@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Common.Grid;
 using Encounters.Enemies;
 using Encounters.Grid;
 using Optional;

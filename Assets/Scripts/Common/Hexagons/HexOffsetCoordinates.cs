@@ -23,20 +23,18 @@ namespace Zen.Hexagons
             this.row = row;
         }
 
+        // In conversions, all Y coords are negated because unity considers Y up, while
+        // the library considers Y down.
         public Vector3Int AsVector3Int() {
-          // Row as X (swapped), because bafflingly, Unity uses X as the vertical axis
-          // in its grids.
-          return new Vector3Int(Row, Col, 0);
+          return new Vector3Int(Col, -Row, 0);
         }
 
         public static HexOffsetCoordinates From(Vector3Int vec) {
-          // Once again, swapped to accomodate Unity weirdness.
-          return new HexOffsetCoordinates(vec.y, vec.x);
+          return new HexOffsetCoordinates(vec.x, -vec.y);
         }
         
         public static HexOffsetCoordinates From(int x, int y) {
-          // Once again, swapped to accomodate Unity weirdness.
-          return new HexOffsetCoordinates(y, x);
+          return new HexOffsetCoordinates(x, -y);
         }
 
         #region Overrides and Overloads

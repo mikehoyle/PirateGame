@@ -10,7 +10,6 @@ using FMODUnity;
 using Optional;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
-using StaticConfig.Sprites;
 using StaticConfig.Units;
 using Terrain;
 using Unity.VisualScripting;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using StaticConfig.Sprites;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Common.Animation {

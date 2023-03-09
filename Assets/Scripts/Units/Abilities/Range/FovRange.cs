@@ -1,5 +1,7 @@
 ﻿using System;
 using Common;
+using Common.Animation;
+using Common.Grid;
 using Encounters;
 using Encounters.Grid;
 using State.Unit;

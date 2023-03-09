@@ -1,7 +1,6 @@
-﻿using State.Unit;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace StaticConfig.Sprites {
+namespace Common.Animation {
   [CreateAssetMenu(menuName = "Sprites/DirectionalAnimatedSprite")]
   public class DirectionalAnimatedSprite : ScriptableObject {
     public Sprite[] frames;

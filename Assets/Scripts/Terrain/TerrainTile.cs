@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Grid;
 using Roy_T.AStar.Graphs;
 using Roy_T.AStar.Primitives;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace Terrain {
     public void Initialize(Vector3Int position, Sprite sprite) {
       GridPosition = position;
       _sprite.sprite = sprite;
-      transform.position = SceneTerrain.CellAnchorWorldStatic(position);
+      transform.position = GridUtils.CellAnchorWorldStatic(position);
       gameObject.isStatic = true;
     }
     

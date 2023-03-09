@@ -1,9 +1,9 @@
 ﻿using System;
 using CameraControl;
+using Common.Grid;
 using Encounters.ShipPlacement;
 using State;
 using State.World;
-using Terrain;
 using UnityEngine;
 using Zen.Hexagons;
 
@@ -46,7 +46,7 @@ namespace Encounters.Managers {
       var boundingRect = _encounter.terrain.GetBoundingRect();
       var center = boundingRect.center;
       _cameraCursor.Initialize(
-          SceneTerrain.CellCenterWorldStatic(new Vector3Int((int)center.x, (int)center.y, 0)));
+          GridUtils.CellCenterWorldStatic(new Vector3Int((int)center.x, (int)center.y, 0)));
       _cameraCursor.SetGridBounds(boundingRect);
     }
     

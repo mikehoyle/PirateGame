@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common;
-using StaticConfig.Equipment;
-using Terrain;
+using Common.Grid;
 using UnityEngine;
 
 namespace StaticConfig.Builds {
@@ -26,8 +25,8 @@ namespace StaticConfig.Builds {
       // All these if/elses are begging for better code design... but also the game is begging
       // to be actually made, so leaving it for now.
       return isFoundationTile
-          ? SceneTerrain.CellAnchorWorldStatic(gridPosition)
-          : SceneTerrain.CellBaseWorldStatic(gridPosition);
+          ? GridUtils.CellAnchorWorldStatic(gridPosition)
+          : GridUtils.CellBaseWorldStatic(gridPosition);
     }
 
     public string SortingLayer() {

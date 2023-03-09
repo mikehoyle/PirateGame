@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common;
+using Common.Grid;
 using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;

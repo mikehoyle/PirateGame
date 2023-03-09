@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using Common;
+using Common.Grid;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
-using Terrain;
 using UnityEngine;
 
 namespace Encounters.Enemies {
@@ -23,12 +22,12 @@ namespace Encounters.Enemies {
     public void Init(UnitEncounterState enemyToSpawn, int roundsUntilSpawn) {
       _enemyToSpawn = enemyToSpawn;
       _roundsUntilSpawn = roundsUntilSpawn;
-      transform.position = SceneTerrain.CellAnchorWorldStatic(enemyToSpawn.position);
+      transform.position = GridUtils.CellAnchorWorldStatic(enemyToSpawn.position);
       ApplySize();
     }
     
     private void ApplySize() {
-      _collider.offset = new Vector2(0, -SceneTerrain.CellHeightInWorldUnits);
+      _collider.offset = new Vector2(0, -GridUtils.CellHeightInWorldUnits);
       _collider.SetPath(0, GridUtils.GetFootprintPolygon(_enemyToSpawn.metadata.size));
     }
 

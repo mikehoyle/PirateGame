@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Grid;
 using UnityEngine;
 using Zen.Hexagons;
 
@@ -12,12 +13,12 @@ namespace State.World {
     public TileState state = TileState.Obscured;
     public HexOffsetCoordinates coordinates;
     public bool isTraversable;
+    public bool connectsToBoundaries;
 
     protected WorldTile(HexOffsetCoordinates coordinates) {
-      var hexLibrary = new HexLibrary(HexType.FlatTopped, OffsetCoordinatesType.Odd, 1);
       this.coordinates = coordinates;
       difficulty = DifficultyBaseline +
-          (int)(hexLibrary.GetDistance(HexOffsetCoordinates.Origin, coordinates) * DifficultyScaling);
+          (int)(HexGridUtils.HexLibrary.GetDistance(HexOffsetCoordinates.Origin, coordinates) * DifficultyScaling);
     }
 
     public T DownCast<T>() where T : WorldTile {

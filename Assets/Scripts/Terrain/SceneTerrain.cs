@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Grid;
 using Encounters;
 using StaticConfig.Terrain;
 using UnityEngine;
+using static Common.Grid.GridUtils;
 
 namespace Terrain {
   /// <summary>
   /// Represents the walkable terrain of the scene.
   /// </summary>
   public class SceneTerrain : MonoBehaviour {
-    public const float CellWidthInWorldUnits = 1;
-    public const float CellHeightInWorldUnits = 0.5f;
-    private const float CellHalfWidth = CellWidthInWorldUnits / 2;
-    private const float CellHalfHeight = CellHeightInWorldUnits / 2;
-    private const float ZHeight = 1.5f;
     private const int MaxZ = 6;
     
     // TODO(P2): Use custom tilemaps instead of passed in sprites
@@ -185,36 +182,6 @@ namespace Terrain {
     /// </summary>
     public Vector3 CellCenterWorld(Vector3Int coord) {
       return Grid.CellToWorld(coord) + new Vector3(0, Grid.cellSize.y / 2, 0);
-    }
-
-    /// <summary>
-    /// Because this is just a simple calculation, there's no reason we can't calculate it on our own
-    /// without needing access to the game object 
-    /// </summary>
-    public static Vector3 CellBaseWorldStatic(Vector3Int coord) {
-      return new Vector3(
-          (coord.x - coord.y) * CellHalfWidth,
-          ((coord.x + coord.y) * CellHalfHeight) + (coord.z * ZHeight * CellHalfHeight),
-          coord.z * ZHeight);
-    }
-
-    public static Vector3 CellCenterWorldStatic(Vector3Int coord) {
-      return CellBaseWorldStatic(coord) + new Vector3(0, CellHeightInWorldUnits / 2, 0);
-    }
-    
-    public static Vector3 CellAnchorWorldStatic(Vector3Int coord) {
-      return CellBaseWorldStatic(coord) + new Vector3(0, CellHeightInWorldUnits, 0);
-    }
-
-    /// <summary>
-    /// World -> Cell transformation. But notably does not confine to integer, so also includes
-    /// data on where in the cell the coordinate lies. Also ignores any Z height.
-    /// </summary>
-    public static Vector3 WorldToCell(Vector3 worldCoord) {
-      return new Vector3(
-          ((worldCoord.x / CellHalfWidth) + (worldCoord.y / CellHalfHeight)) / 2,
-          ((worldCoord.y / CellHalfHeight) - (worldCoord.x / CellHalfWidth)) / 2,
-          worldCoord.z);
     }
 
     public static bool IsMovementBlocked(Vector3Int tile) {

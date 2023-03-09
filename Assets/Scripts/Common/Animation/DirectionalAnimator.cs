@@ -1,5 +1,4 @@
-﻿using StaticConfig.Sprites;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Common.Animation {

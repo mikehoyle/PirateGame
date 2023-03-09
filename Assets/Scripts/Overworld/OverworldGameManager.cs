@@ -1,12 +1,15 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using CameraControl;
 using Common;
+using Common.Grid;
 using Controls;
 using HUD.MainMenu;
 using IngameDebugConsole;
 using State;
 using State.World;
-using StaticConfig.RawResources;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -20,8 +23,7 @@ namespace Overworld {
   /// </summary>
   public class OverworldGameManager : MonoBehaviour, GameControls.IOverworldActions {
     [SerializeField] private string buildMenuItemLabel = "Construction";
-    [SerializeField] private RawResource foodResource;
-    [SerializeField] private RawResource waterResource;
+    [SerializeField] private GameObject borderPrefab;
 
     // Tiles 
     [SerializeField] private TileBase indicatorTile;
@@ -39,8 +41,11 @@ namespace Overworld {
     private GameControls _controls;
     private Camera _camera;
     private UiInteractionTracker _uiInteraction;
+    private Grid _grid;
 
     private void Awake() {
+      // TODO(P3): Refactor this class to pull some seperable logic out and prevent huge bloat.
+      _grid = GameObject.Find("Grid").GetComponent<Grid>();
       _overworldTilemap = GameObject.Find("OverworldTilemap").GetComponent<Tilemap>();
       _overlayTilemap = GameObject.Find("OverlayTilemap").GetComponent<Tilemap>();
       _cameraMover = GetComponent<CameraCursorMover>();
@@ -89,8 +94,8 @@ namespace Overworld {
 
     private void RemoveFogOfWar() {
       Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;
-      HexGridUtils.ForEachAdjacentTileNotInVision(currentPlayerPosition, cell => {
-        WorldTile mapTile = GameState.State.world.GetTile(cell.x, cell.y);
+      HexGridUtils.ForEachAdjacentTileInRange(currentPlayerPosition, GameState.State.player.visionRange, cell => {
+        WorldTile mapTile = GameState.State.world.GetTile(cell);
         mapTile.Reveal();
         UpdateTile(mapTile);
       });
@@ -99,6 +104,18 @@ namespace Overworld {
     private void DisplayWorld() {
       foreach (var mapTile in GameState.State.world.tileContents.Values) {
         UpdateTile(mapTile);
+      }
+      DisplayBoundaries();
+    }
+
+    private void DisplayBoundaries() {
+      foreach (var border in GameState.State.world.outpostBorders) {
+        var path = border.GetWorldPath(_grid.GetCellCenterWorld);
+        
+        // TODO(P3): instantiate these into a container to not spam the root node.
+        var borderLine = Instantiate(borderPrefab).GetComponent<LineRenderer>();
+        borderLine.positionCount = path.Count;
+        borderLine.SetPositions(path.ToArray());
       }
     }
     
@@ -148,8 +165,7 @@ namespace Overworld {
     }
 
     private bool CanExecuteMapMove(Vector3Int gridCell) {
-      var destination = GameState.State.world.GetTile(gridCell.x, gridCell.y);
-      if (!destination.isTraversable) {
+      if (!GameState.State.world.CanExecuteMove(gridCell)) {
         return false;
       }
       Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;

@@ -4,6 +4,7 @@ using System.Linq;
 using Common;
 using Common.Animation;
 using Common.Events;
+using Common.Grid;
 using Encounters.Effects;
 using HUD.Encounter.HoverDetails;
 using Optional;
@@ -80,7 +81,7 @@ namespace Encounters {
     }
 
     private void ApplySize(Vector2Int size) {
-      _collider.offset = new Vector2(0, -SceneTerrain.CellHeightInWorldUnits / 2);
+      _collider.offset = new Vector2(0, -GridUtils.CellHeightInWorldUnits / 2);
       _collider.SetPath(0, GridUtils.GetFootprintPolygon(size));
     }
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.Animation;
 using StaticConfig.Encounters;
-using StaticConfig.Sprites;
 using Units.Abilities;
 using UnityEngine;
 

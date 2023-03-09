@@ -18,6 +18,7 @@ namespace State.World {
 
     public EncounterWorldTile(HexOffsetCoordinates coordinates) : base(coordinates) {
       isTraversable = true;
+      connectsToBoundaries = true;
     }
 
     public void MarkDefeated() {

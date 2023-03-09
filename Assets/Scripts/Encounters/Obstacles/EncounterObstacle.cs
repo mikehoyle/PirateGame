@@ -1,6 +1,6 @@
-﻿using HUD.Encounter.HoverDetails;
+﻿using Common.Grid;
+using HUD.Encounter.HoverDetails;
 using StaticConfig.Encounters;
-using Terrain;
 using UnityEngine;
 
 namespace Encounters.Obstacles {
@@ -21,7 +21,7 @@ namespace Encounters.Obstacles {
       Metadata = obstacle;
       Position = position;
       _spriteRenderer.sprite = obstacle.sprite;
-      transform.position = SceneTerrain.CellBaseWorldStatic(position);
+      transform.position = GridUtils.CellBaseWorldStatic(position);
     }
     public DisplayDetails GetDisplayDetails() {
       return new DisplayDetails {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common;
+using Common.Grid;
 using HUD.Encounter.HoverDetails;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
@@ -35,7 +36,7 @@ namespace Encounters.Obstacles {
     public void Initialize(CollectableInstance collectable, Vector3Int position) {
       Metadata = collectable;
       Position = position;
-      transform.position = SceneTerrain.CellBaseWorldStatic(position);
+      transform.position = GridUtils.CellBaseWorldStatic(position);
     }
 
     private void TryCollect() {

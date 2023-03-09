@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common.Animation;
 using StaticConfig.Units;
 using UnityEngine;
 

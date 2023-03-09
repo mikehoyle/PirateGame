@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using static State.Unit.FacingDirection;
+using static Common.Animation.FacingDirection;
 
-namespace State.Unit {
+namespace Common.Animation {
   public enum FacingDirection {
     NorthEast,
     NorthWest,

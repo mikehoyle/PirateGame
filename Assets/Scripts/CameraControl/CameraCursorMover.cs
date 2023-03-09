@@ -1,4 +1,5 @@
-﻿using Controls;
+﻿using Common.Grid;
+using Controls;
 using FunkyCode.Utilities.Polygon2DTriangulation;
 using Optional;
 using Terrain;
@@ -44,7 +45,7 @@ namespace CameraControl {
       var destination = _cameraCursor + (_cameraCursorVelocity * Time.deltaTime);
       _bounds.Match(
           bounds => {
-            var destinationOnGrid = SceneTerrain.WorldToCell(destination);
+            var destinationOnGrid = GridUtils.WorldToCell(destination);
             if (bounds.Contains(destinationOnGrid)) {
               _cameraCursor = destination;
             }

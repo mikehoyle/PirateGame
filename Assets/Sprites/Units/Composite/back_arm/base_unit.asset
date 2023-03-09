@@ -64,13 +64,13 @@ MonoBehaviour:
           isMirrored: 0
           startFrame: 4
           endFrame: 7
-          frameDurationSecs: 0.15
+          frameDurationSecs: 0.2
         - direction: 1
           name: walk
           isMirrored: 0
           startFrame: 8
           endFrame: 11
-          frameDurationSecs: 0.15
+          frameDurationSecs: 0.2
       animationName: walk
       loop: 1
     - animations:

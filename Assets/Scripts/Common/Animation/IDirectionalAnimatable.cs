@@ -1,5 +1,4 @@
 ﻿using System;
-using State.Unit;
 
 namespace Common.Animation {
   public interface IDirectionalAnimatable {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
-using State.Unit;
 using UnityEngine;
 
-namespace StaticConfig.Sprites {
+namespace Common.Animation {
   [Serializable]
   public class DirectionalAnimation {
     [Serializable]
