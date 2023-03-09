@@ -41,7 +41,7 @@ namespace Encounters.AI {
       var actionPlans = new List<AiActionPlan>();
       var enemyMovements = new List<Coroutine>();
       SparseMatrix3d<bool> claimedTileOverrides = new();
-      foreach (var enemy in enemiesInEncounter) {
+      foreach (var enemy in enemiesInEncounter.EnumerateByTurnPriority()) {
         var actionPlan = _evaluator.GetActionPlan(enemy, claimedTileOverrides);
         actionPlans.Add(actionPlan);
         var path = _terrain.GetPath(actionPlan.Actor.Position, actionPlan.MoveDestination);

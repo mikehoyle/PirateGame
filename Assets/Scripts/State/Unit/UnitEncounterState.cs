@@ -68,5 +68,9 @@ namespace State.Unit {
       
       return result;
     }
+
+    public UnitFaction OpposingFaction() {
+      return faction == UnitFaction.PlayerParty ? UnitFaction.Enemy : UnitFaction.PlayerParty;
+    }
   }
 }

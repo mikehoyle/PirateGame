@@ -14,6 +14,7 @@ namespace State.Unit {
     public GameObject prefab;
     public DirectionalAnimatedSprite sprite;
     public UnitAbility[] abilities;
+    public int turnPriority = 50;
     public EnemySpawnConfig spawnConfig;
 
     public override List<UnitAbility> GetAbilities() {

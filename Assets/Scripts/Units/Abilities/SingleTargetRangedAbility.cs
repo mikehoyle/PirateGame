@@ -66,7 +66,10 @@ namespace Units.Abilities {
         return null;
       }
       if (target.TryGetComponent<EncounterActor>(out var targetUnit)) {
-        if (targetUnit.EncounterState.faction == actor.EncounterState.faction) {
+        if (targetUnit.EncounterState.faction == actor.EncounterState.faction && !canTargetAllies) {
+          return null;
+        }
+        if (targetUnit.EncounterState.faction != actor.EncounterState.faction && !canTargetOpponents) {
           return null;
         }
         if (range.IsInRange(actor, source, targetTile)) {

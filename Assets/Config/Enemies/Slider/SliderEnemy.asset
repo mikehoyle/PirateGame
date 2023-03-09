@@ -23,12 +23,14 @@ MonoBehaviour:
   sprite: {fileID: 11400000, guid: 69d8c2fe878279c45a21b8269d2b96e8, type: 2}
   abilities:
   - {fileID: 11400000, guid: 77d22039c76803b48ade156b604377f0, type: 2}
+  turnPriority: 50
   spawnConfig:
     minDifficultyRating: 0
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 15
     prevalenceMultiplier: 1.2
     individualDifficultyRating: 1.5
+    maxPerEncounter: 2
   references:
     version: 2
     RefIds: []

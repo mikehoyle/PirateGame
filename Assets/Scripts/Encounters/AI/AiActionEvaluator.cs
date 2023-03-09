@@ -19,7 +19,6 @@ namespace Encounters.AI {
     [SerializeField] private UnitCollection playerUnits;
     [SerializeField] private EnemyUnitCollection enemyUnits;
     [SerializeField] private ExhaustibleResource movementResource;
-    [SerializeField] private MoveAbility moveAbility;
 
     private SceneTerrain _terrain;
     private GridIndicators _indicators;

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Encounters.Enemies;
+using State.Unit;
 using UnityEngine;
 
 namespace RuntimeVars.Encounters {
@@ -25,7 +27,11 @@ namespace RuntimeVars.Encounters {
     public void Remove(EnemyUnitController unit) {
       _units.Remove(unit);
     }
-    
+
+    public IEnumerable<EnemyUnitController> EnumerateByTurnPriority() {
+      return _units.OrderBy(unit => ((EnemyUnitMetadata)unit.EncounterState.metadata).turnPriority);
+    }
+
     public IEnumerator<EnemyUnitController> GetEnumerator() {
       return _units.GetEnumerator();
     }

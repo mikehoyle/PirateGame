@@ -1,5 +1,4 @@
 ﻿using System;
-using Common;
 using Common.Grid;
 using Encounters;
 using Encounters.Grid;

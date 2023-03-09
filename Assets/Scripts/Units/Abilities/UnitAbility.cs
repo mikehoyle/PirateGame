@@ -12,7 +12,6 @@ using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
 using Terrain;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -119,7 +118,11 @@ namespace Units.Abilities {
     // TODO(P1): Determine this far more maturely, for the player and AI.
     protected void DetermineAbilityEffectiveness(EncounterActor actor, AbilityEffectivenessCallback callback) {
       if (actor.EncounterState.faction == UnitFaction.PlayerParty) {
-        Instantiate(skillTestPrefab).GetComponent<SkillTestController>().Run(callback);
+        if (skillTestPrefab != null) {
+          Instantiate(skillTestPrefab).GetComponent<SkillTestController>().Run(callback);
+          return;
+        }
+        callback(1f);
         return;
       }
 

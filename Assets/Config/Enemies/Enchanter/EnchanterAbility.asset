@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1753957539f948dbb176a9af2bd3fdd0, type: 3}
+  m_Name: EnchanterAbility
+  m_EditorClassIdentifier: 
+  skillTestPrefab: {fileID: 0}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  soundOnActivate:
+    Guid:
+      Data1: 55626682
+      Data2: 1083843716
+      Data3: 369898932
+      Data4: 992720483
+    Path: event:/Enemies/Abilities/EnchantAbility
+  impactAnimation: {fileID: 0}
+  impactAnimationDelaySec: 0.3
+  canStillMoveAfter: 0
+  incurredEffect:
+    rid: 1371289135587786752
+  displayString: Enchant
+  cost: []
+  range:
+    rid: 1371289135587786753
+  canTargetOpponents: 0
+  canTargetAllies: 1
+  aoeDefinition: '1111111
+
+    1111111
+
+    111O111
+
+    1111111
+
+    1111111'
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1371289135587786752
+      type: {class: OneShotStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
+      data:
+        exhaustibleResourceEffects:
+        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+          value:
+            rid: -2
+        delayInSeconds: 0.3
+    - rid: 1371289135587786753
+      type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
+      data:
+        rangeMin: 0
+        rangeMax: 0

@@ -19,8 +19,8 @@ namespace StaticConfig.Encounters {
     public int mostCommonDifficultyRating;
     // Expected to likely be somewhere between 0-2, i.e. 0-200%
     public float prevalenceMultiplier;
-    
-    public float individualDifficultyRating; 
+    public float individualDifficultyRating;
+    public int maxPerEncounter;
 
     /// <summary>
     /// Gets the likelihood of unit spawn, as defined by a float weight, which will

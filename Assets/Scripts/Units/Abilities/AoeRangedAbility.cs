@@ -1,10 +1,12 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Common.Animation;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
 using Optional;
 using Optional.Unsafe;
+using State.Unit;
 using Units.Abilities.AOE;
 using UnityEngine;
 
@@ -55,8 +57,17 @@ namespace Units.Abilities {
       var skillTestResult = Option.None<float>();
       DetermineAbilityEffectiveness(context.Actor, result => skillTestResult = Option.Some(result));
       yield return new WaitUntil(() => skillTestResult.HasValue);
+
+      var affectedFactions = new List<UnitFaction>();
+      if (canTargetAllies) {
+        affectedFactions.Add(context.Actor.EncounterState.faction);
+      }
+      if (canTargetOpponents) {
+        affectedFactions.Add(context.Actor.EncounterState.OpposingFaction());
+      }
       
-      var instanceFactory = new StatusEffectApplier(incurredEffect, context, skillTestResult.ValueOrFailure());
+      var instanceFactory = new StatusEffectApplier(
+          incurredEffect, context, affectedFactions, skillTestResult.ValueOrFailure());
       encounterEvents.applyAoeEffect.Raise(aoe, instanceFactory);
       // Animation options should definitely not be here... a future problem.
       context.Actor.FaceTowards(aoe.GetTarget());
