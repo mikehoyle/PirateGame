@@ -57,7 +57,7 @@ namespace HUD.Encounter {
     }
     
     public void OnAnyKey(InputAction.CallbackContext context) {
-      SceneManager.LoadScene(Scenes.Name.ShipBuilder.SceneName());
+      SceneManager.LoadScene(Scenes.Name.Overworld.SceneName());
     }
   }
 }
