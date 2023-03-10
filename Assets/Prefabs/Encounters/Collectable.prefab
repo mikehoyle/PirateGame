@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 5188973873454601589}
   - component: {fileID: 1668195924790076347}
   - component: {fileID: 3897865844743954265}
-  - component: {fileID: 4541690951539012075}
-  - component: {fileID: 2334786929305386093}
+  - component: {fileID: 473447491505247355}
   m_Layer: 6
   m_Name: Collectable
   m_TagString: Untagged
@@ -133,7 +132,7 @@ PolygonCollider2D:
       - {x: -0.5, y: 0.25}
       - {x: 0, y: 0.5}
       - {x: 0.5, y: 0.25}
---- !u!114 &4541690951539012075
+--- !u!114 &473447491505247355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,66 +141,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 4962400504426721770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4ab6ba76a19a947b8fd15e8cf78623, type: 3}
+  m_Script: {fileID: 11500000, guid: 5783dbbad6a59184fa58aa75d79bcc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shadowLayer: 0
-  maskLayer: 0
   shadowType: 1
+  shadowLayer: 0
+  shadowDistance: 0
+  shadowDistanceMin: 0.5
+  shadowDistanceMax: 1
+  shadowTranslucency: 0.5
   maskType: 0
-  shadowEffect: 1
-  shadowDistance: 0.6
-  shadowThickness: 1
-  shadowSoftness: 0
-  shadowTranslucency: 0.6
   maskLit: 0
-  depth: 0
-  depthFalloff: 0
-  depthCustomValue: 0
+  maskPivot: 0
+  maskLayer: 0
+  maskLitCustom: 1
+  bumpMapMode:
+    type: 0
+    textureType: 0
+    texture: {fileID: 0}
+    sprite: {fileID: 0}
+    invertX: 0
+    invertY: 0
+    depth: 1
+    spriteRenderer: {fileID: 0}
   mainShape:
     shadowType: 1
     maskType: 0
-    transform: {fileID: 4079838061604868847}
-    height: 0.6
-    thickness: 1
-    isStatic: 0
-  normalMapMode:
-    textureType: 0
-    texture: {fileID: 0}
-    sprite: {fileID: 0}
---- !u!114 &2334786929305386093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962400504426721770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4ab6ba76a19a947b8fd15e8cf78623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowLayer: 0
-  maskLayer: 0
-  shadowType: 8
-  maskType: 0
-  shadowEffect: 1
-  shadowDistance: 1
-  shadowThickness: 1
-  shadowSoftness: 0
-  shadowTranslucency: 0.6
-  maskLit: 0
-  depth: 0
-  depthFalloff: 0
-  depthCustomValue: 0
-  mainShape:
-    shadowType: 8
-    maskType: 0
-    transform: {fileID: 4079838061604868847}
-    height: 1
-    thickness: 1
-    isStatic: 0
-  normalMapMode:
-    textureType: 0
-    texture: {fileID: 0}
-    sprite: {fileID: 0}
+    maskPivot: 0
+    transform: {fileID: 4079838061604868847, guid: ac4c57f9af34c3344b8241958c17af5d, type: 3}

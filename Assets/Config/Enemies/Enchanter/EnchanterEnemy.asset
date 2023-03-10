@@ -21,13 +21,14 @@ MonoBehaviour:
   movementRange: 2
   prefab: {fileID: 6882444367959471412, guid: e4763d54310b49c4eb6057e996a56310, type: 3}
   sprite: {fileID: 11400000, guid: cdc8acf5d6271684e97058f12df5a5c7, type: 2}
-  abilities: []
-  turnPriority: 50
+  abilities:
+  - {fileID: 11400000, guid: 2ef8a5faca14cdd40a64bd349f5024d8, type: 2}
+  turnPriority: 10
   spawnConfig:
     minDifficultyRating: 0
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 3
-    prevalenceMultiplier: 1
+    prevalenceMultiplier: 1.5
     individualDifficultyRating: 0.5
     maxPerEncounter: 1
   references:

@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 4048399893309080977}
   - component: {fileID: 8737454824836715322}
   - component: {fileID: 1495727724839218417}
-  - component: {fileID: 5272872863555968646}
-  - component: {fileID: 5349341388428317454}
   - component: {fileID: 763082150098111686}
+  - component: {fileID: 3431308999538159752}
   m_Layer: 0
   m_Name: LightBlocker
   m_TagString: Untagged
@@ -118,78 +117,6 @@ MonoBehaviour:
   smoothness: 40
   rotation: 0
   advanced: 1
---- !u!114 &5272872863555968646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2316131180478898360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4ab6ba76a19a947b8fd15e8cf78623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowLayer: 0
-  maskLayer: 0
-  shadowType: 2
-  maskType: 0
-  shadowEffect: 1
-  shadowDistance: 0.6
-  shadowThickness: 1
-  shadowSoftness: 0
-  shadowTranslucency: 0.6
-  maskLit: 0
-  depth: 0
-  depthFalloff: 0
-  depthCustomValue: 0
-  mainShape:
-    shadowType: 2
-    maskType: 0
-    transform: {fileID: 4048399893309080977}
-    height: 0.6
-    thickness: 1
-    isStatic: 0
-  normalMapMode:
-    textureType: 0
-    texture: {fileID: 0}
-    sprite: {fileID: 0}
---- !u!114 &5349341388428317454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2316131180478898360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4ab6ba76a19a947b8fd15e8cf78623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowLayer: 0
-  maskLayer: 0
-  shadowType: 7
-  maskType: 0
-  shadowEffect: 0
-  shadowDistance: 1
-  shadowThickness: 1
-  shadowSoftness: 0
-  shadowTranslucency: 0.6
-  maskLit: 0
-  depth: 0
-  depthFalloff: 0
-  depthCustomValue: 0
-  mainShape:
-    shadowType: 7
-    maskType: 0
-    transform: {fileID: 4048399893309080977}
-    height: 1
-    thickness: 1
-    isStatic: 0
-  normalMapMode:
-    textureType: 0
-    texture: {fileID: 0}
-    sprite: {fileID: 0}
 --- !u!114 &763082150098111686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,3 +129,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac6eace2f244148b3fcfa13b4951660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3431308999538159752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2316131180478898360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5783dbbad6a59184fa58aa75d79bcc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowType: 3
+  shadowLayer: 0
+  shadowDistance: 0
+  shadowDistanceMin: 0.5
+  shadowDistanceMax: 1
+  shadowTranslucency: 0.6
+  maskType: 0
+  maskLit: 0
+  maskPivot: 0
+  maskLayer: 0
+  maskLitCustom: 1
+  bumpMapMode:
+    type: 0
+    textureType: 0
+    texture: {fileID: 0}
+    sprite: {fileID: 0}
+    invertX: 0
+    invertY: 0
+    depth: 1
+    spriteRenderer: {fileID: 0}
+  mainShape:
+    shadowType: 3
+    maskType: 0
+    maskPivot: 0
+    transform: {fileID: 4048399893309080977}

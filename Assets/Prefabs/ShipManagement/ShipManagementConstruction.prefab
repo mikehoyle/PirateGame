@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7018280844402471642}
   - component: {fileID: 3258872164308506692}
   - component: {fileID: 8267643256906588311}
+  - component: {fileID: -1689382629793128961}
   m_Layer: 6
   m_Name: ShipManagementConstruction
   m_TagString: Untagged
@@ -128,3 +129,40 @@ PolygonCollider2D:
       - {x: -0.5, y: 0.25}
       - {x: 0, y: 0.5}
       - {x: 0.5, y: 0.25}
+--- !u!114 &-1689382629793128961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263394899586910802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5783dbbad6a59184fa58aa75d79bcc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowType: 1
+  shadowLayer: 0
+  shadowDistance: 0
+  shadowDistanceMin: 0.5
+  shadowDistanceMax: 1
+  shadowTranslucency: 0.5
+  maskType: 0
+  maskLit: 0
+  maskPivot: 0
+  maskLayer: 0
+  maskLitCustom: 1
+  bumpMapMode:
+    type: 0
+    textureType: 0
+    texture: {fileID: 0}
+    sprite: {fileID: 0}
+    invertX: 0
+    invertY: 0
+    depth: 1
+    spriteRenderer: {fileID: 0}
+  mainShape:
+    shadowType: 1
+    maskType: 0
+    maskPivot: 0
+    transform: {fileID: 4079838061604868847, guid: ac4c57f9af34c3344b8241958c17af5d, type: 3}

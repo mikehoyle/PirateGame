@@ -26,13 +26,15 @@ MonoBehaviour:
   canStillMoveAfter: 0
   incurredEffect:
     rid: 1371289135587786752
-  displayString: Enchant
+  displayString: Empower
   cost: []
   range:
     rid: 1371289135587786753
   canTargetOpponents: 0
   canTargetAllies: 1
-  aoeDefinition: '1111111
+  aoeDefinition: '_11111_
+
+    1111111
 
     1111111
 
@@ -40,22 +42,26 @@ MonoBehaviour:
 
     1111111
 
-    1111111'
+    1111111
+
+    _11111_'
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 1371289135587786752
       type: {class: OneShotStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
       data:
         exhaustibleResourceEffects:
         - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
           value:
-            rid: -2
+            rid: 1371289135587786754
         delayInSeconds: 0.3
     - rid: 1371289135587786753
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
         rangeMin: 0
         rangeMax: 0
+    - rid: 1371289135587786754
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: -1
