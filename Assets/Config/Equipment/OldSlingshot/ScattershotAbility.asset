@@ -32,6 +32,8 @@ MonoBehaviour:
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
   range:
     rid: 1371289066063003654
+  canTargetOpponents: 1
+  canTargetAllies: 0
   aoeDefinition: '_X_
 
     1_1'

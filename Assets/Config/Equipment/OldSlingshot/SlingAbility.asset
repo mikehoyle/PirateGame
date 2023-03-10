@@ -32,7 +32,7 @@ MonoBehaviour:
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
   range:
     rid: 4252309007281946626
-  canTargetOpponents: 0
+  canTargetOpponents: 1
   canTargetAllies: 0
   references:
     version: 2
