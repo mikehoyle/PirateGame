@@ -146,7 +146,7 @@ MonoBehaviour:
   shadowDistance: 0
   shadowDistanceMin: 0.5
   shadowDistanceMax: 1
-  shadowTranslucency: 0.5
+  shadowTranslucency: 0.1
   maskType: 0
   maskLit: 0
   maskPivot: 0
@@ -160,9 +160,9 @@ MonoBehaviour:
     invertX: 0
     invertY: 0
     depth: 1
-    spriteRenderer: {fileID: 0}
+    spriteRenderer: {fileID: 7018280844402471642}
   mainShape:
     shadowType: 1
     maskType: 0
     maskPivot: 0
-    transform: {fileID: 4079838061604868847, guid: ac4c57f9af34c3344b8241958c17af5d, type: 3}
+    transform: {fileID: 4155386078823291653}

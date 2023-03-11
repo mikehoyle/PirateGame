@@ -80,13 +80,20 @@ namespace Encounters.Managers {
       // For now, always add spawner
       var spawner = spawnerEnemy.NewEncounter(ClaimRandomTile(spawnerEnemy.size));
       encounterTile.enemies.Add(spawner);
+
+      // Maps displayName to spawn count.
+      var spawnedEnemies = new Dictionary<string, int>();
       
       // Now pick the remainder of enemies by weighted chance.
       var remainingDr = (float)encounterTile.difficulty;
       while (remainingDr > 0) {
         var currentRemainingDr = remainingDr;
         var candidates = spawnableEnemies.enemyUnits
-            .Where(enemy => enemy.spawnConfig.individualDifficultyRating <= currentRemainingDr)
+            .Where(enemy => {
+              spawnedEnemies.TryGetValue(enemy.displayName, out var spawnCount);
+              return enemy.spawnConfig.individualDifficultyRating <= currentRemainingDr
+                  && spawnCount < enemy.spawnConfig.maxPerEncounter;
+            })
             .ToList();
         var totalWeight = candidates.Sum(enemy => enemy.spawnConfig.GetSpawnWeight(spawnVars));
         Debug.Log($"Currently {candidates.Count} possible candidates with a total weight of {totalWeight}");
@@ -101,7 +108,13 @@ namespace Encounters.Managers {
           continue;
         }
 
+        if (!spawnedEnemies.TryGetValue(chosenEnemy.displayName, out var count)) {
+          spawnedEnemies[chosenEnemy.displayName] = 0;
+        }
+        spawnedEnemies[chosenEnemy.displayName] = count + 1;
+
         var enemy = chosenEnemy.NewEncounter(ClaimRandomTile(chosenEnemy.size));
+        // TODO IMMEDIATE enforce spawn limits
         encounterTile.enemies.Add(enemy);
         remainingDr -= chosenEnemy.spawnConfig.individualDifficultyRating;
       }

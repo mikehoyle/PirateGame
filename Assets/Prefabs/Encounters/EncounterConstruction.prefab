@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1689382629793128961, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: shadowTranslucency
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1689382629793128961, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+      propertyPath: mainShape.transform
+      value: 
+      objectReference: {fileID: 3019562012765411831}
     - target: {fileID: 263394899586910802, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
       propertyPath: m_Name
       value: EncounterConstruction
@@ -105,3 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
+--- !u!4 &3019562012765411831 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4155386078823291653, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
+  m_PrefabInstance: {fileID: 1174672291141305074}
+  m_PrefabAsset: {fileID: 0}
