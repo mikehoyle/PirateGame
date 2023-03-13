@@ -13,6 +13,7 @@ namespace State.Unit {
     public StatusEffect[] passiveEffects;
     public StatTracker[] stats;
     public Vector2Int size = Vector2Int.one;
+    public bool isRevivable = true;
 
     public abstract List<UnitAbility> GetAbilities();
 

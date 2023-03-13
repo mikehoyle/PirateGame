@@ -24,7 +24,7 @@ namespace RuntimeVars.Encounters.Events {
     public UnitEvent unitSelected;
     public AoeEffectEvent applyAoeEffect;
     public EncounterActorEvent unitAddedMidEncounter;
-    public EmptyGameEvent unitDeath;
+    public UnitDeathEvent unitDeath;
     public SpawnEnemyEvent spawnEnemyRequest;
   }
 }

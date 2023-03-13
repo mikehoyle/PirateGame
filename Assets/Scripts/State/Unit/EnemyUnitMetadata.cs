@@ -15,6 +15,7 @@ namespace State.Unit {
     public DirectionalAnimatedSprite sprite;
     public UnitAbility[] abilities;
     public int turnPriority = 50;
+    public EnemyAiPreferences actionPreferences;
     public EnemySpawnConfig spawnConfig;
 
     public override List<UnitAbility> GetAbilities() {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Encounters.ShipPlacement {
   /// <summary>
@@ -72,6 +73,25 @@ namespace Encounters.ShipPlacement {
       }
       
       return result;
+    }
+
+    public Vector3Int RandomPositionOnBorder() {
+      var options = new List<Vector3Int>();
+
+      foreach (var coord in TopEdge) {
+        options.Add(new Vector3Int(coord.Key, coord.Value + 1));
+      }
+      foreach (var coord in BottomEdge) {
+        options.Add(new Vector3Int(coord.Key, coord.Value - 1));
+      }
+      foreach (var coord in LeftEdge) {
+        options.Add(new Vector3Int(coord.Value - 1, coord.Key));
+      }
+      foreach (var coord in RightEdge) {
+        options.Add(new Vector3Int(coord.Value + 1, coord.Key));
+      }
+
+      return options[Random.Range(0, options.Count)];
     }
 
     public Overlap CalculateEdgeOverlap(Vector3Int offset, TerrainProfile otherProfile) {

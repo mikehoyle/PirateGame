@@ -24,6 +24,13 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 2ef8a5faca14cdd40a64bd349f5024d8, type: 2}
   turnPriority: 10
+  actionPreferences:
+    playerUnitAdjacency: -5
+    distanceFromPlayerByTile: 0.1
+    stayStationary: 0.05
+    canPerformAbility: 10
+    inRadiusOfAlly: 2
+    allyRadius: 4
   spawnConfig:
     minDifficultyRating: 0
     maxDifficultyRating: 100

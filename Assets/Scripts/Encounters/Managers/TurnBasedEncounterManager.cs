@@ -3,6 +3,7 @@ using Common;
 using Controls;
 using Encounters.Grid;
 using IngameDebugConsole;
+using Optional;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
@@ -97,7 +98,7 @@ namespace Encounters.Managers {
       _controls.TurnBasedEncounter.Enable();
     }
 
-    private void OnUnitDeath() {
+    private void OnUnitDeath(Option<Bones> _) {
       // Check for end conditions
       if (!playerUnitsInEncounter.Any()) {
         encounterEvents.encounterEnd.Raise(EncounterOutcome.PlayerDefeat);

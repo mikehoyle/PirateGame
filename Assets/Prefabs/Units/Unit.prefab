@@ -148,6 +148,7 @@ MonoBehaviour:
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  bonesPrefab: {fileID: 7813152671875138140, guid: 5994fb32dcf89eb499419942d25dbea2, type: 3}
   playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
 --- !u!114 &2573591084334462572
 MonoBehaviour:

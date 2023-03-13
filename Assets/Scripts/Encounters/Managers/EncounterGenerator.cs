@@ -48,8 +48,8 @@ namespace Encounters.Managers {
 
     private void GenerateTerrain(EncounterWorldTile encounterTile) {
       encounterTile.terrain = new();
-      var width = _rng.Next(6, 12);
-      var height = _rng.Next(6, 12);
+      var width = _rng.Next(8, 12);
+      var height = _rng.Next(8, 12);
       var poolWidth = _rng.Next(2, 4);
       var poolHeight = _rng.Next(2, 4);
       var poolX = _rng.Next(0, 8);
@@ -157,8 +157,7 @@ namespace Encounters.Managers {
     // TODO(P1): This breaks if we have no valid tile options.
     private Vector3Int ClaimRandomTile(Vector2Int size) {
       using var randomizedTiles = _availableTiles.OrderBy(_ => _rng.Next()).GetEnumerator();
-      while (true) {
-        randomizedTiles.MoveNext();
+      while (randomizedTiles.MoveNext()) {
         var tile = randomizedTiles.Current;
         if (AllTilesAreFreeForSize(tile, size)) {
           for (int x = 0; x < size.x; x++) {
@@ -169,13 +168,15 @@ namespace Encounters.Managers {
           return tile;
         }
       }
+      
+      Debug.LogWarning("Could not find tile to claim, this shouldn't happen!");
+      return new Vector3Int(99999, 99999, 0);
     }
     
     // TODO(P1): This breaks if we have no valid tile options.
     private Vector3Int ClaimRandomTile(AreaOfEffect aoe) {
       using var randomizedTiles = _availableTiles.OrderBy(_ => _rng.Next()).GetEnumerator();
-      while (true) {
-        randomizedTiles.MoveNext();
+      while (randomizedTiles.MoveNext()) {
         var tile = randomizedTiles.Current;
         if (AllTilesAreFreeForArea(tile, aoe)) {
           foreach (var aoeCoord in aoe.WithTarget(tile).AffectedPoints()) {
@@ -184,6 +185,9 @@ namespace Encounters.Managers {
           return tile;
         }
       }
+      
+      Debug.LogWarning("Could not find tile to claim, this shouldn't happen!");
+      return new Vector3Int(99999, 99999, 0);
     }
 
     private bool AllTilesAreFreeForSize(Vector3Int tile, Vector2Int size) {

@@ -24,6 +24,7 @@ namespace Terrain {
     private Camera _camera;
     
     public Grid Grid { get; private set; }
+    public ICollection<Vector3Int> AllTiles => _terrainMap.Keys;
 
     private void Awake() {
       Grid = GetComponent<Grid>();

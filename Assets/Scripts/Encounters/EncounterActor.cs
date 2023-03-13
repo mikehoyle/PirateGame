@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common;
 using Common.Animation;
 using Common.Events;
 using Common.Grid;
@@ -23,7 +22,8 @@ namespace Encounters {
     [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected CurrentSelection currentSelection;
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
-    
+    [SerializeField] protected GameObject bonesPrefab;
+
     private UnitMover _mover;
     private PolygonCollider2D _collider;
     private UnitShadow _shadow;
@@ -140,7 +140,14 @@ namespace Encounters {
       EncounterState.ExpendResource(resource, amount);
       if (EncounterState.GetResourceAmount(exhaustibleResources.hp) <= 0) {
         OnDeath();
-        encounterEvents.unitDeath.Raise();
+
+        var bonesOption = Option.None<Bones>();
+        if (EncounterState.metadata.isRevivable) {
+          var bones = Instantiate(bonesPrefab).GetComponent<Bones>();
+          bones.Initialize(EncounterState, Position);
+          bonesOption = Option.Some(bones);
+        }
+        encounterEvents.unitDeath.Raise(bonesOption);
       }
     }
 
