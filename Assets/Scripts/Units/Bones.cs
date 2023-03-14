@@ -11,6 +11,8 @@ namespace Units {
 
     public UnitEncounterState DeadUnit => _deadUnit;
     public Vector3Int Position { get; private set; }
+    public bool BlocksAllMovement => false;
+    public bool ClaimsTile => true;
 
     public void Initialize(UnitEncounterState unit, Vector3Int position) {
       _deadUnit = unit;

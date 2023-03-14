@@ -165,7 +165,7 @@ namespace Construction {
       if (_playerState.ship.foundations.ContainsKey(gridCell)) {
         // If movement is blocked at ground level, we assume something else is already there, so
         // we don't allow the placement.
-        return !SceneTerrain.IsMovementBlocked(_terrain.GetElevation((Vector2Int)gridCell));
+        return !SceneTerrain.IsTileOccupied(_terrain.GetElevation((Vector2Int)gridCell));
       }
       return false;
     }

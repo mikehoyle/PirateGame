@@ -93,6 +93,10 @@ namespace Terrain {
       if (!IsGridPositionDefined(origin) || !IsGridPositionDefined(destination)) {
         return new TravelPath(null);
       }
+
+      if (IsTileOccupied(destination)) {
+        return new TravelPath(null);
+      }
       
       // Always set origin to enabled, otherwise the actor is locked out by themselves.
       enablementOverrides[origin] = true;
@@ -129,6 +133,7 @@ namespace Terrain {
             // OPTIMIZE: memoize paths better
             continue;
           }
+          
           var path = GetPath(position, possibleDestination, enablementOverrides);
           if (path.IsViableAndWithinRange(moveRange)) {
             result.UnionWith(path.Path);
@@ -186,21 +191,23 @@ namespace Terrain {
     }
 
     public static bool IsMovementBlocked(Vector3Int tile) {
-      var blockingLayer = LayerMask.GetMask("BlockMovement");
-      foreach (var collision in Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), blockingLayer)) {
-        // A simple check isn't sufficient, because isometric elevation can overlay elevated tiles on top
-        // of lower tiles behind them, so check the Z position of collisions, if possible
-        var placedOnGrid = collision.GetComponentInParent<IPlacedOnGrid>(); 
-        if (placedOnGrid != null) {
-          if (placedOnGrid.Position.z == tile.z) {
-            return true;
-          }
-        } else {
-          // This should hopefully not be the case, but worst case assume an intersection is blocking
-          return true;
+      var objectLayer = LayerMask.GetMask("PlacedOnGrid");
+      foreach (var collision in Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), objectLayer)) {
+        if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
+          // Committing to not doing elevation right here right now. It would be necessary to check here.
+          return placedOnGrid.BlocksAllMovement;
         }
       }
-
+      return false;
+    }
+    
+    public static bool IsTileOccupied(Vector3Int tile) {
+      var objectLayer = LayerMask.GetMask("PlacedOnGrid");
+      foreach (var collision in Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), objectLayer)) {
+        if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
+          return placedOnGrid.ClaimsTile;
+        }
+      }
       return false;
     }
 
@@ -209,15 +216,23 @@ namespace Terrain {
     }
 
     public static GameObject GetTileOccupant(Vector3Int tile) {
-      var blockingLayer = LayerMask.GetMask("BlockMovement");
-      // Because movement blockers are on their own layer, they must be children to the primary object. This makes
-      // the bold assumption they will always be direct children. Surely will cause a bug in the future, but it's the
-      // easiest way for now.
+      var blockingLayer = LayerMask.GetMask("PlacedOnGrid");
       return Physics2D.OverlapPoint(CellCenterWorldStatic(tile), blockingLayer)?.gameObject;
     }
 
+    public static bool TryGetComponentAtTile<T>(Vector3Int tile, out T component) where T : MonoBehaviour {
+      var occupant = GetTileOccupant(tile);
+      if (occupant != null) {
+        if (occupant.TryGetComponent(out component)) {
+          return true;
+        }
+      }
+      component = null;
+      return false;
+    }
+
     public bool IsTileEligibleForUnitOccupation(Vector3Int gridPosition) {
-      return IsGridPositionDefined(gridPosition) && !IsMovementBlocked(gridPosition);
+      return IsGridPositionDefined(gridPosition) && !IsTileOccupied(gridPosition);
     }
 
     private bool IsGridPositionDefined(Vector3Int gridPosition) {

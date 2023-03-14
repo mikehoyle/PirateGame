@@ -18,6 +18,8 @@ namespace Encounters.Obstacles {
 
     public CollectableInstance Metadata { get; private set; }
     public Vector3Int Position { get; private set; }
+    public bool BlocksAllMovement => true;
+    public bool ClaimsTile => true;
     
     private void OnEnable() {
       encounterEvents.objectClicked.RegisterListener(OnObjectClicked);

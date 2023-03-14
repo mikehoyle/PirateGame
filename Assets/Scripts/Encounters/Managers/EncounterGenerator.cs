@@ -104,8 +104,8 @@ namespace Encounters.Managers {
         });
 
         if (chosenEnemy == null) {
-          Debug.LogError("Failed to choose enemy for encounter, this shouldn't be possible");
-          continue;
+          Debug.LogError("Failed to choose enemy for encounter, this ideally shouldn't be possible");
+          return;
         }
 
         if (!spawnedEnemies.TryGetValue(chosenEnemy.displayName, out var count)) {
@@ -114,7 +114,6 @@ namespace Encounters.Managers {
         spawnedEnemies[chosenEnemy.displayName] = count + 1;
 
         var enemy = chosenEnemy.NewEncounter(ClaimRandomTile(chosenEnemy.size));
-        // TODO IMMEDIATE enforce spawn limits
         encounterTile.enemies.Add(enemy);
         remainingDr -= chosenEnemy.spawnConfig.individualDifficultyRating;
       }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using Common;
 using Encounters.Enemies;
 using Encounters.ShipPlacement;
 using Optional;
@@ -14,21 +15,25 @@ namespace Encounters.Managers {
     [SerializeField] private EncounterEvents encounterEvents;
     
     private SceneTerrain _terrain;
-    private SpiritUnitController _pendingSpirit;
     private TerrainProfile _encounterProfile;
+    private SpiritUnitController _pendingSpirit;
+    private List<Bones> _unclaimedBones;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
+      _unclaimedBones = new();
     }
 
     private void OnEnable() {
       encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
       encounterEvents.unitDeath.RegisterListener(OnUnitDeath);
+      encounterEvents.enemyTurnPreEnd.RegisterListener(OnEnemyTurnPreEnd);
     }
 
     private void OnDisable() {
       encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
       encounterEvents.unitDeath.UnregisterListener(OnUnitDeath);
+      encounterEvents.enemyTurnPreEnd.UnregisterListener(OnEnemyTurnPreEnd);
     }
 
     private void OnEncounterStart() {
@@ -37,12 +42,29 @@ namespace Encounters.Managers {
     }
 
     private void NewPendingSpirit() {
-      _pendingSpirit = Instantiate(spiritEnemy.prefab).GetComponent<SpiritUnitController>();
+      // TODO(P0): Make sure spirits can't appear on each other.
+      _pendingSpirit = Instantiate(spiritEnemy.prefab, transform).GetComponent<SpiritUnitController>();
       _pendingSpirit.Init(spiritEnemy.NewEncounter(_encounterProfile.RandomPositionOnBorder()));
     }
 
-    private void OnUnitDeath(Option<Bones> bones) {
-      
+    private void OnUnitDeath(Option<Bones> bonesOption) {
+      if (!bonesOption.TryGet(out var bones)) {
+        // Unit died but did not drop bones (Therefore no new spirit to chase it.
+        return;
+      }
+
+      _unclaimedBones.Add(bones);
+    }
+    
+    
+    private void OnEnemyTurnPreEnd() {
+      if (_unclaimedBones.Count == 0) {
+        return;
+      }
+      Debug.Log($"Number of unclaimed bones: {_unclaimedBones.Count}");
+      _pendingSpirit.TargetBones = Option.Some(_unclaimedBones[0]);
+      _unclaimedBones.RemoveAt(0);
+      NewPendingSpirit();
     }
   }
 }

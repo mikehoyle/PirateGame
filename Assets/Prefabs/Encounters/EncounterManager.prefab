@@ -68,8 +68,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnits: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
   enemyUnits: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
-  movementResource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
-  moveAbility: {fileID: 11400000, guid: 3913fcc2030fcdd44a3041f9d7d4b858, type: 2}
 --- !u!114 &1915456235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   landSprite: {fileID: 21300000, guid: c6fbd1dfa4cbee340974055873f1eb41, type: 3}
-  enemyPrefab: {fileID: 2938806043710237447, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
   collectablePrefab: {fileID: 4962400504426721770, guid: 8b5d7698a60974c44acbf8001b034720, type: 3}
   obstaclePrefab: {fileID: 4962400504426721770, guid: ac4c57f9af34c3344b8241958c17af5d, type: 3}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
@@ -157,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   enemiesInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
+  spiritsInEncounter: {fileID: 11400000, guid: 35baf7ce805f9b349b7c359ade66fc94, type: 2}
 --- !u!114 &7946137650026443626
 MonoBehaviour:
   m_ObjectHideFlags: 0

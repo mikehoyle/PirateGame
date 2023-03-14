@@ -12,7 +12,7 @@ namespace Terrain {
     }
 
     public bool IsViable() {
-      return Path != null && Path.Count > 1;
+      return Path != null && Path.Count > 1 && !SceneTerrain.IsTileOccupied(Path.Last.Value);
     }
 
     public int Length() {

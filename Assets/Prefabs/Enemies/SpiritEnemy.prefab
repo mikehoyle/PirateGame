@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7339068068726759525}
   - component: {fileID: 642888545205890274}
-  - component: {fileID: 3519024462780381126}
   - component: {fileID: 8472050302482270943}
   - component: {fileID: 7277374588084817479}
   - component: {fileID: 8559995357151793761}
-  m_Layer: 8
+  - component: {fileID: 2087229024616581460}
+  m_Layer: 6
   m_Name: SpiritEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,29 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &3519024462780381126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7339068068726759523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78bc2ae6218d4780bb454f911963f508, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedUnitsPerSec: 2.75
-  dropInHeight: 6
-  dropInGravity: 15
-  dropInShake: {fileID: 0}
-  dropInImpactSound:
-    Guid:
-      Data1: -489537298
-      Data2: 1236233903
-      Data3: -109247347
-      Data4: -1894127419
-    Path: event:/Units/Movement/DropInImpact
 --- !u!114 &8472050302482270943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,9 +127,9 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 0}
-      - {x: -1, y: 0.5}
-      - {x: 0, y: 1}
-      - {x: 1, y: 0.5}
+      - {x: -0.5, y: 0.25}
+      - {x: 0, y: 0.5}
+      - {x: 0.5, y: 0.25}
 --- !u!114 &8559995357151793761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +143,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
-  currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
+  resources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  spiritsInEncounter: {fileID: 11400000, guid: 35baf7ce805f9b349b7c359ade66fc94, type: 2}
+--- !u!114 &2087229024616581460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339068068726759523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3890575b3f01437681942b669abd2d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
-  bonesPrefab: {fileID: 0}
-  enemiesInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
+  damageOnCollision: 2
+  speedUnitsPerSec: 3

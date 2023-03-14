@@ -10,7 +10,7 @@ namespace RuntimeVars.Encounters {
   public class EnemyUnitCollection : ScriptableObject, IEnumerable<EnemyUnitController> {
     private List<EnemyUnitController> _units;
 
-    private void Awake() {
+    public EnemyUnitCollection() {
       _units = new();
     }
 

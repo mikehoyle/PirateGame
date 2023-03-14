@@ -11,6 +11,7 @@ namespace Encounters.AI {
   public class EncounterAiManager : MonoBehaviour {
     [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
+    [SerializeField] private SpiritCollection spiritsInEncounter;
     
     private AiActionEvaluator _evaluator;
     private SceneTerrain _terrain;
@@ -32,11 +33,16 @@ namespace Encounters.AI {
       StartCoroutine(ExecuteEnemyAi());
     }
     private IEnumerator ExecuteEnemyAi() {
+      // First let all spirits do their thing.
+      for (int i = spiritsInEncounter.spirits.Count - 1; i >= 0; i--) {
+        yield return spiritsInEncounter.spirits[i].ExecuteMovementPlan();
+      }
+      
       if (enemiesInEncounter.Count == 0) {
         encounterEvents.enemyTurnPreEnd.Raise();
         yield break;
       }
-      
+
       // First, make all movements simultaneously
       var actionPlans = new List<AiActionPlan>();
       var enemyMovements = new List<Coroutine>();

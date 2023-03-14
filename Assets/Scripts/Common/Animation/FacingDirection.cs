@@ -21,6 +21,16 @@ namespace Common.Animation {
       };
     }
 
+    public static FacingDirection ToFacingDirection(this Vector2Int unitVector) {
+      return unitVector switch {
+          { x: 1, y: 0 } => NorthEast,
+          { x: 0, y: 1 } => NorthWest,
+          { x: 0, y: -1 }=> SouthEast,
+          // Arbitrarily default to SW
+          _ => SouthWest,
+      };
+    }
+
     public static FacingDirection DirectionBetween(Vector2Int source, Vector2Int target) {
       var directionVector = target - source;
       // Strategy: choose the "dominant" difference in direction, and use that to determine facing. If the x and y

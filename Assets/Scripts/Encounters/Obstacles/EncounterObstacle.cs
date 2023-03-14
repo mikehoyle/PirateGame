@@ -12,6 +12,8 @@ namespace Encounters.Obstacles {
     
     public ObstacleConfig Metadata { get; private set; }
     public Vector3Int Position { get; private set; }
+    public bool BlocksAllMovement => true;
+    public bool ClaimsTile => true;
 
     private void Awake() {
       _spriteRenderer = GetComponent<SpriteRenderer>();

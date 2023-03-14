@@ -11,6 +11,8 @@ namespace Construction {
 
     public ConstructableObject Metadata { get; private set; }
     public Vector3Int Position { get; private set; }
+    public bool BlocksAllMovement => true;
+    public bool ClaimsTile => true;
 
     protected virtual void Awake() {
       _spriteRenderer = GetComponent<SpriteRenderer>();

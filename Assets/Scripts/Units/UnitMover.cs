@@ -7,7 +7,6 @@ using Encounters;
 using FMODUnity;
 using MilkShake;
 using Optional;
-using State.Unit;
 using Terrain;
 using UnityEngine;
 

@@ -33,6 +33,9 @@ namespace Encounters {
       set => EncounterState.position = value;
     }
 
+    public bool BlocksAllMovement => true;
+    public bool ClaimsTile => true;
+
     public FacingDirection FacingDirection {
       get => EncounterState.facingDirection;
       set => EncounterState.facingDirection = value;
