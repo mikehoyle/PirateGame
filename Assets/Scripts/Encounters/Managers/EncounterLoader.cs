@@ -55,7 +55,7 @@ namespace Encounters.Managers {
       if (Debug.isDebugBuild && GameState.State.world.GetActiveTile() == null) {
         var position = GameState.State.player.overworldGridPosition;
         var encounter = new EncounterWorldTile(HexOffsetCoordinates.From((Vector3Int)position)) {
-            difficulty = 4,
+            difficulty = 2,
         };
         GameState.State.world.UpdateTile(encounter);
       }

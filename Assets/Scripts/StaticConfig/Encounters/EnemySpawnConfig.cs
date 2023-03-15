@@ -14,9 +14,9 @@ namespace StaticConfig.Encounters {
     private const float MaxPrevalenceWeight = 50f;
     private const float MinPrevalenceWeight = 1f;
     
-    public int minDifficultyRating;
-    public int maxDifficultyRating;
-    public int mostCommonDifficultyRating;
+    public float minDifficultyRating;
+    public float maxDifficultyRating;
+    public float mostCommonDifficultyRating;
     // Expected to likely be somewhere between 0-2, i.e. 0-200%
     public float prevalenceMultiplier;
     public float individualDifficultyRating;

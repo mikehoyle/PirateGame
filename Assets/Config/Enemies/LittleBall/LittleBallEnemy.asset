@@ -35,10 +35,10 @@ MonoBehaviour:
   spawnConfig:
     minDifficultyRating: 0
     maxDifficultyRating: 100
-    mostCommonDifficultyRating: 15
+    mostCommonDifficultyRating: 1
     prevalenceMultiplier: 1
-    individualDifficultyRating: 0.5
-    maxPerEncounter: 3
+    individualDifficultyRating: 0.25
+    maxPerEncounter: 4
   references:
     version: 2
     RefIds: []

@@ -26,7 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e4e4edf2afcc1b044bfa402c93426942, type: 2}
   turnPriority: 60
   actionPreferences:
-    playerUnitAdjacency: 5
+    playerUnitAdjacency: -10
     distanceFromPlayerByTile: -0.1
     stayStationary: 0.05
     canPerformAbility: 10
@@ -35,9 +35,9 @@ MonoBehaviour:
   spawnConfig:
     minDifficultyRating: 0
     maxDifficultyRating: 100
-    mostCommonDifficultyRating: 15
+    mostCommonDifficultyRating: 1
     prevalenceMultiplier: 1
-    individualDifficultyRating: 1
+    individualDifficultyRating: 0.35
     maxPerEncounter: 3
   references:
     version: 2

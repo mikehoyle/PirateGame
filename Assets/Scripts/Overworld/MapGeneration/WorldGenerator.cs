@@ -28,10 +28,7 @@ namespace Overworld.MapGeneration {
       GenerateTiles(world);
       return world;
     }
-    
-    /// <summary>
-    /// Current strategy is just spiral out and place random stuff.
-    /// </summary>
+
     private void GenerateTiles(WorldState world) {
       GenerateOpenSea(world);
       GeneratePointsOfInterest(world);

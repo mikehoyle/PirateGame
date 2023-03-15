@@ -42,14 +42,14 @@ namespace Encounters.Enemies {
       encounterEvents.unitSelected.UnregisterListener(OnUnitSelected);
     }
 
-    public virtual AiActionPlan GetActionPlan(ActionEvaluationContext context) {
+    public AiActionPlan GetActionPlan(ActionEvaluationContext context) {
       var possibleDestinations = context.Terrain.GetAllViableDestinations(
           Position, EncounterState.GetResourceAmount(exhaustibleResources.mp), context.ClaimedTileOverrides)
           .Append(Position);
       var abilities = GetAllCapableAbilities();
 
       var bestActionPlan = new AiActionPlan(this);
-      var bestScore = 0f;
+      var bestScore = float.MinValue;
       
       foreach (var destination in possibleDestinations) {
         foreach (var playerUnit in context.PlayerUnits) {
@@ -57,8 +57,11 @@ namespace Encounters.Enemies {
             // TODO(P1): this ignores any obstacles, and could result in dumb AI that never moves around
             //     obstacles. Use the pathfinder for actual proximity.
             var distanceFromPlayer = GridUtils.DistanceBetween(destination, playerUnit.Position) - 1;
-            var score = Metadata.actionPreferences.playerUnitAdjacency
-                + (distanceFromPlayer * Metadata.actionPreferences.distanceFromPlayerByTile);
+            var score = 0f;
+            if (distanceFromPlayer == 1) {
+              score += Metadata.actionPreferences.playerUnitAdjacency;
+            }
+            score += (distanceFromPlayer * Metadata.actionPreferences.distanceFromPlayerByTile);
             score = Math.Max(score, 0);
             if (destination == Position) {
               score += Metadata.actionPreferences.stayStationary;

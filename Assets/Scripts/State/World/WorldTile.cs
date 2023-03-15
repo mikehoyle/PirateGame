@@ -6,10 +6,10 @@ using Zen.Hexagons;
 namespace State.World {
   [Serializable]
   public abstract class WorldTile {
-    private static readonly int DifficultyBaseline = 2;
-    private static readonly float DifficultyScaling = 1f;
+    private static readonly float DifficultyBaseline = 1;
+    private static readonly float DifficultyScalingByDistance = 0.1f;
 
-    public int difficulty;
+    public float difficulty;
     public TileState state = TileState.Obscured;
     public HexOffsetCoordinates coordinates;
     public bool isTraversable;
@@ -18,7 +18,8 @@ namespace State.World {
     protected WorldTile(HexOffsetCoordinates coordinates) {
       this.coordinates = coordinates;
       difficulty = DifficultyBaseline +
-          (int)(HexGridUtils.HexLibrary.GetDistance(HexOffsetCoordinates.Origin, coordinates) * DifficultyScaling);
+          (int)(HexGridUtils.HexLibrary.GetDistance(HexOffsetCoordinates.Origin, coordinates)
+          * DifficultyScalingByDistance);
     }
 
     public T DownCast<T>() where T : WorldTile {
