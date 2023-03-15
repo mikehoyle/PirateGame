@@ -77,9 +77,9 @@ namespace Encounters.Managers {
           DifficultyRating = encounterTile.difficulty,
       };
       
-      // For now, always add spawner
-      var spawner = spawnerEnemy.NewEncounter(ClaimRandomTile(spawnerEnemy.size));
-      encounterTile.enemies.Add(spawner);
+      // We used to always add a spawner. Don't anymore
+      // var spawner = spawnerEnemy.NewEncounter(ClaimRandomTile(spawnerEnemy.size));
+      // encounterTile.enemies.Add(spawner);
 
       // Maps displayName to spawn count.
       var spawnedEnemies = new Dictionary<string, int>();
@@ -104,7 +104,7 @@ namespace Encounters.Managers {
         });
 
         if (chosenEnemy == null) {
-          Debug.LogError("Failed to choose enemy for encounter, this ideally shouldn't be possible");
+          Debug.LogWarning("Failed to choose enemy for encounter, this ideally shouldn't be possible");
           return;
         }
 
@@ -127,7 +127,7 @@ namespace Encounters.Managers {
     private void GenerateObstacles(EncounterWorldTile encounterTile) {
       encounterTile.obstacles = new();
       // Arbitrarily make 4 obstacles
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < 5; i++) {
         var tile = ClaimRandomTile(rockObstacle.Footprint);
         foreach (var obstacle in rockObstacle.obstacles) {
           encounterTile.obstacles[tile + obstacle.Key] = obstacle.Value.RandomVariant();
@@ -141,8 +141,9 @@ namespace Encounters.Managers {
     private void GenerateCollectables(EncounterWorldTile encounterTile) {
       encounterTile.collectables = new();
 
-      // Arbitrarily make 3 collectables
-      for (int i = 0; i < 3; i++) {
+
+      // No collectables for now.
+      /*for (int i = 0; i < 3; i++) {
         var tile = ClaimRandomTile(Vector2Int.one);
         encounterTile.collectables.Add(tile, new CollectableInstance {
             contents = new() {
@@ -150,7 +151,7 @@ namespace Encounters.Managers {
                 [lumberResource] = _rng.Next(15, 30),
             },
         });
-      }
+      }*/
     }
 
     // TODO(P1): This breaks if we have no valid tile options.

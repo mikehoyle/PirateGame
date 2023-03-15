@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1753957539f948dbb176a9af2bd3fdd0, type: 3}
   m_Name: SwipeAbility
   m_EditorClassIdentifier: 
-  skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
+  skillTestPrefab: {fileID: 0}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   soundOnActivate:
     Guid:
@@ -32,6 +32,8 @@ MonoBehaviour:
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
   range:
     rid: 4252309007281946674
+  canTargetOpponents: 1
+  canTargetAllies: 0
   aoeDefinition: 1X1
   references:
     version: 2
@@ -59,7 +61,7 @@ MonoBehaviour:
     - rid: 4252309007281946677
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 2
+        value: 1
     - rid: 4252309007281946678
       type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:

@@ -98,6 +98,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40d4c0d0e654679ab5e6be520d13f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  percentHpOnRevival: 0.25
+  collectionRange: 1
+  collectedResources: {fileID: 11400000, guid: b87d6defe34405749ae5afefdd1e5b15, type: 2}
+  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
+  bonesResource: {fileID: 11400000, guid: 0e2a4ed8fe823e24088fc4b043da56d7, type: 2}
+  collectionCost:
+    m_keys:
+    - {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+    m_values: 02000000
 --- !u!60 &-7777955405435475374
 PolygonCollider2D:
   m_ObjectHideFlags: 0

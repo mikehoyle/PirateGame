@@ -27,9 +27,11 @@ namespace Encounters.Grid {
       enabled = false;
     }
 
-    public void TargetTile(Vector3Int tile) {
+    public void TargetTiles(params Vector3Int[] tiles) {
       Clear();
-      _tilemap.SetTile(tile, targetedTileOverlay);
+      foreach (var tile in tiles) {
+        _tilemap.SetTile(tile, targetedTileOverlay);
+      }
     }
 
     public void TargetAoe(AreaOfEffect areaOfEffect) {

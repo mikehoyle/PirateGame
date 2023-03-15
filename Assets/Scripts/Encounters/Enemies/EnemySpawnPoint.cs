@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Encounters.Enemies {
   // Represents a known area where an enemy will spawn.
-  public class EnemySpawnPoint : MonoBehaviour {
+  public class EnemySpawnPoint : MonoBehaviour, IPlacedOnGrid {
     [SerializeField] private EncounterEvents encounterEvents;
     
     public delegate void OnSpawnComplete();
@@ -14,6 +14,11 @@ namespace Encounters.Enemies {
     private UnitEncounterState _enemyToSpawn;
     private int _roundsUntilSpawn;
     private PolygonCollider2D _collider;
+    
+    
+    public Vector3Int Position { get; private set; }
+    public bool BlocksAllMovement => false;
+    public bool ClaimsTile => true;
 
     private void Awake() {
       _collider = GetComponent<PolygonCollider2D>();
@@ -22,6 +27,7 @@ namespace Encounters.Enemies {
     public void Init(UnitEncounterState enemyToSpawn, int roundsUntilSpawn) {
       _enemyToSpawn = enemyToSpawn;
       _roundsUntilSpawn = roundsUntilSpawn;
+      Position = _enemyToSpawn.position;
       transform.position = GridUtils.CellAnchorWorldStatic(enemyToSpawn.position);
       ApplySize();
     }

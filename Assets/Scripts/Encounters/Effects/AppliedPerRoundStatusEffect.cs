@@ -24,6 +24,7 @@ namespace Encounters.Effects {
       if (sourceEffect.enactOnceOnApplication) {
         EnactEffect();
       }
+      OnInitialize();
     }
 
     private void OnDisable() {
@@ -44,5 +45,6 @@ namespace Encounters.Effects {
     }
 
     protected abstract void EnactEffect();
+    protected virtual void OnInitialize() { }
   }
 }

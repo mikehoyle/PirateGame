@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Common;
 using Common.Grid;
 using HUD.Encounter.HoverDetails;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using State.Encounter;
-using Terrain;
 using Units;
 using UnityEngine;
 

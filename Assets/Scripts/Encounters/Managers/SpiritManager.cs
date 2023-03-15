@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Common;
 using Encounters.Enemies;
 using Encounters.ShipPlacement;
 using Optional;
+using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using Terrain;
@@ -16,55 +18,73 @@ namespace Encounters.Managers {
     
     private SceneTerrain _terrain;
     private TerrainProfile _encounterProfile;
-    private SpiritUnitController _pendingSpirit;
+    private Option<SpiritUnitController> _pendingSpirit;
     private List<Bones> _unclaimedBones;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
       _unclaimedBones = new();
+      _pendingSpirit = Option.None<SpiritUnitController>();
     }
 
     private void OnEnable() {
       encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
       encounterEvents.unitDeath.RegisterListener(OnUnitDeath);
-      encounterEvents.enemyTurnPreEnd.RegisterListener(OnEnemyTurnPreEnd);
     }
 
     private void OnDisable() {
       encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
       encounterEvents.unitDeath.UnregisterListener(OnUnitDeath);
-      encounterEvents.enemyTurnPreEnd.UnregisterListener(OnEnemyTurnPreEnd);
     }
 
     private void OnEncounterStart() {
       _encounterProfile = TerrainProfile.BuildFrom(_terrain.AllTiles);
-      NewPendingSpirit();
+      _pendingSpirit = Option.Some(NewSpirit());
     }
 
-    private void NewPendingSpirit() {
-      // TODO(P0): Make sure spirits can't appear on each other.
-      _pendingSpirit = Instantiate(spiritEnemy.prefab, transform).GetComponent<SpiritUnitController>();
-      _pendingSpirit.Init(spiritEnemy.NewEncounter(_encounterProfile.RandomPositionOnBorder()));
+    private SpiritUnitController NewSpirit() {
+      // TODO(P1): Animate spirit spawn.
+      Vector3Int position;
+      do {
+        // This could spin inefficiently in theory, but there should be few enough spirits
+        // compared to possibilities that it wouldn't matter.
+        position = _encounterProfile.RandomPositionOnBorder();
+      } while (SceneTerrain.IsTileOccupied(position));
+
+      var spirit = Instantiate(spiritEnemy.prefab, transform).GetComponent<SpiritUnitController>();
+      spirit.Init(spiritEnemy.NewEncounter(position));
+      return spirit;
     }
 
     private void OnUnitDeath(Option<Bones> bonesOption) {
-      if (!bonesOption.TryGet(out var bones)) {
-        // Unit died but did not drop bones (Therefore no new spirit to chase it.
+      if (!bonesOption.TryGet(out var bones) || bones.DeadUnit.faction == UnitFaction.PlayerParty) {
+        // Unit died but did not drop bones (Therefore no new spirit to chase it).
+        // Also, players do not get a spirit allocated to them.
         return;
       }
 
-      _unclaimedBones.Add(bones);
+      _pendingSpirit.Match(
+          spirit => {
+            spirit.TargetBones = Option.Some(bones);
+            _pendingSpirit = Option.None<SpiritUnitController>();
+          },
+          () => _unclaimedBones.Add(bones)
+      );
     }
     
     
-    private void OnEnemyTurnPreEnd() {
+    public IEnumerator SpawnSpirits() {
       if (_unclaimedBones.Count == 0) {
-        return;
+        yield break;
       }
-      Debug.Log($"Number of unclaimed bones: {_unclaimedBones.Count}");
-      _pendingSpirit.TargetBones = Option.Some(_unclaimedBones[0]);
-      _unclaimedBones.RemoveAt(0);
-      NewPendingSpirit();
+
+      foreach (var bone in _unclaimedBones) {
+        var spirit = NewSpirit();
+        spirit.TargetBones = Option.Some(bone);
+      }
+
+      _pendingSpirit = Option.Some(NewSpirit());
+      _unclaimedBones.Clear();
     }
   }
 }

@@ -12,6 +12,7 @@ namespace State.Unit {
     [SerializeReference, SerializeReferenceButton]
     public StatusEffect[] passiveEffects;
     public StatTracker[] stats;
+    public GameObject prefab;
     public Vector2Int size = Vector2Int.one;
     public bool isRevivable = true;
 

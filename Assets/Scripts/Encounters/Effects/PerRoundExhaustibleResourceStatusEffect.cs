@@ -3,6 +3,8 @@
 namespace Encounters.Effects {
   [Serializable]
   public class PerRoundExhaustibleResourceStatusEffect : PerRoundStatusEffect {
+    public ExhaustibleResourceEffect[] immediateEffects;
+    public float immediateEffectDelaySecs;
     public ExhaustibleResourceEffect[] exhaustibleResourceEffects;
 
     public override AppliedStatusEffect ApplyTo(EncounterActor victim) {

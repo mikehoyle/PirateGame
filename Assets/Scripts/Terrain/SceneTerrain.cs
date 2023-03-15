@@ -136,7 +136,11 @@ namespace Terrain {
           
           var path = GetPath(position, possibleDestination, enablementOverrides);
           if (path.IsViableAndWithinRange(moveRange)) {
-            result.UnionWith(path.Path);
+            foreach (var node in path.Path) {
+              if (!IsTileOccupied(node)) {
+                result.Add(node);
+              }
+            }
           }
         }
       }

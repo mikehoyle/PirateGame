@@ -10,6 +10,7 @@ using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
+using Terrain;
 using Units;
 using UnityEngine;
 
@@ -18,10 +19,12 @@ namespace Encounters.Enemies {
     [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private ExhaustibleResources resources;
     [SerializeField] private SpiritCollection spiritsInEncounter;
+    [SerializeField] private int damageOnCollision = 2;
+    [SerializeField] private float speedUnitsPerSec;
     
     private UnitEncounterState _encounterState;
-    private SpiritMover _mover;
     private Option<Bones> _targetBones;
+    private SpriteRenderer _renderer;
     private List<FacingDirection> _plannedMovement;
 
     public FacingDirection FacingDirection { get; set; }
@@ -47,8 +50,8 @@ namespace Encounters.Enemies {
     public bool ClaimsTile => true;
 
     private void Awake() {
-      _mover = GetComponent<SpiritMover>();
       _plannedMovement = new();
+      _renderer = GetComponent<SpriteRenderer>();
       AnimationState = "idle";
     }
 
@@ -67,11 +70,52 @@ namespace Encounters.Enemies {
       transform.position = GridUtils.CellCenterWorldStatic(encounterState.position);
     }
 
-    public Coroutine ExecuteMovementPlan() {
-      return StartCoroutine(_mover.ExecuteMovement(_plannedMovement));
+    public IEnumerator ExecuteMovementPlan() {
+      if (_plannedMovement.Count == 0) {
+        yield break;
+      }
+
+      var currentPosition = Position;
+      var currentIndex = 0;
+      while (currentIndex < _plannedMovement.Count) {
+        FacingDirection = _plannedMovement[currentIndex];
+        var targetPosition = currentPosition + (Vector3Int)_plannedMovement[currentIndex].ToUnitVector();
+
+        if (SceneTerrain.TryGetComponentAtTile<EncounterActor>(targetPosition, out var actor)) {
+          actor.ExpendResource(resources.hp, damageOnCollision);
+          if (currentIndex == _plannedMovement.Count - 1) {
+            // Never stop inside an occupied space. If we would, just keep going until we're not.
+            _plannedMovement.Add(_plannedMovement[currentIndex]);
+          }
+        }
+
+        yield return MoveBetween(currentPosition, targetPosition);
+        currentPosition = targetPosition;
+        
+        if (SceneTerrain.TryGetComponentAtTile<Bones>(targetPosition, out var bones)) {
+          yield return CollectAndDissipate(bones);
+          yield break;
+        }
+        
+        currentIndex++;
+      }
+      
+      Position = currentPosition;
+      _plannedMovement.Clear();
     }
-    
-    
+
+    public List<Vector3Int> GetPath() {
+      var result = new List<Vector3Int>();
+      var currentIndex = 0;
+      var currentTargetPosition = Position;
+      while (currentIndex < _plannedMovement.Count) {
+        currentTargetPosition = currentTargetPosition + (Vector3Int)_plannedMovement[currentIndex].ToUnitVector();
+        result.Add(currentTargetPosition);
+        currentIndex++;
+      }
+      return result;
+    }
+
     private void OnEnemyTurnPreEnd() {
       PrePlanAction();
     }
@@ -120,15 +164,62 @@ namespace Encounters.Enemies {
       return remainingMovement;
     }
 
-    public IEnumerator Dissipate() {
+    // TODO(P0): Properly handle if we collect someone else's target bones.
+    private IEnumerator CollectAndDissipate(Bones bones) {
+      _plannedMovement.Clear();
       OneOffAnimation?.Invoke("death");
       // TODO(P0): make this actually wait until animation end.. also probably handle
       //    one shot animations completely differently.
       yield return new WaitForSeconds(1);
+      _renderer.enabled = false;
+      yield return bones.ReviveUnit();
       Destroy(gameObject);
     }
 
+    public IEnumerator Push(FacingDirection direction) {
+      var targetPosition = Position + (Vector3Int)direction.ToUnitVector();
+      if (!CouldMoveTo(targetPosition)) {
+        yield break;
+      }
+      yield return MoveBetween(Position, targetPosition);
+      Position = targetPosition;
+    }
+
+    public Vector3Int GetPushTarget(Vector3Int sourceActor) {
+      var direction = FacingUtilities.DirectionBetween(sourceActor, Position);
+      var targetPosition = Position + (Vector3Int)direction.ToUnitVector();
+      return CouldMoveTo(targetPosition) ? targetPosition : Position;
+    }
+
+    private bool CouldMoveTo(Vector3Int targetPosition) {
+      if (SceneTerrain.IsTileOccupied(targetPosition)
+          && !SceneTerrain.TryGetComponentAtTile<Bones>(targetPosition, out _)) {
+        // Cannot be pushed onto an occupied tile, but can be pushed onto bones
+        return false;
+      }
+      // To future self-criticising eyes, it's much clearer to format this way instead of one giant conditional.
+      return true;
+    }
+
+    private IEnumerator MoveBetween(Vector3Int currentPosition, Vector3Int targetPosition) {
+      var worldPositionStart = GridUtils.CellCenterWorldStatic(currentPosition);
+      var worldPositionEnd = GridUtils.CellCenterWorldStatic(targetPosition);
+
+      var progressToNextNode = 0f;
+      while (progressToNextNode < 1) {
+        var position = Vector3.Lerp(worldPositionStart, worldPositionEnd, progressToNextNode);
+        position.z = 1f;
+        transform.position = position;
+        progressToNextNode += (speedUnitsPerSec * Time.deltaTime);
+        yield return null;
+      }
+      
+      worldPositionEnd.z = 1f;
+      transform.position = worldPositionEnd;
+    }
+
     public DisplayDetails GetDisplayDetails() {
+      new WaitForSeconds(1);
       return new DisplayDetails() {
           Name = "Spirit",
           AdditionalDetails = new() {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e4d0f8688c4968a7d05a6662b60e01, type: 3}
   m_Name: ThrowAbility
   m_EditorClassIdentifier: 
-  skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
+  skillTestPrefab: {fileID: 0}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   soundOnActivate:
     Guid:
@@ -32,6 +32,8 @@ MonoBehaviour:
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
   range:
     rid: 1371289066063003659
+  canTargetOpponents: 1
+  canTargetAllies: 0
   references:
     version: 2
     RefIds:
@@ -46,7 +48,7 @@ MonoBehaviour:
     - rid: 1371289066063003656
       type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        operation: 0
+        operation: 2
         operands:
         - rid: 1371289066063003657
         - rid: 1371289066063003658

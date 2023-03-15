@@ -30,6 +30,8 @@ MonoBehaviour:
   cost: []
   range:
     rid: 4252309007281946630
+  canTargetOpponents: 1
+  canTargetAllies: 0
   references:
     version: 2
     RefIds:
@@ -49,4 +51,4 @@ MonoBehaviour:
     - rid: 4252309007281946639
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 2
+        value: 1

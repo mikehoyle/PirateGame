@@ -11,7 +11,6 @@ namespace State.Unit {
     public string displayName;
     public int startingHp;
     public int movementRange;
-    public GameObject prefab;
     public DirectionalAnimatedSprite sprite;
     public UnitAbility[] abilities;
     public int turnPriority = 50;

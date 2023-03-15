@@ -6,11 +6,13 @@ namespace Encounters.Grid {
     public PathIndicator PathIndicator { get; private set; }
     public RangeIndicator RangeIndicator { get; private set; }
     public TargetingIndicator TargetingIndicator { get; private set; }
+    public SpiritPathIndicator SpiritPathIndicator { get; private set; }
     
     private void Awake() {
       PathIndicator = GetComponentInChildren<PathIndicator>();
       RangeIndicator = GetComponentInChildren<RangeIndicator>();
       TargetingIndicator = GetComponentInChildren<TargetingIndicator>();
+      SpiritPathIndicator = GetComponentInChildren<SpiritPathIndicator>();
     }
 
     public void Clear() {

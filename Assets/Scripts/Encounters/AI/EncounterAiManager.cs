@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Common;
+using Encounters.Managers;
 using Optional.Unsafe;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
@@ -12,6 +13,7 @@ namespace Encounters.AI {
     [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
     [SerializeField] private SpiritCollection spiritsInEncounter;
+    [SerializeField] private SpiritManager spiritManager;
     
     private AiActionEvaluator _evaluator;
     private SceneTerrain _terrain;
@@ -35,15 +37,18 @@ namespace Encounters.AI {
     private IEnumerator ExecuteEnemyAi() {
       // First let all spirits do their thing.
       for (int i = spiritsInEncounter.spirits.Count - 1; i >= 0; i--) {
-        yield return spiritsInEncounter.spirits[i].ExecuteMovementPlan();
+        yield return StartCoroutine(spiritsInEncounter.spirits[i].ExecuteMovementPlan());
       }
+      
+      // Spawn any additional spirits that may be needed
+      yield return StartCoroutine(spiritManager.SpawnSpirits());
       
       if (enemiesInEncounter.Count == 0) {
         encounterEvents.enemyTurnPreEnd.Raise();
         yield break;
       }
 
-      // First, make all movements simultaneously
+      // Make all movements simultaneously
       var actionPlans = new List<AiActionPlan>();
       var enemyMovements = new List<Coroutine>();
       SparseMatrix3d<bool> claimedTileOverrides = new();

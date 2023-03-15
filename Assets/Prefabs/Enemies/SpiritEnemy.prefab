@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8472050302482270943}
   - component: {fileID: 7277374588084817479}
   - component: {fileID: 8559995357151793761}
-  - component: {fileID: 2087229024616581460}
   m_Layer: 6
   m_Name: SpiritEnemy
   m_TagString: Untagged
@@ -145,18 +144,5 @@ MonoBehaviour:
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   resources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   spiritsInEncounter: {fileID: 11400000, guid: 35baf7ce805f9b349b7c359ade66fc94, type: 2}
---- !u!114 &2087229024616581460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7339068068726759523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3890575b3f01437681942b669abd2d4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   damageOnCollision: 2
   speedUnitsPerSec: 3

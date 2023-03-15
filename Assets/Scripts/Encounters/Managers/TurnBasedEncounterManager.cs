@@ -9,6 +9,7 @@ using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using State;
 using State.World;
+using StaticConfig.RawResources;
 using Terrain;
 using Units;
 using Units.Abilities;
@@ -22,6 +23,7 @@ namespace Encounters.Managers {
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     [SerializeField] private EnemyUnitCollection enemyUnitsInEncounter;
     [SerializeField] private CollectedResources collectedResources;
+    [SerializeField] private RawResource soulsResource;
     
     private GameControls _controls;
     private GridIndicators _gridIndicators;
@@ -116,6 +118,9 @@ namespace Encounters.Managers {
       if (outcome == EncounterOutcome.PlayerVictory) {
         var encounter = GameState.State.world.GetActiveTile().DownCast<EncounterWorldTile>(); 
         collectedResources.GiveResourcesToPlayer();
+        // Janky proof of concept.
+        GameState.State.player.inventory.AddQuantity(
+            soulsResource, ExperienceCalculations.GetXpForVictoryInEncounter(encounter));
         foreach (var unit in GameState.State.player.roster) {
           unit.GrantXp(ExperienceCalculations.GetXpForVictoryInEncounter(encounter));
         }

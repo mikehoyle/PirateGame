@@ -12,14 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e4d0f8688c4968a7d05a6662b60e01, type: 3}
   m_Name: DebugGodSmite
   m_EditorClassIdentifier: 
-  skillTestPrefab: {fileID: 8680967549085812699, guid: fae0a808f38ffc3409636601e5ae5cb8, type: 3}
+  skillTestPrefab: {fileID: 0}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  soundOnActivate:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  impactAnimation: {fileID: 0}
+  impactAnimationDelaySec: 0
+  canStillMoveAfter: 0
   incurredEffect:
     rid: 1371288965870780418
   displayString: Debug Smite
   cost: []
   range:
     rid: 1371288965870780417
+  canTargetOpponents: 1
+  canTargetAllies: 0
   references:
     version: 2
     RefIds:

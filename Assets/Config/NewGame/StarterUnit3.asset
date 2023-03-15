@@ -25,7 +25,9 @@ MonoBehaviour:
     current: 1
   - stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
     current: 1
+  prefab: {fileID: 4998738781700405355, guid: ff877b2eb33443c44b77de9f2f3b9e9c, type: 3}
   size: {x: 1, y: 1}
+  isRevivable: 1
   defaultAbilities: {fileID: 11400000, guid: 54e2bca7f99bf894699d7cf5e3ed1368, type: 2}
   constitutionStat: {fileID: 11400000, guid: d6f0cf594fbe2ca4782833aa62fd60c4, type: 2}
   movementStat: {fileID: 11400000, guid: f0645ee535e419d4cb5f55bba8e17304, type: 2}

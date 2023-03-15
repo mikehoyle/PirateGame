@@ -15,20 +15,28 @@ MonoBehaviour:
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   passiveEffects: []
   stats: []
-  size: {x: 1, y: 1}
-  displayName: Slither
-  startingHp: 8
-  movementRange: 3
   prefab: {fileID: 6882444367959471412, guid: e4763d54310b49c4eb6057e996a56310, type: 3}
+  size: {x: 1, y: 1}
+  isRevivable: 1
+  displayName: Slither
+  startingHp: 5
+  movementRange: 3
   sprite: {fileID: 11400000, guid: 69d8c2fe878279c45a21b8269d2b96e8, type: 2}
   abilities:
   - {fileID: 11400000, guid: 77d22039c76803b48ade156b604377f0, type: 2}
   turnPriority: 50
+  actionPreferences:
+    playerUnitAdjacency: 5
+    distanceFromPlayerByTile: -0.1
+    stayStationary: 0.05
+    canPerformAbility: 10
+    inRadiusOfAlly: 0
+    allyRadius: 0
   spawnConfig:
     minDifficultyRating: 0
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 15
-    prevalenceMultiplier: 1.2
+    prevalenceMultiplier: 1
     individualDifficultyRating: 1.5
     maxPerEncounter: 2
   references:

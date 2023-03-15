@@ -105,8 +105,6 @@ namespace Encounters.Enemies {
     }
     
     protected override void InitInternal(UnitEncounterState encounterState) {
-      // TODO(P1): remove this and generate it properly at encounter time (like player units do)
-      EncounterState.resources = encounterState.metadata.GetEncounterTrackers();
       if (encounterState.metadata is not EnemyUnitMetadata enemyUnitMetadata) {
         Debug.LogWarning("Enemy units need to be initialized with enemy unit state");
         return;
