@@ -58,11 +58,13 @@ namespace Encounters.Enemies {
     private void OnEnable() {
       spiritsInEncounter.spirits.Add(this);
       encounterEvents.enemyTurnPreEnd.RegisterListener(OnEnemyTurnPreEnd);
+      encounterEvents.bonesCollected.RegisterListener(OnBonesCollected);
     }
 
     private void OnDisable() {
       spiritsInEncounter.spirits.Remove(this);
       encounterEvents.enemyTurnPreEnd.UnregisterListener(OnEnemyTurnPreEnd);
+      encounterEvents.bonesCollected.UnregisterListener(OnBonesCollected);
     }
     
     public void Init(UnitEncounterState encounterState) {
@@ -71,28 +73,40 @@ namespace Encounters.Enemies {
     }
 
     public IEnumerator ExecuteMovementPlan() {
-      if (_plannedMovement.Count == 0) {
+      yield return ExecuteMovement(_plannedMovement);
+      _plannedMovement.Clear();
+    }
+
+    public IEnumerator ExecuteMovement(List<FacingDirection> path) {
+      if (path.Count == 0) {
         yield break;
       }
 
       var currentPosition = Position;
       var currentIndex = 0;
-      while (currentIndex < _plannedMovement.Count) {
-        FacingDirection = _plannedMovement[currentIndex];
-        var targetPosition = currentPosition + (Vector3Int)_plannedMovement[currentIndex].ToUnitVector();
+      while (currentIndex < path.Count) {
+        FacingDirection = path[currentIndex];
+        var targetPosition = currentPosition + (Vector3Int)path[currentIndex].ToUnitVector();
 
-        if (SceneTerrain.TryGetComponentAtTile<EncounterActor>(targetPosition, out var actor)) {
-          actor.ExpendResource(resources.hp, damageOnCollision);
-          if (currentIndex == _plannedMovement.Count - 1) {
-            // Never stop inside an occupied space. If we would, just keep going until we're not.
-            _plannedMovement.Add(_plannedMovement[currentIndex]);
+        var targetTileIsClaimed = false;
+        if (SceneTerrain.TryGetComponentAtTile<IPlacedOnGrid>(targetPosition, out var actor)) {
+          if (actor.ClaimsTile) {
+            targetTileIsClaimed = true;
+            if (currentIndex == path.Count - 1) {
+              // Never stop inside an occupied space. If we would, just keep going until we're not.
+              path.Add(path[currentIndex]);
+            }
+
+            if (actor is EncounterActor encounterActor) {
+              encounterActor.ExpendResource(resources.hp, damageOnCollision);
+            }
           }
         }
 
         yield return MoveBetween(currentPosition, targetPosition);
         currentPosition = targetPosition;
         
-        if (SceneTerrain.TryGetComponentAtTile<Bones>(targetPosition, out var bones)) {
+        if (!targetTileIsClaimed && SceneTerrain.TryGetComponentAtTile<Bones>(targetPosition, out var bones)) {
           yield return CollectAndDissipate(bones);
           yield break;
         }
@@ -101,7 +115,6 @@ namespace Encounters.Enemies {
       }
       
       Position = currentPosition;
-      _plannedMovement.Clear();
     }
 
     public List<Vector3Int> GetPath() {
@@ -109,7 +122,7 @@ namespace Encounters.Enemies {
       var currentIndex = 0;
       var currentTargetPosition = Position;
       while (currentIndex < _plannedMovement.Count) {
-        currentTargetPosition = currentTargetPosition + (Vector3Int)_plannedMovement[currentIndex].ToUnitVector();
+        currentTargetPosition += (Vector3Int)_plannedMovement[currentIndex].ToUnitVector();
         result.Add(currentTargetPosition);
         currentIndex++;
       }
@@ -176,29 +189,23 @@ namespace Encounters.Enemies {
       Destroy(gameObject);
     }
 
+    private IEnumerator Dissipate() {
+      _plannedMovement.Clear();
+      OneOffAnimation?.Invoke("death");
+      // TODO(P0): make this actually wait until animation end.. also probably handle
+      //    one shot animations completely differently.
+      yield return new WaitForSeconds(1);
+      _renderer.enabled = false;
+      Destroy(gameObject);
+    }
+
     public IEnumerator Push(FacingDirection direction) {
-      var targetPosition = Position + (Vector3Int)direction.ToUnitVector();
-      if (!CouldMoveTo(targetPosition)) {
-        yield break;
-      }
-      yield return MoveBetween(Position, targetPosition);
-      Position = targetPosition;
+      yield return ExecuteMovement(new List<FacingDirection> { direction });
     }
 
     public Vector3Int GetPushTarget(Vector3Int sourceActor) {
       var direction = FacingUtilities.DirectionBetween(sourceActor, Position);
-      var targetPosition = Position + (Vector3Int)direction.ToUnitVector();
-      return CouldMoveTo(targetPosition) ? targetPosition : Position;
-    }
-
-    private bool CouldMoveTo(Vector3Int targetPosition) {
-      if (SceneTerrain.IsTileOccupied(targetPosition)
-          && !SceneTerrain.TryGetComponentAtTile<Bones>(targetPosition, out _)) {
-        // Cannot be pushed onto an occupied tile, but can be pushed onto bones
-        return false;
-      }
-      // To future self-criticising eyes, it's much clearer to format this way instead of one giant conditional.
-      return true;
+      return Position + (Vector3Int)direction.ToUnitVector();
     }
 
     private IEnumerator MoveBetween(Vector3Int currentPosition, Vector3Int targetPosition) {
@@ -216,6 +223,13 @@ namespace Encounters.Enemies {
       
       worldPositionEnd.z = 1f;
       transform.position = worldPositionEnd;
+    }
+    
+
+    private void OnBonesCollected(Bones bones) {
+      if (_targetBones.TryGet(out var targetBones) && targetBones == bones) {
+        StartCoroutine(Dissipate());
+      }
     }
 
     public DisplayDetails GetDisplayDetails() {

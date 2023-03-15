@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common;
 using Common.Grid;
 using Encounters;
@@ -220,18 +221,38 @@ namespace Terrain {
     }
 
     public static GameObject GetTileOccupant(Vector3Int tile) {
-      var blockingLayer = LayerMask.GetMask("PlacedOnGrid");
-      return Physics2D.OverlapPoint(CellCenterWorldStatic(tile), blockingLayer)?.gameObject;
+      var allAtTile = GetAllTileOccupants(tile);
+      if (allAtTile.Count == 0) {
+        return null;
+      }
+      if (allAtTile.Count == 1) {
+        return allAtTile[0];
+      }
+      
+      // This is quick an dirty but handles stacking on bones for now.
+      foreach (var occupant in allAtTile) {
+        if (occupant.TryGetComponent<IPlacedOnGrid>(out var gridOccupant)) {
+          if (gridOccupant.ClaimsTile) {
+            return occupant;
+          }
+        }
+      }
+      return allAtTile[0];
     }
 
-    public static bool TryGetComponentAtTile<T>(Vector3Int tile, out T component) where T : MonoBehaviour {
-      var occupant = GetTileOccupant(tile);
-      if (occupant != null) {
+    private static List<GameObject> GetAllTileOccupants(Vector3Int tile) {
+      var blockingLayer = LayerMask.GetMask("PlacedOnGrid");
+      var allAtTile = Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), blockingLayer);
+      return allAtTile.Select(c => c.gameObject).ToList();
+    }
+
+    public static bool TryGetComponentAtTile<T>(Vector3Int tile, out T component) {
+      foreach (var occupant in GetAllTileOccupants(tile)) {
         if (occupant.TryGetComponent(out component)) {
           return true;
         }
       }
-      component = null;
+      component = default(T);
       return false;
     }
 

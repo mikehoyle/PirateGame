@@ -28,7 +28,7 @@ namespace Units {
     public UnitEncounterState DeadUnit => _deadUnit;
     public Vector3Int Position { get; private set; }
     public bool BlocksAllMovement => false;
-    public bool ClaimsTile => true;
+    public bool ClaimsTile => false;
     
     private void OnEnable() {
       encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
@@ -83,6 +83,7 @@ namespace Units {
                  (int)(10 * ((EnemyUnitMetadata)(_deadUnit.metadata)).spawnConfig.individualDifficultyRating),
          }
       });
+      encounterEvents.bonesCollected.Raise(this);
       Destroy(gameObject);
     }
 

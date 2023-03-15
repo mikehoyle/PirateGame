@@ -26,5 +26,6 @@ namespace RuntimeVars.Encounters.Events {
     public EncounterActorEvent unitAddedMidEncounter;
     public UnitDeathEvent unitDeath;
     public SpawnEnemyEvent spawnEnemyRequest;
+    public BonesEvent bonesCollected;
   }
 }

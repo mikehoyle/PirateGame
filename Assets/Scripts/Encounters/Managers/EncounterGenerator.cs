@@ -48,22 +48,12 @@ namespace Encounters.Managers {
 
     private void GenerateTerrain(EncounterWorldTile encounterTile) {
       encounterTile.terrain = new();
-      var width = _rng.Next(8, 12);
-      var height = _rng.Next(8, 12);
-      var poolWidth = _rng.Next(2, 4);
-      var poolHeight = _rng.Next(2, 4);
-      var poolX = _rng.Next(0, 8);
-      var poolY = _rng.Next(0, 8);
+      var width = 9;
+      var height = 9;
 
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
           encounterTile.terrain.Add(new Vector3Int(x, y, 0), TerrainType.Land);
-        }
-      }
-
-      for (int x = 0; x < poolWidth; x++) {
-        for (int y = 0; y < poolHeight; y++) {
-          encounterTile.terrain.Remove(new Vector3Int(poolX + x, poolY + y));
         }
       }
     }

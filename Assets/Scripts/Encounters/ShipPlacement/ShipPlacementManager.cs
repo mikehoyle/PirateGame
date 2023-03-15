@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Construction;
+﻿using Construction;
 using Controls;
 using RuntimeVars.Encounters.Events;
 using State;
@@ -49,6 +48,11 @@ namespace Encounters.ShipPlacement {
       _shipProfile = TerrainProfile.BuildFrom(
           GameState.State.player.ship.foundations.Keys);
       enabled = true;
+      
+      // MAYBE TEMPORARY, but just place the ship for the player for now.
+      _shipSetup.SetupShip(new Vector3Int(4, 10), includeUnits: true);
+      encounterEvents.encounterReadyToStart.Raise();
+      enabled = false;
     }
     
     public void OnClick(InputAction.CallbackContext context) {

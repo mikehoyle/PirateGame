@@ -52,7 +52,7 @@ namespace Encounters.Enemies {
       var bestScore = float.MinValue;
       
       foreach (var destination in possibleDestinations) {
-        foreach (var playerUnit in context.PlayerUnits) {
+        foreach (var playerUnit in context.PlayerUnits.Concat<EncounterActor>(context.EnemyUnits)) {
           foreach (var ability in abilities) {
             // TODO(P1): this ignores any obstacles, and could result in dumb AI that never moves around
             //     obstacles. Use the pathfinder for actual proximity.
@@ -91,7 +91,7 @@ namespace Encounters.Enemies {
             };
             if (ability.CouldExecute(executionContext)) {
               score += Metadata.actionPreferences.canPerformAbility;
-              currentActionPlan.Action = Option.Some(new AiActionPlan.AiAction() {
+              currentActionPlan.Action = Option.Some(new AiActionPlan.AiAction {
                   Ability = ability,
                   Context = executionContext,
               });
