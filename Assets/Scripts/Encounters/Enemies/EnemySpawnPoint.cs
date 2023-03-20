@@ -19,6 +19,7 @@ namespace Encounters.Enemies {
     public Vector3Int Position { get; private set; }
     public bool BlocksAllMovement => false;
     public bool ClaimsTile => true;
+    public bool BlocksLineOfSight => false;
 
     private void Awake() {
       _collider = GetComponent<PolygonCollider2D>();

@@ -26,6 +26,7 @@ MonoBehaviour:
   canStillMoveAfter: 0
   incurredEffect:
     rid: 1371289066063003649
+  descriptionShort: -1 HP, -2 MP
   displayString: Scatter Shot
   cost:
   - amount: 2

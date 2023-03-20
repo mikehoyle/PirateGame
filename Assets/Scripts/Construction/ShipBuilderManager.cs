@@ -2,6 +2,7 @@
 using Common.Grid;
 using Controls;
 using Optional;
+using RuntimeVars;
 using RuntimeVars.ShipBuilder;
 using RuntimeVars.ShipBuilder.Events;
 using State;
@@ -17,6 +18,7 @@ namespace Construction {
   /// </summary>
   public class ShipBuilderManager : MonoBehaviour, GameControls.IShipBuilderActions {
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
+    [SerializeField] private CommonEvents commonEvents;
     [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     [SerializeField] private CurrentBuildSelection currentBuildSelection;
     
@@ -34,11 +36,15 @@ namespace Construction {
       _uiInteraction = GetComponent<UiInteractionTracker>();
       shipBuilderEvents.enterConstructionMode.RegisterListener(OnEnterConstructionMode);
       shipBuilderEvents.exitConstructionMode.RegisterListener(OnExitConstructionMode);
+      commonEvents.dialogueStart.RegisterListener(OnDialogueStart);
+      commonEvents.dialogueEnd.RegisterListener(OnDialogueEnd);
     }
 
     private void OnDestroy() {
       shipBuilderEvents.enterConstructionMode.UnregisterListener(OnEnterConstructionMode);
       shipBuilderEvents.exitConstructionMode.UnregisterListener(OnExitConstructionMode);
+      commonEvents.dialogueStart.UnregisterListener(OnDialogueStart);
+      commonEvents.dialogueEnd.UnregisterListener(OnDialogueEnd);
     }
 
     private void OnEnable() {
@@ -168,6 +174,14 @@ namespace Construction {
         return !SceneTerrain.IsTileOccupied(_terrain.GetElevation((Vector2Int)gridCell));
       }
       return false;
+    }
+
+    private void OnDialogueStart() {
+      _controls.TurnBasedEncounter.Disable();
+    }
+
+    private void OnDialogueEnd() {
+      _controls.TurnBasedEncounter.Enable();
     }
   }
 }

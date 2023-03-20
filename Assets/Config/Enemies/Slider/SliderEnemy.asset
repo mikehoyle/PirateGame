@@ -37,7 +37,7 @@ MonoBehaviour:
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 1
     prevalenceMultiplier: 1
-    individualDifficultyRating: 0.4
+    individualDifficultyRating: 0.3
     maxPerEncounter: 3
   references:
     version: 2

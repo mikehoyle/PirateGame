@@ -21,7 +21,7 @@ namespace Encounters.Managers {
     [SerializeField] private EnemyUnitTypeCollection spawnableEnemies;
     [SerializeField] private EnemyUnitMetadata spawnerEnemy;
     [SerializeField] private ObstaclePrefab rockObstacle;
-    [SerializeField] private RawResource lumberResource;
+    [SerializeField] private RawResource soulsResource;
     
     private Random _rng;
     private HashSet<Vector3Int> _availableTiles;
@@ -40,16 +40,16 @@ namespace Encounters.Managers {
       GenerateTerrain(encounterTile);
       
       _availableTiles = new HashSet<Vector3Int>(encounterTile.terrain.Keys);
-      GenerateObstacles(encounterTile);
       GenerateCollectables(encounterTile);
+      GenerateObstacles(encounterTile);
       GenerateUnits(encounterTile);
       encounterTile.isInitialized = true;
     }
 
     private void GenerateTerrain(EncounterWorldTile encounterTile) {
       encounterTile.terrain = new();
-      var width = 9;
-      var height = 9;
+      var width = 7;
+      var height = 7;
 
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
@@ -131,17 +131,19 @@ namespace Encounters.Managers {
     private void GenerateCollectables(EncounterWorldTile encounterTile) {
       encounterTile.collectables = new();
 
+      using var randomizedTiles = _availableTiles
+          .Where(tile => tile.y == 0)
+          .OrderBy(_ => _rng.Next()).GetEnumerator();
+      randomizedTiles.MoveNext();
 
-      // No collectables for now.
-      /*for (int i = 0; i < 3; i++) {
-        var tile = ClaimRandomTile(Vector2Int.one);
-        encounterTile.collectables.Add(tile, new CollectableInstance {
-            contents = new() {
-                // Arbitrary amount
-                [lumberResource] = _rng.Next(15, 30),
-            },
-        });
-      }*/
+      var crystalPosition = randomizedTiles.Current;
+      _availableTiles.Remove(crystalPosition);
+      encounterTile.collectables.Add(crystalPosition, new CollectableInstance {
+          contents = new() {
+              // Arbitrary amount, for now
+              [soulsResource] = (int)(_rng.Next(20, 30) * encounterTile.difficulty),
+          },
+      });
     }
 
     // TODO(P1): This breaks if we have no valid tile options.

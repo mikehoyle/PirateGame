@@ -48,6 +48,7 @@ namespace Encounters.Enemies {
     
     public bool BlocksAllMovement => false;
     public bool ClaimsTile => true;
+    public bool BlocksLineOfSight => false;
 
     private void Awake() {
       _plannedMovement = new();
@@ -107,8 +108,10 @@ namespace Encounters.Enemies {
         currentPosition = targetPosition;
         
         if (!targetTileIsClaimed && SceneTerrain.TryGetComponentAtTile<Bones>(targetPosition, out var bones)) {
-          yield return CollectAndDissipate(bones);
-          yield break;
+          if (TargetBones.Contains(bones)) {
+            yield return CollectAndDissipate(bones);
+            yield break;
+          }
         }
         
         currentIndex++;
@@ -224,7 +227,6 @@ namespace Encounters.Enemies {
       worldPositionEnd.z = 1f;
       transform.position = worldPositionEnd;
     }
-    
 
     private void OnBonesCollected(Bones bones) {
       if (_targetBones.TryGet(out var targetBones) && targetBones == bones) {

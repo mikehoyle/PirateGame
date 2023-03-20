@@ -40,6 +40,8 @@ namespace Encounters {
       get => EncounterState.facingDirection;
       set => EncounterState.facingDirection = value;
     }
+
+    public bool BlocksLineOfSight => false;
     
     public string AnimationState { get; set; }
     public event IDirectionalAnimatable.RequestOneOffAnimation OneOffAnimation;

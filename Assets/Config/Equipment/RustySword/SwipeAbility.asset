@@ -26,6 +26,7 @@ MonoBehaviour:
   canStillMoveAfter: 0
   incurredEffect:
     rid: 4252309007281946675
+  descriptionShort: -2 HP
   displayString: Swipe
   cost:
   - amount: 2

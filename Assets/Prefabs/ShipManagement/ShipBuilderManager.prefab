@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildOptions: {fileID: 11400000, guid: c63a3f0ee9d58ca40a04cd0b57ec1235, type: 2}
+  commonEvents: {fileID: 11400000, guid: 0fd844d7c7fd8ad46ae1ec302c09772c, type: 2}
   shipBuilderEvents: {fileID: 11400000, guid: 8be84bed803b2004da287ee98bde5697, type: 2}
   currentBuildSelection: {fileID: 11400000, guid: fb68cd97d6dfc214c996275ebebab85a, type: 2}
 --- !u!114 &9118583357752667885
@@ -78,7 +79,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75252ca3fd934124ba656e506cb52d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildOptions: {fileID: 11400000, guid: c63a3f0ee9d58ca40a04cd0b57ec1235, type: 2}
   unitPrefab: {fileID: 4998738781700405355, guid: ff877b2eb33443c44b77de9f2f3b9e9c, type: 3}
   inGameConstructionPrefab: {fileID: 263394899586910802, guid: 0d7c01cba8ccbb24cacf4d3c9b483fa7, type: 3}
 --- !u!114 &9118583357752667884

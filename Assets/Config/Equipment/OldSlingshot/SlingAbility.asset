@@ -26,6 +26,7 @@ MonoBehaviour:
   canStillMoveAfter: 0
   incurredEffect:
     rid: 4252309007281946646
+  descriptionShort: -1 HP
   displayString: Sling
   cost:
   - amount: 1

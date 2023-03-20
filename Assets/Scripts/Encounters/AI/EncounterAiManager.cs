@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Common;
 using Encounters.Managers;
-using Optional.Unsafe;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
 using Terrain;
@@ -13,7 +12,6 @@ namespace Encounters.AI {
     [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
     [SerializeField] private SpiritCollection spiritsInEncounter;
-    [SerializeField] private SpiritManager spiritManager;
     
     private AiActionEvaluator _evaluator;
     private SceneTerrain _terrain;
@@ -35,14 +33,6 @@ namespace Encounters.AI {
       StartCoroutine(ExecuteEnemyAi());
     }
     private IEnumerator ExecuteEnemyAi() {
-      // First let all spirits do their thing.
-      for (int i = spiritsInEncounter.spirits.Count - 1; i >= 0; i--) {
-        yield return StartCoroutine(spiritsInEncounter.spirits[i].ExecuteMovementPlan());
-      }
-      
-      // Spawn any additional spirits that may be needed
-      yield return StartCoroutine(spiritManager.SpawnSpirits());
-      
       if (enemiesInEncounter.Count == 0) {
         encounterEvents.enemyTurnPreEnd.Raise();
         yield break;
@@ -66,16 +56,20 @@ namespace Encounters.AI {
       }
       
       // Then make actions sequentially
-      Coroutine previousUnitAction = null;
       foreach (var actionPlan in actionPlans) {
-        previousUnitAction = StartCoroutine(ExecuteAction(actionPlan.Actor, actionPlan, previousUnitAction));
+        yield return ExecuteAction(actionPlan.Actor, actionPlan);
+      }
+      
+      
+      // Let all spirits do their thing.
+      for (int i = spiritsInEncounter.spirits.Count - 1; i >= 0; i--) {
+        yield return spiritsInEncounter.spirits[i].ExecuteMovementPlan();
       }
 
-      StartCoroutine(EndAiTurn(previousUnitAction));
+      EndAiTurn();
     }
 
-    private IEnumerator ExecuteAction(EncounterActor enemy, AiActionPlan actionPlan, Coroutine previousUnitAction) {
-      yield return previousUnitAction;
+    private IEnumerator ExecuteAction(EncounterActor enemy, AiActionPlan actionPlan) {
       if (actionPlan.Action.TryGet(out var action)) {
         if (action.Ability.TryExecute(action.Context, () => { }).TryGet(out var abilityExecution)) {
           yield return StartCoroutine(abilityExecution);
@@ -83,8 +77,7 @@ namespace Encounters.AI {
       }
     }
 
-    private IEnumerator EndAiTurn(Coroutine lastUnitAction) {
-      yield return lastUnitAction;
+    private void EndAiTurn() {
       encounterEvents.enemyTurnPreEnd.Raise();
     }
   }

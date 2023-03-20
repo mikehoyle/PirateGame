@@ -26,6 +26,7 @@ MonoBehaviour:
   canStillMoveAfter: 0
   incurredEffect:
     rid: 1371289066063003655
+  descriptionShort: -1 HP
   displayString: Throw
   cost:
   - amount: 1

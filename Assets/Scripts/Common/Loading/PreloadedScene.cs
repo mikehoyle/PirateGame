@@ -1,15 +1,17 @@
-﻿using UnityEngine;
-
-namespace Common.Loading {
+﻿namespace Common.Loading {
   public class PreloadedScene {
-    private AsyncOperation _asyncOperation;
+    private bool _activated;
 
-    public PreloadedScene(AsyncOperation asyncOperation) {
-      _asyncOperation = asyncOperation;
+    public PreloadedScene() {
+      _activated = false;
     }
     
     public void Activate() {
-      _asyncOperation.allowSceneActivation = true;
+      _activated = true;
+    }
+
+    public bool IsActivated() {
+      return _activated;
     }
   }
 }

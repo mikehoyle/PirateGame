@@ -1,11 +1,10 @@
-﻿using Common;
-using Common.Loading;
+﻿using Common.Loading;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace MainTitle {
   public class TitleSceneManager : MonoBehaviour {
     private NewGameCreator _newGameCreator;
+    private PreloadedScene _overworldScene;
 
     private void Awake() {
       _newGameCreator = GetComponent<NewGameCreator>();
@@ -13,10 +12,11 @@ namespace MainTitle {
 
     private void Start() {
       _newGameCreator.SetUpNewGame();
+      _overworldScene = SceneLoader.Instance.PreloadScene(Scenes.Name.Overworld);
     }
 
     public void OnPlayButtonClick() {
-      SceneManager.LoadScene(Scenes.Name.Overworld.SceneName());
+      _overworldScene.Activate();
     }
   }
 }

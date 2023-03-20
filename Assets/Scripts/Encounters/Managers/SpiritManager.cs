@@ -18,13 +18,9 @@ namespace Encounters.Managers {
     
     private SceneTerrain _terrain;
     private TerrainProfile _encounterProfile;
-    private Option<SpiritUnitController> _pendingSpirit;
-    private List<Bones> _unclaimedBones;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
-      _unclaimedBones = new();
-      _pendingSpirit = Option.None<SpiritUnitController>();
     }
 
     private void OnEnable() {
@@ -39,7 +35,6 @@ namespace Encounters.Managers {
 
     private void OnEncounterStart() {
       _encounterProfile = TerrainProfile.BuildFrom(_terrain.AllTiles);
-      _pendingSpirit = Option.Some(NewSpirit());
     }
 
     private SpiritUnitController NewSpirit() {
@@ -63,28 +58,7 @@ namespace Encounters.Managers {
         return;
       }
 
-      _pendingSpirit.Match(
-          spirit => {
-            spirit.TargetBones = Option.Some(bones);
-            _pendingSpirit = Option.None<SpiritUnitController>();
-          },
-          () => _unclaimedBones.Add(bones)
-      );
-    }
-    
-    
-    public IEnumerator SpawnSpirits() {
-      if (_unclaimedBones.Count == 0) {
-        yield break;
-      }
-
-      foreach (var bone in _unclaimedBones) {
-        var spirit = NewSpirit();
-        spirit.TargetBones = Option.Some(bone);
-      }
-
-      _pendingSpirit = Option.Some(NewSpirit());
-      _unclaimedBones.Clear();
+      NewSpirit().TargetBones = Option.Some(bones);
     }
   }
 }

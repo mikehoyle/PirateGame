@@ -1,7 +1,9 @@
-﻿using Common.Animation;
+﻿using System.Collections.Generic;
+using Common.Animation;
 using Common.Events;
 using Encounters;
 using RuntimeVars;
+using State.Encounter;
 using State.Unit;
 using UnityEngine;
 
@@ -12,9 +14,10 @@ namespace Units {
     private SpriteRenderer _selectedIndicator;
 
     public PlayerUnitMetadata Metadata => (PlayerUnitMetadata)EncounterState.metadata;
-
     public override UnitEncounterState EncounterState { get; protected set; }
     protected override EmptyGameEvent TurnPreStartEvent => encounterEvents.playerTurnPreStart;
+
+    public List<CollectableInstance> CollectablesAcquired { get; } = new();
 
     protected override void Awake() {
       base.Awake();
@@ -89,6 +92,10 @@ namespace Units {
       playerUnitsInEncounter.Remove(this);
       // TODO(P1): play death animation.
       Destroy(gameObject);
+    }
+
+    public void AddCollectable(CollectableInstance collectableInstance) {
+      CollectablesAcquired.Add(collectableInstance);
     }
   }
 }

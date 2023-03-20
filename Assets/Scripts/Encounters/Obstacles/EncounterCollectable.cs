@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Common.Animation;
 using Common.Grid;
 using HUD.Encounter.HoverDetails;
 using RuntimeVars.Encounters;
@@ -8,9 +9,8 @@ using Units;
 using UnityEngine;
 
 namespace Encounters.Obstacles {
-  public class EncounterCollectable : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider {
+  public class EncounterCollectable : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider, IDirectionalAnimatable {
     [SerializeField] private int collectionRange = 1;
-    [SerializeField] CollectedResources collectedResources;
     [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private CurrentSelection currentSelection;
 
@@ -18,6 +18,10 @@ namespace Encounters.Obstacles {
     public Vector3Int Position { get; private set; }
     public bool BlocksAllMovement => true;
     public bool ClaimsTile => true;
+    public bool BlocksLineOfSight => true;
+    public FacingDirection FacingDirection => FacingDirection.SouthWest;
+    public string AnimationState => "idle";
+    public event IDirectionalAnimatable.RequestOneOffAnimation OneOffAnimation;
     
     private void OnEnable() {
       encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
@@ -36,7 +40,7 @@ namespace Encounters.Obstacles {
     public void Initialize(CollectableInstance collectable, Vector3Int position) {
       Metadata = collectable;
       Position = position;
-      transform.position = GridUtils.CellBaseWorldStatic(position);
+      transform.position = GridUtils.CellCenterWorldStatic(position);
     }
 
     private void TryCollect() {
@@ -52,11 +56,11 @@ namespace Encounters.Obstacles {
       
       // TODO(P1): Any animation/sound/anything
       playerActor.FaceTowards(Position);
-      Collect();
+      Collect(playerActor);
     }
     
-    private void Collect() {
-      collectedResources.Add(Metadata);
+    private void Collect(PlayerUnitController collector) {
+      collector.AddCollectable(Metadata);
       //var encounter = GameState.State.world.GetActiveTile().DownCast<EncounterTile>();
       //encounter.collectables.Remove(Position);
       Destroy(gameObject);

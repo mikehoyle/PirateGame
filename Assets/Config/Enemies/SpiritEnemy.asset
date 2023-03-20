@@ -15,12 +15,12 @@ MonoBehaviour:
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   passiveEffects: []
   stats: []
+  prefab: {fileID: 7339068068726759523, guid: 3d2c71fcd3f472442b8be93d96ede2c4, type: 3}
   size: {x: 1, y: 1}
-  isRevivable: 1
+  isRevivable: 0
   displayName: Spirit
   startingHp: 100
-  movementRange: 4
-  prefab: {fileID: 7339068068726759523, guid: 3d2c71fcd3f472442b8be93d96ede2c4, type: 3}
+  movementRange: 15
   sprite: {fileID: 11400000, guid: b8b4664254a96f44991066e93a801eab, type: 2}
   abilities: []
   turnPriority: 0

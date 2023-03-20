@@ -26,6 +26,7 @@ MonoBehaviour:
   canStillMoveAfter: 1
   incurredEffect:
     rid: 4252309007281946653
+  descriptionShort: -1 HP
   displayString: Stab
   cost:
   - amount: 1
@@ -55,12 +56,7 @@ MonoBehaviour:
       data:
         operation: 0
         operands:
-        - rid: 4252309007281946655
         - rid: 4252309007281946656
-    - rid: 4252309007281946655
-      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
-      data:
-        value: 0
     - rid: 4252309007281946656
       type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
@@ -68,7 +64,6 @@ MonoBehaviour:
         operands:
         - rid: 4252309007281946657
         - rid: 4252309007281946658
-        - rid: 4252309007281946659
     - rid: 4252309007281946657
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
@@ -77,5 +72,3 @@ MonoBehaviour:
       type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
-    - rid: 4252309007281946659
-      type: {class: SkillTestResultValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}

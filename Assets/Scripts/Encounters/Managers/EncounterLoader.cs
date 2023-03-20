@@ -49,14 +49,11 @@ namespace Encounters.Managers {
           GridUtils.CellCenterWorldStatic(new Vector3Int((int)center.x, (int)center.y, 0)));
       _cameraCursor.SetGridBounds(boundingRect);
     }
-    
-    
+
     private void MaybeLoadDebugEncounter() {
       if (Debug.isDebugBuild && GameState.State.world.GetActiveTile() == null) {
         var position = GameState.State.player.overworldGridPosition;
-        var encounter = new EncounterWorldTile(HexOffsetCoordinates.From((Vector3Int)position)) {
-            difficulty = 2,
-        };
+        var encounter = new EncounterWorldTile(HexOffsetCoordinates.From((Vector3Int)position));
         GameState.State.world.UpdateTile(encounter);
       }
     }

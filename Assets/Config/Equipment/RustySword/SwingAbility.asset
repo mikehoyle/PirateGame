@@ -26,6 +26,7 @@ MonoBehaviour:
   canStillMoveAfter: 0
   incurredEffect:
     rid: 4252309007281946660
+  descriptionShort: -2 HP
   displayString: Swing
   cost:
   - amount: 1

@@ -7,9 +7,6 @@ using Optional;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using RuntimeVars.Encounters.Events;
-using State;
-using State.World;
-using StaticConfig.RawResources;
 using Terrain;
 using Units;
 using Units.Abilities;
@@ -19,11 +16,10 @@ namespace Encounters.Managers {
   public class TurnBasedEncounterManager : EncounterInputReceiver {
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private EncounterEvents encounterEvents;
+    [SerializeField] private CommonEvents commonEvents;
     [SerializeField] private IntegerVar currentRound;
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     [SerializeField] private EnemyUnitCollection enemyUnitsInEncounter;
-    [SerializeField] private CollectedResources collectedResources;
-    [SerializeField] private RawResource soulsResource;
     
     private GameControls _controls;
     private GridIndicators _gridIndicators;
@@ -53,19 +49,21 @@ namespace Encounters.Managers {
       _controls.TurnBasedEncounter.Enable();
       encounterEvents.enemyTurnEnd.RegisterListener(OnEnemyTurnEnd);
       encounterEvents.abilitySelected.RegisterListener(OnAbilitySelected);
-      encounterEvents.unitDeath.RegisterListener(OnUnitDeath);
       encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
+      commonEvents.dialogueStart.RegisterListener(OnDialogueStart);
+      commonEvents.dialogueEnd.RegisterListener(OnDialogueEnd);
       
       DebugLogConsole.AddCommand("win", "Automatically win the encounter", DebugWin);
-      DebugLogConsole.AddCommand("lose", "Automatically lose the encounter", DebugWin);
+      DebugLogConsole.AddCommand("lose", "Automatically lose the encounter", DebugLose);
     }
 
     private void OnDisable() {
       _controls.TurnBasedEncounter.Disable();
       encounterEvents.enemyTurnEnd.UnregisterListener(OnEnemyTurnEnd);
       encounterEvents.abilitySelected.UnregisterListener(OnAbilitySelected);
-      encounterEvents.unitDeath.UnregisterListener(OnUnitDeath);
-      encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
+      encounterEvents.encounterEnd.UnregisterListener(OnEncounterEnd);
+      commonEvents.dialogueStart.UnregisterListener(OnDialogueStart);
+      commonEvents.dialogueEnd.UnregisterListener(OnDialogueEnd);
       
       DebugLogConsole.RemoveCommand("win");
       DebugLogConsole.RemoveCommand("lose");
@@ -73,7 +71,6 @@ namespace Encounters.Managers {
 
     private void OnEncounterStart() {
       enabled = true;
-      collectedResources.Clear();
       encounterEvents.playerTurnPreStart.Raise();
       encounterEvents.playerTurnStart.Raise();
     }
@@ -99,33 +96,8 @@ namespace Encounters.Managers {
     private void OnEndAbilityExecution() {
       _controls.TurnBasedEncounter.Enable();
     }
-
-    private void OnUnitDeath(Option<Bones> _) {
-      // Check for end conditions
-      if (!playerUnitsInEncounter.Any()) {
-        encounterEvents.encounterEnd.Raise(EncounterOutcome.PlayerDefeat);
-        return;
-      }
-
-      if (!enemyUnitsInEncounter.Any()) {
-        encounterEvents.encounterEnd.Raise(EncounterOutcome.PlayerVictory);
-        return;
-      }
-    }
     
     private void OnEncounterEnd(EncounterOutcome outcome) {
-      Debug.Log($"Encounter ending with outcome: {outcome}");
-      if (outcome == EncounterOutcome.PlayerVictory) {
-        var encounter = GameState.State.world.GetActiveTile().DownCast<EncounterWorldTile>(); 
-        collectedResources.GiveResourcesToPlayer();
-        // Janky proof of concept.
-        GameState.State.player.inventory.AddQuantity(
-            soulsResource, ExperienceCalculations.GetXpForVictoryInEncounter(encounter));
-        foreach (var unit in GameState.State.player.roster) {
-          unit.GrantXp(ExperienceCalculations.GetXpForVictoryInEncounter(encounter));
-        }
-        encounter.MarkDefeated();
-      }
       enabled = false;
     }
 
@@ -203,6 +175,14 @@ namespace Encounters.Managers {
     
     private void DebugLose() {
       encounterEvents.encounterEnd.Raise(EncounterOutcome.PlayerDefeat);
+    }
+
+    private void OnDialogueStart() {
+      _controls.TurnBasedEncounter.Disable();
+    }
+
+    private void OnDialogueEnd() {
+      _controls.TurnBasedEncounter.Enable();
     }
   }
 }

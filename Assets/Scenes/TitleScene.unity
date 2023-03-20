@@ -194,15 +194,19 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: "A merry band of small-time swashbucklers are at sea when the meteor hit.
-    Now they find themselves in a broken down ship, with little means to survive,
-    and all that remains of the broken land inhabited by an aggressive alien race\n\n-
-    Travel from island to island, gathering resources to help your crew survive and
-    gain power.\n- Build mounted weapons on your ship to aid you in your encounters.\n-
-    Craft better items and unlock improved abilities.\n- Engage in turn-based combat\n 
-    - Each Unit can move up to their movement score, and use abilities up to their
-    ability score (2)\n  - Press [ENTER] to pass the turn.\n  - Press [TAB] to open
-    the main menu."
+  m_Text: "A merry band of small-time swashbucklers are at sea when they are pulled
+    down a stray whirlpool. They tumble down to a hellish realm, but against all
+    odds land atop a hellkeeper's boat. They do what they know best: commandeer the
+    ship a fight their way out.\n\n- Travel across the map, defeating outposts to
+    take down gates and progress further.\n- Collect bones and souls through combat
+    to craft better items and unlock improved abilities.\n- Engage in turn-based
+    combat:\n  - Each Unit can move up to their movement score, and use abilities
+    up to their ability score (2)\n  - Press [ENTER] to pass the turn.\n  - Press
+    [TAB] to open the main menu.\n- When an enemy dies, they leave behind bones.
+    Use a unit's action to collect them, to gain the \"bones\" resource. If they
+    are left behind, a spirit will spawn to attempt inhabit the bones. You cannot
+    kill spirits, but your abilities can push them and affect their approach. Spirits
+    damage any living units they pass through."
 --- !u!222 &38186484
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -775,7 +779,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: UNTITILED PIRATES & Aliens Game
+  m_Text: UNTITILED PIRATES GAME
 --- !u!222 &508330795
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -814,6 +818,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419c37bd5648456391e1569f0abe1523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialoguePrefab: {fileID: 6736124442218146762, guid: 91edf7620cc81bd40a68d6347c8da6cf, type: 3}
+  dialogueContent: {fileID: 4900000, guid: afec39ced0744623be0cde375ae82e1b, type: 3}
 --- !u!4 &736085813
 Transform:
   m_ObjectHideFlags: 0
@@ -1266,7 +1272,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: pre-alpha v0.01
+  m_Text: pre-alpha v0.02
 --- !u!222 &1573903002
 CanvasRenderer:
   m_ObjectHideFlags: 0

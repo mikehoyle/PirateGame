@@ -29,6 +29,7 @@ namespace Units.Abilities {
     [SerializeField] protected bool canStillMoveAfter;
     // Optional
     [SerializeReference, SerializeReferenceButton] public StatusEffect incurredEffect;
+    public string descriptionShort;
 
     // Result is a quality percentage from 0 - 1.
     public delegate void AbilityEffectivenessCallback(float result);

@@ -113,7 +113,7 @@ MonoBehaviour:
   spawnableEnemies: {fileID: 11400000, guid: 74a244f7052cd8e4dbe85654dce54cac, type: 2}
   spawnerEnemy: {fileID: 11400000, guid: ca38211c7c0899642a887a4377f995f5, type: 2}
   rockObstacle: {fileID: 11400000, guid: d99fe2c7d5625d04a81988b19a3c469f, type: 2}
-  lumberResource: {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
+  soulsResource: {fileID: 11400000, guid: 5e30639d7433bca4fa9327eba6a1420a, type: 2}
 --- !u!114 &1915456238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +155,6 @@ MonoBehaviour:
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   enemiesInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
   spiritsInEncounter: {fileID: 11400000, guid: 35baf7ce805f9b349b7c359ade66fc94, type: 2}
-  spiritManager: {fileID: 0}
 --- !u!114 &7946137650026443626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,11 +169,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
   encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
+  commonEvents: {fileID: 11400000, guid: 0fd844d7c7fd8ad46ae1ec302c09772c, type: 2}
   currentRound: {fileID: 11400000, guid: b6cacc17f9b44554c8f25deaee2f8598, type: 2}
   playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
   enemyUnitsInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
-  collectedResources: {fileID: 11400000, guid: b87d6defe34405749ae5afefdd1e5b15, type: 2}
-  soulsResource: {fileID: 11400000, guid: 5e30639d7433bca4fa9327eba6a1420a, type: 2}
 --- !u!114 &-6471134198255543633
 MonoBehaviour:
   m_ObjectHideFlags: 0

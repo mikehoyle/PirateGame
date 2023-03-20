@@ -34,3 +34,4 @@ MonoBehaviour:
   unitAddedMidEncounter: {fileID: 11400000, guid: 631a0a2c1baa7894381d1bf497cae90b, type: 2}
   unitDeath: {fileID: 11400000, guid: 27971e046ac2af9408ed0bcbd8b32f7b, type: 2}
   spawnEnemyRequest: {fileID: 11400000, guid: cd077312e8a28cf448fbd0ad65638c49, type: 2}
+  bonesCollected: {fileID: 11400000, guid: 403fc5b414962f34cb1eb484285caf1a, type: 2}

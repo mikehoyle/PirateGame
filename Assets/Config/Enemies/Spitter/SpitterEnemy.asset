@@ -17,10 +17,10 @@ MonoBehaviour:
   stats: []
   prefab: {fileID: 2938806043710237447, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
   size: {x: 1, y: 1}
-  isRevivable: 1
+  isRevivable: 0
   displayName: Spitter
-  startingHp: 4
-  movementRange: 4
+  startingHp: 3
+  movementRange: 3
   sprite: {fileID: 11400000, guid: cdc8acf5d6271684e97058f12df5a5c7, type: 2}
   abilities:
   - {fileID: 11400000, guid: e4e4edf2afcc1b044bfa402c93426942, type: 2}
@@ -37,7 +37,7 @@ MonoBehaviour:
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 1
     prevalenceMultiplier: 1
-    individualDifficultyRating: 0.35
+    individualDifficultyRating: 0.25
     maxPerEncounter: 3
   references:
     version: 2

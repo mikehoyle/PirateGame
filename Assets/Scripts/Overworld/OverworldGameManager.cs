@@ -8,6 +8,7 @@ using Common.Loading;
 using Controls;
 using HUD.MainMenu;
 using IngameDebugConsole;
+using RuntimeVars;
 using State;
 using State.World;
 using Unity.Burst.Intrinsics;
@@ -25,6 +26,7 @@ namespace Overworld {
   public class OverworldGameManager : MonoBehaviour, GameControls.IOverworldActions {
     [SerializeField] private string buildMenuItemLabel = "Construction";
     [SerializeField] private GameObject borderPrefab;
+    [SerializeField] private CommonEvents commonEvents;
 
     // Tiles 
     [SerializeField] private TileBase indicatorTile;
@@ -61,11 +63,17 @@ namespace Overworld {
       }
 
       _controls.Overworld.Enable();
+      
+      commonEvents.dialogueStart.RegisterListener(OnDialogueStart);
+      commonEvents.dialogueEnd.RegisterListener(OnDialogueEnd);
       DebugLogConsole.AddCommand("reveal", "Reveal all map tiles", RevealMap);
     }
 
     private void OnDisable() {
       _controls.Overworld.Disable();
+      
+      commonEvents.dialogueStart.UnregisterListener(OnDialogueStart);
+      commonEvents.dialogueEnd.UnregisterListener(OnDialogueEnd);
       DebugLogConsole.RemoveCommand("reveal");
     }
 
@@ -195,6 +203,14 @@ namespace Overworld {
         gameTile.Reveal();
         UpdateTile(gameTile);
       }
+    }
+
+    private void OnDialogueStart() {
+      _controls.TurnBasedEncounter.Disable();
+    }
+
+    private void OnDialogueEnd() {
+      _controls.TurnBasedEncounter.Enable();
     }
   }
 }

@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: PlayerState
   m_EditorClassIdentifier: 
   overworldGridPosition: {x: 0, y: 0}
-  ship: {fileID: 11400000, guid: d84ca23dfc5d3a2489bf93f3c0dcb860, type: 2}
+  ship: {fileID: 11400000, guid: 12d8f593513662f419da8df73d6659c0, type: 2}
   inventory:
     items:
-      m_keys:
-      - {fileID: 11400000, guid: aebcc41147d51014d98b024a480bc6e0, type: 2}
-      - {fileID: 11400000, guid: 7df085faf4d303743a3c3b3de1cc7f13, type: 2}
-      m_values: 0a0000000a000000
+      m_keys: []
+      m_values: 
   armory:
     equipment: []
   roster:

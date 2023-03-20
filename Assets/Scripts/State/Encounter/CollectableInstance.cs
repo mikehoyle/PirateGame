@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Text;
 using StaticConfig.RawResources;
+using Units;
 
 namespace State.Encounter {
   [Serializable]
@@ -10,6 +12,14 @@ namespace State.Encounter {
       foreach (var resourceAmount in contents) {
         GameState.State.player.inventory.AddQuantity(resourceAmount.Key, resourceAmount.Value);
       }
+    }
+
+    public string DisplayString() {
+      var result = new StringBuilder();
+      foreach (var loot in contents) {
+        result.Append($"+{loot.Value} {loot.Key.displayName}\n");
+      }
+      return result.ToString();
     }
   }
 }

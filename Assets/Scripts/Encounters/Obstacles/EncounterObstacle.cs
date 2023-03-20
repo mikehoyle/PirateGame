@@ -14,6 +14,7 @@ namespace Encounters.Obstacles {
     public Vector3Int Position { get; private set; }
     public bool BlocksAllMovement => true;
     public bool ClaimsTile => true;
+    public bool BlocksLineOfSight => true;
 
     private void Awake() {
       _spriteRenderer = GetComponent<SpriteRenderer>();
