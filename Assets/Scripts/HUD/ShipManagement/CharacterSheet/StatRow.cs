@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Common;
 using Encounters;
+using Events;
 using Optional.Collections;
 using RuntimeVars.Encounters;
-using RuntimeVars.ShipBuilder.Events;
 using State.Unit;
 using StaticConfig.Units;
 using Units;
@@ -13,7 +13,6 @@ using UnityEngine.UI;
 namespace HUD.ShipManagement.CharacterSheet {
   public class StatRow : MonoBehaviour {
     [SerializeField] private Stat displayStat;
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     [SerializeField] private CurrentSelection currentSelection;
     private Button _levelUpButton;
 
@@ -23,8 +22,8 @@ namespace HUD.ShipManagement.CharacterSheet {
       _text = GetComponentInChildren<Text>();
       _levelUpButton = GetComponentInChildren<Button>();
       _levelUpButton.onClick.AddListener(OnLevelUpClick);
-      shipBuilderEvents.openCharacterSheet.RegisterListener(UpdateDisplay);
-      shipBuilderEvents.unitLevelUpStat.RegisterListener(UpdateDisplay);
+      Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(UpdateDisplay);
+      Dispatch.ShipBuilder.UnitLevelUpStat.RegisterListener(UpdateDisplay);
     }
 
     private void Start() {
@@ -32,8 +31,8 @@ namespace HUD.ShipManagement.CharacterSheet {
     }
 
     private void OnDestroy() {
-      shipBuilderEvents.openCharacterSheet.UnregisterListener(UpdateDisplay);
-      shipBuilderEvents.unitLevelUpStat.UnregisterListener(UpdateDisplay);
+      Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(UpdateDisplay);
+      Dispatch.ShipBuilder.UnitLevelUpStat.UnregisterListener(UpdateDisplay);
     }
 
     private void UpdateDisplay(EncounterActor unit) {
@@ -71,7 +70,7 @@ namespace HUD.ShipManagement.CharacterSheet {
       foreach (var stat in playerUnit.stats) {
         if (stat.stat == displayStat) {
           stat.LevelUp();
-          shipBuilderEvents.unitLevelUpStat.Raise((PlayerUnitController)unit);
+          Dispatch.ShipBuilder.UnitLevelUpStat.Raise((PlayerUnitController)unit);
           return;
         }
       }

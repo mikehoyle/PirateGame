@@ -1,6 +1,6 @@
 ﻿using Encounters;
+using Events;
 using PixelsoftGames.PixelUI;
-using RuntimeVars.ShipBuilder.Events;
 using Units;
 using UnityEngine;
 
@@ -9,7 +9,6 @@ namespace HUD.ShipManagement.CharacterSheet {
   ///   Controls character management UI.
   /// </summary>
   public class CharacterSheet : MonoBehaviour {
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     private Canvas _canvas;
 
     private UITabbedWindow _window;
@@ -21,13 +20,13 @@ namespace HUD.ShipManagement.CharacterSheet {
     }
 
     private void OnEnable() {
-      shipBuilderEvents.openCharacterSheet.RegisterListener(OnOpenCharacterSheet);
-      shipBuilderEvents.closeCharacterSheet.RegisterListener(OnCloseCharacterSheet);
+      Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.CloseCharacterSheet.RegisterListener(OnCloseCharacterSheet);
     }
 
     private void OnDisable() {
-      shipBuilderEvents.openCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
-      shipBuilderEvents.closeCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
+      Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.CloseCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
     }
 
     private void OnOpenCharacterSheet(EncounterActor unit) {

@@ -5,10 +5,10 @@ using Common.Animation;
 using Common.Events;
 using Common.Grid;
 using Encounters.Effects;
+using Events;
 using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;
-using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
 using Terrain;
@@ -19,7 +19,6 @@ using UnityEngine;
 
 namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable, IDisplayDetailsProvider {
-    [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected CurrentSelection currentSelection;
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
     [SerializeField] protected GameObject bonesPrefab;
@@ -49,7 +48,7 @@ namespace Encounters {
     public GameObject StatusEffects { get; private set; }
 
     public abstract UnitEncounterState EncounterState { get; protected set; }
-    protected abstract EmptyGameEvent TurnPreStartEvent { get; }
+    protected abstract GameEvent TurnPreStartEvent { get; }
 
     protected virtual void Awake() {
       _mover = GetComponent<UnitMover>();
@@ -61,14 +60,14 @@ namespace Encounters {
     }
 
     protected virtual void OnEnable() {
-      encounterEvents.applyAoeEffect.RegisterListener(OnApplyAoeEffect);
-      encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
+      Dispatch.Encounters.ApplyAoeEffect.RegisterListener(OnApplyAoeEffect);
+      Dispatch.Encounters.ObjectClicked.RegisterListener(OnObjectClicked);
       TurnPreStartEvent.RegisterListener(PerformNewRoundSetup);
     }
 
     protected virtual void OnDisable() {
-      encounterEvents.applyAoeEffect.UnregisterListener(OnApplyAoeEffect);
-      encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
+      Dispatch.Encounters.ApplyAoeEffect.UnregisterListener(OnApplyAoeEffect);
+      Dispatch.Encounters.ObjectClicked.UnregisterListener(OnObjectClicked);
       TurnPreStartEvent.UnregisterListener(PerformNewRoundSetup);
     }
 
@@ -110,7 +109,7 @@ namespace Encounters {
         
         currentSelection.selectedUnit = Option.Some(this);
         currentSelection.selectedAbility = Option.None<UnitAbility>();
-        encounterEvents.unitSelected.Raise(this);
+        Dispatch.Encounters.UnitSelected.Raise(this);
       }
     }
 
@@ -152,7 +151,7 @@ namespace Encounters {
           bones.Initialize(EncounterState, Position);
           bonesOption = Option.Some(bones);
         }
-        encounterEvents.unitDeath.Raise(bonesOption);
+        Dispatch.Encounters.UnitDeath.Raise(bonesOption);
       }
     }
 

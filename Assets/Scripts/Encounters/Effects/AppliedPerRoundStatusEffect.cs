@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Events;
+using Events;
 using State.Unit;
 
 namespace Encounters.Effects {
@@ -9,10 +10,9 @@ namespace Encounters.Effects {
     protected EncounterActor _victim;
     protected PerRoundStatusEffect _sourceEffect;
 
-    private EmptyGameEvent NewRoundEvent => 
+    private GameEvent NewRoundEvent => 
         _victim.EncounterState.faction == UnitFaction.Enemy
-            ? _sourceEffect.encounterEvents.enemyTurnStart
-            : _sourceEffect.encounterEvents.playerTurnStart;
+            ? Dispatch.Encounters.EnemyTurnStart : Dispatch.Encounters.PlayerTurnStart;
 
     public void Initialize(PerRoundStatusEffect sourceEffect, EncounterActor victim) {
       _sourceEffect = sourceEffect;

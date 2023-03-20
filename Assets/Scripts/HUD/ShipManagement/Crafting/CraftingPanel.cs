@@ -1,18 +1,17 @@
-﻿using RuntimeVars.ShipBuilder.Events;
+﻿using Events;
 using StaticConfig.Builds;
 using UnityEngine;
 
 namespace HUD.ShipManagement.Crafting {
   public class CraftingPanel : MonoBehaviour {
     [SerializeField] private GameObject craftingMenuItemPrefab;
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
 
     private void OnEnable() {
-      shipBuilderEvents.inGameBuildClicked.RegisterListener(OnShipConstructionClicked);
+      Dispatch.ShipBuilder.InGameBuildClicked.RegisterListener(OnShipConstructionClicked);
     }
 
     private void OnDisable() {
-      shipBuilderEvents.inGameBuildClicked.UnregisterListener(OnShipConstructionClicked);
+      Dispatch.ShipBuilder.InGameBuildClicked.UnregisterListener(OnShipConstructionClicked);
     }
 
     private void OnShipConstructionClicked(ConstructableObject constructableObject) {

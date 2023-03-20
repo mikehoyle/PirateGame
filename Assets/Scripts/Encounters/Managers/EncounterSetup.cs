@@ -1,5 +1,5 @@
 ﻿using Encounters.Obstacles;
-using RuntimeVars.Encounters.Events;
+using Events;
 using State.World;
 using Terrain;
 using UnityEngine;
@@ -12,7 +12,6 @@ namespace Encounters.Managers {
     [SerializeField] private Sprite landSprite;
     [SerializeField] private GameObject collectablePrefab;
     [SerializeField] private GameObject obstaclePrefab;
-    [SerializeField] private EncounterEvents encounterEvents;
     
     private SceneTerrain _terrain;
     private EncounterWorldTile _encounter;
@@ -22,13 +21,13 @@ namespace Encounters.Managers {
     }
 
     private void OnEnable() {
-      encounterEvents.encounterReadyToStart.RegisterListener(OnEncounterReady);
-      encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
+      Dispatch.Encounters.EncounterReadyToStart.RegisterListener(OnEncounterReady);
+      Dispatch.Encounters.EncounterStart.RegisterListener(OnEncounterStart);
     }
 
     private void OnDisable() {
-      encounterEvents.encounterReadyToStart.UnregisterListener(OnEncounterReady);
-      encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
+      Dispatch.Encounters.EncounterReadyToStart.UnregisterListener(OnEncounterReady);
+      Dispatch.Encounters.EncounterStart.UnregisterListener(OnEncounterStart);
     }
 
     public void SetUpMap(EncounterWorldTile encounter) {
@@ -44,13 +43,13 @@ namespace Encounters.Managers {
       SetUpEnemyUnits();
       SetUpObstacles();
       SetUpCollectables();
-      encounterEvents.encounterStart.Raise();
+      Dispatch.Encounters.EncounterStart.Raise();
       enabled = false;
     }
 
     private void SetUpEnemyUnits() {
       foreach (var enemy in _encounter.enemies) {
-        encounterEvents.spawnEnemyRequest.Raise(enemy, 1);
+        Dispatch.Encounters.SpawnEnemyRequest.Raise(enemy, 1);
       }
     }
 

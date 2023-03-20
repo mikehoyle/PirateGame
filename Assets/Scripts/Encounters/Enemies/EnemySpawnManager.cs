@@ -1,23 +1,22 @@
-﻿using RuntimeVars.Encounters.Events;
+﻿using Events;
 using State.Unit;
 using UnityEngine;
 
 namespace Encounters.Enemies {
   public class EnemySpawnManager : MonoBehaviour {
-    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private GameObject spawnPointPrefab;
     [SerializeField] private float spawnIntervalSec = 0.5f;
 
     private int _unitsCurrentlySpawning;
     
     public void OnEnable() {
-      encounterEvents.spawnEnemyRequest.RegisterListener(OnSpawnEnemyRequest);
-      encounterEvents.enemyTurnPreEnd.RegisterListener(OnEnemyTurnPreEnd);
+      Dispatch.Encounters.SpawnEnemyRequest.RegisterListener(OnSpawnEnemyRequest);
+      Dispatch.Encounters.EnemyTurnPreEnd.RegisterListener(OnEnemyTurnPreEnd);
     }
 
     public void OnDisable() {
-      encounterEvents.spawnEnemyRequest.UnregisterListener(OnSpawnEnemyRequest);
-      encounterEvents.enemyTurnPreEnd.UnregisterListener(OnEnemyTurnPreEnd);
+      Dispatch.Encounters.SpawnEnemyRequest.UnregisterListener(OnSpawnEnemyRequest);
+      Dispatch.Encounters.EnemyTurnPreEnd.UnregisterListener(OnEnemyTurnPreEnd);
     }
     
     
@@ -36,14 +35,14 @@ namespace Encounters.Enemies {
         }
       }
       if (_unitsCurrentlySpawning == 0) {
-        encounterEvents.enemyTurnEnd.Raise();
+        Dispatch.Encounters.EnemyTurnEnd.Raise();
       }
     }
 
     private void OnSpawnComplete() {
       _unitsCurrentlySpawning--;
       if (_unitsCurrentlySpawning <= 0) {
-        encounterEvents.enemyTurnEnd.Raise();
+        Dispatch.Encounters.EnemyTurnEnd.Raise();
       }
     }
   }

@@ -6,6 +6,7 @@ using Common.Events;
 using Common.Grid;
 using Encounters.AI;
 using Encounters.Grid;
+using Events;
 using Optional;
 using RuntimeVars.Encounters;
 using State.Unit;
@@ -22,7 +23,7 @@ namespace Encounters.Enemies {
 
     public override UnitEncounterState EncounterState { get; protected set; }
     public EnemyUnitMetadata Metadata => (EnemyUnitMetadata)EncounterState.metadata;
-    protected override EmptyGameEvent TurnPreStartEvent => encounterEvents.enemyTurnPreStart;
+    protected override GameEvent TurnPreStartEvent => Dispatch.Encounters.EnemyTurnPreStart;
 
     protected override void Awake() {
       base.Awake();
@@ -33,13 +34,13 @@ namespace Encounters.Enemies {
     protected override void OnEnable() {
       base.OnEnable();
       enemiesInEncounter.Add(this);
-      encounterEvents.unitSelected.RegisterListener(OnUnitSelected);
+      Dispatch.Encounters.UnitSelected.RegisterListener(OnUnitSelected);
     }
 
     protected override void OnDisable() {
       base.OnDisable();
       enemiesInEncounter.Remove(this);
-      encounterEvents.unitSelected.UnregisterListener(OnUnitSelected);
+      Dispatch.Encounters.UnitSelected.UnregisterListener(OnUnitSelected);
     }
 
     public AiActionPlan GetActionPlan(ActionEvaluationContext context) {

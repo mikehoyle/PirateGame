@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Common;
 using Common.Animation;
 using Common.Grid;
+using Events;
 using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;
-using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
 using Terrain;
@@ -16,7 +16,6 @@ using UnityEngine;
 
 namespace Encounters.Enemies {
   public class SpiritUnitController : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider, IDirectionalAnimatable {
-    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private ExhaustibleResources resources;
     [SerializeField] private SpiritCollection spiritsInEncounter;
     [SerializeField] private int damageOnCollision = 2;
@@ -58,14 +57,14 @@ namespace Encounters.Enemies {
 
     private void OnEnable() {
       spiritsInEncounter.spirits.Add(this);
-      encounterEvents.enemyTurnPreEnd.RegisterListener(OnEnemyTurnPreEnd);
-      encounterEvents.bonesCollected.RegisterListener(OnBonesCollected);
+      Dispatch.Encounters.EnemyTurnPreEnd.RegisterListener(OnEnemyTurnPreEnd);
+      Dispatch.Encounters.BonesCollected.RegisterListener(OnBonesCollected);
     }
 
     private void OnDisable() {
       spiritsInEncounter.spirits.Remove(this);
-      encounterEvents.enemyTurnPreEnd.UnregisterListener(OnEnemyTurnPreEnd);
-      encounterEvents.bonesCollected.UnregisterListener(OnBonesCollected);
+      Dispatch.Encounters.EnemyTurnPreEnd.UnregisterListener(OnEnemyTurnPreEnd);
+      Dispatch.Encounters.BonesCollected.UnregisterListener(OnBonesCollected);
     }
     
     public void Init(UnitEncounterState encounterState) {

@@ -2,8 +2,8 @@
 using Common.Loading;
 using Controls;
 using Encounters;
+using Events;
 using RuntimeVars;
-using RuntimeVars.Encounters.Events;
 using State;
 using State.World;
 using UnityEngine;
@@ -13,7 +13,6 @@ using UnityEngine.UI;
 
 namespace HUD.Encounter {
   public class EncounterEndDisplay : MonoBehaviour, GameControls.IPressAnyKeyActions {
-    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     [SerializeField] private string victoryText;
     [SerializeField] private string defeatText;
@@ -27,12 +26,12 @@ namespace HUD.Encounter {
     private void Awake() {
       _outcomeText = transform.Find("OutcomeText").GetComponent<Text>();
       _bountyText = transform.Find("BountyText").GetComponent<Text>();
-      encounterEvents.encounterEnd.RegisterListener(OnEncounterEnd);
+      Dispatch.Encounters.EncounterEnd.RegisterListener(OnEncounterEnd);
       gameObject.SetActive(false);
     }
 
     private void OnDestroy() {
-      encounterEvents.encounterEnd.UnregisterListener(OnEncounterEnd);
+      Dispatch.Encounters.EncounterEnd.UnregisterListener(OnEncounterEnd);
     }
 
     private void OnEncounterEnd(EncounterOutcome outcome) {

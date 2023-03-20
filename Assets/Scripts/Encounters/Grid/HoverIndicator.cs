@@ -1,11 +1,10 @@
-﻿using RuntimeVars.Encounters.Events;
+﻿using Events;
 using Terrain;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Encounters.Grid {
   public class HoverIndicator : MonoBehaviour {
-    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private TileBase hoverIndicator;
     
     private SceneTerrain _terrain;
@@ -21,11 +20,11 @@ namespace Encounters.Grid {
     }
 
     private void OnEnable() {
-      encounterEvents.mouseHover.RegisterListener(OnMouseHover);
+      Dispatch.Encounters.MouseHover.RegisterListener(OnMouseHover);
     }
 
     private void OnDisable() {
-      encounterEvents.mouseHover.UnregisterListener(OnMouseHover);
+      Dispatch.Encounters.MouseHover.UnregisterListener(OnMouseHover);
     }
 
     private void OnMouseHover(Vector3Int hoveredTile) {

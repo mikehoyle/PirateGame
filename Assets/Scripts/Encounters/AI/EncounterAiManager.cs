@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using Common;
 using Encounters.Managers;
+using Events;
 using RuntimeVars.Encounters;
-using RuntimeVars.Encounters.Events;
 using Terrain;
 using UnityEngine;
 
 namespace Encounters.AI {
   public class EncounterAiManager : MonoBehaviour {
-    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private EnemyUnitCollection enemiesInEncounter;
     [SerializeField] private SpiritCollection spiritsInEncounter;
     
@@ -22,11 +21,11 @@ namespace Encounters.AI {
     }
 
     private void OnEnable() {
-      encounterEvents.enemyTurnStart.RegisterListener(OnEnemyTurnStart);
+      Dispatch.Encounters.EnemyTurnStart.RegisterListener(OnEnemyTurnStart);
     }
 
     private void OnDisable() {
-      encounterEvents.enemyTurnStart.UnregisterListener(OnEnemyTurnStart);
+      Dispatch.Encounters.EnemyTurnStart.UnregisterListener(OnEnemyTurnStart);
     }
 
     private void OnEnemyTurnStart() {
@@ -34,7 +33,7 @@ namespace Encounters.AI {
     }
     private IEnumerator ExecuteEnemyAi() {
       if (enemiesInEncounter.Count == 0) {
-        encounterEvents.enemyTurnPreEnd.Raise();
+        Dispatch.Encounters.EnemyTurnPreEnd.Raise();
         yield break;
       }
 
@@ -78,7 +77,7 @@ namespace Encounters.AI {
     }
 
     private void EndAiTurn() {
-      encounterEvents.enemyTurnPreEnd.Raise();
+      Dispatch.Encounters.EnemyTurnPreEnd.Raise();
     }
   }
 }

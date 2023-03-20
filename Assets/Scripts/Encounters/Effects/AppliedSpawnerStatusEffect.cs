@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Encounters.Enemies;
+using Events;
 using Terrain;
 using UnityEngine;
 
@@ -44,7 +45,7 @@ namespace Encounters.Effects {
         
         var unit = Instantiate(sourceEffect.enemyUnitPrefab).GetComponent<EnemyUnitController>();
         unit.Init(sourceEffect.unitToSpawn.NewEncounter(_victim.Position + validSpawnPositions.Pop()));
-        sourceEffect.encounterEvents.unitAddedMidEncounter.Raise(unit);
+        Dispatch.Encounters.UnitAddedMidEncounter.Raise(unit);
       }
     }
     

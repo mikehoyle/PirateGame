@@ -1,10 +1,10 @@
 ﻿using Common;
 using Common.Grid;
 using Controls;
+using Events;
 using Optional;
 using RuntimeVars;
 using RuntimeVars.ShipBuilder;
-using RuntimeVars.ShipBuilder.Events;
 using State;
 using StaticConfig.Builds;
 using Terrain;
@@ -18,8 +18,6 @@ namespace Construction {
   /// </summary>
   public class ShipBuilderManager : MonoBehaviour, GameControls.IShipBuilderActions {
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
-    [SerializeField] private CommonEvents commonEvents;
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     [SerializeField] private CurrentBuildSelection currentBuildSelection;
     
     private GameControls _controls;
@@ -34,17 +32,17 @@ namespace Construction {
       _shipSetup = GetComponent<ShipSetup>();
       _playerState = GameState.State.player;
       _uiInteraction = GetComponent<UiInteractionTracker>();
-      shipBuilderEvents.enterConstructionMode.RegisterListener(OnEnterConstructionMode);
-      shipBuilderEvents.exitConstructionMode.RegisterListener(OnExitConstructionMode);
-      commonEvents.dialogueStart.RegisterListener(OnDialogueStart);
-      commonEvents.dialogueEnd.RegisterListener(OnDialogueEnd);
+      Dispatch.ShipBuilder.EnterConstructionMode.RegisterListener(OnEnterConstructionMode);
+      Dispatch.ShipBuilder.ExitConstructionMode.RegisterListener(OnExitConstructionMode);
+      Dispatch.Common.DialogueStart.RegisterListener(OnDialogueStart);
+      Dispatch.Common.DialogueEnd.RegisterListener(OnDialogueEnd);
     }
 
     private void OnDestroy() {
-      shipBuilderEvents.enterConstructionMode.UnregisterListener(OnEnterConstructionMode);
-      shipBuilderEvents.exitConstructionMode.UnregisterListener(OnExitConstructionMode);
-      commonEvents.dialogueStart.UnregisterListener(OnDialogueStart);
-      commonEvents.dialogueEnd.UnregisterListener(OnDialogueEnd);
+      Dispatch.ShipBuilder.EnterConstructionMode.UnregisterListener(OnEnterConstructionMode);
+      Dispatch.ShipBuilder.ExitConstructionMode.UnregisterListener(OnExitConstructionMode);
+      Dispatch.Common.DialogueStart.UnregisterListener(OnDialogueStart);
+      Dispatch.Common.DialogueEnd.UnregisterListener(OnDialogueEnd);
     }
 
     private void OnEnable() {
@@ -54,13 +52,13 @@ namespace Construction {
       }
       
       _controls.ShipBuilder.Enable();
-      shipBuilderEvents.buildSelected.RegisterListener(OnBuildSelected);
+      Dispatch.ShipBuilder.BuildSelected.RegisterListener(OnBuildSelected);
     }
 
     private void OnDisable() {
       currentBuildSelection.Clear();
       _controls.ShipBuilder.Disable();
-      shipBuilderEvents.buildSelected.UnregisterListener(OnBuildSelected);
+      Dispatch.ShipBuilder.BuildSelected.UnregisterListener(OnBuildSelected);
     }
 
     public void OnClick(InputAction.CallbackContext context) {

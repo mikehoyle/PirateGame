@@ -1,7 +1,7 @@
 ﻿using Common;
 using Encounters;
+using Events;
 using RuntimeVars.Encounters;
-using RuntimeVars.ShipBuilder.Events;
 using State;
 using StaticConfig.Equipment;
 using Units;
@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 namespace HUD.ShipManagement.CharacterSheet {
   public class CharacterEquipmentUi : MonoBehaviour {
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private EquipmentSlot[] equipmentSlots;
     
@@ -19,17 +18,17 @@ namespace HUD.ShipManagement.CharacterSheet {
     private PlayerUnitController _unit;
 
     private void Awake() {
-      shipBuilderEvents.openCharacterSheet.RegisterListener(OnOpenCharacterSheet);
-      shipBuilderEvents.closeCharacterSheet.RegisterListener(OnCloseCharacterSheet);
-      shipBuilderEvents.attemptEquipItem.RegisterListener(OnAttemptEquipItem);
-      shipBuilderEvents.itemEquipped.RegisterListener(OnItemEquipped);
+      Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.CloseCharacterSheet.RegisterListener(OnCloseCharacterSheet);
+      Dispatch.ShipBuilder.AttemptEquipItem.RegisterListener(OnAttemptEquipItem);
+      Dispatch.ShipBuilder.ItemEquipped.RegisterListener(OnItemEquipped);
       _text = GetComponentInChildren<Text>();
     }
 
     private void OnDestroy() {
-      shipBuilderEvents.openCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
-      shipBuilderEvents.closeCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
-      shipBuilderEvents.attemptEquipItem.UnregisterListener(OnAttemptEquipItem);
+      Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.CloseCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
+      Dispatch.ShipBuilder.AttemptEquipItem.UnregisterListener(OnAttemptEquipItem);
     }
 
     private void OnOpenCharacterSheet(EncounterActor unit) {
@@ -76,7 +75,7 @@ namespace HUD.ShipManagement.CharacterSheet {
 
       playerUnit.Metadata.equipped[slot] = itemInstance;
       GameState.State.player.armory.equipment.Remove(itemInstance);
-      shipBuilderEvents.itemEquipped.Raise(itemInstance);
+      Dispatch.ShipBuilder.ItemEquipped.Raise(itemInstance);
     }
   }
 }

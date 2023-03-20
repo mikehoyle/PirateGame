@@ -1,21 +1,20 @@
 ﻿using Encounters;
-using RuntimeVars.ShipBuilder.Events;
+using Events;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.ShipManagement.CharacterSheet {
   public class CharacterStatsUi : MonoBehaviour {
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     private Text _text;
 
     private void Awake() {
       _text = GetComponentInChildren<Text>();
-      shipBuilderEvents.openCharacterSheet.RegisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
     }
 
     private void OnDestroy() {
-      shipBuilderEvents.openCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
     }
 
     private void OnOpenCharacterSheet(EncounterActor unit) {

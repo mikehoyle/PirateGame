@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Events;
+using Events;
 using Terrain;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Encounters.Grid {
   public class PathIndicator : MonoBehaviour {
-    [SerializeField] private EmptyGameEvent playerTurnEndEvent;
     [SerializeField] private List<TileBase> arrowIndicatorTiles;
     
     private Tilemap _tilemap;
@@ -62,11 +62,11 @@ namespace Encounters.Grid {
     }
 
     private void OnEnable() {
-      playerTurnEndEvent.RegisterListener(OnPlayerTurnEnd);
+      Dispatch.Encounters.PlayerTurnEnd.RegisterListener(OnPlayerTurnEnd);
     }
 
     private void OnDisable() {
-      playerTurnEndEvent.UnregisterListener(OnPlayerTurnEnd);
+      Dispatch.Encounters.PlayerTurnEnd.UnregisterListener(OnPlayerTurnEnd);
     }
 
     private void OnPlayerTurnEnd() {

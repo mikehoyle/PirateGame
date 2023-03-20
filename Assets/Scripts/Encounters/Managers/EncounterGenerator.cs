@@ -139,6 +139,7 @@ namespace Encounters.Managers {
       var crystalPosition = randomizedTiles.Current;
       _availableTiles.Remove(crystalPosition);
       encounterTile.collectables.Add(crystalPosition, new CollectableInstance {
+          isPrimaryObjective = true,
           contents = new() {
               // Arbitrary amount, for now
               [soulsResource] = (int)(_rng.Next(20, 30) * encounterTile.difficulty),

@@ -1,24 +1,23 @@
 ﻿using System.Collections.Generic;
 using Common;
 using Common.Grid;
+using Events;
 using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;
-using RuntimeVars.Encounters.Events;
 using Units;
 using UnityEngine;
 
 namespace Construction {
   public class EncounterConstruction : InGameConstruction, IDisplayDetailsProvider {
-    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private CurrentSelection currentSelection;
     
     private void OnEnable() {
-      encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
+      Dispatch.Encounters.ObjectClicked.RegisterListener(OnObjectClicked);
     }
 
     private void OnDisable() {
-      encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
+      Dispatch.Encounters.ObjectClicked.UnregisterListener(OnObjectClicked);
     }
 
     private void OnObjectClicked(GameObject clickedObject) {

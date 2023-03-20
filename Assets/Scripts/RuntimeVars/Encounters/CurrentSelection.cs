@@ -1,17 +1,16 @@
 ﻿using Encounters;
+using Events;
 using Optional;
 using Optional.Unsafe;
-using RuntimeVars.Encounters.Events;
 using Units;
 using Units.Abilities;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace RuntimeVars.Encounters {
   [CreateAssetMenu(menuName = "Encounters/CurrentSelection")]
   public class CurrentSelection : ScriptableObject {
-    [SerializeField] private EncounterEvents encounterEvents;
-    
     public Option<UnitAbility> selectedAbility;
     public Vector3Int abilitySource;
     public Option<EncounterActor> selectedUnit;
@@ -37,7 +36,7 @@ namespace RuntimeVars.Encounters {
     public void SelectAbility(PlayerUnitController actor, UnitAbility ability, Vector3Int? source = null) {
       selectedAbility = Option.Some(ability);
       abilitySource = source ?? actor.Position;
-      encounterEvents.abilitySelected.Raise(actor, ability, abilitySource);
+      Dispatch.Encounters.AbilitySelected.Raise(actor, ability, abilitySource);
     }
 
     public bool TryGet(out UnitAbility ability, out PlayerUnitController playerUnit) {

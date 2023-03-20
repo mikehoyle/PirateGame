@@ -2,7 +2,6 @@
 using Common;
 using Common.Loading;
 using Encounters;
-using RuntimeVars.Encounters.Events;
 using StaticConfig.Units;
 using UnityEngine;
 using UnityEngine.SceneManagement;

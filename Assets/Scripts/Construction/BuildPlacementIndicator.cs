@@ -1,7 +1,6 @@
 ﻿using System;
 using Common;
 using RuntimeVars.ShipBuilder;
-using RuntimeVars.ShipBuilder.Events;
 using StaticConfig.Builds;
 using Terrain;
 using UnityEngine;

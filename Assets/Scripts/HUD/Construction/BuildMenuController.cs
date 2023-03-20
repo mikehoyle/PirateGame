@@ -1,4 +1,4 @@
-﻿using RuntimeVars.ShipBuilder.Events;
+﻿using Events;
 using StaticConfig.Builds;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,20 +7,19 @@ namespace HUD.Construction {
   public class BuildMenuController : MonoBehaviour {
     [SerializeField] private GameObject menuObjectPrefab;
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
 
     private VerticalLayoutGroup _container;
 
     private void Awake() {
       gameObject.SetActive(false);
       _container = GetComponentInChildren<VerticalLayoutGroup>();
-      shipBuilderEvents.enterConstructionMode.RegisterListener(OnEnterConstruction);
-      shipBuilderEvents.exitConstructionMode.RegisterListener(OnExitConstruction);
+      Dispatch.ShipBuilder.EnterConstructionMode.RegisterListener(OnEnterConstruction);
+      Dispatch.ShipBuilder.ExitConstructionMode.RegisterListener(OnExitConstruction);
     }
 
     private void OnDestroy() {
-      shipBuilderEvents.enterConstructionMode.UnregisterListener(OnEnterConstruction);
-      shipBuilderEvents.exitConstructionMode.UnregisterListener(OnExitConstruction);
+      Dispatch.ShipBuilder.EnterConstructionMode.UnregisterListener(OnEnterConstruction);
+      Dispatch.ShipBuilder.ExitConstructionMode.UnregisterListener(OnExitConstruction);
     }
 
     private void Start() {

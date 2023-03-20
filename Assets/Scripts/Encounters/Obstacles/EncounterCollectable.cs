@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Common.Animation;
 using Common.Grid;
+using Events;
 using HUD.Encounter.HoverDetails;
 using RuntimeVars.Encounters;
-using RuntimeVars.Encounters.Events;
 using State.Encounter;
 using Units;
 using UnityEngine;
@@ -11,7 +11,6 @@ using UnityEngine;
 namespace Encounters.Obstacles {
   public class EncounterCollectable : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider, IDirectionalAnimatable {
     [SerializeField] private int collectionRange = 1;
-    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private CurrentSelection currentSelection;
 
     public CollectableInstance Metadata { get; private set; }
@@ -21,14 +20,16 @@ namespace Encounters.Obstacles {
     public bool BlocksLineOfSight => true;
     public FacingDirection FacingDirection => FacingDirection.SouthWest;
     public string AnimationState => "idle";
+#pragma warning disable CS0067
     public event IDirectionalAnimatable.RequestOneOffAnimation OneOffAnimation;
+#pragma warning restore CS0067
     
     private void OnEnable() {
-      encounterEvents.objectClicked.RegisterListener(OnObjectClicked);
+      Dispatch.Encounters.ObjectClicked.RegisterListener(OnObjectClicked);
     }
 
     private void OnDisable() {
-      encounterEvents.objectClicked.UnregisterListener(OnObjectClicked);
+      Dispatch.Encounters.ObjectClicked.UnregisterListener(OnObjectClicked);
     }
 
     private void OnObjectClicked(GameObject clickedObject) {
@@ -61,8 +62,7 @@ namespace Encounters.Obstacles {
     
     private void Collect(PlayerUnitController collector) {
       collector.AddCollectable(Metadata);
-      //var encounter = GameState.State.world.GetActiveTile().DownCast<EncounterTile>();
-      //encounter.collectables.Remove(Position);
+      Dispatch.Encounters.ItemCollected.Raise(Metadata);
       Destroy(gameObject);
     }
     

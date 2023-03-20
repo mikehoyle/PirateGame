@@ -1,6 +1,6 @@
 ﻿using System;
 using Encounters;
-using RuntimeVars.ShipBuilder.Events;
+using Events;
 using State;
 using StaticConfig.Builds;
 using StaticConfig.Equipment;
@@ -10,20 +10,19 @@ using UnityEngine;
 namespace HUD.ShipManagement.Crafting {
   public class ArmoryPanel : MonoBehaviour {
     [SerializeField] private GameObject inventoryMenuItemPrefab;
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
 
     private void Awake() {
-      shipBuilderEvents.inGameBuildClicked.RegisterListener(OnShipConstructionClicked);
-      shipBuilderEvents.equipmentCraftedEvent.RegisterListener(OnEquipmentCrafted);
-      shipBuilderEvents.openCharacterSheet.RegisterListener(OnOpenCharacterSheet);
-      shipBuilderEvents.itemEquipped.RegisterListener(OnItemEquipped);
+      Dispatch.ShipBuilder.InGameBuildClicked.RegisterListener(OnShipConstructionClicked);
+      Dispatch.ShipBuilder.EquipmentCraftedEvent.RegisterListener(OnEquipmentCrafted);
+      Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.ItemEquipped.RegisterListener(OnItemEquipped);
     }
 
     private void OnDestroy() {
-      shipBuilderEvents.inGameBuildClicked.UnregisterListener(OnShipConstructionClicked);
-      shipBuilderEvents.equipmentCraftedEvent.UnregisterListener(OnEquipmentCrafted);
-      shipBuilderEvents.openCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
-      shipBuilderEvents.itemEquipped.UnregisterListener(OnItemEquipped);
+      Dispatch.ShipBuilder.InGameBuildClicked.UnregisterListener(OnShipConstructionClicked);
+      Dispatch.ShipBuilder.EquipmentCraftedEvent.UnregisterListener(OnEquipmentCrafted);
+      Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.ItemEquipped.UnregisterListener(OnItemEquipped);
     }
 
     private void OnShipConstructionClicked(ConstructableObject _) {

@@ -4,10 +4,10 @@ using Common;
 using Common.Loading;
 using Controls;
 using Encounters;
+using Events;
 using HUD.MainMenu;
 using Optional;
 using RuntimeVars.Encounters;
-using RuntimeVars.ShipBuilder.Events;
 using State;
 using Terrain;
 using Units;
@@ -18,7 +18,6 @@ using UnityEngine.SceneManagement;
 namespace Construction {
   public class ShipManager : MonoBehaviour, GameControls.IShipManagementActions {
     [SerializeField] private string backToMapButtonLabel = "Back to Map";
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     [SerializeField] private CurrentSelection currentSelection;
 
     private SceneTerrain _terrain;
@@ -51,14 +50,14 @@ namespace Construction {
       }
       
       _controls.ShipManagement.Enable();
-      shipBuilderEvents.enterConstructionMode.RegisterListener(OnEnterConstruction);
-      shipBuilderEvents.exitConstructionMode.RegisterListener(OnExitConstruction);
+      Dispatch.ShipBuilder.EnterConstructionMode.RegisterListener(OnEnterConstruction);
+      Dispatch.ShipBuilder.ExitConstructionMode.RegisterListener(OnExitConstruction);
     }
 
     private void OnDisable() {
       _controls.ShipManagement.Disable();
-      shipBuilderEvents.enterConstructionMode.UnregisterListener(OnEnterConstruction);
-      shipBuilderEvents.exitConstructionMode.UnregisterListener(OnExitConstruction);
+      Dispatch.ShipBuilder.EnterConstructionMode.UnregisterListener(OnEnterConstruction);
+      Dispatch.ShipBuilder.ExitConstructionMode.UnregisterListener(OnExitConstruction);
     }
 
     private void OnEnterConstruction() {
@@ -111,7 +110,7 @@ namespace Construction {
       }
       
       if (clickedObject != null) {
-        shipBuilderEvents.objectClicked.Raise(clickedObject.gameObject);
+        Dispatch.ShipBuilder.ObjectClicked.Raise(clickedObject.gameObject);
       }
     }
 
@@ -124,7 +123,7 @@ namespace Construction {
 
     private void ClearSelection() {
       currentSelection.selectedUnit = Option.None<EncounterActor>();
-      shipBuilderEvents.unitSelected.Raise(null);
+      Dispatch.ShipBuilder.UnitSelected.Raise(null);
     }
 
     public void OnPoint(InputAction.CallbackContext context) {
@@ -142,12 +141,12 @@ namespace Construction {
         return;
       }
 
-      shipBuilderEvents.openCharacterSheet.Raise(playerUnit);
+      Dispatch.ShipBuilder.OpenCharacterSheet.Raise(playerUnit);
     }
 
     public void OnCloseMenu(InputAction.CallbackContext context) {
-      shipBuilderEvents.closeCharacterSheet.Raise();
-      shipBuilderEvents.closeCraftingMenu.Raise();
+      Dispatch.ShipBuilder.CloseCharacterSheet.Raise();
+      Dispatch.ShipBuilder.CloseCraftingMenu.Raise();
     }
   }
 }

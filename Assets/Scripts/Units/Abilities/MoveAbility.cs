@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Encounters;
 using Encounters.Grid;
-using RuntimeVars.Encounters.Events;
 using StaticConfig.Units;
 using UnityEngine;
 

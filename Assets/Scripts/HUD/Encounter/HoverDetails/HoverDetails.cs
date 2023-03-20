@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Events;
 using Optional;
-using RuntimeVars.Encounters.Events;
 using Terrain;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Encounter.HoverDetails {
   public class HoverDetails : MonoBehaviour {
-    [SerializeField] private EncounterEvents encounterEvents;
 
     private Option<IDisplayDetailsProvider> _currentDetailsProvider;
     private List<Text> _detailRows;
@@ -20,12 +19,12 @@ namespace HUD.Encounter.HoverDetails {
         _detailRows.Add(child.GetComponent<Text>());
       }
       
-      encounterEvents.mouseHover.RegisterListener(OnMouseHover);
+      Dispatch.Encounters.MouseHover.RegisterListener(OnMouseHover);
       gameObject.SetActive(false);
     }
 
     private void OnDestroy() {
-      encounterEvents.mouseHover.UnregisterListener(OnMouseHover);
+      Dispatch.Encounters.MouseHover.UnregisterListener(OnMouseHover);
     }
 
     private void Update() {

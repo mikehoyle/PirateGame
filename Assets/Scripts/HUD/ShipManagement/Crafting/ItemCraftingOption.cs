@@ -1,4 +1,4 @@
-﻿using RuntimeVars.ShipBuilder.Events;
+﻿using Events;
 using State;
 using StaticConfig.Builds;
 using StaticConfig.Equipment;
@@ -8,7 +8,6 @@ using UnityEngine.UI;
 namespace HUD.ShipManagement.Crafting {
   public class ItemCraftingOption : MonoBehaviour {
     [SerializeField] private GameObject lineItemPrefab;
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     [SerializeField] private Color fulfilledRequirementColor;
     [SerializeField] private Color unfulfilledRequirementColor;
 
@@ -21,12 +20,12 @@ namespace HUD.ShipManagement.Crafting {
     }
 
     private void OnEnable() {
-      shipBuilderEvents.equipmentCraftedEvent.RegisterListener(OnEquipmentCrafted);
+      Dispatch.ShipBuilder.EquipmentCraftedEvent.RegisterListener(OnEquipmentCrafted);
       _button.onClick.AddListener(OnClickCraftButton);
     }
     
     private void OnDisable() {
-      shipBuilderEvents.equipmentCraftedEvent.UnregisterListener(OnEquipmentCrafted);
+      Dispatch.ShipBuilder.EquipmentCraftedEvent.UnregisterListener(OnEquipmentCrafted);
       _button.onClick.RemoveListener(OnClickCraftButton);
     }
 
@@ -71,7 +70,7 @@ namespace HUD.ShipManagement.Crafting {
       }
       var newInstance = new EquipmentItemInstance(_recipe.result);
       GameState.State.player.armory.equipment.Add(newInstance);
-      shipBuilderEvents.equipmentCraftedEvent.Raise(newInstance);
+      Dispatch.ShipBuilder.EquipmentCraftedEvent.Raise(newInstance);
     }
   }
 }

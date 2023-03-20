@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using RuntimeVars.ShipBuilder.Events;
+using Events;
 using StaticConfig.Builds;
 using UnityEngine;
 
 namespace HUD.ShipManagement.Crafting {
   public class CraftingMenu : MonoBehaviour {
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     private Canvas _canvas;
     
     private void Awake() {
@@ -15,13 +14,13 @@ namespace HUD.ShipManagement.Crafting {
     }
 
     private void OnEnable() {
-      shipBuilderEvents.inGameBuildClicked.RegisterListener(OnShipConstructionClicked);
-      shipBuilderEvents.closeCraftingMenu.RegisterListener(OnCloseCraftingMenu);
+      Dispatch.ShipBuilder.InGameBuildClicked.RegisterListener(OnShipConstructionClicked);
+      Dispatch.ShipBuilder.CloseCraftingMenu.RegisterListener(OnCloseCraftingMenu);
     }
 
     private void OnDisable() {
-      shipBuilderEvents.inGameBuildClicked.UnregisterListener(OnShipConstructionClicked);
-      shipBuilderEvents.closeCraftingMenu.RegisterListener(OnCloseCraftingMenu);
+      Dispatch.ShipBuilder.InGameBuildClicked.UnregisterListener(OnShipConstructionClicked);
+      Dispatch.ShipBuilder.CloseCraftingMenu.RegisterListener(OnCloseCraftingMenu);
     }
 
     private void OnShipConstructionClicked(ConstructableObject constructableObject) {

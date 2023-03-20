@@ -6,6 +6,7 @@ using Common;
 using Common.Grid;
 using Common.Loading;
 using Controls;
+using Events;
 using HUD.MainMenu;
 using IngameDebugConsole;
 using RuntimeVars;
@@ -26,7 +27,6 @@ namespace Overworld {
   public class OverworldGameManager : MonoBehaviour, GameControls.IOverworldActions {
     [SerializeField] private string buildMenuItemLabel = "Construction";
     [SerializeField] private GameObject borderPrefab;
-    [SerializeField] private CommonEvents commonEvents;
 
     // Tiles 
     [SerializeField] private TileBase indicatorTile;
@@ -64,16 +64,16 @@ namespace Overworld {
 
       _controls.Overworld.Enable();
       
-      commonEvents.dialogueStart.RegisterListener(OnDialogueStart);
-      commonEvents.dialogueEnd.RegisterListener(OnDialogueEnd);
+      Dispatch.Common.DialogueStart.RegisterListener(OnDialogueStart);
+      Dispatch.Common.DialogueEnd.RegisterListener(OnDialogueEnd);
       DebugLogConsole.AddCommand("reveal", "Reveal all map tiles", RevealMap);
     }
 
     private void OnDisable() {
       _controls.Overworld.Disable();
       
-      commonEvents.dialogueStart.UnregisterListener(OnDialogueStart);
-      commonEvents.dialogueEnd.UnregisterListener(OnDialogueEnd);
+      Dispatch.Common.DialogueStart.UnregisterListener(OnDialogueStart);
+      Dispatch.Common.DialogueEnd.UnregisterListener(OnDialogueEnd);
       DebugLogConsole.RemoveCommand("reveal");
     }
 

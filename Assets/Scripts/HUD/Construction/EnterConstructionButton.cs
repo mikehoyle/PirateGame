@@ -1,13 +1,10 @@
-﻿using System;
-using Encounters;
-using RuntimeVars.ShipBuilder.Events;
-using Units;
+﻿using Encounters;
+using Events;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Construction {
   public class EnterConstructionButton : MonoBehaviour {
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     [SerializeField] private string enterConstructionText = "Enter Construction";
     [SerializeField] private string exitConstructionText = "Exit Construction";
     
@@ -17,24 +14,24 @@ namespace HUD.Construction {
     private void Awake() {
       _text = GetComponentInChildren<Text>();
       _currentlyInConstructionMode = false;
-      shipBuilderEvents.openCharacterSheet.RegisterListener(OnOpenCharacterSheet);
-      shipBuilderEvents.closeCharacterSheet.RegisterListener(OnCloseCharacterSheet);
+      Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.CloseCharacterSheet.RegisterListener(OnCloseCharacterSheet);
       gameObject.SetActive(true);
     }
 
     private void OnDestroy() {
-      shipBuilderEvents.openCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
-      shipBuilderEvents.closeCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
+      Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
+      Dispatch.ShipBuilder.CloseCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
     }
 
     private void OnEnable() {
-      shipBuilderEvents.enterConstructionMode.RegisterListener(OnEnterConstruction);
-      shipBuilderEvents.exitConstructionMode.RegisterListener(OnExitConstruction);
+      Dispatch.ShipBuilder.EnterConstructionMode.RegisterListener(OnEnterConstruction);
+      Dispatch.ShipBuilder.ExitConstructionMode.RegisterListener(OnExitConstruction);
     }
 
     private void OnDisable() {
-      shipBuilderEvents.enterConstructionMode.UnregisterListener(OnEnterConstruction);
-      shipBuilderEvents.exitConstructionMode.UnregisterListener(OnExitConstruction);
+      Dispatch.ShipBuilder.EnterConstructionMode.UnregisterListener(OnEnterConstruction);
+      Dispatch.ShipBuilder.ExitConstructionMode.UnregisterListener(OnExitConstruction);
     }
 
     private void OnEnterConstruction() {
@@ -58,9 +55,9 @@ namespace HUD.Construction {
     // Button event handler
     public void OnClick() {
       if (_currentlyInConstructionMode) {
-        shipBuilderEvents.exitConstructionMode.Raise();
+        Dispatch.ShipBuilder.ExitConstructionMode.Raise();
       } else {
-        shipBuilderEvents.enterConstructionMode.Raise();
+        Dispatch.ShipBuilder.EnterConstructionMode.Raise();
       }
     }
   }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Events;
+using Events;
 using Units.Abilities.AOE;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -7,7 +8,6 @@ using UnityEngine.Tilemaps;
 namespace Encounters.Grid {
   public class TargetingIndicator : MonoBehaviour {
     [SerializeField] private TileBase targetedTileOverlay;
-    [SerializeField] private EmptyGameEvent playerTurnEndEvent;
     
     private Tilemap _tilemap;
 
@@ -16,11 +16,11 @@ namespace Encounters.Grid {
     }
 
     private void OnEnable() {
-      playerTurnEndEvent.RegisterListener(OnPlayerTurnEnd);
+      Dispatch.Encounters.PlayerTurnEnd.RegisterListener(OnPlayerTurnEnd);
     }
     
     private void OnDisable() {
-      playerTurnEndEvent.UnregisterListener(OnPlayerTurnEnd);
+      Dispatch.Encounters.PlayerTurnEnd.UnregisterListener(OnPlayerTurnEnd);
     }
 
     private void OnPlayerTurnEnd() {

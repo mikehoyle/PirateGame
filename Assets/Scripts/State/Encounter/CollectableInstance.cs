@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text;
 using StaticConfig.RawResources;
-using Units;
 
 namespace State.Encounter {
   [Serializable]
   public class CollectableInstance {
     public SerializableDictionary<RawResource, int> contents;
+    public bool isPrimaryObjective;
 
     public void AddToPlayerInventory() {
       foreach (var resourceAmount in contents) {

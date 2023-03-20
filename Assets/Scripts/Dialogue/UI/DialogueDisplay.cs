@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Controls;
+using Events;
 using RuntimeVars;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Dialogue.UI {
-  public class DialogueDisplay : MonoBehaviour, GameControls.IPressAnyKeyActions {
-    [SerializeField] private CommonEvents commonEvents; 
+  public class DialogueDisplay : MonoBehaviour, GameControls.IPressAnyKeyActions { 
 
     private IEnumerator<DialogueSegment> _sequence;
     private List<DialogueSpeaker> _speakers;
@@ -45,7 +45,7 @@ namespace Dialogue.UI {
       _sequence = DialogueSequence.ParseFrom(dialogueJson).Each();
       _speakers = speakers;
       DisplayNext();
-      commonEvents.dialogueStart.Raise();
+      Dispatch.Common.DialogueStart.Raise();
       enabled = true;
       _canvas.enabled = true;
     }
@@ -59,7 +59,7 @@ namespace Dialogue.UI {
 
     private void DisplayNext() {
       if (!_sequence.MoveNext()) {
-        commonEvents.dialogueEnd.Raise();
+        Dispatch.Common.DialogueEnd.Raise();
         Destroy(gameObject);
         return;
       }

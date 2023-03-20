@@ -4,6 +4,7 @@ using Common.Animation;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
+using Events;
 using Optional;
 using Optional.Unsafe;
 using State.Unit;
@@ -68,7 +69,7 @@ namespace Units.Abilities {
       
       var instanceFactory = new StatusEffectApplier(
           incurredEffect, context, affectedFactions, skillTestResult.ValueOrFailure());
-      encounterEvents.applyAoeEffect.Raise(aoe, instanceFactory);
+      Dispatch.Encounters.ApplyAoeEffect.Raise(aoe, instanceFactory);
       // Animation options should definitely not be here... a future problem.
       context.Actor.FaceTowards(aoe.GetTarget());
       context.Actor.PlayOneOffAnimation(AnimationNames.Attack);

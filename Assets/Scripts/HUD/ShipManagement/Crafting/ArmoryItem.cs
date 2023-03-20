@@ -1,11 +1,10 @@
-﻿using RuntimeVars.ShipBuilder.Events;
+﻿using Events;
 using StaticConfig.Equipment;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.ShipManagement.Crafting {
   public class ArmoryItem : MonoBehaviour {
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     
     private Text _text;
     private Button _button;
@@ -18,7 +17,7 @@ namespace HUD.ShipManagement.Crafting {
     }
 
     private void OnClickButton() {
-      shipBuilderEvents.attemptEquipItem.Raise(_item);
+      Dispatch.ShipBuilder.AttemptEquipItem.Raise(_item);
     }
 
     public void Initialize(EquipmentItemInstance item) {

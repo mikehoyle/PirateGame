@@ -1,6 +1,6 @@
 ﻿using Construction;
 using Controls;
-using RuntimeVars.Encounters.Events;
+using Events;
 using State;
 using State.World;
 using Terrain;
@@ -12,7 +12,6 @@ namespace Encounters.ShipPlacement {
   /// Manages the flow where the player gets to choose where their ship is placed.
   /// </summary>
   public class ShipPlacementManager : MonoBehaviour, GameControls.IShipPlacementActions {
-    [SerializeField] private EncounterEvents encounterEvents;
     [SerializeField] private GameObject ghostShipPrefab;
     
     private ShipSetup _shipSetup;
@@ -51,7 +50,7 @@ namespace Encounters.ShipPlacement {
       
       // MAYBE TEMPORARY, but just place the ship for the player for now.
       _shipSetup.SetupShip(new Vector3Int(3, 8), includeUnits: true);
-      encounterEvents.encounterReadyToStart.Raise();
+      Dispatch.Encounters.EncounterReadyToStart.Raise();
       enabled = false;
     }
     
@@ -61,7 +60,7 @@ namespace Encounters.ShipPlacement {
       }
       
       _shipSetup.SetupShip(_currentShipOffset.Value, includeUnits: true);
-      encounterEvents.encounterReadyToStart.Raise();
+      Dispatch.Encounters.EncounterReadyToStart.Raise();
       enabled = false;
     }
     

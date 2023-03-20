@@ -2,6 +2,7 @@
 using Common.Animation;
 using Common.Events;
 using Encounters;
+using Events;
 using RuntimeVars;
 using State.Encounter;
 using State.Unit;
@@ -15,7 +16,7 @@ namespace Units {
 
     public PlayerUnitMetadata Metadata => (PlayerUnitMetadata)EncounterState.metadata;
     public override UnitEncounterState EncounterState { get; protected set; }
-    protected override EmptyGameEvent TurnPreStartEvent => encounterEvents.playerTurnPreStart;
+    protected override GameEvent TurnPreStartEvent => Dispatch.Encounters.PlayerTurnPreStart;
 
     public List<CollectableInstance> CollectablesAcquired { get; } = new();
 
@@ -32,17 +33,17 @@ namespace Units {
     protected override void OnEnable() {
       base.OnEnable();
       playerUnitsInEncounter.Add(this);
-      encounterEvents.abilityExecutionEnd.RegisterListener(OnAbilityEndExecution);
-      encounterEvents.unitSelected.RegisterListener(OnUnitSelected);
-      encounterEvents.trySelectAbilityByIndex.RegisterListener(TrySelectAbility);
+      Dispatch.Encounters.AbilityExecutionEnd.RegisterListener(OnAbilityEndExecution);
+      Dispatch.Encounters.UnitSelected.RegisterListener(OnUnitSelected);
+      Dispatch.Encounters.TrySelectAbilityByIndex.RegisterListener(TrySelectAbility);
     }
 
     protected override void OnDisable() {
       base.OnDisable();
       playerUnitsInEncounter.Remove(this);
-      encounterEvents.abilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
-      encounterEvents.unitSelected.UnregisterListener(OnUnitSelected);
-      encounterEvents.trySelectAbilityByIndex.UnregisterListener(TrySelectAbility);
+      Dispatch.Encounters.AbilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
+      Dispatch.Encounters.UnitSelected.UnregisterListener(OnUnitSelected);
+      Dispatch.Encounters.TrySelectAbilityByIndex.UnregisterListener(TrySelectAbility);
     }
 
     private void OnUnitSelected(EncounterActor selectedUnit) {

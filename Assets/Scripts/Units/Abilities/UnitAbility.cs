@@ -6,9 +6,9 @@ using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
 using Encounters.SkillTest;
+using Events;
 using FMODUnity;
 using Optional;
-using RuntimeVars.Encounters.Events;
 using State.Unit;
 using StaticConfig.Units;
 using Terrain;
@@ -22,7 +22,6 @@ namespace Units.Abilities {
   /// </summary>
   public abstract class UnitAbility : ScriptableObject {
     [SerializeField] private GameObject skillTestPrefab;
-    [SerializeField] protected EncounterEvents encounterEvents;
     [SerializeField] protected EventReference soundOnActivate;
     [SerializeField] protected DirectionalAnimatedSprite impactAnimation;
     [SerializeField] protected float impactAnimationDelaySec;
@@ -70,10 +69,10 @@ namespace Units.Abilities {
         return Option.None<IEnumerator>();
       }
 
-      encounterEvents.abilityExecutionStart.Raise();
+      Dispatch.Encounters.AbilityExecutionStart.Raise();
       SpendCost(context.Actor);
       return Option.Some(Execute(context, () => {
-        encounterEvents.abilityExecutionEnd.Raise();
+        Dispatch.Encounters.AbilityExecutionEnd.Raise();
         callback();
       }));
     }

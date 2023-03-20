@@ -1,5 +1,5 @@
 ﻿using Encounters;
-using RuntimeVars.Encounters.Events;
+using Events;
 using State.Unit;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +7,6 @@ using UnityEngine.UI;
 namespace HUD.Encounter {
   public class ActionMenuController : MonoBehaviour {
     [SerializeField] private GameObject availableActionPrefab;
-    [SerializeField] private EncounterEvents encounterEvents;
     
     private Canvas _canvas;
     private HorizontalLayoutGroup _container;
@@ -19,13 +18,13 @@ namespace HUD.Encounter {
     }
 
     private void OnEnable() {
-      encounterEvents.unitSelected.RegisterListener(RefreshActionMenu);
-      encounterEvents.playerTurnEnd.RegisterListener(OnPlayerTurnEnd);
+      Dispatch.Encounters.UnitSelected.RegisterListener(RefreshActionMenu);
+      Dispatch.Encounters.PlayerTurnEnd.RegisterListener(OnPlayerTurnEnd);
     }
 
     private void OnDisable() {
-      encounterEvents.unitSelected.UnregisterListener(RefreshActionMenu);
-      encounterEvents.playerTurnEnd.UnregisterListener(OnPlayerTurnEnd);
+      Dispatch.Encounters.UnitSelected.UnregisterListener(RefreshActionMenu);
+      Dispatch.Encounters.PlayerTurnEnd.UnregisterListener(OnPlayerTurnEnd);
     }
 
     private void OnPlayerTurnEnd() {

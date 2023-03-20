@@ -1,11 +1,10 @@
 ﻿using System.Net.Mime;
-using RuntimeVars.Encounters.Events;
+using Events;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Encounter {
   public class AvailableAction : MonoBehaviour {
-    [SerializeField] private EncounterEvents encounterEvents;
     
     private Text _costField;
     private Text _hotkeyField;
@@ -44,7 +43,7 @@ namespace HUD.Encounter {
     }
 
     private void OnButtonClick() {
-      encounterEvents.trySelectAbilityByIndex.Raise(_abilityIndex - 1);
+      Dispatch.Encounters.TrySelectAbilityByIndex.Raise(_abilityIndex - 1);
     }
   }
 }

@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using Common.Grid;
-using RuntimeVars.Encounters.Events;
+using Events;
 using State.Unit;
 using UnityEngine;
 
 namespace Encounters.Enemies {
   // Represents a known area where an enemy will spawn.
   public class EnemySpawnPoint : MonoBehaviour, IPlacedOnGrid {
-    [SerializeField] private EncounterEvents encounterEvents;
     
     public delegate void OnSpawnComplete();
     
@@ -39,11 +38,11 @@ namespace Encounters.Enemies {
     }
 
     private void OnEnable() {
-      encounterEvents.enemyTurnStart.RegisterListener(OnEnemyTurnStart);
+      Dispatch.Encounters.EnemyTurnStart.RegisterListener(OnEnemyTurnStart);
     }
 
     private void OnDisable() {
-      encounterEvents.enemyTurnStart.UnregisterListener(OnEnemyTurnStart);
+      Dispatch.Encounters.EnemyTurnStart.UnregisterListener(OnEnemyTurnStart);
     }
 
     private void SpawnEnemy(OnSpawnComplete callback) {

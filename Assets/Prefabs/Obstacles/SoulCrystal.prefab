@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3388541907377342822}
   - component: {fileID: 5727594743610234964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 6637086093365284063}
   - component: {fileID: 7273798846262474236}
   - component: {fileID: 4625400720297807631}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SoulCrystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

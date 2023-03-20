@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Events;
+using Events;
 using Terrain;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -7,7 +8,6 @@ using UnityEngine.Tilemaps;
 namespace Encounters.Grid {
   public class RangeIndicator : MonoBehaviour {
     [SerializeField] private TileBase eligibleTileOverlay;
-    [SerializeField] private EmptyGameEvent playerTurnEndEvent;
     
     private Tilemap _tilemap;
     private SceneTerrain _terrain;
@@ -20,11 +20,11 @@ namespace Encounters.Grid {
     }
 
     private void OnEnable() {
-      playerTurnEndEvent.RegisterListener(OnPlayerTurnEnd);
+      Dispatch.Encounters.PlayerTurnEnd.RegisterListener(OnPlayerTurnEnd);
     }
 
     private void OnDisable() {
-      playerTurnEndEvent.UnregisterListener(OnPlayerTurnEnd);
+      Dispatch.Encounters.PlayerTurnEnd.UnregisterListener(OnPlayerTurnEnd);
     }
 
     private void OnPlayerTurnEnd() {

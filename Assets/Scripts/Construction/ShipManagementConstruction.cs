@@ -1,16 +1,15 @@
-﻿using RuntimeVars.ShipBuilder.Events;
+﻿using Events;
 using UnityEngine;
 
 namespace Construction {
   public class ShipManagementConstruction : InGameConstruction {
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
 
     private void OnEnable() {
-      shipBuilderEvents.objectClicked.RegisterListener(OnObjectClicked);
+      Dispatch.ShipBuilder.ObjectClicked.RegisterListener(OnObjectClicked);
     }
 
     private void OnDisable() {
-      shipBuilderEvents.objectClicked.UnregisterListener(OnObjectClicked);
+      Dispatch.ShipBuilder.ObjectClicked.UnregisterListener(OnObjectClicked);
     }
 
     private void OnObjectClicked(GameObject clickedObject) {
@@ -18,7 +17,7 @@ namespace Construction {
         return;
       }
 
-      shipBuilderEvents.inGameBuildClicked.Raise(Metadata);
+      Dispatch.ShipBuilder.InGameBuildClicked.Raise(Metadata);
     }
   }
 }

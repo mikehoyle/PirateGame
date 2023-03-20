@@ -1,22 +1,20 @@
 ﻿using Encounters;
-using RuntimeVars.Encounters.Events;
+using Events;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Encounter.SelectionDetails {
   public class SelectionName : MonoBehaviour {
-    [SerializeField] private EncounterEvents encounterEvents;
-    
     private Text _text;
 
     private void Awake() {
       _text = GetComponent<Text>();
-      encounterEvents.unitSelected.RegisterListener(OnUnitSelected);
+      Dispatch.Encounters.UnitSelected.RegisterListener(OnUnitSelected);
     }
 
     private void OnDestroy() {
-      encounterEvents.unitSelected.UnregisterListener(OnUnitSelected);
+      Dispatch.Encounters.UnitSelected.UnregisterListener(OnUnitSelected);
     }
     
     private void OnUnitSelected(EncounterActor unit) {

@@ -1,4 +1,4 @@
-﻿using RuntimeVars.ShipBuilder.Events;
+﻿using Events;
 using State;
 using StaticConfig.Builds;
 using UnityEngine;
@@ -7,7 +7,6 @@ using UnityEngine.UI;
 namespace HUD.Construction {
   // TODO(P1): Revamp this UI entirely
   public class BuildMenuOption : MonoBehaviour {
-    [SerializeField] private ShipBuilderEvents shipBuilderEvents;
     
     private Text _nameField;
     private Text _costField;
@@ -53,7 +52,7 @@ namespace HUD.Construction {
 
     private void OnClick() {
       if (_button.interactable) {
-        shipBuilderEvents.buildSelected.Raise(_constructable);
+        Dispatch.ShipBuilder.BuildSelected.Raise(_constructable);
       }
     }
   }

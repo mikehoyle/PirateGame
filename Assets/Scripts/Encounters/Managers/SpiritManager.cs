@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Common;
 using Encounters.Enemies;
 using Encounters.ShipPlacement;
+using Events;
 using Optional;
 using RuntimeVars.Encounters;
-using RuntimeVars.Encounters.Events;
 using State.Unit;
 using Terrain;
 using Units;
@@ -14,7 +14,6 @@ using UnityEngine;
 namespace Encounters.Managers {
   public class SpiritManager : MonoBehaviour {
     [SerializeField] private EnemyUnitMetadata spiritEnemy;
-    [SerializeField] private EncounterEvents encounterEvents;
     
     private SceneTerrain _terrain;
     private TerrainProfile _encounterProfile;
@@ -24,13 +23,13 @@ namespace Encounters.Managers {
     }
 
     private void OnEnable() {
-      encounterEvents.encounterStart.RegisterListener(OnEncounterStart);
-      encounterEvents.unitDeath.RegisterListener(OnUnitDeath);
+      Dispatch.Encounters.EncounterStart.RegisterListener(OnEncounterStart);
+      Dispatch.Encounters.UnitDeath.RegisterListener(OnUnitDeath);
     }
 
     private void OnDisable() {
-      encounterEvents.encounterStart.UnregisterListener(OnEncounterStart);
-      encounterEvents.unitDeath.UnregisterListener(OnUnitDeath);
+      Dispatch.Encounters.EncounterStart.UnregisterListener(OnEncounterStart);
+      Dispatch.Encounters.UnitDeath.UnregisterListener(OnUnitDeath);
     }
 
     private void OnEncounterStart() {
