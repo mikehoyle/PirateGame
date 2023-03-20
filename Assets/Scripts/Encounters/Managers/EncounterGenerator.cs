@@ -48,8 +48,8 @@ namespace Encounters.Managers {
 
     private void GenerateTerrain(EncounterWorldTile encounterTile) {
       encounterTile.terrain = new();
-      var width = 7;
-      var height = 7;
+      var width = 9;
+      var height = 9;
 
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
@@ -75,7 +75,7 @@ namespace Encounters.Managers {
       var spawnedEnemies = new Dictionary<string, int>();
       
       // Now pick the remainder of enemies by weighted chance.
-      var remainingDr = (float)encounterTile.difficulty;
+      var remainingDr = encounterTile.difficulty;
       while (remainingDr > 0) {
         var currentRemainingDr = remainingDr;
         var candidates = spawnableEnemies.enemyUnits
@@ -116,8 +116,8 @@ namespace Encounters.Managers {
     /// </summary>
     private void GenerateObstacles(EncounterWorldTile encounterTile) {
       encounterTile.obstacles = new();
-      // Arbitrarily make 4 obstacles
-      for (int i = 0; i < 5; i++) {
+      // Arbitrarily make 6 obstacles
+      for (int i = 0; i < 6; i++) {
         var tile = ClaimRandomTile(rockObstacle.Footprint);
         foreach (var obstacle in rockObstacle.obstacles) {
           encounterTile.obstacles[tile + obstacle.Key] = obstacle.Value.RandomVariant();

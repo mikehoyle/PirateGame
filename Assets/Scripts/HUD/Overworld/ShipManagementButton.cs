@@ -1,18 +1,14 @@
 ﻿using Common.Loading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace HUD.Overworld {
   public class ShipManagementButton : MonoBehaviour {
     private Button _button;
-    private PreloadedScene _shipScene;
 
     private void Awake() {
       _button = GetComponent<Button>();
-    }
-
-    private void Start() {
-      _shipScene = SceneLoader.Instance.PreloadScene(Scenes.Name.ShipBuilder);
     }
 
     private void OnEnable() {
@@ -24,7 +20,7 @@ namespace HUD.Overworld {
     }
 
     private void OnButtonClick() {
-      _shipScene.Activate();
+      SceneManager.LoadScene(Scenes.Name.ShipBuilder.SceneName());
     }
   }
 }

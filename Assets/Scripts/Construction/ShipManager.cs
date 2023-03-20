@@ -25,18 +25,14 @@ namespace Construction {
     private MainMenuController _mainMenu;
     private GameControls _controls;
     private UiInteractionTracker _uiInteraction;
-    private CameraController _cameraController;
-    private LayerMask _unitInteractionLayer;
 
     private void Awake() {
       _terrain = SceneTerrain.Get();
       _shipSetup = GetComponent<ShipSetup>();
       _uiInteraction = GetComponent<UiInteractionTracker>();
-      _cameraController = CameraController.Get();
     }
 
     private void Start() {
-      _unitInteractionLayer = LayerMask.GetMask("Clickable");
       _shipSetup.SetupShip(includeUnits: true);
       InitializeCamera();
       _mainMenu = MainMenuController.Get();
@@ -97,9 +93,7 @@ namespace Construction {
       if (!context.performed || _uiInteraction.isPlayerHoveringUi) {
         return;
       }
-      
-      
-      
+
       var targetTile = _terrain.TileAtScreenCoordinate(Mouse.current.position.ReadValue());
       var clickedObject = SceneTerrain.GetTileOccupant(targetTile);
       if (currentSelection.TryGetUnit<PlayerUnitController>(out var playerUnit)
@@ -110,7 +104,7 @@ namespace Construction {
       }
       
       if (clickedObject != null) {
-        Dispatch.ShipBuilder.ObjectClicked.Raise(clickedObject.gameObject);
+        Dispatch.Common.ObjectClicked.Raise(clickedObject.gameObject);
       }
     }
 
@@ -123,7 +117,7 @@ namespace Construction {
 
     private void ClearSelection() {
       currentSelection.selectedUnit = Option.None<EncounterActor>();
-      Dispatch.ShipBuilder.UnitSelected.Raise(null);
+      Dispatch.Encounters.UnitSelected.Raise(null);
     }
 
     public void OnPoint(InputAction.CallbackContext context) {

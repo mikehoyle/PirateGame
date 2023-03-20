@@ -1,10 +1,6 @@
-﻿using System;
-using Common;
-using Common.Loading;
-using Encounters;
+﻿using Encounters;
 using StaticConfig.Units;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Units {
@@ -19,12 +15,6 @@ namespace Units {
     }
 
     private void Start() {
-      if (SceneManager.GetActiveScene().name != Scenes.Name.Encounter.SceneName()) {
-        // This is super janky, but the easiest way for now.
-        gameObject.SetActive(false);
-        return;
-      }
-      
       var unit = GetComponentInParent<EncounterActor>();
       if (!unit.EncounterState.TryGetResourceTracker(hpResource, out _hpTracker)) {
         gameObject.SetActive(false);

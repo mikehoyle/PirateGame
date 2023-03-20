@@ -42,7 +42,7 @@ namespace Terrain {
       newTile.Initialize(position, terrainSprite);
       
       // By default, connect tiles to any adjacent tile that is within one Z value of
-      GridUtils.ForEachAdjacentTile(position, adjacentCoords => {
+      ForEachAdjacentTile(position, adjacentCoords => {
         var adjacentTile = GetTile((Vector2Int)adjacentCoords);
         if (adjacentTile == null) {
           return;

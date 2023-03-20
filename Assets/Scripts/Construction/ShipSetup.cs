@@ -1,4 +1,5 @@
 ﻿using CameraControl;
+using RuntimeVars;
 using State;
 using StaticConfig.Builds;
 using Terrain;
@@ -10,6 +11,7 @@ namespace Construction {
   /// Sets up the player's ship to appear in a scene with an isometric grid.
   /// </summary>
   public class ShipSetup : MonoBehaviour {
+    [SerializeField] private TileCollection shipTiles;
     [SerializeField] private GameObject unitPrefab;
     [SerializeField] private GameObject inGameConstructionPrefab;
     
@@ -26,6 +28,7 @@ namespace Construction {
     }
 
     public void SetupShip(Vector3Int offset, bool includeUnits = false) {
+      shipTiles.Clear();
       var playerState = GameState.State.player;
       foreach (var build in playerState.ship.Components) {
         var position = build.Key + offset;
@@ -56,6 +59,7 @@ namespace Construction {
         Vector3Int position, ConstructableObject build, Transform parent = null, bool isGhost = false) {
       if (build.isFoundationTile && !isGhost) {
         _terrain.AddTerrain(position, build.inGameSprite);
+        shipTiles.Add(position);
         return;
       }
 

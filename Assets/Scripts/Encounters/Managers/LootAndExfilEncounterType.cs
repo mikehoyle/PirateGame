@@ -9,10 +9,13 @@ namespace Encounters.Managers {
     [SerializeField] private string exfilHintText;
     
     private Text _actionHint;
-    
+    private GameObject _exfilButton;
+
     private void Awake() {
       _actionHint = transform.Find("ActionHint").GetComponent<Text>();
       _actionHint.gameObject.SetActive(false);
+      _exfilButton = transform.Find("ExfilButton").gameObject;
+      _exfilButton.SetActive(false);
     }
 
     protected override void OnEnable() {
@@ -43,6 +46,7 @@ namespace Encounters.Managers {
       }
 
       _actionHint.text = exfilHintText;
+      _exfilButton.SetActive(true);
       StartCoroutine(FlashObjective());
     }
   }

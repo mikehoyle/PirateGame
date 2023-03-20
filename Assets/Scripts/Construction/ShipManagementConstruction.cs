@@ -5,11 +5,11 @@ namespace Construction {
   public class ShipManagementConstruction : InGameConstruction {
 
     private void OnEnable() {
-      Dispatch.ShipBuilder.ObjectClicked.RegisterListener(OnObjectClicked);
+      Dispatch.Common.ObjectClicked.RegisterListener(OnObjectClicked);
     }
 
     private void OnDisable() {
-      Dispatch.ShipBuilder.ObjectClicked.UnregisterListener(OnObjectClicked);
+      Dispatch.Common.ObjectClicked.UnregisterListener(OnObjectClicked);
     }
 
     private void OnObjectClicked(GameObject clickedObject) {

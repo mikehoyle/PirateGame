@@ -13,11 +13,11 @@ namespace Construction {
     [SerializeField] private CurrentSelection currentSelection;
     
     private void OnEnable() {
-      Dispatch.Encounters.ObjectClicked.RegisterListener(OnObjectClicked);
+      Dispatch.Common.ObjectClicked.RegisterListener(OnObjectClicked);
     }
 
     private void OnDisable() {
-      Dispatch.Encounters.ObjectClicked.UnregisterListener(OnObjectClicked);
+      Dispatch.Common.ObjectClicked.UnregisterListener(OnObjectClicked);
     }
 
     private void OnObjectClicked(GameObject clickedObject) {

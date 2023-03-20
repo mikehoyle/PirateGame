@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75252ca3fd934124ba656e506cb52d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipTiles: {fileID: 11400000, guid: dbb2cb720b5109542acc8f925f1d615a, type: 2}
   unitPrefab: {fileID: 4998738781700405355, guid: ff877b2eb33443c44b77de9f2f3b9e9c, type: 3}
   inGameConstructionPrefab: {fileID: 1435102907362953376, guid: df58abea6c8bbeb49b48b9058cfbb21a, type: 3}
 --- !u!114 &1915456236
@@ -97,7 +98,6 @@ MonoBehaviour:
   landSprite: {fileID: 21300000, guid: c6fbd1dfa4cbee340974055873f1eb41, type: 3}
   collectablePrefab: {fileID: 4962400504426721770, guid: 8b5d7698a60974c44acbf8001b034720, type: 3}
   obstaclePrefab: {fileID: 4962400504426721770, guid: ac4c57f9af34c3344b8241958c17af5d, type: 3}
-  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
 --- !u!114 &1915456237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2be6b5758054f37811b5beb407b9e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   ghostShipPrefab: {fileID: 3992172968296321159, guid: 44480e93e5c72e1499c7d5ae6ab302f8, type: 3}
 --- !u!114 &4018983168502657055
 MonoBehaviour:
@@ -152,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc3164781f84489be050f94dd253f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   enemiesInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
   spiritsInEncounter: {fileID: 11400000, guid: 35baf7ce805f9b349b7c359ade66fc94, type: 2}
 --- !u!114 &7946137650026443626
@@ -168,8 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
-  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
-  commonEvents: {fileID: 11400000, guid: 0fd844d7c7fd8ad46ae1ec302c09772c, type: 2}
   currentRound: {fileID: 11400000, guid: b6cacc17f9b44554c8f25deaee2f8598, type: 2}
   playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
   enemyUnitsInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}

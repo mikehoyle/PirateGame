@@ -16,7 +16,7 @@ namespace Encounters.Grid {
 
     private void Update() {
       _tilemap.ClearAllTiles();
-      foreach (var spirit in spiritsInEncounter.spirits) {
+      foreach (var spirit in spiritsInEncounter) {
         var path = spirit.GetPath();
         foreach (var tile in path) {
           _tilemap.SetTile(tile, spiritPathTile);

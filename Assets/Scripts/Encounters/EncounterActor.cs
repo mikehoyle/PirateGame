@@ -23,7 +23,7 @@ namespace Encounters {
     [SerializeField] protected ExhaustibleResources exhaustibleResources;
     [SerializeField] protected GameObject bonesPrefab;
 
-    private UnitMover _mover;
+    protected UnitMover Mover;
     private PolygonCollider2D _collider;
     private UnitShadow _shadow;
 
@@ -51,7 +51,7 @@ namespace Encounters {
     protected abstract GameEvent TurnPreStartEvent { get; }
 
     protected virtual void Awake() {
-      _mover = GetComponent<UnitMover>();
+      Mover = GetComponent<UnitMover>();
       _collider = GetComponent<PolygonCollider2D>();
       _shadow = GetComponentInChildren<UnitShadow>();
       AnimationState = AnimationNames.Idle;
@@ -61,13 +61,13 @@ namespace Encounters {
 
     protected virtual void OnEnable() {
       Dispatch.Encounters.ApplyAoeEffect.RegisterListener(OnApplyAoeEffect);
-      Dispatch.Encounters.ObjectClicked.RegisterListener(OnObjectClicked);
+      Dispatch.Common.ObjectClicked.RegisterListener(OnObjectClicked);
       TurnPreStartEvent.RegisterListener(PerformNewRoundSetup);
     }
 
     protected virtual void OnDisable() {
       Dispatch.Encounters.ApplyAoeEffect.UnregisterListener(OnApplyAoeEffect);
-      Dispatch.Encounters.ObjectClicked.UnregisterListener(OnObjectClicked);
+      Dispatch.Common.ObjectClicked.UnregisterListener(OnObjectClicked);
       TurnPreStartEvent.UnregisterListener(PerformNewRoundSetup);
     }
 
@@ -129,11 +129,11 @@ namespace Encounters {
       if (!path.IsViable()) {
         return null;
       }
-      return StartCoroutine(_mover.ExecuteMovement(path.Path));
+      return StartCoroutine(Mover.ExecuteMovement(path.Path));
     }
 
     public void DropIn(Action callback) {
-      StartCoroutine(_mover.DropIn(callback));
+      StartCoroutine(Mover.DropIn(callback));
     }
 
     public void EnableShadow(bool isEnabled) {

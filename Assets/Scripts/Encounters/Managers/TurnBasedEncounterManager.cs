@@ -125,7 +125,7 @@ namespace Encounters.Managers {
       }
       
       if (clickedObject != null) {
-        Dispatch.Encounters.ObjectClicked.Raise(clickedObject.gameObject);
+        Dispatch.Common.ObjectClicked.Raise(clickedObject.gameObject);
       }
     }
     

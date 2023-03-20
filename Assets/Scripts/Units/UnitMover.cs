@@ -100,6 +100,11 @@ namespace Units {
       onCompleteCallback();
     }
 
+    public void SnapToPosition(Vector3Int position) {
+      _unit.Position = position;
+      transform.position = _terrain.CellCenterWorld(position);
+    }
+
     private void OnMovementComplete() {
       _footstepsSound.MatchSome(sound => sound.Stop());
       _unit.AnimationState = AnimationNames.Idle;

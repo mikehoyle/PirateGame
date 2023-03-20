@@ -49,7 +49,7 @@ namespace Encounters.ShipPlacement {
       enabled = true;
       
       // MAYBE TEMPORARY, but just place the ship for the player for now.
-      _shipSetup.SetupShip(new Vector3Int(3, 8), includeUnits: true);
+      _shipSetup.SetupShip(new Vector3Int(4, 10), includeUnits: true);
       Dispatch.Encounters.EncounterReadyToStart.Raise();
       enabled = false;
     }

@@ -56,13 +56,13 @@ namespace Encounters.Enemies {
     }
 
     private void OnEnable() {
-      spiritsInEncounter.spirits.Add(this);
+      spiritsInEncounter.Add(this);
       Dispatch.Encounters.EnemyTurnPreEnd.RegisterListener(OnEnemyTurnPreEnd);
       Dispatch.Encounters.BonesCollected.RegisterListener(OnBonesCollected);
     }
 
     private void OnDisable() {
-      spiritsInEncounter.spirits.Remove(this);
+      spiritsInEncounter.Remove(this);
       Dispatch.Encounters.EnemyTurnPreEnd.UnregisterListener(OnEnemyTurnPreEnd);
       Dispatch.Encounters.BonesCollected.UnregisterListener(OnBonesCollected);
     }

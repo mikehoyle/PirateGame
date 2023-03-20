@@ -65,7 +65,7 @@ namespace Units {
 
     // Here we assume the position is valid and just do the operation.
     public void SetShipPosition(Vector3Int position) {
-      Position = position;
+      Mover.SnapToPosition(position);
       Metadata.startingPosition = position;
     }
 

@@ -61,8 +61,8 @@ namespace Encounters.AI {
       
       
       // Let all spirits do their thing.
-      for (int i = spiritsInEncounter.spirits.Count - 1; i >= 0; i--) {
-        yield return spiritsInEncounter.spirits[i].ExecuteMovementPlan();
+      for (int i = spiritsInEncounter.Count - 1; i >= 0; i--) {
+        yield return spiritsInEncounter[i].ExecuteMovementPlan();
       }
 
       EndAiTurn();

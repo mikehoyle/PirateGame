@@ -25,7 +25,6 @@ namespace Events {
     public readonly GameEvent PlayerTurnPreStart = new();
     public readonly GameEvent PlayerTurnStart = new();
     public readonly GameEvent<Vector3Int> MouseHover = new();
-    public readonly GameEvent<GameObject> ObjectClicked = new();
     public readonly GameEvent PlayerTurnEnd = new();
     public readonly GameEvent<EncounterActor> UnitSelected = new();
     public readonly GameEvent<AreaOfEffect, StatusEffectApplier> ApplyAoeEffect = new();
