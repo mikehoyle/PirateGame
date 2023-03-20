@@ -72,7 +72,7 @@ namespace Encounters.Obstacles {
         additionalDetails.Add($"{resource.Key.displayName}: {resource.Value}");
       }
       return new DisplayDetails {
-          Name = "Resource Crate",
+          Name = Metadata.name,
           AdditionalDetails = additionalDetails,
       };
     }

@@ -19,6 +19,7 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   isRevivable: 0
   displayName: Spitter
+  shortDescription: Deals 2HP Ranged
   startingHp: 3
   movementRange: 3
   sprite: {fileID: 11400000, guid: cdc8acf5d6271684e97058f12df5a5c7, type: 2}

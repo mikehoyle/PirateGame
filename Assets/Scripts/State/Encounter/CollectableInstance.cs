@@ -6,6 +6,7 @@ namespace State.Encounter {
   [Serializable]
   public class CollectableInstance {
     public SerializableDictionary<RawResource, int> contents;
+    public string name = "Collectable";
     public bool isPrimaryObjective;
 
     public void AddToPlayerInventory() {

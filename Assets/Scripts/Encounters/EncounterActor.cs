@@ -157,7 +157,7 @@ namespace Encounters {
 
     protected abstract void OnDeath();
 
-    public DisplayDetails GetDisplayDetails() {
+    public virtual DisplayDetails GetDisplayDetails() {
       var additionalDetails = new List<string>();
       foreach (var resource in EncounterState.resources) {
         additionalDetails.Add(resource.DisplayString());

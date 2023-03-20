@@ -7,6 +7,7 @@ using Common.Grid;
 using Encounters.AI;
 using Encounters.Grid;
 using Events;
+using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;
 using State.Unit;
@@ -129,6 +130,12 @@ namespace Encounters.Enemies {
       PlayOneOffAnimation("death");
       // TODO(P1): Account for animation time
       Destroy(gameObject);
+    }
+
+    public override DisplayDetails GetDisplayDetails() {
+      var result = base.GetDisplayDetails();
+      result.AdditionalDetails.Add(Metadata.shortDescription);
+      return result;
     }
   }
 }

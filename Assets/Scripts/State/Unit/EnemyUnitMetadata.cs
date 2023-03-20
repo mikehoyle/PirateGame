@@ -9,6 +9,7 @@ namespace State.Unit {
   [CreateAssetMenu(menuName = "State/EnemyUnitMetadata")]
   public class EnemyUnitMetadata : UnitMetadata {
     public string displayName;
+    public string shortDescription;
     public int startingHp;
     public int movementRange;
     public DirectionalAnimatedSprite sprite;

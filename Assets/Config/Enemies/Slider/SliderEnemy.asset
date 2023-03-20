@@ -19,6 +19,7 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   isRevivable: 1
   displayName: Slither
+  shortDescription: 1HP melee + slows
   startingHp: 5
   movementRange: 3
   sprite: {fileID: 11400000, guid: 69d8c2fe878279c45a21b8269d2b96e8, type: 2}
