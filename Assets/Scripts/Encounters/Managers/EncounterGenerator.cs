@@ -63,49 +63,9 @@ namespace Encounters.Managers {
     /// </summary>
     private void GenerateUnits(EncounterWorldTile encounterTile) {
       encounterTile.enemies = new();
-      var spawnVars = new EnemySpawnVariables {
-          DifficultyRating = encounterTile.difficulty,
-      };
-      
-      // We used to always add a spawner. Don't anymore
-      // var spawner = spawnerEnemy.NewEncounter(ClaimRandomTile(spawnerEnemy.size));
-      // encounterTile.enemies.Add(spawner);
-
-      // Maps displayName to spawn count.
-      var spawnedEnemies = new Dictionary<string, int>();
-      
-      // Now pick the remainder of enemies by weighted chance.
-      var remainingDr = encounterTile.difficulty;
-      while (remainingDr > 0) {
-        var currentRemainingDr = remainingDr;
-        var candidates = spawnableEnemies.enemyUnits
-            .Where(enemy => {
-              spawnedEnemies.TryGetValue(enemy.displayName, out var spawnCount);
-              return enemy.spawnConfig.individualDifficultyRating <= currentRemainingDr
-                  && spawnCount < enemy.spawnConfig.maxPerEncounter;
-            })
-            .ToList();
-        var totalWeight = candidates.Sum(enemy => enemy.spawnConfig.GetSpawnWeight(spawnVars));
-        Debug.Log($"Currently {candidates.Count} possible candidates with a total weight of {totalWeight}");
-        var choice = _rng.NextDouble() * totalWeight;
-        var chosenEnemy = candidates.FirstOrDefault(enemy => {
-          choice -= enemy.spawnConfig.GetSpawnWeight(spawnVars);
-          return choice <= 0;
-        });
-
-        if (chosenEnemy == null) {
-          Debug.LogWarning("Failed to choose enemy for encounter, this ideally shouldn't be possible");
-          return;
-        }
-
-        if (!spawnedEnemies.TryGetValue(chosenEnemy.displayName, out var count)) {
-          spawnedEnemies[chosenEnemy.displayName] = 0;
-        }
-        spawnedEnemies[chosenEnemy.displayName] = count + 1;
-
+      foreach (var chosenEnemy in spawnableEnemies.RandomEnemySpawnsForDifficulty(encounterTile.difficulty)) {
         var enemy = chosenEnemy.NewEncounter(ClaimRandomTile(chosenEnemy.size));
         encounterTile.enemies.Add(enemy);
-        remainingDr -= chosenEnemy.spawnConfig.individualDifficultyRating;
       }
     }
 

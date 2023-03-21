@@ -1059,6 +1059,85 @@ namespace Controls
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UnitPlacement"",
+            ""id"": ""4c0db43a-95cd-473c-a083-8c4fded0dbb2"",
+            ""actions"": [
+                {
+                    ""name"": ""StartEncounter"",
+                    ""type"": ""Button"",
+                    ""id"": ""3e2c4a62-0ce3-45cc-8d67-c10f2d6b166b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Point"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""199329e7-4dac-44e2-9aaa-ee99e21e85fe"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""afc81777-629a-4965-bbf7-a3be03c9149e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2e003863-3b5e-4e5e-83ab-7c86c2b6b6ca"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb9678a4-bbf0-45f3-8c5d-b818a8067329"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""StartEncounter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b330a72-6091-41fc-bd33-1139fc1dee92"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a62773c-8f0c-4046-ae07-40733b575744"",
+                    ""path"": ""<Pen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1134,6 +1213,11 @@ namespace Controls
             m_ShipManagement_Point = m_ShipManagement.FindAction("Point", throwIfNotFound: true);
             m_ShipManagement_OpenCharacterSheet = m_ShipManagement.FindAction("OpenCharacterSheet", throwIfNotFound: true);
             m_ShipManagement_CloseMenu = m_ShipManagement.FindAction("CloseMenu", throwIfNotFound: true);
+            // UnitPlacement
+            m_UnitPlacement = asset.FindActionMap("UnitPlacement", throwIfNotFound: true);
+            m_UnitPlacement_StartEncounter = m_UnitPlacement.FindAction("StartEncounter", throwIfNotFound: true);
+            m_UnitPlacement_Point = m_UnitPlacement.FindAction("Point", throwIfNotFound: true);
+            m_UnitPlacement_Click = m_UnitPlacement.FindAction("Click", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1843,6 +1927,68 @@ namespace Controls
             }
         }
         public ShipManagementActions @ShipManagement => new ShipManagementActions(this);
+
+        // UnitPlacement
+        private readonly InputActionMap m_UnitPlacement;
+        private List<IUnitPlacementActions> m_UnitPlacementActionsCallbackInterfaces = new List<IUnitPlacementActions>();
+        private readonly InputAction m_UnitPlacement_StartEncounter;
+        private readonly InputAction m_UnitPlacement_Point;
+        private readonly InputAction m_UnitPlacement_Click;
+        public struct UnitPlacementActions
+        {
+            private @GameControls m_Wrapper;
+            public UnitPlacementActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @StartEncounter => m_Wrapper.m_UnitPlacement_StartEncounter;
+            public InputAction @Point => m_Wrapper.m_UnitPlacement_Point;
+            public InputAction @Click => m_Wrapper.m_UnitPlacement_Click;
+            public InputActionMap Get() { return m_Wrapper.m_UnitPlacement; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(UnitPlacementActions set) { return set.Get(); }
+            public void AddCallbacks(IUnitPlacementActions instance)
+            {
+                if (instance == null || m_Wrapper.m_UnitPlacementActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_UnitPlacementActionsCallbackInterfaces.Add(instance);
+                @StartEncounter.started += instance.OnStartEncounter;
+                @StartEncounter.performed += instance.OnStartEncounter;
+                @StartEncounter.canceled += instance.OnStartEncounter;
+                @Point.started += instance.OnPoint;
+                @Point.performed += instance.OnPoint;
+                @Point.canceled += instance.OnPoint;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+            }
+
+            private void UnregisterCallbacks(IUnitPlacementActions instance)
+            {
+                @StartEncounter.started -= instance.OnStartEncounter;
+                @StartEncounter.performed -= instance.OnStartEncounter;
+                @StartEncounter.canceled -= instance.OnStartEncounter;
+                @Point.started -= instance.OnPoint;
+                @Point.performed -= instance.OnPoint;
+                @Point.canceled -= instance.OnPoint;
+                @Click.started -= instance.OnClick;
+                @Click.performed -= instance.OnClick;
+                @Click.canceled -= instance.OnClick;
+            }
+
+            public void RemoveCallbacks(IUnitPlacementActions instance)
+            {
+                if (m_Wrapper.m_UnitPlacementActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IUnitPlacementActions instance)
+            {
+                foreach (var item in m_Wrapper.m_UnitPlacementActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_UnitPlacementActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public UnitPlacementActions @UnitPlacement => new UnitPlacementActions(this);
         private int m_KBMSchemeIndex = -1;
         public InputControlScheme KBMScheme
         {
@@ -1915,6 +2061,12 @@ namespace Controls
             void OnPoint(InputAction.CallbackContext context);
             void OnOpenCharacterSheet(InputAction.CallbackContext context);
             void OnCloseMenu(InputAction.CallbackContext context);
+        }
+        public interface IUnitPlacementActions
+        {
+            void OnStartEncounter(InputAction.CallbackContext context);
+            void OnPoint(InputAction.CallbackContext context);
+            void OnClick(InputAction.CallbackContext context);
         }
     }
 }

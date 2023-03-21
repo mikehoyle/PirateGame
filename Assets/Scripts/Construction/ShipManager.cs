@@ -98,7 +98,8 @@ namespace Construction {
       var clickedObject = SceneTerrain.GetTileOccupant(targetTile);
       if (currentSelection.TryGetUnit<PlayerUnitController>(out var playerUnit)
           && _terrain.IsTileEligibleForUnitOccupation(targetTile)) {
-        playerUnit.SetShipPosition(targetTile);
+        playerUnit.SetPosition(targetTile);
+        playerUnit.Metadata.startingPosition = targetTile;
         ClearSelection();
         return;
       }

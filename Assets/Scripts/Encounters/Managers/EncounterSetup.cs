@@ -1,4 +1,5 @@
-﻿using Encounters.Obstacles;
+﻿using Encounters.Enemies;
+using Encounters.Obstacles;
 using Events;
 using State.World;
 using Terrain;
@@ -21,12 +22,12 @@ namespace Encounters.Managers {
     }
 
     private void OnEnable() {
-      Dispatch.Encounters.EncounterReadyToStart.RegisterListener(OnEncounterReady);
+      Dispatch.Encounters.ShipPlaced.RegisterListener(OnEncounterReady);
       Dispatch.Encounters.EncounterStart.RegisterListener(OnEncounterStart);
     }
 
     private void OnDisable() {
-      Dispatch.Encounters.EncounterReadyToStart.UnregisterListener(OnEncounterReady);
+      Dispatch.Encounters.ShipPlaced.UnregisterListener(OnEncounterReady);
       Dispatch.Encounters.EncounterStart.UnregisterListener(OnEncounterStart);
     }
 
@@ -43,13 +44,14 @@ namespace Encounters.Managers {
       SetUpEnemyUnits();
       SetUpObstacles();
       SetUpCollectables();
-      Dispatch.Encounters.EncounterStart.Raise();
+      Dispatch.Encounters.EncounterSetUp.Raise();
       enabled = false;
     }
 
     private void SetUpEnemyUnits() {
       foreach (var enemy in _encounter.enemies) {
-        Dispatch.Encounters.SpawnEnemyRequest.Raise(enemy, 1);
+        var unitController = Instantiate(enemy.metadata.prefab).GetComponent<EnemyUnitController>();
+        unitController.Init(enemy);
       }
     }
 

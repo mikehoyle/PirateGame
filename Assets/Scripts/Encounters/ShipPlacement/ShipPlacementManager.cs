@@ -50,7 +50,7 @@ namespace Encounters.ShipPlacement {
       
       // MAYBE TEMPORARY, but just place the ship for the player for now.
       _shipSetup.SetupShip(new Vector3Int(4, 10), includeUnits: true);
-      Dispatch.Encounters.EncounterReadyToStart.Raise();
+      Dispatch.Encounters.ShipPlaced.Raise();
       enabled = false;
     }
     
@@ -60,7 +60,7 @@ namespace Encounters.ShipPlacement {
       }
       
       _shipSetup.SetupShip(_currentShipOffset.Value, includeUnits: true);
-      Dispatch.Encounters.EncounterReadyToStart.Raise();
+      Dispatch.Encounters.ShipPlaced.Raise();
       enabled = false;
     }
     

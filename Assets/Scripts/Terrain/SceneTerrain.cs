@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
-using Common.Grid;
 using Encounters;
 using StaticConfig.Terrain;
 using UnityEngine;
@@ -262,6 +261,32 @@ namespace Terrain {
 
     private bool IsGridPositionDefined(Vector3Int gridPosition) {
       return _terrainMap.Contains(gridPosition);
+    }
+    
+    public Vector3Int GetRandomAvailableTile(Vector2Int size, Func<Vector3Int, bool> constraint) {
+      var rng = new System.Random();
+      using var randomizedTiles = _terrainMap.Keys.Where(constraint).OrderBy(_ => rng.Next()).GetEnumerator();
+      while (randomizedTiles.MoveNext()) {
+        var tile = randomizedTiles.Current;
+        if (AllTilesAreFreeForSize(tile, size)) {
+          return tile;
+        }
+      }
+      
+      Debug.LogError("Could not find tile to claim, this shouldn't happen!");
+      return new Vector3Int(99999, 99999, 0);
+    }
+    
+    public bool AllTilesAreFreeForSize(Vector3Int tile, Vector2Int size) {
+      for (int x = 0; x < size.x; x++) {
+        for (int y = 0; y < size.y; y++) {
+          if (!IsTileEligibleForUnitOccupation(new Vector3Int(tile.x + x, tile.y + y, tile.z))) {
+            return false;
+          }
+        }
+      }
+      
+      return true;
     }
 
     public static SceneTerrain Get() {

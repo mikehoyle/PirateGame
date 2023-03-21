@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Common.Events;
 using Events;
 using Terrain;
@@ -92,6 +93,14 @@ namespace Encounters.Grid {
           _tilemap.SetTile(source + new Vector3Int(-i, 0, 0), eligibleTileOverlay);
           _tilemap.SetTile(source + new Vector3Int(0, -i, 0), eligibleTileOverlay);
         }
+      }
+    }
+
+    public void DisplayCustomRange(IEnumerable<Vector3Int> affectedTiles) {
+      enabled = true;
+      Clear();
+      foreach (var tile in affectedTiles) {
+        _tilemap.SetTile(tile, eligibleTileOverlay);
       }
     }
 

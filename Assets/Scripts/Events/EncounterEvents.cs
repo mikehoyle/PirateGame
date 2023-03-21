@@ -15,7 +15,8 @@ namespace Events {
     public readonly GameEvent AbilityExecutionEnd = new();
     public readonly GameEvent<int> TrySelectAbilityByIndex = new();
     public readonly GameEvent<PlayerUnitController, UnitAbility, Vector3Int> AbilitySelected = new();
-    public readonly GameEvent EncounterReadyToStart = new();
+    public readonly GameEvent ShipPlaced = new();
+    public readonly GameEvent EncounterSetUp = new();
     public readonly GameEvent EncounterStart = new();
     public readonly GameEvent<EncounterOutcome> EncounterEnd = new();
     public readonly GameEvent EnemyTurnPreStart = new();
@@ -34,5 +35,6 @@ namespace Events {
     public readonly GameEvent<UnitEncounterState, int> SpawnEnemyRequest = new();
     public readonly GameEvent<Bones> BonesCollected = new();
     public readonly GameEvent<CollectableInstance> ItemCollected = new();
+    public readonly GameEvent<Vector3Int, CollectableInstance> SpawnCollectable = new();
   }
 }

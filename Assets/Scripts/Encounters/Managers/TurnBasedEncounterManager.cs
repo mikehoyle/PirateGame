@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using Common;
+﻿using Common;
 using Controls;
 using Encounters.Grid;
 using Events;
 using IngameDebugConsole;
-using Optional;
 using RuntimeVars;
 using RuntimeVars.Encounters;
 using Terrain;

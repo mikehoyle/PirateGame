@@ -17,7 +17,7 @@ MonoBehaviour:
   stats: []
   prefab: {fileID: 6882444367959471412, guid: e4763d54310b49c4eb6057e996a56310, type: 3}
   size: {x: 1, y: 1}
-  isRevivable: 1
+  isRevivable: 0
   displayName: Slither
   shortDescription: 1HP melee + slows
   startingHp: 5

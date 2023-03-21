@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Common.Animation;
 using Common.Grid;
 using Events;
@@ -12,6 +14,8 @@ namespace Encounters.Obstacles {
   public class EncounterCollectable : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider, IDirectionalAnimatable {
     [SerializeField] private int collectionRange = 1;
     [SerializeField] private CurrentSelection currentSelection;
+    
+    private ParticleSystem _particles;
 
     public CollectableInstance Metadata { get; private set; }
     public Vector3Int Position { get; private set; }
@@ -23,7 +27,11 @@ namespace Encounters.Obstacles {
 #pragma warning disable CS0067
     public event IDirectionalAnimatable.RequestOneOffAnimation OneOffAnimation;
 #pragma warning restore CS0067
-    
+
+    private void Awake() {
+      _particles = GetComponentInChildren<ParticleSystem>();
+    }
+
     private void OnEnable() {
       Dispatch.Common.ObjectClicked.RegisterListener(OnObjectClicked);
     }
@@ -57,10 +65,12 @@ namespace Encounters.Obstacles {
       
       // TODO(P1): Any animation/sound/anything
       playerActor.FaceTowards(Position);
-      Collect(playerActor);
+      StartCoroutine(Collect(playerActor));
     }
     
-    private void Collect(PlayerUnitController collector) {
+    private IEnumerator Collect(PlayerUnitController collector) {
+      _particles.Play();
+      yield return new WaitForSeconds(2f);
       collector.AddCollectable(Metadata);
       Dispatch.Encounters.ItemCollected.Raise(Metadata);
       Destroy(gameObject);

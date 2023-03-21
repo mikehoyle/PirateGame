@@ -64,9 +64,8 @@ namespace Units {
     }
 
     // Here we assume the position is valid and just do the operation.
-    public void SetShipPosition(Vector3Int position) {
+    public void SetPosition(Vector3Int position) {
       Mover.SnapToPosition(position);
-      Metadata.startingPosition = position;
     }
 
     private void TrySelectAbility(int index) {
@@ -93,6 +92,13 @@ namespace Units {
       playerUnitsInEncounter.Remove(this);
       // TODO(P1): play death animation.
       Destroy(gameObject);
+      
+      foreach (var collectable in CollectablesAcquired) {
+        if (collectable.isPrimaryObjective) {
+          Dispatch.Encounters.SpawnCollectable.Raise(Position, collectable);
+          return;
+        }
+      }
     }
 
     public void AddCollectable(CollectableInstance collectableInstance) {
