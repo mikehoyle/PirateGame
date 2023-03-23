@@ -11,8 +11,8 @@ using UnityEngine;
 
 namespace Events {
   public class EncounterEvents {
-    public readonly GameEvent AbilityExecutionStart = new();
-    public readonly GameEvent AbilityExecutionEnd = new();
+    public readonly GameEvent<EncounterActor, UnitAbility> AbilityExecutionStart = new();
+    public readonly GameEvent<EncounterActor, UnitAbility> AbilityExecutionEnd = new();
     public readonly GameEvent<int> TrySelectAbilityByIndex = new();
     public readonly GameEvent<PlayerUnitController, UnitAbility, Vector3Int> AbilitySelected = new();
     public readonly GameEvent ShipPlaced = new();

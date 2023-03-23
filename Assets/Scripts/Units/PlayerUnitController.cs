@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using Common;
 using Common.Animation;
 using Common.Events;
 using Encounters;
 using Events;
+using Optional;
 using RuntimeVars;
 using State.Encounter;
 using State.Unit;
+using StaticConfig.Units;
+using Units.Abilities;
 using UnityEngine;
 
 namespace Units {
@@ -13,6 +17,8 @@ namespace Units {
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     
     private SpriteRenderer _selectedIndicator;
+    private Vector3Int _undoMovePosition;
+    private int _undoMoveMp;
 
     public PlayerUnitMetadata Metadata => (PlayerUnitMetadata)EncounterState.metadata;
     public override UnitEncounterState EncounterState { get; protected set; }
@@ -36,6 +42,7 @@ namespace Units {
       Dispatch.Encounters.AbilityExecutionEnd.RegisterListener(OnAbilityEndExecution);
       Dispatch.Encounters.UnitSelected.RegisterListener(OnUnitSelected);
       Dispatch.Encounters.TrySelectAbilityByIndex.RegisterListener(TrySelectAbility);
+      Dispatch.Encounters.PlayerTurnPreStart.RegisterListener(OnTurnStart);
     }
 
     protected override void OnDisable() {
@@ -44,6 +51,12 @@ namespace Units {
       Dispatch.Encounters.AbilityExecutionEnd.UnregisterListener(OnAbilityEndExecution);
       Dispatch.Encounters.UnitSelected.UnregisterListener(OnUnitSelected);
       Dispatch.Encounters.TrySelectAbilityByIndex.UnregisterListener(TrySelectAbility);
+      Dispatch.Encounters.PlayerTurnPreStart.UnregisterListener(OnTurnStart);
+    }
+
+    private void OnTurnStart() {
+      _undoMovePosition = Position;
+      _undoMoveMp = EncounterState.GetResourceAmount(ExhaustibleResources.Instance.mp);
     }
 
     private void OnUnitSelected(EncounterActor selectedUnit) {
@@ -55,12 +68,38 @@ namespace Units {
       _selectedIndicator.enabled = false;
     }
 
-    private void OnAbilityEndExecution() {
+    private void OnAbilityEndExecution(EncounterActor actor, UnitAbility ability) {
       // If this unit is selected and just finished performing an ability,
       // Always go back to selecting the default ability
       if (currentSelection.selectedUnit.Contains(this)) {
-        TrySelectAbility(0);
+        if (currentSelection.selectedAbility.TryGet(out var selectedAbility)
+            && selectedAbility.CanAfford(this)) {
+          // Keep current ability selected
+        } else {
+          TrySelectAbility(0); 
+        }
       }
+      
+      // Reset our undo capability if:
+      // - Anyone else does anything (including move).
+      // - We do anything other than move.
+      if (actor != this || (actor == this && ability is not MoveAbility)) {
+        _undoMovePosition = Position;
+        _undoMoveMp = EncounterState.GetResourceAmount(ExhaustibleResources.Instance.mp);
+      }
+    }
+
+    public bool CanUndoMove() {
+      return _undoMovePosition != Position && _undoMoveMp > 0;
+    }
+
+    public void UndoMoveIfEligible() {
+      if (!CanUndoMove()) {
+        return;
+      }
+      SetPosition(_undoMovePosition);
+      EncounterState.TryGetResourceTracker(ExhaustibleResources.Instance.mp, out var mpTracker);
+      mpTracker.current = _undoMoveMp;
     }
 
     // Here we assume the position is valid and just do the operation.

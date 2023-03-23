@@ -70,10 +70,10 @@ namespace Units.Abilities {
         return Option.None<IEnumerator>();
       }
 
-      Dispatch.Encounters.AbilityExecutionStart.Raise();
+      Dispatch.Encounters.AbilityExecutionStart.Raise(context.Actor, this);
       SpendCost(context.Actor);
       return Option.Some(Execute(context, () => {
-        Dispatch.Encounters.AbilityExecutionEnd.Raise();
+        Dispatch.Encounters.AbilityExecutionEnd.Raise(context.Actor, this);
         callback();
       }));
     }
