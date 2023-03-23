@@ -1,6 +1,7 @@
 ﻿using System;
 using CameraControl;
 using Common.Grid;
+using Encounters.Generation;
 using Encounters.ShipPlacement;
 using State;
 using State.World;

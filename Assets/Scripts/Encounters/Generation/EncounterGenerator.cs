@@ -9,7 +9,7 @@ using Units.Abilities.AOE;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Encounters.Managers {
+namespace Encounters.Generation {
   /// <summary>
   /// Encapsulates generation of an encounter. This happens at interaction time rather than
   /// upfront at map generation time, for a few reasons:
@@ -48,15 +48,8 @@ namespace Encounters.Managers {
 
     private void GenerateTerrain(EncounterWorldTile encounterTile) {
       encounterTile.terrain = new();
-      /*var width = 9;
-      var height = 9;
-
-      for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-          encounterTile.terrain.Add(new Vector3Int(x, y, 0), TerrainType.Land);
-        }
-      }*/
-
+      
+      // "Generate" by choosing a prefab
       var chosenTerrain = _rng.Next(0, terrainPrefabs.Count);
       foreach (var tile in terrainPrefabs.GetTerrainMap(chosenTerrain).AffectedPoints()) {
         encounterTile.terrain.Add(tile, TerrainType.Land);
@@ -86,6 +79,24 @@ namespace Encounters.Managers {
         var tile = ClaimRandomTile(rockObstacle.Footprint);
         foreach (var obstacle in rockObstacle.obstacles) {
           encounterTile.obstacles[tile + obstacle.Key] = obstacle.Value.RandomVariant();
+        }
+      }
+      
+      // Post-processing-step where we confirm that we haven't made any areas of
+      // the map inaccessible by pathfinding through it.
+      var pathfinder = new SimplePathfinder(encounterTile.terrain.Keys);
+      var terrain = encounterTile.terrain.Keys;
+      // Define one "special" tile near ship's entrance that must be accessible.
+      var targetTile = new Vector3Int(4, 8);
+      var obstacles = encounterTile.obstacles.Keys.ToList();
+      for (int i = obstacles.Count - 1; i >= 0; i--) {
+        pathfinder.BlockedTiles.Add(obstacles[i]);
+        foreach (var tile in terrain) {
+          if (!pathfinder.IsPathAccessible(tile, targetTile)) {
+            encounterTile.obstacles.Remove(obstacles[i]);
+            pathfinder.BlockedTiles.Remove(obstacles[i]);
+            break;
+          }
         }
       }
     }
