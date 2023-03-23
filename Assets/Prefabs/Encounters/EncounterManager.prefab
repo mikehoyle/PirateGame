@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   landSprite: {fileID: 21300000, guid: c6fbd1dfa4cbee340974055873f1eb41, type: 3}
-  collectablePrefab: {fileID: 4962400504426721770, guid: 8b5d7698a60974c44acbf8001b034720, type: 3}
+  collectablePrefab: {fileID: 6637086093365284048, guid: 1d5d93af5bbdf3c418aebbce87e13e42, type: 3}
   obstaclePrefab: {fileID: 4962400504426721770, guid: ac4c57f9af34c3344b8241958c17af5d, type: 3}
 --- !u!114 &1915456237
 MonoBehaviour:
@@ -114,6 +114,7 @@ MonoBehaviour:
   spawnableEnemies: {fileID: 11400000, guid: 74a244f7052cd8e4dbe85654dce54cac, type: 2}
   rockObstacle: {fileID: 11400000, guid: d99fe2c7d5625d04a81988b19a3c469f, type: 2}
   soulsResource: {fileID: 11400000, guid: 5e30639d7433bca4fa9327eba6a1420a, type: 2}
+  terrainPrefabs: {fileID: 11400000, guid: 57c109d9d45c10046a117a5bf8704056, type: 2}
 --- !u!114 &1915456238
 MonoBehaviour:
   m_ObjectHideFlags: 0

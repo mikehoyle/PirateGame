@@ -1,4 +1,5 @@
-﻿using Construction;
+﻿using System.Linq;
+using Construction;
 using Controls;
 using Events;
 using State;
@@ -49,7 +50,8 @@ namespace Encounters.ShipPlacement {
       enabled = true;
       
       // MAYBE TEMPORARY, but just place the ship for the player for now.
-      _shipSetup.SetupShip(new Vector3Int(4, 10), includeUnits: true);
+      var maxY = _terrain.AllTiles.Max(tile => tile.y);
+      _shipSetup.SetupShip(new Vector3Int(4, maxY + 2), includeUnits: true);
       Dispatch.Encounters.ShipPlaced.Raise();
       enabled = false;
     }

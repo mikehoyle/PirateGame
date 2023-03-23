@@ -21,6 +21,7 @@ namespace Encounters.Managers {
     [SerializeField] private EnemyUnitTypeCollection spawnableEnemies;
     [SerializeField] private ObstaclePrefab rockObstacle;
     [SerializeField] private RawResource soulsResource;
+    [SerializeField] private TerrainPrefabs terrainPrefabs;
     
     private Random _rng;
     private HashSet<Vector3Int> _availableTiles;
@@ -47,13 +48,18 @@ namespace Encounters.Managers {
 
     private void GenerateTerrain(EncounterWorldTile encounterTile) {
       encounterTile.terrain = new();
-      var width = 9;
+      /*var width = 9;
       var height = 9;
 
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
           encounterTile.terrain.Add(new Vector3Int(x, y, 0), TerrainType.Land);
         }
+      }*/
+
+      var chosenTerrain = _rng.Next(0, terrainPrefabs.Count);
+      foreach (var tile in terrainPrefabs.GetTerrainMap(chosenTerrain).AffectedPoints()) {
+        encounterTile.terrain.Add(tile, TerrainType.Land);
       }
     }
     
