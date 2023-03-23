@@ -1,4 +1,5 @@
 ﻿using System;
+using Encounters;
 using UnityEngine;
 
 namespace Units.Abilities.Formulas.Values {
@@ -6,7 +7,7 @@ namespace Units.Abilities.Formulas.Values {
   public class IntValue : IDerivedValue {
     [SerializeField] private int value;
     
-    public float GetValue(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
+    public float GetValue(EncounterActor _, float skillTestResult) {
       return value;
     }
     public string DisplayString() {

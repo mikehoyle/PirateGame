@@ -20,7 +20,7 @@ namespace StaticConfig.Units {
     }
 
     public void Expend(int amount) {
-      current = Math.Max(min, current - amount);
+      current = Math.Min(max, Math.Max(min, current - amount));
     }
 
     public string DisplayString() {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Encounters;
 using UnityEngine;
 
 namespace Units.Abilities.Formulas.Values {
@@ -9,15 +10,15 @@ namespace Units.Abilities.Formulas.Values {
     [SerializeField] private Operation operation;
     [SerializeReference, SerializeReferenceButton] private List<IDerivedValue> operands;
 
-    public float GetValue(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
+    public float GetValue(EncounterActor actor, float skillTestResult) {
       if (operands.Count == 0) {
         Debug.LogWarning("Cannot perform operation with zero operands");
         return 0;
       }
       
-      var result = operands[0].GetValue(context, skillTestResult);
+      var result = operands[0].GetValue(actor, skillTestResult);
       for (int i = 1; i < operands.Count; i++) {
-        result = operation.GetOperation()(result, operands[i].GetValue(context, skillTestResult));
+        result = operation.GetOperation()(result, operands[i].GetValue(actor, skillTestResult));
       }
 
       return result;

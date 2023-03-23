@@ -25,7 +25,7 @@ namespace Units {
     public void Initialize(UnitEncounterState unit, Vector3Int position) {
       _deadUnit = unit;
       Position = position;
-      transform.position = GridUtils.CellCenterWorldStatic(position);
+      transform.position = GridUtils.CellCenterWorld(position);
     }
 
     public DisplayDetails GetDisplayDetails() {

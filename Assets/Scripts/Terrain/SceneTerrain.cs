@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Common.Grid;
 using Encounters;
 using StaticConfig.Terrain;
 using UnityEngine;
@@ -196,7 +197,7 @@ namespace Terrain {
 
     public static bool IsMovementBlocked(Vector3Int tile) {
       var objectLayer = LayerMask.GetMask("PlacedOnGrid");
-      foreach (var collision in Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), objectLayer)) {
+      foreach (var collision in Physics2D.OverlapPointAll(GridUtils.CellCenterWorld(tile), objectLayer)) {
         if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
           // Committing to not doing elevation right here right now. It would be necessary to check here.
           return placedOnGrid.BlocksAllMovement;
@@ -207,7 +208,7 @@ namespace Terrain {
     
     public static bool IsTileOccupied(Vector3Int tile) {
       var objectLayer = LayerMask.GetMask("PlacedOnGrid");
-      foreach (var collision in Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), objectLayer)) {
+      foreach (var collision in Physics2D.OverlapPointAll(GridUtils.CellCenterWorld(tile), objectLayer)) {
         if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
           return placedOnGrid.ClaimsTile;
         }
@@ -239,9 +240,9 @@ namespace Terrain {
       return allAtTile[0];
     }
 
-    private static List<GameObject> GetAllTileOccupants(Vector3Int tile) {
+    public static List<GameObject> GetAllTileOccupants(Vector3Int tile) {
       var blockingLayer = LayerMask.GetMask("PlacedOnGrid");
-      var allAtTile = Physics2D.OverlapPointAll(CellCenterWorldStatic(tile), blockingLayer);
+      var allAtTile = Physics2D.OverlapPointAll(GridUtils.CellCenterWorld(tile), blockingLayer);
       return allAtTile.Select(c => c.gameObject).ToList();
     }
 
@@ -252,6 +253,17 @@ namespace Terrain {
         }
       }
       component = default(T);
+      return false;
+    }
+
+    public static bool TryGetTile(Vector3Int coord, out TerrainTile tile) {
+      var blockingLayer = LayerMask.GetMask("Terrain");
+      var terrainAtTile = Physics2D.OverlapPoint(GridUtils.CellCenterWorld(coord), blockingLayer);
+      if (terrainAtTile != null && terrainAtTile.TryGetComponent(out tile)) {
+        return true;
+      }
+
+      tile = null;
       return false;
     }
 

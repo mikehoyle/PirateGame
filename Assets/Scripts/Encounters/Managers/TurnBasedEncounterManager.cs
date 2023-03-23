@@ -46,6 +46,7 @@ namespace Encounters.Managers {
       Dispatch.Encounters.EnemyTurnEnd.RegisterListener(OnEnemyTurnEnd);
       Dispatch.Encounters.AbilitySelected.RegisterListener(OnAbilitySelected);
       Dispatch.Encounters.EncounterEnd.RegisterListener(OnEncounterEnd);
+      Dispatch.Encounters.MouseHover.RegisterListener(OnMouseHover);
       Dispatch.Common.DialogueStart.RegisterListener(OnDialogueStart);
       Dispatch.Common.DialogueEnd.RegisterListener(OnDialogueEnd);
       
@@ -54,10 +55,11 @@ namespace Encounters.Managers {
     }
 
     private void OnDisable() {
-      _controls.TurnBasedEncounter.Disable();
+      _controls?.TurnBasedEncounter.Disable();
       Dispatch.Encounters.EnemyTurnEnd.UnregisterListener(OnEnemyTurnEnd);
       Dispatch.Encounters.AbilitySelected.UnregisterListener(OnAbilitySelected);
       Dispatch.Encounters.EncounterEnd.UnregisterListener(OnEncounterEnd);
+      Dispatch.Encounters.MouseHover.UnregisterListener(OnMouseHover);
       Dispatch.Common.DialogueStart.UnregisterListener(OnDialogueStart);
       Dispatch.Common.DialogueEnd.UnregisterListener(OnDialogueEnd);
       
@@ -126,24 +128,13 @@ namespace Encounters.Managers {
         Dispatch.Common.ObjectClicked.Raise(clickedObject.gameObject);
       }
     }
-    
-    protected override void OnPoint(Vector2 mousePosition) {
-      if (_uiInteraction.isPlayerHoveringUi) {
-        // Ignore UI-intended events
-        return;
-      }
-      
-      var hoveredTile = _terrain.TileAtScreenCoordinate(mousePosition);
-      if (hoveredTile == _lastKnownHoveredTile) {
-        // No need to update if the selected tile is the same
-        return;
-      }
+
+    private void OnMouseHover(Vector3Int hoveredTile) {
       _lastKnownHoveredTile = hoveredTile;
       var hoveredObject = SceneTerrain.GetTileOccupant(hoveredTile);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         ability.ShowIndicator(unit, currentSelection.abilitySource, hoveredObject, hoveredTile, _gridIndicators);
       }
-      Dispatch.Encounters.MouseHover.Raise(hoveredTile);
     }
 
     protected override void OnTrySelectAction(int index) {
@@ -155,7 +146,7 @@ namespace Encounters.Managers {
       _controls.TurnBasedEncounter.Disable();
       _gridIndicators.Clear();
       Dispatch.Encounters.PlayerTurnEnd.Raise();
-      Dispatch.Encounters.PlayerTurnPreStart.Raise();
+      Dispatch.Encounters.EnemyTurnPreStart.Raise();
       Dispatch.Encounters.EnemyTurnStart.Raise();
     }
 

@@ -11,6 +11,7 @@ using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;
 using State.Unit;
+using StaticConfig.Units;
 using Units.Abilities;
 using UnityEngine;
 
@@ -45,8 +46,9 @@ namespace Encounters.Enemies {
     }
 
     public AiActionPlan GetActionPlan(ActionEvaluationContext context) {
+      Debug.Log($"Getting action plan for {Metadata.displayName}");
       var possibleDestinations = context.Terrain.GetAllViableDestinations(
-          Position, EncounterState.GetResourceAmount(exhaustibleResources.mp), context.ClaimedTileOverrides)
+          Position, EncounterState.GetResourceAmount(ExhaustibleResources.Instance.mp), context.ClaimedTileOverrides)
           .Append(Position);
       var abilities = GetAllCapableAbilities();
 
@@ -54,17 +56,21 @@ namespace Encounters.Enemies {
       var bestScore = float.MinValue;
       
       foreach (var destination in possibleDestinations) {
-        foreach (var playerUnit in context.PlayerUnits.Concat<EncounterActor>(context.EnemyUnits)) {
+        foreach (var targetUnit in context.PlayerUnits.Concat<EncounterActor>(context.EnemyUnits)) {
           foreach (var ability in abilities) {
             // TODO(P1): this ignores any obstacles, and could result in dumb AI that never moves around
             //     obstacles. Use the pathfinder for actual proximity.
-            var distanceFromPlayer = GridUtils.DistanceBetween(destination, playerUnit.Position) - 1;
             var score = 0f;
-            if (distanceFromPlayer == 1) {
-              score += Metadata.actionPreferences.playerUnitAdjacency;
+            
+            foreach (var playerUnit in context.PlayerUnits) {
+              var distanceFromPlayer = GridUtils.DistanceBetween(destination, playerUnit.Position) - 1;
+              var distanceFromPreferred =
+                  Math.Abs(Metadata.actionPreferences.preferredRangeFromPlayer - distanceFromPlayer);
+              var distanceScore = (Metadata.actionPreferences.atPreferredRangeFromPlayer) -
+                  (Metadata.actionPreferences.dropOffFromPreferredRangeByTile * distanceFromPreferred);
+              // Account for the proper closeness of just one player, not adding all of them.
+              score = Math.Max(score, distanceScore);
             }
-            score += (distanceFromPlayer * Metadata.actionPreferences.distanceFromPlayerByTile);
-            score = Math.Max(score, 0);
             if (destination == Position) {
               score += Metadata.actionPreferences.stayStationary;
             }
@@ -87,8 +93,8 @@ namespace Encounters.Enemies {
                 Actor = this,
                 Source = destination,
                 Indicators = context.Indicators,
-                TargetedObject = playerUnit.gameObject,
-                TargetedTile = playerUnit.Position,
+                TargetedObject = targetUnit.gameObject,
+                TargetedTile = targetUnit.Position,
                 Terrain = context.Terrain,
             };
             if (ability.CouldExecute(executionContext)) {
@@ -120,7 +126,7 @@ namespace Encounters.Enemies {
     private void OnUnitSelected(EncounterActor selectedUnit) {
       if (selectedUnit != null
           && this == selectedUnit
-          && EncounterState.TryGetResourceTracker(exhaustibleResources.mp, out var movementRange)) {
+          && EncounterState.TryGetResourceTracker(ExhaustibleResources.Instance.mp, out var movementRange)) {
         _gridIndicators.RangeIndicator.DisplayMovementRange(Position, movementRange.max);
       }
     }

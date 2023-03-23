@@ -16,7 +16,7 @@ namespace Common.Animation {
         DirectionalAnimatedSprite sprite,
         string animationName,
         FacingDirection direction = FacingDirection.SouthEast) {
-      transform.position = GridUtils.CellBaseWorldStatic(target);
+      transform.position = GridUtils.CellBaseWorld(target);
       return StartCoroutine(PlayThenDieInternal(sprite, sprite.GetAnimation(animationName, direction)));
     }
 

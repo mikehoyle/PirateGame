@@ -40,8 +40,12 @@ MonoBehaviour:
   equipped:
     m_keys:
     - {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}
+    - {fileID: 11400000, guid: e37b7659718ab4c478959b4a73a6a0d2, type: 2}
+    - {fileID: 11400000, guid: f860d19c29f42aa428363a9b68097a27, type: 2}
     m_values:
     - item: {fileID: 11400000, guid: 4ea7c49cde3f3354a9c765233d97dd18, type: 2}
+    - item: {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}
+    - item: {fileID: 11400000, guid: b968b957c989ee14f8b9cea7b9b11195, type: 2}
   references:
     version: 2
     RefIds: []

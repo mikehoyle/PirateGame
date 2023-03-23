@@ -25,8 +25,8 @@ namespace StaticConfig.Builds {
       // All these if/elses are begging for better code design... but also the game is begging
       // to be actually made, so leaving it for now.
       return isFoundationTile
-          ? GridUtils.CellAnchorWorldStatic(gridPosition)
-          : GridUtils.CellBaseWorldStatic(gridPosition);
+          ? GridUtils.CellAnchorWorld(gridPosition)
+          : GridUtils.CellBaseWorld(gridPosition);
     }
 
     public string SortingLayer() {

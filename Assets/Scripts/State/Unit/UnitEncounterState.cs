@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Common.Animation;
 using StaticConfig.Units;
+using Units.Abilities;
 using UnityEngine;
 
 namespace State.Unit {
@@ -12,7 +13,14 @@ namespace State.Unit {
     public Vector3Int position;
     public UnitFaction faction;
     public FacingDirection facingDirection;
+    
+    
+    private Dictionary<UnitAbility, int> _abilityExecutionCounts;
 
+    public UnitEncounterState() {
+      _abilityExecutionCounts = new();
+    }
+    
     public void NewRound() {
       foreach (var resource in resources) {
         resource.NewRound();
@@ -20,6 +28,7 @@ namespace State.Unit {
     }
 
     public void NewEncounter() {
+      _abilityExecutionCounts.Clear();
       foreach (var resource in resources) {
         resource.Reset();
       }
@@ -33,6 +42,15 @@ namespace State.Unit {
       }
 
       Debug.LogWarning($"Attempted to expend not-present resource: {resource}");
+    }
+
+    public void RegisterAbilityExecution(UnitAbility ability) {
+      _abilityExecutionCounts.TryAdd(ability, 0);
+      _abilityExecutionCounts[ability] += 1;
+    }
+    
+    public int GetExecutionCount(UnitAbility ability) {
+      return _abilityExecutionCounts.GetValueOrDefault(ability);
     }
 
     public int GetResourceAmount(ExhaustibleResource resource) {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using StaticConfig.Units;
-using Units.Abilities;
 using UnityEngine;
 
 namespace Encounters.Effects {
@@ -17,10 +16,10 @@ namespace Encounters.Effects {
       _calculatedEffects = new();
     }
 
-    public override void PreCalculateEffect(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
+    public override void PreCalculateEffect(EncounterActor actor, float skillTestResult) {
       _calculatedEffects.Clear();
       foreach (var effect in _sourceEffect.exhaustibleResourceEffects) {
-        _calculatedEffects.Add(effect.resource, effect.value.GetValue(context, skillTestResult));
+        _calculatedEffects.Add(effect.resource, effect.value.GetValue(actor, skillTestResult));
       }
     }
     

@@ -20,7 +20,6 @@ using UnityEngine;
 namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable, IDisplayDetailsProvider {
     [SerializeField] protected CurrentSelection currentSelection;
-    [SerializeField] protected ExhaustibleResources exhaustibleResources;
     [SerializeField] protected GameObject bonesPrefab;
 
     protected UnitMover Mover;
@@ -129,7 +128,7 @@ namespace Encounters {
       if (!path.IsViable()) {
         return null;
       }
-      return StartCoroutine(Mover.ExecuteMovement(path.Path));
+      return StartCoroutine(Mover.ExecuteMovement(path.Path, true));
     }
 
     public void DropIn(Action callback) {
@@ -142,7 +141,7 @@ namespace Encounters {
 
     public void ExpendResource(ExhaustibleResource resource, int amount) {
       EncounterState.ExpendResource(resource, amount);
-      if (EncounterState.GetResourceAmount(exhaustibleResources.hp) <= 0) {
+      if (EncounterState.GetResourceAmount(ExhaustibleResources.Instance.hp) <= 0) {
         OnDeath();
 
         var bonesOption = Option.None<Bones>();
@@ -153,6 +152,10 @@ namespace Encounters {
         }
         Dispatch.Encounters.UnitDeath.Raise(bonesOption);
       }
+    }
+
+    public int CurrentMovementRange() {
+      return EncounterState.GetResourceAmount(ExhaustibleResources.Instance.mp);
     }
 
     protected abstract void OnDeath();

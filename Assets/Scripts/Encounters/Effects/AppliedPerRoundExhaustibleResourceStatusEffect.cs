@@ -9,15 +9,15 @@ namespace Encounters.Effects {
     private readonly Dictionary<ExhaustibleResource, float> _calculatedImmediateEffects = new();
     private readonly Dictionary<ExhaustibleResource, float> _calculatedPerRoundEffects = new();
     
-    public override void PreCalculateEffect(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
+    public override void PreCalculateEffect(EncounterActor actor, float skillTestResult) {
       _calculatedImmediateEffects.Clear();
       _calculatedPerRoundEffects.Clear();
       var sourceEffect = (PerRoundExhaustibleResourceStatusEffect)_sourceEffect;
       foreach (var effect in sourceEffect.immediateEffects) {
-        _calculatedImmediateEffects.Add(effect.resource, effect.value.GetValue(context, skillTestResult));
+        _calculatedImmediateEffects.Add(effect.resource, effect.value.GetValue(actor, skillTestResult));
       }
       foreach (var effect in sourceEffect.exhaustibleResourceEffects) {
-        _calculatedPerRoundEffects.Add(effect.resource, effect.value.GetValue(context, skillTestResult));
+        _calculatedPerRoundEffects.Add(effect.resource, effect.value.GetValue(actor, skillTestResult));
       }
     }
 

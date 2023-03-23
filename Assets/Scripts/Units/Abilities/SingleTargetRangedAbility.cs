@@ -28,6 +28,7 @@ namespace Units.Abilities {
       }
       if (spiritTarget != null) {
         indicators.TargetingIndicator.TargetTiles(hoveredTile, spiritTarget.GetPushTarget(source));
+        return;
       }
       
       indicators.TargetingIndicator.Clear();
@@ -69,7 +70,7 @@ namespace Units.Abilities {
       yield return new WaitUntil(() => skillTestResult.HasValue);
       
       var effect = incurredEffect.ApplyTo(target);
-      effect.PreCalculateEffect(context, skillTestResult.ValueOrFailure());
+      effect.PreCalculateEffect(context.Actor, skillTestResult.ValueOrFailure());
       // Animation options should definitely not be here... a future problem.
       context.Actor.FaceTowards(target.Position);
       context.Actor.PlayOneOffAnimation(AnimationNames.Attack);

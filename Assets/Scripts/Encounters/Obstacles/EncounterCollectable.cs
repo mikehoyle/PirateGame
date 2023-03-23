@@ -49,7 +49,7 @@ namespace Encounters.Obstacles {
     public void Initialize(CollectableInstance collectable, Vector3Int position) {
       Metadata = collectable;
       Position = position;
-      transform.position = GridUtils.CellCenterWorldStatic(position);
+      transform.position = GridUtils.CellCenterWorld(position);
     }
 
     private void TryCollect() {

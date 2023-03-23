@@ -46,7 +46,7 @@ namespace Encounters.Managers {
       var boundingRect = _encounter.terrain.GetBoundingRect();
       var center = boundingRect.center;
       _cameraCursor.Initialize(
-          GridUtils.CellCenterWorldStatic(new Vector3Int((int)center.x, (int)center.y, 0)));
+          GridUtils.CellCenterWorld(new Vector3Int((int)center.x, (int)center.y, 0)));
       _cameraCursor.SetGridBounds(boundingRect);
     }
 

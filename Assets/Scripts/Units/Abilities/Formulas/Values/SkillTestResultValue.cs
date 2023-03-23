@@ -1,9 +1,10 @@
 ﻿using System;
+using Encounters;
 
 namespace Units.Abilities.Formulas.Values {
   [Serializable]
   public class SkillTestResultValue : IDerivedValue {
-    public float GetValue(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
+    public float GetValue(EncounterActor _, float skillTestResult) {
       return skillTestResult;
     }
     

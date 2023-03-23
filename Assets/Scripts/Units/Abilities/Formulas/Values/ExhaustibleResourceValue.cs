@@ -1,4 +1,5 @@
 ﻿using System;
+using Encounters;
 using StaticConfig.Units;
 using UnityEngine;
 
@@ -7,8 +8,8 @@ namespace Units.Abilities.Formulas.Values {
   public class ExhaustibleResourceValue : IDerivedValue {
     [SerializeField] private ExhaustibleResource resource;
     
-    public float GetValue(UnitAbility.AbilityExecutionContext context, float skillTestResult) {
-      return context.Actor.EncounterState.GetResourceAmount(resource);
+    public float GetValue(EncounterActor actor, float skillTestResult) {
+      return actor.EncounterState.GetResourceAmount(resource);
     }
     
     public string DisplayString() => resource.displayName;

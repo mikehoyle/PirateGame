@@ -93,16 +93,6 @@ namespace Encounters.Managers {
         Dispatch.Common.ObjectClicked.Raise(clickedObject.gameObject);
       }
     }
-    
-    public void OnPoint(InputAction.CallbackContext context) {
-      if (!context.performed || _uiInteraction.isPlayerHoveringUi) {
-        // Ignore UI-intended events
-        return;
-      }
-      
-      var hoveredTile = _terrain.TileAtScreenCoordinate(context.ReadValue<Vector2>());
-      Dispatch.Encounters.MouseHover.Raise(hoveredTile);
-    }
 
     private void ClearSelection() {
       currentSelection.selectedUnit = Option.None<EncounterActor>();

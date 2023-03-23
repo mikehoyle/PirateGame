@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1753957539f948dbb176a9af2bd3fdd0, type: 3}
+  m_Name: ThrowAbility
+  m_EditorClassIdentifier: 
+  skillTestPrefab: {fileID: 0}
+  soundOnActivate:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  impactAnimation: {fileID: 11400000, guid: 4bb5cfbd223147d479bbaf312530b10d, type: 2}
+  impactAnimationDelaySec: 0.3
+  usesPerEncounter: 1
+  canStillMoveAfter: 0
+  incurredEffect:
+    rid: 1371289412658790401
+  descriptionShort: Small 2HP explosion
+  displayString: Throw Grenade
+  cost:
+  - amount: 1
+    resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+  range:
+    rid: 1371289412658790400
+  canTargetOpponents: 1
+  canTargetAllies: 1
+  aoeDefinition: 'X1
+
+    11
+
+'
+  references:
+    version: 2
+    RefIds:
+    - rid: 1371289412658790400
+      type: {class: StraightLineRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
+      data:
+        diagonalRangeMin: 0
+        diagonalRangeMax: 0
+        straightRangeMin: 2
+        straightRangeMax: 5
+    - rid: 1371289412658790401
+      type: {class: OneShotStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
+      data:
+        exhaustibleResourceEffects:
+        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+          value:
+            rid: 1371289412658790403
+        delayInSeconds: 0
+    - rid: 1371289412658790403
+      type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        operation: 0
+        operands:
+        - rid: 1371289412658790404
+        - rid: 1371289412658790405
+    - rid: 1371289412658790404
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 1
+    - rid: 1371289412658790405
+      type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: c6379a07df65c92448227fa47fd5ebdd, type: 2}

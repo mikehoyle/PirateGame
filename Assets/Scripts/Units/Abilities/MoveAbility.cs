@@ -38,9 +38,7 @@ namespace Units.Abilities {
         callback();
         yield break;
       }
-      
-      // Manually spend cost because it is dynamic.
-      context.Actor.EncounterState.ExpendResource(movementResource, path.Length());
+
       yield return context.Actor.MoveAlongPath(path);
       callback();
     }

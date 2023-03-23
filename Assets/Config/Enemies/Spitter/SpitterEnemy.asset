@@ -19,7 +19,7 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   isRevivable: 0
   displayName: Spitter
-  shortDescription: Deals 2HP Ranged
+  shortDescription: 2HP Ranged
   startingHp: 3
   movementRange: 3
   sprite: {fileID: 11400000, guid: cdc8acf5d6271684e97058f12df5a5c7, type: 2}
@@ -27,8 +27,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e4e4edf2afcc1b044bfa402c93426942, type: 2}
   turnPriority: 60
   actionPreferences:
-    playerUnitAdjacency: -10
-    distanceFromPlayerByTile: -0.1
+    atPreferredRangeFromPlayer: 5
+    preferredRangeFromPlayer: 4
+    distanceFromPreferredRangeByTile: -0.1
     stayStationary: 0.05
     canPerformAbility: 10
     inRadiusOfAlly: 0
@@ -38,7 +39,7 @@ MonoBehaviour:
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 1
     prevalenceMultiplier: 1
-    individualDifficultyRating: 0.25
+    individualDifficultyRating: 1.25
     maxPerEncounter: 3
   references:
     version: 2

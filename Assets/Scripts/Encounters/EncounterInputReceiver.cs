@@ -12,15 +12,6 @@ namespace Encounters {
       OnClick(Mouse.current.position.ReadValue());
     }
 
-    public void OnPoint(InputAction.CallbackContext context) {
-      if (!context.performed) {
-        return;
-      }
-      
-      OnPoint(context.ReadValue<Vector2>());
-    }
-    
-
     public void OnSelectActionOne(InputAction.CallbackContext context) {
       if (!context.performed) {
         return;
@@ -72,7 +63,6 @@ namespace Encounters {
 
     protected abstract void OnTrySelectAction(int index);
     protected abstract void OnClick(Vector2 mouseLocation);
-    protected abstract void OnPoint(Vector2 mouseLocation);
     protected abstract void OnEndTurn();
     protected abstract void OnCancelSelection();
   }

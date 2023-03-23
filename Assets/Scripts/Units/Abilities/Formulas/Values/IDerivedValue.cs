@@ -1,6 +1,8 @@
-﻿namespace Units.Abilities.Formulas.Values {
+﻿using Encounters;
+
+namespace Units.Abilities.Formulas.Values {
   public interface IDerivedValue {
-    public float GetValue(UnitAbility.AbilityExecutionContext context, float skillTestResult);
+    public float GetValue(EncounterActor actor, float skillTestResult);
     public string DisplayString();
   }
 }

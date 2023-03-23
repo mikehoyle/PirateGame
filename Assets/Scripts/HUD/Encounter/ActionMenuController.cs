@@ -42,8 +42,7 @@ namespace HUD.Encounter {
       var currentHotkey = 1;
       foreach (var capableAction in unit.GetAllCapableAbilities()) {
         var item = Instantiate(availableActionPrefab, _container.transform).GetComponent<AvailableAction>();
-        item.Init(
-            capableAction.CostString(), currentHotkey, capableAction.displayString, capableAction.descriptionShort);
+        item.Init(currentHotkey, capableAction, unit);
         currentHotkey++;
       }
     }

@@ -7,8 +7,9 @@ using Random = System.Random;
 namespace State.Unit {
   [CreateAssetMenu(menuName = "State/EnemyUnitTypeCollection")]
   public class EnemyUnitTypeCollection : ScriptableObject {
+    [SerializeField] private float enemyDrModifier;
     public EnemyUnitMetadata[] enemyUnits;
-    
+
     private readonly Random _rng;
 
     public EnemyUnitTypeCollection() {
@@ -31,7 +32,7 @@ namespace State.Unit {
         var candidates = enemyUnits
             .Where(enemy => {
               spawnedEnemies.TryGetValue(enemy.displayName, out var spawnCount);
-              return enemy.spawnConfig.individualDifficultyRating <= currentRemainingDr
+              return (enemy.spawnConfig.individualDifficultyRating * enemyDrModifier) <= currentRemainingDr
                   && spawnCount < enemy.spawnConfig.maxPerEncounter;
             })
             .ToList();
@@ -54,7 +55,7 @@ namespace State.Unit {
         spawnedEnemies[chosenEnemy.displayName] = count + 1;
 
         result.Add(chosenEnemy);
-        remainingDr -= chosenEnemy.spawnConfig.individualDifficultyRating;
+        remainingDr -= (chosenEnemy.spawnConfig.individualDifficultyRating * enemyDrModifier);
       }
       return result;
     }

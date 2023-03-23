@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ca3600f4364a3bbaaf26db313be3e0, type: 3}
+  m_Name: PlaceCaltrops
+  m_EditorClassIdentifier: 
+  skillTestPrefab: {fileID: 0}
+  soundOnActivate:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  impactAnimation: {fileID: 0}
+  impactAnimationDelaySec: 0.2
+  usesPerEncounter: 2
+  canStillMoveAfter: 1
+  incurredEffect:
+    rid: -2
+  descriptionShort: -1HP + slow
+  displayString: Place Caltrops
+  cost:
+  - amount: 1
+    resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+  range:
+    rid: 1371289412658790406
+  canTargetOpponents: 1
+  canTargetAllies: 0
+  placedObjectPrefab: {fileID: 7122499130468648018, guid: f67a49dd0339ecc4fa2400c1e9db9ddf, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1371289412658790406
+      type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
+      data:
+        rangeMin: 1
+        rangeMax: 1

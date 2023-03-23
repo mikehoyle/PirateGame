@@ -25,6 +25,7 @@ namespace Units.Abilities {
     [SerializeField] protected EventReference soundOnActivate;
     [SerializeField] protected DirectionalAnimatedSprite impactAnimation;
     [SerializeField] protected float impactAnimationDelaySec;
+    public int usesPerEncounter;
     [SerializeField] protected bool canStillMoveAfter;
     // Optional
     [SerializeReference, SerializeReferenceButton] public StatusEffect incurredEffect;
@@ -86,12 +87,20 @@ namespace Units.Abilities {
     protected abstract IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback); 
 
     public bool CanAfford(EncounterActor actor) {
+      if (usesPerEncounter > 0 && actor.EncounterState.GetExecutionCount(this) >= usesPerEncounter) {
+        return false;
+      }
+      
       foreach (var abilityCost in cost) {
         if (actor.EncounterState.GetResourceAmount(abilityCost.resource) < abilityCost.amount) {
           return false;
         }
       }
       return true;
+    }
+
+    public int GetRemainingUses(EncounterActor actor) {
+      return Math.Max(0, usesPerEncounter - actor.EncounterState.GetExecutionCount(this));
     }
 
     public string CostString() {
@@ -106,6 +115,7 @@ namespace Units.Abilities {
     }
     
     protected void SpendCost(EncounterActor actor) {
+      actor.EncounterState.RegisterAbilityExecution(this);
       foreach (var abilityCost in cost) {
         actor.EncounterState.ExpendResource(abilityCost.resource, abilityCost.amount);
       }

@@ -69,7 +69,7 @@ namespace Encounters.Enemies {
     
     public void Init(UnitEncounterState encounterState) {
       _encounterState = encounterState;
-      transform.position = GridUtils.CellCenterWorldStatic(encounterState.position);
+      transform.position = GridUtils.CellCenterWorld(encounterState.position);
     }
 
     public IEnumerator ExecuteMovementPlan() {
@@ -211,8 +211,8 @@ namespace Encounters.Enemies {
     }
 
     private IEnumerator MoveBetween(Vector3Int currentPosition, Vector3Int targetPosition) {
-      var worldPositionStart = GridUtils.CellCenterWorldStatic(currentPosition);
-      var worldPositionEnd = GridUtils.CellCenterWorldStatic(targetPosition);
+      var worldPositionStart = GridUtils.CellCenterWorld(currentPosition);
+      var worldPositionEnd = GridUtils.CellCenterWorld(targetPosition);
 
       var progressToNextNode = 0f;
       while (progressToNextNode < 1) {

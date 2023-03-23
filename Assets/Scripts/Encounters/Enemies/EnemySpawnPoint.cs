@@ -28,7 +28,7 @@ namespace Encounters.Enemies {
       _enemyToSpawn = enemyToSpawn;
       _roundsUntilSpawn = roundsUntilSpawn;
       Position = _enemyToSpawn.position;
-      transform.position = GridUtils.CellAnchorWorldStatic(enemyToSpawn.position);
+      transform.position = GridUtils.CellAnchorWorld(enemyToSpawn.position);
       ApplySize();
     }
     

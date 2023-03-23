@@ -43,10 +43,10 @@ namespace Common.Grid {
     /// </summary>
     public static Vector2[] GetFootprintPolygon(Vector2Int size) {
       return new Vector2[] {
-          CellBaseWorldStatic(new Vector3Int(0, 0)),
-          CellBaseWorldStatic(new Vector3Int(0, size.y)),
-          CellBaseWorldStatic(new Vector3Int(size.x, size.y)),
-          CellBaseWorldStatic(new Vector3Int(size.x, 0)),
+          CellBaseWorld(new Vector3Int(0, 0)),
+          CellBaseWorld(new Vector3Int(0, size.y)),
+          CellBaseWorld(new Vector3Int(size.x, size.y)),
+          CellBaseWorld(new Vector3Int(size.x, 0)),
       };
     }
     
@@ -54,19 +54,19 @@ namespace Common.Grid {
     /// Because this is just a simple calculation, there's no reason we can't calculate it on our own
     /// without needing access to the game object 
     /// </summary>
-    public static Vector3 CellBaseWorldStatic(Vector3Int coord) {
+    public static Vector3 CellBaseWorld(Vector3Int coord) {
       return new Vector3(
           (coord.x - coord.y) * CellHalfWidth,
           ((coord.x + coord.y) * CellHalfHeight) + (coord.z * ZHeight * CellHalfHeight),
           coord.z * ZHeight);
     }
 
-    public static Vector3 CellCenterWorldStatic(Vector3Int coord) {
-      return CellBaseWorldStatic(coord) + new Vector3(0, CellHeightInWorldUnits / 2, 0);
+    public static Vector3 CellCenterWorld(Vector3Int coord) {
+      return CellBaseWorld(coord) + new Vector3(0, CellHeightInWorldUnits / 2, 0);
     }
     
-    public static Vector3 CellAnchorWorldStatic(Vector3Int coord) {
-      return CellBaseWorldStatic(coord) + new Vector3(0, CellHeightInWorldUnits, 0);
+    public static Vector3 CellAnchorWorld(Vector3Int coord) {
+      return CellBaseWorld(coord) + new Vector3(0, CellHeightInWorldUnits, 0);
     }
     
     /// <summary>

@@ -57,7 +57,7 @@ namespace Terrain {
     public void Initialize(Vector3Int position, Sprite sprite) {
       GridPosition = position;
       _sprite.sprite = sprite;
-      transform.position = GridUtils.CellAnchorWorldStatic(position);
+      transform.position = GridUtils.CellAnchorWorld(position);
       gameObject.isStatic = true;
     }
     

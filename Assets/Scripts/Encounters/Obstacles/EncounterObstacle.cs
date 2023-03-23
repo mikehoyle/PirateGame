@@ -24,7 +24,7 @@ namespace Encounters.Obstacles {
       Metadata = obstacle;
       Position = position;
       _spriteRenderer.sprite = obstacle.sprite;
-      transform.position = GridUtils.CellBaseWorldStatic(position);
+      transform.position = GridUtils.CellBaseWorld(position);
     }
     public DisplayDetails GetDisplayDetails() {
       return new DisplayDetails {

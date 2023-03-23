@@ -19,7 +19,6 @@ namespace Encounters.Managers {
   /// </summary>
   public class EncounterGenerator : MonoBehaviour {
     [SerializeField] private EnemyUnitTypeCollection spawnableEnemies;
-    [SerializeField] private EnemyUnitMetadata spawnerEnemy;
     [SerializeField] private ObstaclePrefab rockObstacle;
     [SerializeField] private RawResource soulsResource;
     

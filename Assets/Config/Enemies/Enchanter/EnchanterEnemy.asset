@@ -27,8 +27,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ef8a5faca14cdd40a64bd349f5024d8, type: 2}
   turnPriority: 10
   actionPreferences:
-    playerUnitAdjacency: -5
-    distanceFromPlayerByTile: 0.1
+    atPreferredRangeFromPlayer: 5
+    preferredRangeFromPlayer: 10
+    distanceFromPreferredRangeByTile: -0.1
     stayStationary: 0.05
     canPerformAbility: 10
     inRadiusOfAlly: 2
@@ -38,7 +39,7 @@ MonoBehaviour:
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 1
     prevalenceMultiplier: 1
-    individualDifficultyRating: 0.25
+    individualDifficultyRating: 1.5
     maxPerEncounter: 1
   references:
     version: 2

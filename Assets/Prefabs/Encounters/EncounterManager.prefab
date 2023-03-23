@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4018983168502657055}
   - component: {fileID: 7946137650026443626}
   - component: {fileID: -6471134198255543633}
+  - component: {fileID: 6224741850614423651}
   m_Layer: 0
   m_Name: EncounterManager
   m_TagString: SceneManager
@@ -111,7 +112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableEnemies: {fileID: 11400000, guid: 74a244f7052cd8e4dbe85654dce54cac, type: 2}
-  spawnerEnemy: {fileID: 11400000, guid: ca38211c7c0899642a887a4377f995f5, type: 2}
   rockObstacle: {fileID: 11400000, guid: d99fe2c7d5625d04a81988b19a3c469f, type: 2}
   soulsResource: {fileID: 11400000, guid: 5e30639d7433bca4fa9327eba6a1420a, type: 2}
 --- !u!114 &1915456238
@@ -182,3 +182,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerHoveringUi: 0
+--- !u!114 &6224741850614423651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648408542730051789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424998e2f578493cb2ea0d5115974a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

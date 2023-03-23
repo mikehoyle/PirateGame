@@ -19,7 +19,7 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   isRevivable: 0
   displayName: Little Ball
-  shortDescription: Deals 1HP melee
+  shortDescription: 1HP melee
   startingHp: 3
   movementRange: 3
   sprite: {fileID: 11400000, guid: 7d03b5b6eda6cfd4e934383de65b8011, type: 2}
@@ -38,7 +38,7 @@ MonoBehaviour:
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 1
     prevalenceMultiplier: 1
-    individualDifficultyRating: 0.15
+    individualDifficultyRating: 1
     maxPerEncounter: 4
   references:
     version: 2

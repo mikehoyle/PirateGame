@@ -19,7 +19,7 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   isRevivable: 1
   displayName: Awakened Remains
-  shortDescription: Deals 1HP melee, Revives
+  shortDescription: 1HP melee + revives
   startingHp: 4
   movementRange: 4
   sprite: {fileID: 11400000, guid: 7b84a80995a830c499955371b671ff7b, type: 2}
@@ -38,7 +38,7 @@ MonoBehaviour:
     maxDifficultyRating: 100
     mostCommonDifficultyRating: 1
     prevalenceMultiplier: 1.4
-    individualDifficultyRating: 0.2
+    individualDifficultyRating: 2
     maxPerEncounter: 4
   references:
     version: 2

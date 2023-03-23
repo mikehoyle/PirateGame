@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Common;
 using Common.Animation;
+using Common.Grid;
 using Encounters;
+using Encounters.Obstacles;
 using FMODUnity;
 using MilkShake;
 using Optional;
+using StaticConfig.Units;
 using Terrain;
 using UnityEngine;
 
@@ -18,43 +21,52 @@ namespace Units {
     [SerializeField] private ShakePreset dropInShake;
     [SerializeField] private EventReference dropInImpactSound;
     
-    private SceneTerrain _terrain;
     private EncounterActor _unit;
     private Option<StudioEventEmitter> _footstepsSound;
 
     private void Awake() {
-      _terrain = SceneTerrain.Get();
       _unit = GetComponent<EncounterActor>();
       _footstepsSound = GetComponent<StudioEventEmitter>().SomeNotNull();
     }
 
     private void Start() {
       _unit.AnimationState = AnimationNames.Idle;
-      transform.position = _terrain.CellCenterWorld(_unit.Position);
+      transform.position = GridUtils.CellCenterWorld(_unit.Position);
     }
 
-    public IEnumerator ExecuteMovement(LinkedList<Vector3Int> path) {
+    public IEnumerator ExecuteMovement(LinkedList<Vector3Int> path, bool expendMp) {
       var progressToNextNode = 0f;
-
-      // Mark unit as in new position immediately.
-      _unit.Position = path.Last.Value;
-      
-      // Convert grid path to world path
-      var worldPath = new LinkedList<Vector3>();
-      foreach (var gridCell in path) {
-        worldPath.AddLast(_terrain.CellCenterWorld(gridCell));
-      }
-      var motionPath = worldPath.First;
+      var currentPosition = path.First;
       _footstepsSound.MatchSome(sound => sound.Play());
-      while (motionPath.Next != null) {
-        SetFacingDirection(motionPath.Value, motionPath.Next.Value);
+      while (currentPosition.Next != null) {
+        if (expendMp && _unit.CurrentMovementRange() < 1) {
+          break;
+        }
+        
+        var currentNodeWorld = GridUtils.CellCenterWorld(currentPosition.Value);
+        var nextNodeWorld = GridUtils.CellCenterWorld(currentPosition.Next.Value);
+        SetFacingDirection(currentNodeWorld, nextNodeWorld);
         _unit.AnimationState = AnimationNames.Walk;
-        transform.position = Vector3.Lerp(motionPath.Value, motionPath.Next.Value, progressToNextNode);
+        
+        transform.position = Vector3.Lerp(currentNodeWorld, nextNodeWorld, progressToNextNode);
         progressToNextNode += (speedUnitsPerSec * Time.deltaTime);
         
         if (progressToNextNode >= 1) {
-          motionPath = motionPath.Next;
+          currentPosition = currentPosition.Next;
+          _unit.Position = currentPosition.Value;
           progressToNextNode -= 1;
+
+          if (expendMp) {
+            _unit.ExpendResource(ExhaustibleResources.Instance.mp, 1);  
+          }
+
+          // Every step along the way we want to check if something has prevented our movement
+          // or if we picked up a status effect.
+          foreach (var tileOccupant in SceneTerrain.GetAllTileOccupants(currentPosition.Value)) {
+            if (tileOccupant.TryGetComponent<PlacedObject>(out var placedObject)) {
+              placedObject.HandleWalkOver(_unit);
+            }
+          }
         }
         yield return null;
       }
@@ -81,7 +93,7 @@ namespace Units {
 
     public IEnumerator DropIn(Action onCompleteCallback) {
       _unit.EnableShadow(false);
-      var currentPosition = _terrain.CellCenterWorld(_unit.Position);
+      var currentPosition = GridUtils.CellCenterWorld(_unit.Position);
       var destinationY = currentPosition.y;
       currentPosition.y += dropInHeight;
       var currentVelocityY = 3f;
@@ -102,13 +114,13 @@ namespace Units {
 
     public void SnapToPosition(Vector3Int position) {
       _unit.Position = position;
-      transform.position = _terrain.CellCenterWorld(position);
+      transform.position = GridUtils.CellCenterWorld(position);
     }
 
     private void OnMovementComplete() {
       _footstepsSound.MatchSome(sound => sound.Stop());
       _unit.AnimationState = AnimationNames.Idle;
-      transform.position = _terrain.CellCenterWorld(_unit.Position);
+      transform.position = GridUtils.CellCenterWorld(_unit.Position);
     }
   }
 }
