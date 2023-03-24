@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ca399f40c94f548f6e75f9bd274b81, type: 3}
+  m_Name: Boots
+  m_EditorClassIdentifier: 
+  displayName: Boots
+  description: +1 Movement
+  hudSprite: {fileID: 0}
+  applicableSlot: {fileID: 11400000, guid: e37b7659718ab4c478959b4a73a6a0d2, type: 2}
+  abilitiesProvided: []
+  statBonuses:
+    m_keys:
+    - {fileID: 11400000, guid: f0645ee535e419d4cb5f55bba8e17304, type: 2}
+    m_values: 01000000

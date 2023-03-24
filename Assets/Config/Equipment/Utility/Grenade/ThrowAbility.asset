@@ -35,9 +35,11 @@ MonoBehaviour:
     rid: 1371289412658790400
   canTargetOpponents: 1
   canTargetAllies: 1
-  aoeDefinition: 'X1
+  aoeDefinition: '_1_
 
-    11
+    1X1
+
+    _1_
 
 '
   references:

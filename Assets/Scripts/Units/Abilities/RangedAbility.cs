@@ -9,7 +9,11 @@ namespace Units.Abilities {
     [SerializeField] protected bool canTargetOpponents = true;
     [SerializeField] protected bool canTargetAllies = false;
 
-    public override void OnSelected(EncounterActor actor, GridIndicators indicators, Vector3Int source) {
+    public override void ShowIndicator(
+        EncounterActor actor,
+        Vector3Int source,
+        Vector3Int hoveredTile,
+        GridIndicators indicators) {
       range.DisplayTargetingRange(actor, indicators, source);
     }
   }

@@ -37,25 +37,11 @@ namespace Encounters.AI {
         yield break;
       }
 
-      // Make all movements simultaneously
-      var actionPlans = new List<AiActionPlan>();
-      var enemyMovements = new List<Coroutine>();
       SparseMatrix3d<bool> claimedTileOverrides = new();
       foreach (var enemy in enemiesInEncounter.EnumerateByTurnPriority()) {
         var actionPlan = _evaluator.GetActionPlan(enemy, claimedTileOverrides);
-        actionPlans.Add(actionPlan);
         var path = _terrain.GetPath(actionPlan.Actor.Position, actionPlan.MoveDestination);
-        enemyMovements.Add(enemy.MoveAlongPath(path));
-        claimedTileOverrides[actionPlan.Actor.Position] = true;
-        claimedTileOverrides[actionPlan.MoveDestination] = false;
-      }
-
-      foreach (var enemyMovement in enemyMovements) {
-        yield return enemyMovement;
-      }
-      
-      // Then make actions sequentially
-      foreach (var actionPlan in actionPlans) {
+        yield return enemy.MoveAlongPath(path);
         yield return ExecuteAction(actionPlan.Actor, actionPlan);
       }
       
@@ -71,7 +57,7 @@ namespace Encounters.AI {
     private IEnumerator ExecuteAction(EncounterActor enemy, AiActionPlan actionPlan) {
       if (actionPlan.Action.TryGet(out var action)) {
         if (action.Ability.TryExecute(action.Context, () => { }).TryGet(out var abilityExecution)) {
-          yield return StartCoroutine(abilityExecution);
+          yield return abilityExecution;
         }
       }
     }

@@ -70,6 +70,7 @@ namespace HUD.Encounter {
           if (playerUnit != null) {
             foreach (var collectableInstance in playerUnit.CollectablesAcquired) {
               lootText.Append(collectableInstance.DisplayString());
+              collectableInstance.AddToPlayerInventory();
             }
           }
         }

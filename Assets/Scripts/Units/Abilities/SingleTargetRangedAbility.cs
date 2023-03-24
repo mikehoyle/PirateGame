@@ -6,6 +6,7 @@ using Encounters.Grid;
 using Optional;
 using Optional.Unsafe;
 using State.Unit;
+using Terrain;
 using UnityEngine;
 
 namespace Units.Abilities {
@@ -14,14 +15,16 @@ namespace Units.Abilities {
     public override void ShowIndicator(
         EncounterActor actor,
         Vector3Int source,
-        GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
+      base.ShowIndicator(actor, source, hoveredTile, indicators);
+
+      indicators.TargetingIndicator.Clear();
       if (!range.IsInRange(actor, source, hoveredTile)) {
         return;
       }
-      var target = MaybeGetTarget(actor, hoveredObject);
-      var spiritTarget = MaybeGetSpiritTarget(actor, hoveredObject);
+      var target = MaybeGetTarget(actor, hoveredTile);
+      var spiritTarget = MaybeGetSpiritTarget(actor, hoveredTile);
       if (target != null) {
         indicators.TargetingIndicator.TargetTiles(hoveredTile);
         return;
@@ -30,23 +33,21 @@ namespace Units.Abilities {
         indicators.TargetingIndicator.TargetTiles(hoveredTile, spiritTarget.GetPushTarget(source));
         return;
       }
-      
-      indicators.TargetingIndicator.Clear();
     }
 
     public override bool CouldExecute(AbilityExecutionContext context) {
       if (!CanAfford(context.Actor) || !range.IsInRange(context.Actor, context.Source, context.TargetedTile)) {
         return false;
       }
-      var target = MaybeGetTarget(context.Actor, context.TargetedObject);
-      var spiritTarget = MaybeGetSpiritTarget(context.Actor, context.TargetedObject);
+      var target = MaybeGetTarget(context.Actor, context.TargetedTile);
+      var spiritTarget = MaybeGetSpiritTarget(context.Actor, context.TargetedTile);
 
       return target != null || spiritTarget != null;
     }
 
     protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
-      var target = MaybeGetTarget(context.Actor, context.TargetedObject);
-      var spiritTarget = MaybeGetSpiritTarget(context.Actor, context.TargetedObject);
+      var target = MaybeGetTarget(context.Actor, context.TargetedTile);
+      var spiritTarget = MaybeGetSpiritTarget(context.Actor, context.TargetedTile);
       if (target == null && spiritTarget == null) {
         Debug.LogWarning("Could not find target when executing");
         callback();
@@ -83,12 +84,8 @@ namespace Units.Abilities {
       yield return spirit.Push(FacingUtilities.DirectionBetween(context.Source, spirit.Position));
     }
 
-    private EncounterActor MaybeGetTarget(
-        EncounterActor actor, GameObject target) {
-      if (target == null) {
-        return null;
-      }
-      if (target.TryGetComponent<EncounterActor>(out var targetUnit)) {
+    private EncounterActor MaybeGetTarget(EncounterActor actor, Vector3Int targetTile) {
+      if (SceneTerrain.TryGetComponentAtTile<EncounterActor>(targetTile, out var targetUnit)) {
         if (targetUnit.EncounterState.faction == actor.EncounterState.faction && !canTargetAllies) {
           return null;
         }
@@ -100,12 +97,13 @@ namespace Units.Abilities {
       return null;
     }
 
-    private SpiritUnitController MaybeGetSpiritTarget(EncounterActor actor, GameObject target) {
+    private SpiritUnitController MaybeGetSpiritTarget(EncounterActor actor, Vector3Int targetTile) {
       // For now, only players can directly target spirits, in the future this may become a parameter.
-      if (target == null || actor.EncounterState.faction != UnitFaction.PlayerParty) {
+      if (actor.EncounterState.faction != UnitFaction.PlayerParty) {
         return null;
       }
-      return target.GetComponent<SpiritUnitController>();
+      SceneTerrain.TryGetComponentAtTile<SpiritUnitController>(targetTile, out var spirit);
+      return spirit;
     }
   }
 }

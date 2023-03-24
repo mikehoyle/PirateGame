@@ -72,7 +72,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 147.41832, y: 40}
+  m_AnchoredPosition: {x: 0.000004529953, y: 77.75093}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7287391502470599472
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftingMenuItemPrefab: {fileID: 719054054221808264, guid: 51a934fd3c90221439ab67fb9539c17e, type: 3}
-  shipBuilderEvents: {fileID: 11400000, guid: 8be84bed803b2004da287ee98bde5697, type: 2}
+  allShipCraftables: {fileID: 11400000, guid: 73fc1a64d90edef4886cd38d1f3630ff, type: 2}
 --- !u!1 &7287391502575738324
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 7d7ccc8bc40d1df4e850a5e7888f977d, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -715,8 +715,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7287391502575738322}
   m_HandleRect: {fileID: 7287391502575738325}
   m_Direction: 0
-  m_Value: 2.3529413
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -879,8 +879,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7287391502801463383}
   m_HandleRect: {fileID: 7287391502801463382}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: -0.0000051025813
+  m_Size: 0.74081326
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -933,7 +933,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7287391503996548241}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -945,7 +945,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &7287391503996548268
 MonoBehaviour:
@@ -999,7 +999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84b18b3255242e1a27d9b964d809002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipBuilderEvents: {fileID: 11400000, guid: 8be84bed803b2004da287ee98bde5697, type: 2}
 --- !u!1 &7287391504080658814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,13 +1204,17 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8332279391001299961, guid: 4834f190bbb0b6242a58c8a5e1e1c2f6, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8332279391035551436, guid: 4834f190bbb0b6242a58c8a5e1e1c2f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 187.35258
+      value: -0.000010728836
       objectReference: {fileID: 0}
     - target: {fileID: 8332279391035551436, guid: 4834f190bbb0b6242a58c8a5e1e1c2f6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 80
+      value: 77.75093
       objectReference: {fileID: 0}
     - target: {fileID: 8332279391343415978, guid: 4834f190bbb0b6242a58c8a5e1e1c2f6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1324,6 +1327,14 @@ PrefabInstance:
     - target: {fileID: 8332279391607796511, guid: 4834f190bbb0b6242a58c8a5e1e1c2f6, type: 3}
       propertyPath: m_Name
       value: ArmoryDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 8332279391874891446, guid: 4834f190bbb0b6242a58c8a5e1e1c2f6, type: 3}
+      propertyPath: m_Size
+      value: 0.74081326
+      objectReference: {fileID: 0}
+    - target: {fileID: 8332279391874891446, guid: 4834f190bbb0b6242a58c8a5e1e1c2f6, type: 3}
+      propertyPath: m_Value
+      value: -0.0000051025813
       objectReference: {fileID: 0}
     - target: {fileID: 8332279391874891447, guid: 4834f190bbb0b6242a58c8a5e1e1c2f6, type: 3}
       propertyPath: m_AnchorMax.y

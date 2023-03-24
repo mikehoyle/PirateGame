@@ -14,10 +14,11 @@ namespace Units.Abilities {
     public override void ShowIndicator(
         EncounterActor actor,
         Vector3Int source,
-        GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
+      base.ShowIndicator(actor, source, hoveredTile, indicators);
       indicators.TargetingIndicator.Clear();
+      var hoveredObject = SceneTerrain.GetTileOccupant(hoveredTile);
       if (!CanTarget(actor, source, hoveredObject, hoveredTile)) {
         return;
       }

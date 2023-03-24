@@ -19,7 +19,10 @@ MonoBehaviour:
       m_keys: []
       m_values: 
   armory:
-    equipment: []
+    equipment:
+    - item: {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}
+    - item: {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}
+    - item: {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}
   roster:
   - {fileID: 11400000, guid: 4c944226ca0884b4487b2f675feebb8c, type: 2}
   - {fileID: 11400000, guid: e0966c294eff041479c5ae8a41e3fb5c, type: 2}

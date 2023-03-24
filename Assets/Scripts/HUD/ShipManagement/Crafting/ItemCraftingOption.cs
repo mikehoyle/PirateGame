@@ -51,6 +51,17 @@ namespace HUD.ShipManagement.Crafting {
         }
       }
 
+      foreach (var equipmentCost in recipe.equipmentCost) {
+        var text = Instantiate(lineItemPrefab, transform).GetComponentInChildren<Text>();
+        text.text = $"{equipmentCost.displayName}";
+        if (GameState.State.player.armory.Has(equipmentCost)) {
+          text.color = fulfilledRequirementColor;
+        } else {
+          text.color = unfulfilledRequirementColor;
+          playerCanCurrentlyCraft = false;
+        }
+      }
+
       _button.interactable = playerCanCurrentlyCraft;
     }
 
@@ -67,6 +78,9 @@ namespace HUD.ShipManagement.Crafting {
       var playerInventory = GameState.State.player.inventory;
       foreach (var lineItem in _recipe.cost) {
         playerInventory.ReduceQuantity(lineItem.resource, lineItem.cost);
+      }
+      foreach (var equipmentItem in _recipe.equipmentCost) {
+        GameState.State.player.armory.RemoveOne(equipmentItem);
       }
       var newInstance = new EquipmentItemInstance(_recipe.result);
       GameState.State.player.armory.equipment.Add(newInstance);

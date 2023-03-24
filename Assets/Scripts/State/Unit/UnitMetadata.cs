@@ -46,7 +46,7 @@ namespace State.Unit {
       return false;
     }
 
-    public int GetStat(Stat stat) {
+    public virtual int GetStat(Stat stat) {
       if (TryGetStatTracker(stat, out var tracker)) {
         return tracker.current;
       }

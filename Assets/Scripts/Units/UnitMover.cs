@@ -42,6 +42,9 @@ namespace Units {
         if (expendMp && _unit.CurrentMovementRange() < 1) {
           break;
         }
+        if (_unit.IsDead()) {
+          break;
+        }
         
         var currentNodeWorld = GridUtils.CellCenterWorld(currentPosition.Value);
         var nextNodeWorld = GridUtils.CellCenterWorld(currentPosition.Next.Value);

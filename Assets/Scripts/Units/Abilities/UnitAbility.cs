@@ -57,8 +57,7 @@ namespace Units.Abilities {
     
     public virtual void ShowIndicator(
         EncounterActor actor,
-        Vector3Int source,
-        GameObject hoveredObject, 
+        Vector3Int source, 
         Vector3Int hoveredTile,
         GridIndicators indicators) { }
 

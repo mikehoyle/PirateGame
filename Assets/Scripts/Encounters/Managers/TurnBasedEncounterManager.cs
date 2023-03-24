@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System;
+using Common;
 using Controls;
 using Encounters.Grid;
 using Events;
@@ -67,6 +68,12 @@ namespace Encounters.Managers {
       DebugLogConsole.RemoveCommand("lose");
     }
 
+    private void Update() {
+      if (currentSelection.TryGet(out var ability, out var unit)) {
+        ability.ShowIndicator(unit, unit.Position, _lastKnownHoveredTile, _gridIndicators);
+      }
+    }
+
     private void OnEncounterStart() {
       enabled = true;
       Dispatch.Encounters.PlayerTurnPreStart.Raise();
@@ -84,7 +91,7 @@ namespace Encounters.Managers {
       _gridIndicators.Clear();
       ability.OnSelected(actor, _gridIndicators, source);
       ability.ShowIndicator(
-          actor, source, SceneTerrain.GetTileOccupant(_lastKnownHoveredTile), _lastKnownHoveredTile, _gridIndicators);
+          actor, source, _lastKnownHoveredTile, _gridIndicators);
     }
 
     private void OnBeginAbilityExecution() {
@@ -131,9 +138,8 @@ namespace Encounters.Managers {
 
     private void OnMouseHover(Vector3Int hoveredTile) {
       _lastKnownHoveredTile = hoveredTile;
-      var hoveredObject = SceneTerrain.GetTileOccupant(hoveredTile);
       if (currentSelection.TryGet(out var ability, out var unit)) {
-        ability.ShowIndicator(unit, currentSelection.abilitySource, hoveredObject, hoveredTile, _gridIndicators);
+        ability.ShowIndicator(unit, currentSelection.abilitySource, hoveredTile, _gridIndicators);
       }
     }
 

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Common.Loading;
+﻿using Common.Loading;
 using UnityEngine;
 
 namespace MainTitle {

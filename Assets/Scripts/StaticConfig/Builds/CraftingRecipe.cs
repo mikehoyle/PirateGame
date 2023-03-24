@@ -7,5 +7,6 @@ namespace StaticConfig.Builds {
   public class CraftingRecipe {
     public EquipmentItem result;
     public List<LineItem> cost;
+    public List<EquipmentItem> equipmentCost;
   }
 }

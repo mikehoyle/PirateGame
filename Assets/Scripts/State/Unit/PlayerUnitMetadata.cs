@@ -65,6 +65,16 @@ namespace State.Unit {
       };
     }
 
+    public override int GetStat(Stat stat) {
+      var statValue = base.GetStat(stat);
+      foreach (var equipment in equipped.Values) {
+        if (equipment.item.statBonuses.TryGetValue(stat, out var bonus)) {
+          statValue += bonus;
+        }
+      }
+      return statValue;
+    }
+
     public void GrantXp(int xpGained) {
       xp += xpGained;
       if (xp >= ExperienceCalculations.GetLevelRequirement(currentLevel + 1)) {

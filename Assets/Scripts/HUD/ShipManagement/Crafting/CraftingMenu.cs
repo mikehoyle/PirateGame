@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Events;
 using StaticConfig.Builds;
 using UnityEngine;
@@ -14,13 +13,19 @@ namespace HUD.ShipManagement.Crafting {
     }
 
     private void OnEnable() {
+      Dispatch.ShipBuilder.OpenCraftingMenu.RegisterListener(OnOpenCraftingMenu);
       Dispatch.ShipBuilder.InGameBuildClicked.RegisterListener(OnShipConstructionClicked);
       Dispatch.ShipBuilder.CloseCraftingMenu.RegisterListener(OnCloseCraftingMenu);
     }
 
     private void OnDisable() {
+      Dispatch.ShipBuilder.OpenCraftingMenu.UnregisterListener(OnOpenCraftingMenu);
       Dispatch.ShipBuilder.InGameBuildClicked.UnregisterListener(OnShipConstructionClicked);
-      Dispatch.ShipBuilder.CloseCraftingMenu.RegisterListener(OnCloseCraftingMenu);
+      Dispatch.ShipBuilder.CloseCraftingMenu.UnregisterListener(OnCloseCraftingMenu);
+    }
+    
+    private void OnOpenCraftingMenu() {
+      _canvas.enabled = true;
     }
 
     private void OnShipConstructionClicked(ConstructableObject constructableObject) {

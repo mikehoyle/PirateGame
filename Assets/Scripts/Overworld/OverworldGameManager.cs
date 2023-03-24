@@ -12,11 +12,10 @@ using IngameDebugConsole;
 using RuntimeVars;
 using State;
 using State.World;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using Zen.Hexagons;
 
 namespace Overworld {
   /// <summary>
@@ -25,7 +24,6 @@ namespace Overworld {
   /// would be instant.
   /// </summary>
   public class OverworldGameManager : MonoBehaviour, GameControls.IOverworldActions {
-    [SerializeField] private string buildMenuItemLabel = "Construction";
     [SerializeField] private GameObject borderPrefab;
 
     // Tiles 
@@ -82,9 +80,6 @@ namespace Overworld {
       DisplayPlayerIndicator();
       RemoveFogOfWar();
       _gameMenu = MainMenuController.Get();
-      _gameMenu.AddMenuItem(buildMenuItemLabel, OnConstructionMode);
-      // Because the ship builder scene will be a common destination from here, pre-load it
-      StartCoroutine(LoadShipBuilderScene());
       _cameraMover.Initialize(
           _overworldTilemap.GetCellCenterWorld(
               (Vector3Int)GameState.State.player.overworldGridPosition));
@@ -134,15 +129,6 @@ namespace Overworld {
           (Vector3Int)GameState.State.player.overworldGridPosition, indicatorTile);
     }
 
-    private IEnumerator LoadShipBuilderScene() {
-      _loadShipBuilderSceneOperation = SceneManager.LoadSceneAsync(
-          Scenes.Name.ShipBuilder.SceneName(), LoadSceneMode.Single);
-      _loadShipBuilderSceneOperation.allowSceneActivation = false;
-      while (!_loadShipBuilderSceneOperation.isDone) {
-        yield return null;
-      }
-    }
-
     public void OnConstructionMode() {
       _loadShipBuilderSceneOperation.allowSceneActivation = true;
     }
@@ -177,10 +163,16 @@ namespace Overworld {
       if (!GameState.State.world.CanExecuteMove(gridCell)) {
         return false;
       }
-      Vector2Int currentPlayerPosition = GameState.State.player.overworldGridPosition;
-      bool isInBoundsX = (gridCell.x >= currentPlayerPosition.x - 1 && gridCell.x <= currentPlayerPosition.x + 1);
-      bool isInBoundsY = (gridCell.y >= currentPlayerPosition.y - 1 && gridCell.y <= currentPlayerPosition.y + 1);
-      return isInBoundsX && isInBoundsY;
+
+      var neighbors = HexGridUtils.HexLibrary.GetSingleRing(
+          HexOffsetCoordinates.From((Vector3Int)GameState.State.player.overworldGridPosition), 1);
+      foreach (var neighbor in neighbors) {
+        if (neighbor.AsVector3Int() == gridCell) {
+          return true;
+        }
+      }
+
+      return false;
     }
     
     private void ExecuteMapMove(Vector3Int gridCell) {

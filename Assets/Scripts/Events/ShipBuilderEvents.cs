@@ -12,6 +12,7 @@ namespace Events {
     public readonly GameEvent CloseCharacterSheet = new();
     public readonly GameEvent<EncounterActor> UnitLevelUpStat = new();
     public readonly GameEvent<ConstructableObject> InGameBuildClicked = new();
+    public readonly GameEvent OpenCraftingMenu = new();
     public readonly GameEvent CloseCraftingMenu = new();
     public readonly GameEvent<EquipmentItemInstance> EquipmentCraftedEvent = new();
     public readonly GameEvent<EquipmentItemInstance> AttemptEquipItem = new();

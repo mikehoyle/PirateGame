@@ -38,14 +38,13 @@ namespace Units.Abilities {
     public override void ShowIndicator(
         EncounterActor actor,
         Vector3Int source,
-        GameObject hoveredObject,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
+      base.ShowIndicator(actor, source, hoveredTile, indicators);
+      indicators.TargetingIndicator.Clear();
       if (range.IsInRange(actor, source, hoveredTile)) {
         indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTargetAndRotation(source, hoveredTile));
-        return;
       }
-      indicators.TargetingIndicator.Clear();
     }
 
     public override bool CouldExecute(AbilityExecutionContext context) {

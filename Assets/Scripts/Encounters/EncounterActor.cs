@@ -158,6 +158,10 @@ namespace Encounters {
       return EncounterState.GetResourceAmount(ExhaustibleResources.Instance.mp);
     }
 
+    public bool IsDead() {
+      return EncounterState.GetResourceAmount(ExhaustibleResources.Instance.hp) <= 0;
+    }
+
     protected abstract void OnDeath();
 
     public virtual DisplayDetails GetDisplayDetails() {

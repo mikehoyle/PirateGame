@@ -1,17 +1,17 @@
-﻿using System;
-using Encounters;
+﻿using Encounters;
 using Events;
 using State;
 using StaticConfig.Builds;
 using StaticConfig.Equipment;
-using Units;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HUD.ShipManagement.Crafting {
   public class ArmoryPanel : MonoBehaviour {
     [SerializeField] private GameObject inventoryMenuItemPrefab;
 
     private void Awake() {
+      Dispatch.ShipBuilder.OpenCraftingMenu.RegisterListener(RefreshDisplay);
       Dispatch.ShipBuilder.InGameBuildClicked.RegisterListener(OnShipConstructionClicked);
       Dispatch.ShipBuilder.EquipmentCraftedEvent.RegisterListener(OnEquipmentCrafted);
       Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
@@ -19,6 +19,7 @@ namespace HUD.ShipManagement.Crafting {
     }
 
     private void OnDestroy() {
+      Dispatch.ShipBuilder.OpenCraftingMenu.UnregisterListener(RefreshDisplay);
       Dispatch.ShipBuilder.InGameBuildClicked.UnregisterListener(OnShipConstructionClicked);
       Dispatch.ShipBuilder.EquipmentCraftedEvent.UnregisterListener(OnEquipmentCrafted);
       Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
@@ -46,6 +47,7 @@ namespace HUD.ShipManagement.Crafting {
       foreach (var equipmentInstance in GameState.State.player.armory.equipment) {
         Instantiate(inventoryMenuItemPrefab, transform).GetComponent<ArmoryItem>().Initialize(equipmentInstance);
       }
+      GetComponentInParent<ScrollRect>().normalizedPosition = new Vector2(0, 1);
     }
 
     private void Clear() {

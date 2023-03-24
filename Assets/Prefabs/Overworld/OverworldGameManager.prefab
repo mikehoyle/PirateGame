@@ -46,14 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041f19b176b742adb61344b4ba8004a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildMenuItemLabel: Construction
   borderPrefab: {fileID: 4759322008743044873, guid: 1f9c45a6f982e5f488e64c0cd1ea2610, type: 3}
-  commonEvents: {fileID: 11400000, guid: 0fd844d7c7fd8ad46ae1ec302c09772c, type: 2}
   indicatorTile: {fileID: 11400000, guid: 9af36b73d8decdc4f8fac564e0764fc4, type: 2}
   openSeaTile: {fileID: 11400000, guid: fd357e98dd025534db1d2b6b62b7ec5a, type: 2}
   encounterTile: {fileID: 11400000, guid: f65ecbf0e08a41c40be8df41f96dad91, type: 2}
   fogOfWarTile: {fileID: 11400000, guid: d8beb59f28246c4438fd6d5ec55d66fc, type: 2}
-  outOfBoundsTile: {fileID: 11400000, guid: 1a8a72aacb1985b46822ae8d98c2c473, type: 2}
+  outOfBoundsTile: {fileID: 11400000, guid: c7bf620ff7c964748ae51ac7e2c96f6a, type: 2}
   defeatedEncounterTile: {fileID: 11400000, guid: bc1f51193745af047aaa961bde2d9568, type: 2}
 --- !u!114 &6780469848234092494
 MonoBehaviour:

@@ -29,6 +29,7 @@ namespace HUD.ShipManagement.CharacterSheet {
       Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
       Dispatch.ShipBuilder.CloseCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
       Dispatch.ShipBuilder.AttemptEquipItem.UnregisterListener(OnAttemptEquipItem);
+      Dispatch.ShipBuilder.ItemEquipped.UnregisterListener(OnItemEquipped);
     }
 
     private void OnOpenCharacterSheet(EncounterActor unit) {
