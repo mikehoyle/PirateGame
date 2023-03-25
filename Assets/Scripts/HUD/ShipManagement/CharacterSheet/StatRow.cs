@@ -61,7 +61,7 @@ namespace HUD.ShipManagement.CharacterSheet {
     }
 
     private void OnLevelUpClick() {
-      if (!currentSelection.selectedUnit.TryGet(out var unit)
+      if (!currentSelection.SelectedUnit.TryGet(out var unit)
           || unit.EncounterState.metadata is not PlayerUnitMetadata playerUnit
           || !IsLevelUpAvailable(playerUnit)) {
         return;

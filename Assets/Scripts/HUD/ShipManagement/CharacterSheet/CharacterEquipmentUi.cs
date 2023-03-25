@@ -62,7 +62,7 @@ namespace HUD.ShipManagement.CharacterSheet {
 
     private void OnAttemptEquipItem(EquipmentItemInstance itemInstance) {
       if (!_characterSheetActive
-          || !currentSelection.selectedUnit.TryGet(out var unit)
+          || !currentSelection.SelectedUnit.TryGet(out var unit)
           || unit is not PlayerUnitController playerUnit) {
         return;
       }

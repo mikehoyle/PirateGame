@@ -101,14 +101,7 @@ namespace Encounters {
     
     private void OnObjectClicked(GameObject clickedObject) {
       if (clickedObject == gameObject) {
-        if (currentSelection.selectedUnit.Contains(this)) {
-          // Unit clicked but already selected, do nothing.
-          return;
-        }
-        
-        currentSelection.selectedUnit = Option.Some(this);
-        currentSelection.selectedAbility = Option.None<UnitAbility>();
-        Dispatch.Encounters.UnitSelected.Raise(this);
+        currentSelection.SelectUnit(this);
       }
     }
 

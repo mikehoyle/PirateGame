@@ -15,7 +15,7 @@ namespace HUD.Encounter.SelectionDetails {
     }
 
     private void Update() {
-      currentSelection.selectedUnit.MatchSome(
+      currentSelection.SelectedUnit.MatchSome(
           unit => _text.text = $"AP: {unit.EncounterState.GetResourceAmount(apResource)}");
     }
   }

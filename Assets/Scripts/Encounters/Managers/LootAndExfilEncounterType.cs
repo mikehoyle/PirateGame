@@ -33,6 +33,7 @@ namespace Encounters.Managers {
     }
 
     protected override void OnEnable() {
+      base.OnEnable();
       Dispatch.Encounters.EncounterStart.RegisterListener(OnEncounterStart);
       Dispatch.Encounters.ItemCollected.RegisterListener(OnItemCollected);
       Dispatch.Encounters.PlayerTurnStart.RegisterListener(OnPlayerTurnStart);
@@ -40,6 +41,7 @@ namespace Encounters.Managers {
     }
 
     protected override void OnDisable() {
+      base.OnDisable();
       Dispatch.Encounters.EncounterStart.UnregisterListener(OnEncounterStart);
       Dispatch.Encounters.ItemCollected.UnregisterListener(OnItemCollected);
       Dispatch.Encounters.PlayerTurnStart.UnregisterListener(OnPlayerTurnStart);

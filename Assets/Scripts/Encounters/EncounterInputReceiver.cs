@@ -51,7 +51,7 @@ namespace Encounters {
       if (!context.performed) {
         return;
       }
-      OnEndTurn();
+      OnEndTurnKey();
     }
 
     public void OnCancelSelection(InputAction.CallbackContext context) {
@@ -63,7 +63,7 @@ namespace Encounters {
 
     protected abstract void OnTrySelectAction(int index);
     protected abstract void OnClick(Vector2 mouseLocation);
-    protected abstract void OnEndTurn();
+    protected abstract void OnEndTurnKey();
     protected abstract void OnCancelSelection();
   }
 }

@@ -117,8 +117,7 @@ namespace Construction {
     }
 
     private void ClearSelection() {
-      currentSelection.selectedUnit = Option.None<EncounterActor>();
-      Dispatch.Encounters.UnitSelected.Raise(null);
+      currentSelection.Clear();
     }
 
     public void OnPoint(InputAction.CallbackContext context) {
@@ -128,7 +127,7 @@ namespace Construction {
     }
 
     public void OnOpenCharacterSheet(InputAction.CallbackContext context) {
-      if (!context.performed || !currentSelection.selectedUnit.TryGet(out var selectedUnit)) {
+      if (!context.performed || !currentSelection.SelectedUnit.TryGet(out var selectedUnit)) {
         return;
       }
 

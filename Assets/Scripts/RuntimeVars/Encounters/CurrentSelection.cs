@@ -1,5 +1,6 @@
 ﻿using Encounters;
 using Events;
+using JetBrains.Annotations;
 using Optional;
 using Optional.Unsafe;
 using Units;
@@ -11,9 +12,9 @@ using UnityEngine.SceneManagement;
 namespace RuntimeVars.Encounters {
   [CreateAssetMenu(menuName = "Encounters/CurrentSelection")]
   public class CurrentSelection : ScriptableObject {
-    public Option<UnitAbility> selectedAbility;
-    public Vector3Int abilitySource;
-    public Option<EncounterActor> selectedUnit;
+    public Option<UnitAbility> SelectedAbility { get; private set; }
+    public Vector3Int AbilitySource { get; private set; }
+    public Option<EncounterActor> SelectedUnit { get; private set; }
 
     private void Awake() {
       SceneManager.activeSceneChanged += OnSceneChanged;
@@ -33,16 +34,26 @@ namespace RuntimeVars.Encounters {
       Clear();
     }
 
+    public void SelectUnit(EncounterActor unit) {
+      if (SelectedUnit.Contains(unit)) {
+        return;
+      }
+
+      SelectedUnit = unit.SomeNotNull();
+      SelectedAbility = Option.None<UnitAbility>();
+      Dispatch.Encounters.UnitSelected.Raise(unit);
+    }
+
     public void SelectAbility(PlayerUnitController actor, UnitAbility ability, Vector3Int? source = null) {
-      selectedAbility = Option.Some(ability);
-      abilitySource = source ?? actor.Position;
-      Dispatch.Encounters.AbilitySelected.Raise(actor, ability, abilitySource);
+      SelectedAbility = Option.Some(ability);
+      AbilitySource = source ?? actor.Position;
+      Dispatch.Encounters.AbilitySelected.Raise(actor, ability, AbilitySource);
     }
 
     public bool TryGet(out UnitAbility ability, out PlayerUnitController playerUnit) {
-      if (selectedAbility.HasValue && selectedUnit.HasValue) {
-        ability = selectedAbility.ValueOrFailure();
-        var unit = selectedUnit.ValueOrFailure();
+      if (SelectedAbility.HasValue && SelectedUnit.HasValue) {
+        ability = SelectedAbility.ValueOrFailure();
+        var unit = SelectedUnit.ValueOrFailure();
         if (unit is PlayerUnitController pUnit) {
           playerUnit = pUnit;
           return true;
@@ -54,8 +65,8 @@ namespace RuntimeVars.Encounters {
     }
 
     public bool TryGetUnit<T>(out T unit) where T : EncounterActor {
-      if (selectedUnit.HasValue) {
-        var untypedUnit = selectedUnit.ValueOrFailure();
+      if (SelectedUnit.HasValue) {
+        var untypedUnit = SelectedUnit.ValueOrFailure();
         if (untypedUnit is T typedUnit) {
           unit = typedUnit;
           return true;
@@ -67,8 +78,9 @@ namespace RuntimeVars.Encounters {
     }
     
     public void Clear() {
-      selectedAbility = Option.None<UnitAbility>();
-      selectedUnit = Option.None<EncounterActor>();
+      SelectedAbility = Option.None<UnitAbility>();
+      SelectedUnit = Option.None<EncounterActor>();
+      Dispatch.Encounters.UnitSelected.Raise(null);
     }
   }
 }

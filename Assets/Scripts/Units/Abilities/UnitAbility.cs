@@ -44,7 +44,6 @@ namespace Units.Abilities {
     public class AbilityExecutionContext {
       public EncounterActor Actor { get; set; }
       public Vector3Int Source { get; set; }
-      public GameObject TargetedObject { get; set; }
       public Vector3Int TargetedTile { get; set; }
       public SceneTerrain Terrain { get; set; }
       public GridIndicators Indicators { get; set; }

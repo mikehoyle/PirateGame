@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Common;
 using Events;
 using Optional;
@@ -18,7 +17,7 @@ namespace HUD.Encounter.HoverDetails {
       foreach (Transform child in transform) {
         _detailRows.Add(child.GetComponent<Text>());
       }
-      
+      _currentDetailsProvider = Option.None<IDisplayDetailsProvider>();
       Dispatch.Encounters.MouseHover.RegisterListener(OnMouseHover);
       gameObject.SetActive(false);
     }
@@ -48,10 +47,7 @@ namespace HUD.Encounter.HoverDetails {
     }
 
     private void OnMouseHover(Vector3Int hoveredTile) {
-      var hoveredObject = SceneTerrain.GetTileOccupant(hoveredTile);
-      
-      if (hoveredObject == null
-          || !hoveredObject.TryGetComponent<IDisplayDetailsProvider>(out var detailsProvider)) {
+      if (!SceneTerrain.TryGetComponentAtTile<IDisplayDetailsProvider>(hoveredTile, out var detailsProvider)) {
         _currentDetailsProvider = Option.None<IDisplayDetailsProvider>();
         gameObject.SetActive(false);
         return;

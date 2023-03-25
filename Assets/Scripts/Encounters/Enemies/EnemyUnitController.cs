@@ -93,7 +93,6 @@ namespace Encounters.Enemies {
                 Actor = this,
                 Source = destination,
                 Indicators = context.Indicators,
-                TargetedObject = targetUnit.gameObject,
                 TargetedTile = targetUnit.Position,
                 Terrain = context.Terrain,
             };

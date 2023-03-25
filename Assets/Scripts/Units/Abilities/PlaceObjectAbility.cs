@@ -18,8 +18,7 @@ namespace Units.Abilities {
         GridIndicators indicators) {
       base.ShowIndicator(actor, source, hoveredTile, indicators);
       indicators.TargetingIndicator.Clear();
-      var hoveredObject = SceneTerrain.GetTileOccupant(hoveredTile);
-      if (!CanTarget(actor, source, hoveredObject, hoveredTile)) {
+      if (!CanTarget(actor, source, hoveredTile)) {
         return;
       }
       
@@ -28,20 +27,20 @@ namespace Units.Abilities {
 
     public override bool CouldExecute(AbilityExecutionContext context) {
       return CanAfford(context.Actor) &&
-          CanTarget(context.Actor, context.Source, context.TargetedObject, context.TargetedTile);
+          CanTarget(context.Actor, context.Source, context.TargetedTile);
     }
 
     private bool CanTarget(
         EncounterActor actor,
         Vector3Int source,
-        GameObject targetObject,
         Vector3Int targetTile) {
       if (!range.IsInRange(actor, source, targetTile)) {
         return false;
       }
 
       if (placedObjectPrefab.GetComponent<PlacedObject>().ClaimsTile) {
-        if (targetObject.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid) && placedOnGrid.ClaimsTile) {
+        if (SceneTerrain.TryGetComponentAtTile<IPlacedOnGrid>(targetTile, out var placedOnGrid)
+            && placedOnGrid.ClaimsTile) {
           return false;
         }
       }

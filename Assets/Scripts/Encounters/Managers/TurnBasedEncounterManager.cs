@@ -15,8 +15,6 @@ namespace Encounters.Managers {
   public class TurnBasedEncounterManager : EncounterInputReceiver {
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private IntegerVar currentRound;
-    [SerializeField] private UnitCollection playerUnitsInEncounter;
-    [SerializeField] private EnemyUnitCollection enemyUnitsInEncounter;
     
     private GameControls _controls;
     private GridIndicators _gridIndicators;
@@ -48,6 +46,7 @@ namespace Encounters.Managers {
       Dispatch.Encounters.AbilitySelected.RegisterListener(OnAbilitySelected);
       Dispatch.Encounters.EncounterEnd.RegisterListener(OnEncounterEnd);
       Dispatch.Encounters.MouseHover.RegisterListener(OnMouseHover);
+      Dispatch.Encounters.PlayerTurnEndRequest.RegisterListener(OnRequestEndTurn);
       Dispatch.Common.DialogueStart.RegisterListener(OnDialogueStart);
       Dispatch.Common.DialogueEnd.RegisterListener(OnDialogueEnd);
       
@@ -61,6 +60,7 @@ namespace Encounters.Managers {
       Dispatch.Encounters.AbilitySelected.UnregisterListener(OnAbilitySelected);
       Dispatch.Encounters.EncounterEnd.UnregisterListener(OnEncounterEnd);
       Dispatch.Encounters.MouseHover.UnregisterListener(OnMouseHover);
+      Dispatch.Encounters.PlayerTurnEndRequest.UnregisterListener(OnRequestEndTurn);
       Dispatch.Common.DialogueStart.UnregisterListener(OnDialogueStart);
       Dispatch.Common.DialogueEnd.UnregisterListener(OnDialogueEnd);
       
@@ -70,7 +70,7 @@ namespace Encounters.Managers {
 
     private void Update() {
       if (currentSelection.TryGet(out var ability, out var unit)) {
-        ability.ShowIndicator(unit, unit.Position, _lastKnownHoveredTile, _gridIndicators);
+        ability.ShowIndicator(unit, currentSelection.AbilitySource, _lastKnownHoveredTile, _gridIndicators);
       }
     }
 
@@ -113,12 +113,10 @@ namespace Encounters.Managers {
       }
       
       var targetTile = _terrain.TileAtScreenCoordinate(mousePosition);
-      var clickedObject = SceneTerrain.GetTileOccupant(targetTile);
       if (currentSelection.TryGet(out var ability, out var unit)) {
         var executionContext = new UnitAbility.AbilityExecutionContext {
             Actor = unit,
-            Source = currentSelection.abilitySource,
-            TargetedObject = clickedObject,
+            Source = currentSelection.AbilitySource,
             TargetedTile = targetTile,
             Terrain = _terrain,
             Indicators = _gridIndicators,
@@ -130,16 +128,16 @@ namespace Encounters.Managers {
           return;
         }
       }
-      
-      if (clickedObject != null) {
-        Dispatch.Common.ObjectClicked.Raise(clickedObject.gameObject);
+
+      foreach (var clickedObjects in SceneTerrain.GetAllTileOccupants(targetTile)) {
+        Dispatch.Common.ObjectClicked.Raise(clickedObjects);
       }
     }
 
     private void OnMouseHover(Vector3Int hoveredTile) {
       _lastKnownHoveredTile = hoveredTile;
       if (currentSelection.TryGet(out var ability, out var unit)) {
-        ability.ShowIndicator(unit, currentSelection.abilitySource, hoveredTile, _gridIndicators);
+        ability.ShowIndicator(unit, currentSelection.AbilitySource, hoveredTile, _gridIndicators);
       }
     }
 
@@ -147,8 +145,13 @@ namespace Encounters.Managers {
       Dispatch.Encounters.TrySelectAbilityByIndex.Raise(index);
     }
 
-    protected override void OnEndTurn() {
+    protected override void OnEndTurnKey() {
+      Dispatch.Encounters.PlayerTurnEndRequest.Raise();
+    }
+
+    private void OnRequestEndTurn() {
       currentSelection.Clear();
+      Dispatch.Encounters.UnitSelected.Raise(null);
       _controls.TurnBasedEncounter.Disable();
       _gridIndicators.Clear();
       Dispatch.Encounters.PlayerTurnEnd.Raise();

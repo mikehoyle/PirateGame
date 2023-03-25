@@ -71,8 +71,8 @@ namespace Units {
     private void OnAbilityEndExecution(EncounterActor actor, UnitAbility ability) {
       // If this unit is selected and just finished performing an ability,
       // Always go back to selecting the default ability
-      if (currentSelection.selectedUnit.Contains(this)) {
-        if (currentSelection.selectedAbility.TryGet(out var selectedAbility)
+      if (currentSelection.SelectedUnit.Contains(this)) {
+        if (currentSelection.SelectedAbility.TryGet(out var selectedAbility)
             && selectedAbility.CanAfford(this)) {
           // Keep current ability selected
         } else {
@@ -108,7 +108,7 @@ namespace Units {
     }
 
     private void TrySelectAbility(int index) {
-      if (!currentSelection.selectedUnit.Contains(this)) {
+      if (!currentSelection.SelectedUnit.Contains(this)) {
         return;
       }
 
@@ -125,7 +125,7 @@ namespace Units {
     }
 
     protected override void OnDeath() {
-      if (currentSelection.selectedUnit.Contains(this)) {
+      if (currentSelection.SelectedUnit.Contains(this)) {
         currentSelection.Clear();
       }
       playerUnitsInEncounter.Remove(this);

@@ -95,8 +95,7 @@ namespace Encounters.Managers {
     }
 
     private void ClearSelection() {
-      currentSelection.selectedUnit = Option.None<EncounterActor>();
-      Dispatch.Encounters.UnitSelected.Raise(null);
+      currentSelection.SelectUnit(null);
     }
 
     private void OnUnitSelected(EncounterActor unit) {
