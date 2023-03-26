@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dcb93a4b71543af9c5983a338cfd0c3, type: 3}
+  m_Name: CastEffect
+  m_EditorClassIdentifier: 
+  performEffect:
+    casterAnimationName: attack
+    sound:
+      Guid:
+        Data1: 55626682
+        Data2: 1083843716
+        Data3: 369898932
+        Data4: 992720483
+      Path: event:/Enemies/Abilities/EnchantAbility
+    optionalParticlePrefab: {fileID: 0}
+    particleHeight: 0.25
+    optionalAnimation: {fileID: 0}
+    faceTarget: 1
+    completionDelaySecs: 0.2
+  transitEffect:
+    trailPrefab: {fileID: 0}
+    createTrailsForEveryAoeTile: 0
+    sourceHeight: 0.25
+    targetHeight: 0.25
+    arcHeight: 0.5
+    speedTilesPerSec: 6
+    sound:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+  impactEffect:
+    createParticlesForEveryAoeTile: 1
+    optionalParticlePrefab: {fileID: 5937478922118203937, guid: 6794006587599ef4aa65e5a699df77e2, type: 3}
+    createAnimationForEveryAoeTile: 0
+    optionalAnimation: {fileID: 0}
+    targetHeight: 0.25
+    sound:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    animationDuration: 0.3

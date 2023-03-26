@@ -13,10 +13,13 @@ namespace Common.Animation {
 
     public Coroutine PlayThenDie(
         Vector3Int target,
+        float targetHeight,
         DirectionalAnimatedSprite sprite,
         string animationName,
         FacingDirection direction = FacingDirection.SouthEast) {
-      transform.position = GridUtils.CellBaseWorld(target);
+      var position = GridUtils.CellBaseWorld(target);
+      position.y += targetHeight;
+      transform.position = position;
       return StartCoroutine(PlayThenDieInternal(sprite, sprite.GetAnimation(animationName, direction)));
     }
 

@@ -7,6 +7,7 @@ using Optional;
 using Optional.Unsafe;
 using State.Unit;
 using Terrain;
+using Units.Abilities.AOE;
 using UnityEngine;
 
 namespace Units.Abilities {
@@ -55,7 +56,8 @@ namespace Units.Abilities {
       }
 
       if (target != null) {
-        yield return ExecuteOnTarget(target, context);
+        yield return ExecuteOnTarget(target, context, callback);
+        yield break;
       }
       
       if (spiritTarget != null) {
@@ -65,19 +67,21 @@ namespace Units.Abilities {
       callback();
     }
 
-    private IEnumerator ExecuteOnTarget(EncounterActor target, AbilityExecutionContext context) {
+    private IEnumerator ExecuteOnTarget(
+        EncounterActor target, AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
       var skillTestResult = Option.None<float>();
       DetermineAbilityEffectiveness(context.Actor, result => skillTestResult = Option.Some(result));
       yield return new WaitUntil(() => skillTestResult.HasValue);
-      
-      var effect = incurredEffect.ApplyTo(target);
-      effect.PreCalculateEffect(context.Actor, skillTestResult.ValueOrFailure());
-      // Animation options should definitely not be here... a future problem.
-      context.Actor.FaceTowards(target.Position);
-      context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
-      PlaySound();
-      yield return new WaitForSeconds(impactAnimationDelaySec);
-      yield return CreateImpactAnimation(target.Position);
+      yield return fx.Execute(
+          context,
+          Option.None<AreaOfEffect>(),
+          () => {
+            var effect = incurredEffect.ApplyTo(target);
+            effect.PreCalculateEffect(context.Actor, skillTestResult.ValueOrFailure());
+          },
+          () => {
+            callback();
+          });
     }
 
     private IEnumerator ExecuteOnSpirit(SpiritUnitController spirit, AbilityExecutionContext context) {

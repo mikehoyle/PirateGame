@@ -66,17 +66,15 @@ namespace Units.Abilities {
         affectedFactions.Add(context.Actor.EncounterState.OpposingFaction());
       }
       
-      var instanceFactory = new StatusEffectApplier(
-          incurredEffect, context, affectedFactions, skillTestResult.ValueOrFailure());
-      Dispatch.Encounters.ApplyAoeEffect.Raise(aoe, instanceFactory);
-      // Animation options should definitely not be here... a future problem.
-      context.Actor.FaceTowards(aoe.GetTarget());
-      context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
-      yield return new WaitForSeconds(impactAnimationDelaySec);
-      yield return CreateImpactAnimation(context.TargetedTile);
-      PlaySound();
-      // TODO(P1): Account for animation time
-      callback();
+      yield return fx.Execute(
+          context,
+          Option.Some(aoe),
+          () => {
+            var instanceFactory = new StatusEffectApplier(
+                incurredEffect, context, affectedFactions, skillTestResult.ValueOrFailure());
+            Dispatch.Encounters.ApplyAoeEffect.Raise(aoe, instanceFactory);
+          },
+          () => callback());
     }
   }
 }

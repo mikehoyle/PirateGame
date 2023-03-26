@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
-using Common.Animation;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
 using Encounters.SkillTest;
 using Events;
-using FMODUnity;
 using Optional;
 using State.Unit;
 using StaticConfig.Units;
 using Terrain;
+using Units.Abilities.FX;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -22,9 +21,7 @@ namespace Units.Abilities {
   /// </summary>
   public abstract class UnitAbility : ScriptableObject {
     [SerializeField] private GameObject skillTestPrefab;
-    [SerializeField] protected EventReference soundOnActivate;
-    [SerializeField] protected DirectionalAnimatedSprite impactAnimation;
-    [SerializeField] protected float impactAnimationDelaySec;
+    [SerializeField] protected AbilityCastEffect fx;
     public int usesPerEncounter;
     [SerializeField] protected bool canStillMoveAfter;
     // Optional
@@ -74,12 +71,6 @@ namespace Units.Abilities {
         Dispatch.Encounters.AbilityExecutionEnd.Raise(context.Actor, this);
         callback();
       }));
-    }
-    
-    protected void PlaySound() {
-      if (!soundOnActivate.IsNull) {
-        RuntimeManager.PlayOneShot(soundOnActivate);
-      }
     }
     
     protected abstract IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback); 
@@ -135,17 +126,6 @@ namespace Units.Abilities {
       }
 
       callback(Random.Range(0.5f, 1f));
-    }
-
-    protected Coroutine CreateImpactAnimation(Vector3Int target) {
-      if (impactAnimation == null) {
-        return null;
-      }
-      
-      var impactObject = new GameObject("Impact Animation");
-      impactObject.AddComponent<SpriteRenderer>();
-      var animation = impactObject.AddComponent<EphemeralAnimation>();
-      return animation.PlayThenDie(target, impactAnimation, "effect");
     }
   }
 }

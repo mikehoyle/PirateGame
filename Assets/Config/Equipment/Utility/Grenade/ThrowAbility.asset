@@ -13,15 +13,7 @@ MonoBehaviour:
   m_Name: ThrowAbility
   m_EditorClassIdentifier: 
   skillTestPrefab: {fileID: 0}
-  soundOnActivate:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  impactAnimation: {fileID: 11400000, guid: 4bb5cfbd223147d479bbaf312530b10d, type: 2}
-  impactAnimationDelaySec: 0.3
+  fx: {fileID: 11400000, guid: 57a74b38c52f3374b9acff1c7c8fff03, type: 2}
   usesPerEncounter: 1
   canStillMoveAfter: 0
   incurredEffect:

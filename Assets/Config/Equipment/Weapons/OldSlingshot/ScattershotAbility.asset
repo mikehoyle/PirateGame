@@ -13,16 +13,8 @@ MonoBehaviour:
   m_Name: ScattershotAbility
   m_EditorClassIdentifier: 
   skillTestPrefab: {fileID: 0}
-  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
-  soundOnActivate:
-    Guid:
-      Data1: -296483996
-      Data2: 1076354558
-      Data3: 644675969
-      Data4: -1234379365
-    Path: event:/Units/Weapons/Slingshot
-  impactAnimation: {fileID: 11400000, guid: 4bb5cfbd223147d479bbaf312530b10d, type: 2}
-  impactAnimationDelaySec: 0.4
+  fx: {fileID: 11400000, guid: 57a74b38c52f3374b9acff1c7c8fff03, type: 2}
+  usesPerEncounter: 0
   canStillMoveAfter: 0
   incurredEffect:
     rid: 1371289066063003649
@@ -44,7 +36,6 @@ MonoBehaviour:
     - rid: 1371289066063003649
       type: {class: PerRoundExhaustibleResourceStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
       data:
-        encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
         numRoundsPerEffectEnactment: 1
         numEnactmentsBeforeDeath: 1
         enactOnceOnApplication: 0

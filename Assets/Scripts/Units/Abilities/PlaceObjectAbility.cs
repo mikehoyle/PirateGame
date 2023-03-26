@@ -3,7 +3,9 @@ using Common.Animation;
 using Encounters;
 using Encounters.Grid;
 using Encounters.Obstacles;
+using Optional;
 using Terrain;
+using Units.Abilities.AOE;
 using UnityEngine;
 
 namespace Units.Abilities {
@@ -49,13 +51,14 @@ namespace Units.Abilities {
     }
     
     protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
-      context.Actor.FaceTowards(context.TargetedTile);
-      context.Actor.PlayOneOffAnimation(AnimationNames.Attack);
-      PlaySound();
-      yield return new WaitForSeconds(impactAnimationDelaySec);
-      var placedObject = Instantiate(placedObjectPrefab).GetComponent<PlacedObject>();
-      placedObject.Init(context.Actor, context.TargetedTile);
-      callback();
+      yield return fx.Execute(
+          context,
+          Option.None<AreaOfEffect>(),
+          () => {
+            var placedObject = Instantiate(placedObjectPrefab).GetComponent<PlacedObject>();
+            placedObject.Init(context.Actor, context.TargetedTile);
+          },
+          () => callback());
     }
   }
 }

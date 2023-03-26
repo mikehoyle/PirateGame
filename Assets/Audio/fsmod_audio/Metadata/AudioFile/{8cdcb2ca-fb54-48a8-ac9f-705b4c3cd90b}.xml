@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{8cdcb2ca-fb54-48a8-ac9f-705b4c3cd90b}">
+		<property name="assetPath">
+			<value>Medieval Combat Sounds/Punch and Melee/Realistic Punch 1_3.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.87786848072562362</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{7947621e-65a8-4bb3-827a-fa36cd0ddd42}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -13,16 +13,8 @@ MonoBehaviour:
   m_Name: SwipeAbility
   m_EditorClassIdentifier: 
   skillTestPrefab: {fileID: 0}
-  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
-  soundOnActivate:
-    Guid:
-      Data1: 56841675
-      Data2: 1335114937
-      Data3: -336655485
-      Data4: -835277031
-    Path: event:/Units/Weapons/SwordAttackLarge
-  impactAnimation: {fileID: 11400000, guid: 4bb5cfbd223147d479bbaf312530b10d, type: 2}
-  impactAnimationDelaySec: 0
+  fx: {fileID: 11400000, guid: 2e92bee91caf56145a052239f2c25d4d, type: 2}
+  usesPerEncounter: 0
   canStillMoveAfter: 0
   incurredEffect:
     rid: 4252309007281946675

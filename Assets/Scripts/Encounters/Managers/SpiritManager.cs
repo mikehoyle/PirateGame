@@ -71,6 +71,7 @@ namespace Encounters.Managers {
 
       var spirit = Instantiate(spiritEnemy.prefab, transform).GetComponent<SpiritUnitController>();
       spirit.Init(spiritEnemy.NewEncounter(position));
+      spirit.TargetBones = Option.Some(targetBones);
     }
 
     private void OnUnitDeath(Option<Bones> bonesOption) {

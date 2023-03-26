@@ -13,15 +13,7 @@ MonoBehaviour:
   m_Name: PlaceCaltrops
   m_EditorClassIdentifier: 
   skillTestPrefab: {fileID: 0}
-  soundOnActivate:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  impactAnimation: {fileID: 0}
-  impactAnimationDelaySec: 0.2
+  fx: {fileID: 11400000, guid: 2e92bee91caf56145a052239f2c25d4d, type: 2}
   usesPerEncounter: 2
   canStillMoveAfter: 1
   incurredEffect:
