@@ -21,6 +21,7 @@ namespace Encounters {
   public abstract class EncounterActor : MonoBehaviour, IPlacedOnGrid, IDirectionalAnimatable, IDisplayDetailsProvider {
     [SerializeField] protected CurrentSelection currentSelection;
     [SerializeField] protected GameObject bonesPrefab;
+    [SerializeField] protected GameObject deathParticlesPrefab;
 
     protected UnitMover Mover;
     private PolygonCollider2D _collider;
@@ -135,6 +136,7 @@ namespace Encounters {
     public void ExpendResource(ExhaustibleResource resource, int amount) {
       EncounterState.ExpendResource(resource, amount);
       if (EncounterState.GetResourceAmount(ExhaustibleResources.Instance.hp) <= 0) {
+        Instantiate(deathParticlesPrefab).transform.position = transform.position;
         OnDeath();
 
         var bonesOption = Option.None<Bones>();

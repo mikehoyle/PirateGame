@@ -33,7 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1332242932962943763}
+  - {fileID: 7684154691528475333}
   - {fileID: 5378244717959814381}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -102,10 +102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092180c7147e4a4a94886c4d84bcc8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  encounterEvents: {fileID: 11400000, guid: 261109fe1f0645645a0ce07ad411138d, type: 2}
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
-  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   bonesPrefab: {fileID: 7813152671875138140, guid: 5994fb32dcf89eb499419942d25dbea2, type: 3}
+  deathParticlesPrefab: {fileID: 1282872619470050466, guid: 8c572997202a60344ad49af9b6ae17a2, type: 3}
   enemiesInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
 --- !u!114 &-160105272764826462
 MonoBehaviour:
@@ -277,9 +276,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b861b5ae824059d45ba810c25e5d5b89, type: 3}
---- !u!224 &1332242932962943763 stripped
+--- !u!224 &7684154691528475333 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6165133878602005551, guid: b861b5ae824059d45ba810c25e5d5b89, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3265248820157439481, guid: b861b5ae824059d45ba810c25e5d5b89, type: 3}
   m_PrefabInstance: {fileID: 5184742110410809148}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8254415678953970044
