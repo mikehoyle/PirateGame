@@ -14,6 +14,7 @@ namespace Common.Animation {
     [SerializeField] private ColorCollection skinColorOptions;
     
     private List<SpriteRenderer> _layerRenderers;
+    private List<DirectionalAnimatedSprite> _layerSprites;
 
     private void Awake() {
       AnimationTarget = GetComponent<IDirectionalAnimatable>();
@@ -21,25 +22,9 @@ namespace Common.Animation {
       // (arbitrarily) as the reference for animations.
       referenceSprite = layersBackToFront[0];
       _layerRenderers = new();
-      var layerIndex = 0;
+      _layerSprites = new();
       foreach (var layer in layersBackToFront) {
-        var layerRenderer = new GameObject("CompositeSpriteComponent");
-        var spriteRenderer = layerRenderer.AddComponent<SpriteRenderer>();
-        spriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
-        layerRenderer.transform.parent = transform;
-        layerRenderer.transform.SetAsFirstSibling();
-        
-        // Set the z position slightly forward for each layer to cleanly sort.
-        // Has no actual affect on positioning.
-        var position = layerRenderer.transform.position;
-        position.z = 0.0001f * layerIndex;
-        layerRenderer.transform.position = position;
-
-        // Default to the first frame, for now.
-        spriteRenderer.sprite = layer.frames[0];
-        spriteRenderer.material = paletteSwapMaterial;
-        _layerRenderers.Add(spriteRenderer);
-        layerIndex++;
+        AddLayer(layer);
       }
     }
 
@@ -61,10 +46,30 @@ namespace Common.Animation {
       }
     }
 
+    public void AddLayer(DirectionalAnimatedSprite layer) {
+      var layerRenderer = new GameObject("CompositeSpriteComponent");
+      var spriteRenderer = layerRenderer.AddComponent<SpriteRenderer>();
+      spriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
+      layerRenderer.transform.parent = transform;
+      layerRenderer.transform.SetAsFirstSibling();
+        
+      // Set the z position slightly forward for each layer to cleanly sort.
+      // Has no actual affect on positioning.
+      var position = layerRenderer.transform.position;
+      position.z = 0.0001f * _layerRenderers.Count;
+      layerRenderer.transform.position = position;
+
+      // Default to the first frame, for now.
+      spriteRenderer.sprite = layer.frames[0];
+      spriteRenderer.material = paletteSwapMaterial;
+      _layerRenderers.Add(spriteRenderer);
+      _layerSprites.Add(layer);
+    }
+
     protected override void UpdateSpriteRenderer(int currentFrame, bool isMirrored) {
-      for (int i = 0; i < layersBackToFront.Length; i++) {
+      for (int i = 0; i < _layerSprites.Count; i++) {
         var spriteRenderer = _layerRenderers[i];
-        spriteRenderer.sprite = layersBackToFront[i].frames[currentFrame];
+        spriteRenderer.sprite = _layerSprites[i].frames[currentFrame];
         spriteRenderer.flipX = isMirrored;
       }
     }

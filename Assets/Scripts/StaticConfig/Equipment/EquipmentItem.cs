@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Common.Animation;
 using StaticConfig.Units;
 using Units.Abilities;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace StaticConfig.Equipment {
     public string displayName;
     public string description;
     public Sprite hudSprite;
+    public DirectionalAnimatedSprite optionalEquippedSprite;
     public EquipmentSlot applicableSlot;
     public List<UnitAbility> abilitiesProvided;
     public SerializableDictionary<Stat, int> statBonuses; 

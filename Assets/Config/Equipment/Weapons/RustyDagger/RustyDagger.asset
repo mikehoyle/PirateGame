@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: RustyDagger
   m_EditorClassIdentifier: 
   displayName: Rusty Dagger
+  description: 
   hudSprite: {fileID: 0}
+  optionalEquippedSprite: {fileID: 11400000, guid: 75514bea8b04c9f4eb7783dbfdd27966, type: 2}
   applicableSlot: {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}
   abilitiesProvided:
   - {fileID: 11400000, guid: ee97f25b231883d4ea7e2a4f2172fce3, type: 2}
   - {fileID: 11400000, guid: e9dbef57d2296d249b30daf3330224ce, type: 2}
+  statBonuses:
+    m_keys: []
+    m_values: 

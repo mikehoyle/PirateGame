@@ -26,7 +26,13 @@ namespace Units {
     public List<CollectableInstance> CollectablesAcquired { get; } = new();
 
     private void Start() {
-      GetComponentInChildren<CompositeDirectionalAnimator>().SetColor(Metadata.GetName());
+      var animator = GetComponentInChildren<CompositeDirectionalAnimator>();
+      animator.SetColor(Metadata.GetName());
+      foreach (var equipment in Metadata.equipped.Values) {
+        if (equipment.item.optionalEquippedSprite is not null) {
+          animator.AddLayer(equipment.item.optionalEquippedSprite);
+        }
+      }
     }
 
     protected override void OnEnable() {

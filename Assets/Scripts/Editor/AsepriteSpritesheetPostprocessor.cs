@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Common.Animation;
@@ -10,6 +9,8 @@ using Debug = UnityEngine.Debug;
 
 namespace EditorInternal {
   public class AsepriteSpritesheetPostprocessor : AssetPostprocessor {
+    private const string SpritesPath = "Sprites/";
+    private const int SpritePixelsPerUnit = 64;
     private static readonly List<string> ValidDirections = new() {
         "sw",
         "nw",
@@ -18,10 +19,25 @@ namespace EditorInternal {
     };
         
     private void OnPreprocessTexture() {
+      if (assetPath.Contains(SpritesPath)) {
+        SetCommonMetadata();
+      }
       var jsonAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(Path.ChangeExtension(assetPath, "json"));
       if (jsonAsset != null) {
         ProcessSpritesheet(jsonAsset);
       }
+    }
+    
+    private void SetCommonMetadata() {
+      var textureImporter = (TextureImporter)assetImporter;
+      if (textureImporter == null || textureImporter.textureType != TextureImporterType.Sprite) {
+        return;
+      }
+      textureImporter.wrapMode = TextureWrapMode.Clamp;
+      textureImporter.filterMode = FilterMode.Point;
+      textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
+      textureImporter.spritePixelsPerUnit = SpritePixelsPerUnit;
+      textureImporter.maxTextureSize = 8192;
     }
 
     private void ProcessSpritesheet(TextAsset jsonAsset) {
@@ -44,7 +60,8 @@ namespace EditorInternal {
           }
         }        
       }
-      
+
+      var textureSize = jsonContent.meta.size;
       var metadataList = new List<SpriteMetaData>();
       foreach (var frame in jsonContent.frames) {
         var pivot = pixelPivot.HasValue ?
@@ -53,10 +70,11 @@ namespace EditorInternal {
                 ((float)frame.frame.h - pixelPivot.Value.y) / (float)frame.frame.h) :
             // Default to dead center
             new Vector2(0.5f, 0.5f);
+        // We have to adjust Y value, because Aseprite uses Y=0 as top, while Unity uses Y=0 as bottom
         var metadata = new SpriteMetaData {
             rect = new Rect(
                 x: (float)frame.frame.x,
-                y: (float)frame.frame.y,
+                y: (float)textureSize.h - (float)frame.frame.y - (float)frame.frame.h,
                 width: (float)frame.frame.w,
                 height: (float)frame.frame.h),
             name = (string)frame.filename,

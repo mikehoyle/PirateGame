@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: RustySword
   m_EditorClassIdentifier: 
   displayName: Rusty Sword
+  description: 
   hudSprite: {fileID: 0}
+  optionalEquippedSprite: {fileID: 11400000, guid: 44fc8a7b809ff844da864de66d64b2cf, type: 2}
   applicableSlot: {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}
   abilitiesProvided:
   - {fileID: 11400000, guid: e23a561c44fe4334398f51df28b1bb91, type: 2}
   - {fileID: 11400000, guid: 5c60d9c382166f84ba44a7f73e53601c, type: 2}
+  statBonuses:
+    m_keys: []
+    m_values: 
