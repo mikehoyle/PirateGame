@@ -7,6 +7,7 @@ using Encounters.Grid;
 using Encounters.SkillTest;
 using Events;
 using Optional;
+using RuntimeVars.Encounters;
 using State.Unit;
 using StaticConfig.Units;
 using Terrain;
@@ -67,7 +68,12 @@ namespace Units.Abilities {
 
       Dispatch.Encounters.AbilityExecutionStart.Raise(context.Actor, this);
       SpendCost(context.Actor);
+      CurrentSelection.Instance.Clear();
       return Option.Some(Execute(context, () => {
+        if (context.Actor is PlayerUnitController playerUnit) {
+          CurrentSelection.Instance.SelectUnit(playerUnit);
+          CurrentSelection.Instance.SelectAbility(playerUnit, this);
+        }
         Dispatch.Encounters.AbilityExecutionEnd.Raise(context.Actor, this);
         callback();
       }));

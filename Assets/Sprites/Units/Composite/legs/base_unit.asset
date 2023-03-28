@@ -33,6 +33,8 @@ MonoBehaviour:
   - {fileID: 7673262567623156260, guid: 9ed9bc639acb6b2448e4a8a3ae1dd9a9, type: 3}
   - {fileID: 8651853409605949336, guid: 9ed9bc639acb6b2448e4a8a3ae1dd9a9, type: 3}
   - {fileID: 3172928203280650904, guid: 9ed9bc639acb6b2448e4a8a3ae1dd9a9, type: 3}
+  - {fileID: 0, guid: 9ed9bc639acb6b2448e4a8a3ae1dd9a9, type: 3}
+  - {fileID: -6507991236505914804, guid: 9ed9bc639acb6b2448e4a8a3ae1dd9a9, type: 3}
   animations:
     m_keys:
     - idle
@@ -57,20 +59,20 @@ MonoBehaviour:
       animationName: idle
       loop: 1
     - animations:
-        m_keys: 0300000001000000
+        m_keys: 0300000000000000
         m_values:
         - direction: 3
           name: walk
           isMirrored: 0
           startFrame: 4
           endFrame: 7
-          frameDurationSecs: 0.2
-        - direction: 1
+          frameDurationSecs: 0.15
+        - direction: 0
           name: walk
           isMirrored: 0
           startFrame: 8
           endFrame: 11
-          frameDurationSecs: 0.2
+          frameDurationSecs: 0.15
       animationName: walk
       loop: 1
     - animations:
@@ -86,7 +88,7 @@ MonoBehaviour:
           name: attack
           isMirrored: 0
           startFrame: 17
-          endFrame: 19
+          endFrame: 21
           frameDurationSecs: 0.1
       animationName: attack
       loop: 1

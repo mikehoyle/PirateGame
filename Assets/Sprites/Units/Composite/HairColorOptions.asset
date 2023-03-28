@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca8ba083c0724bccad5a233365a22a9e, type: 3}
+  m_Name: HairColorOptions
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0.6666667, g: 0.53333336, b: 0.4, a: 0}
+  - {r: 0.87058824, g: 0.74509805, b: 0.6, a: 0}
+  - {r: 0.14117648, g: 0.10980392, b: 0.06666667, a: 0}
+  - {r: 0.30980393, g: 0.101960786, b: 0, a: 0}
+  - {r: 0.6039216, g: 0.2, b: 0, a: 0}
+  - {r: 0.084905684, g: 0.067592904, b: 0.04378783, a: 0}
+  - {r: 0.87058824, g: 0.65331256, b: 0.6, a: 0}
+  - {r: 0.31132078, g: 0.22434469, b: 0.10475257, a: 0}

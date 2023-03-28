@@ -4,7 +4,6 @@ using Common.Animation;
 using Common.Events;
 using Encounters;
 using Events;
-using Optional;
 using RuntimeVars;
 using State.Encounter;
 using State.Unit;
@@ -16,21 +15,15 @@ namespace Units {
   public class PlayerUnitController : EncounterActor {
     [SerializeField] private UnitCollection playerUnitsInEncounter;
     
-    private SpriteRenderer _selectedIndicator;
     private Vector3Int _undoMovePosition;
     private int _undoMoveMp;
 
     public PlayerUnitMetadata Metadata => (PlayerUnitMetadata)EncounterState.metadata;
     public override UnitEncounterState EncounterState { get; protected set; }
     protected override GameEvent TurnPreStartEvent => Dispatch.Encounters.PlayerTurnPreStart;
+    protected override GameEvent TurnEndEvent => Dispatch.Encounters.PlayerTurnEnd;
 
     public List<CollectableInstance> CollectablesAcquired { get; } = new();
-
-    protected override void Awake() {
-      base.Awake();
-      _selectedIndicator = transform.Find("SelectedIndicator").GetComponent<SpriteRenderer>();
-      _selectedIndicator.enabled = false;
-    }
 
     private void Start() {
       GetComponentInChildren<CompositeDirectionalAnimator>().SetColor(Metadata.GetName());
@@ -62,10 +55,7 @@ namespace Units {
     private void OnUnitSelected(EncounterActor selectedUnit) {
       if (selectedUnit != null && this == selectedUnit) {
         TrySelectAbility(0);
-        _selectedIndicator.enabled = true;
-        return;
       }
-      _selectedIndicator.enabled = false;
     }
 
     private void OnAbilityEndExecution(EncounterActor actor, UnitAbility ability) {
@@ -98,6 +88,10 @@ namespace Units {
         return;
       }
       SetPosition(_undoMovePosition);
+      // Reselect ability from new position.
+      if (currentSelection.SelectedAbility.TryGet(out var ability)) {
+        currentSelection.SelectAbility(this, ability);
+      }
       EncounterState.TryGetResourceTracker(ExhaustibleResources.Instance.mp, out var mpTracker);
       mpTracker.current = _undoMoveMp;
     }

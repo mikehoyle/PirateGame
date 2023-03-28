@@ -9,6 +9,7 @@ using Events;
 using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;
+using State;
 using State.Unit;
 using StaticConfig.Units;
 using Terrain;
@@ -49,6 +50,7 @@ namespace Encounters {
 
     public abstract UnitEncounterState EncounterState { get; protected set; }
     protected abstract GameEvent TurnPreStartEvent { get; }
+    protected abstract GameEvent TurnEndEvent { get; }
 
     protected virtual void Awake() {
       Mover = GetComponent<UnitMover>();
@@ -62,13 +64,13 @@ namespace Encounters {
     protected virtual void OnEnable() {
       Dispatch.Encounters.ApplyAoeEffect.RegisterListener(OnApplyAoeEffect);
       Dispatch.Common.ObjectClicked.RegisterListener(OnObjectClicked);
-      TurnPreStartEvent.RegisterListener(PerformNewRoundSetup);
+      TurnEndEvent.RegisterListener(PerformNewRoundSetup);
     }
 
     protected virtual void OnDisable() {
       Dispatch.Encounters.ApplyAoeEffect.UnregisterListener(OnApplyAoeEffect);
       Dispatch.Common.ObjectClicked.UnregisterListener(OnObjectClicked);
-      TurnPreStartEvent.UnregisterListener(PerformNewRoundSetup);
+      TurnEndEvent.UnregisterListener(PerformNewRoundSetup);
     }
 
     public void Init(UnitEncounterState encounterState) {

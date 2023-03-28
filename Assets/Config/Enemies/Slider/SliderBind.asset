@@ -17,7 +17,7 @@ MonoBehaviour:
   usesPerEncounter: 0
   canStillMoveAfter: 0
   incurredEffect:
-    rid: 4252309007281946683
+    rid: 1371289551779135493
   descriptionShort: 
   displayString: Bind
   cost: []
@@ -28,31 +28,27 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1371289253191614467
+    - rid: 1371289551779135493
+      type: {class: OneShotStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
+      data:
+        exhaustibleResourceEffects:
+        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+          value:
+            rid: 1371289551779135494
+        - resource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+          value:
+            rid: 1371289551779135495
+        delayInSeconds: 0
+    - rid: 1371289551779135494
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
         value: 1
+    - rid: 1371289551779135495
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 3
     - rid: 4252309007281946682
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
         rangeMin: 1
         rangeMax: 1
-    - rid: 4252309007281946683
-      type: {class: PerRoundExhaustibleResourceStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
-      data:
-        numRoundsPerEffectEnactment: 1
-        numEnactmentsBeforeDeath: 1
-        enactOnceOnApplication: 0
-        immediateEffects:
-        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
-          value:
-            rid: 1371289253191614467
-        immediateEffectDelaySecs: 0
-        exhaustibleResourceEffects:
-        - resource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
-          value:
-            rid: 4252309007281946684
-    - rid: 4252309007281946684
-      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
-      data:
-        value: 2

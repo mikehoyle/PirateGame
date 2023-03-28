@@ -1,17 +1,16 @@
-﻿using Encounters;
+﻿using Common;
+using Encounters;
 using Events;
-using JetBrains.Annotations;
 using Optional;
 using Optional.Unsafe;
 using Units;
 using Units.Abilities;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace RuntimeVars.Encounters {
   [CreateAssetMenu(menuName = "Encounters/CurrentSelection")]
-  public class CurrentSelection : ScriptableObject {
+  public class CurrentSelection : ScriptableObjectSingleton<CurrentSelection> {
     public Option<UnitAbility> SelectedAbility { get; private set; }
     public Vector3Int AbilitySource { get; private set; }
     public Option<EncounterActor> SelectedUnit { get; private set; }
@@ -82,5 +81,7 @@ namespace RuntimeVars.Encounters {
       SelectedUnit = Option.None<EncounterActor>();
       Dispatch.Encounters.UnitSelected.Raise(null);
     }
+
+    protected override CurrentSelection Self() => this;
   }
 }

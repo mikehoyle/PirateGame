@@ -26,6 +26,7 @@ namespace Encounters.Enemies {
     public override UnitEncounterState EncounterState { get; protected set; }
     public EnemyUnitMetadata Metadata => (EnemyUnitMetadata)EncounterState.metadata;
     protected override GameEvent TurnPreStartEvent => Dispatch.Encounters.EnemyTurnPreStart;
+    protected override GameEvent TurnEndEvent => Dispatch.Encounters.EnemyTurnEnd;
 
     protected override void Awake() {
       base.Awake();

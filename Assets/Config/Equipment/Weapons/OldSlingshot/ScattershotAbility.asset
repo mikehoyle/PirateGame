@@ -17,7 +17,7 @@ MonoBehaviour:
   usesPerEncounter: 0
   canStillMoveAfter: 0
   incurredEffect:
-    rid: 1371289066063003649
+    rid: 1371289551779135488
   descriptionShort: -1 HP, -2 MP
   displayString: Scatter Shot
   cost:
@@ -33,42 +33,38 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1371289066063003649
-      type: {class: PerRoundExhaustibleResourceStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
-      data:
-        numRoundsPerEffectEnactment: 1
-        numEnactmentsBeforeDeath: 1
-        enactOnceOnApplication: 0
-        immediateEffects:
-        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
-          value:
-            rid: 1371289253191614468
-        immediateEffectDelaySecs: 0
-        exhaustibleResourceEffects:
-        - resource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
-          value:
-            rid: 1371289066063003650
-    - rid: 1371289066063003650
-      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
-      data:
-        value: 2
     - rid: 1371289066063003654
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
         rangeMin: 2
         rangeMax: 5
-    - rid: 1371289253191614468
+    - rid: 1371289551779135488
+      type: {class: OneShotStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
+      data:
+        exhaustibleResourceEffects:
+        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+          value:
+            rid: 1371289551779135489
+        - resource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+          value:
+            rid: 1371289551779135492
+        delayInSeconds: 0
+    - rid: 1371289551779135489
       type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        operation: 2
+        operation: 0
         operands:
-        - rid: 1371289253191614469
-        - rid: 1371289253191614470
-    - rid: 1371289253191614469
+        - rid: 1371289551779135490
+        - rid: 1371289551779135491
+    - rid: 1371289551779135490
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
         value: 1
-    - rid: 1371289253191614470
+    - rid: 1371289551779135491
       type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: 27bc55966ccc98747a38b270dc376ebe, type: 2}
+    - rid: 1371289551779135492
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 2
