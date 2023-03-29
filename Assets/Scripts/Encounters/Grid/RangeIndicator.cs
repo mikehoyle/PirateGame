@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.Events;
 using Events;
+using State.Unit;
 using Terrain;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -33,10 +33,10 @@ namespace Encounters.Grid {
       enabled = false;
     }
 
-    public void DisplayMovementRange(Vector3Int unitPosition, int unitMoveRange) {
+    public void DisplayMovementRange(Vector3Int unitPosition, int unitMoveRange, UnitFaction unitFaction) {
       enabled = true;
       Clear();
-      foreach (var tile in _terrain.GetAllViableDestinations(unitPosition, unitMoveRange)) {
+      foreach (var tile in _terrain.GetAllViableDestinations(unitPosition, unitMoveRange, unitFaction)) {
         _tilemap.SetTile(tile, eligibleTileOverlay);
       }
     }

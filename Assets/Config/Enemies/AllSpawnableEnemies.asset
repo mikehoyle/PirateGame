@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52127bc1e524e76b07b36f20f7643d3, type: 3}
   m_Name: AllSpawnableEnemies
   m_EditorClassIdentifier: 
-  enemyDrModifier: 0.3
+  enemyDrModifier: 0.2
   enemyUnits:
-  - {fileID: 11400000, guid: 20df3fcfb5d44fe43b138241a32c07ef, type: 2}
-  - {fileID: 11400000, guid: 4a87f39f45dee124b9d070185ad4cbf0, type: 2}
   - {fileID: 11400000, guid: c705720603976c3409d3edffc874e617, type: 2}
   - {fileID: 11400000, guid: 96591b64899d3454c86eba0a1bee521f, type: 2}
   - {fileID: 11400000, guid: df6016dcdae7c0e4c93fe41ecd645463, type: 2}

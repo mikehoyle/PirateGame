@@ -119,19 +119,10 @@ namespace Units.Abilities {
         actor.EncounterState.ExpendResource(ExhaustibleResources.Instance.mp, int.MaxValue);
       }
     }
-
-    // TODO(P1): Determine this far more maturely, for the player and AI.
+    
     protected void DetermineAbilityEffectiveness(EncounterActor actor, AbilityEffectivenessCallback callback) {
-      if (actor.EncounterState.faction == UnitFaction.PlayerParty) {
-        if (skillTestPrefab != null) {
-          Instantiate(skillTestPrefab).GetComponent<SkillTestController>().Run(callback);
-          return;
-        }
-        callback(1f);
-        return;
-      }
-
-      callback(Random.Range(0.5f, 1f));
+      // Right now, this is a non-factor. Considering dropping the idea of skill-tests entirely.
+      callback(1f);
     }
   }
 }

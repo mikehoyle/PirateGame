@@ -32,23 +32,27 @@ namespace Encounters.AI {
       StartCoroutine(ExecuteEnemyAi());
     }
     private IEnumerator ExecuteEnemyAi() {
+      // Let all spirits do their thing first.
+      for (int i = spiritsInEncounter.Count - 1; i >= 0; i--) {
+        yield return spiritsInEncounter[i].ExecuteMovementPlan();
+      }
+
       if (enemiesInEncounter.Count == 0) {
-        Dispatch.Encounters.EnemyTurnPreEnd.Raise();
+        EndAiTurn();
         yield break;
       }
 
       SparseMatrix3d<bool> claimedTileOverrides = new();
+      foreach (var enemy in enemiesInEncounter) {
+        claimedTileOverrides.Add(enemy.Position, true);
+      }
+
       foreach (var enemy in enemiesInEncounter.EnumerateByTurnPriority()) {
         var actionPlan = _evaluator.GetActionPlan(enemy, claimedTileOverrides);
-        var path = _terrain.GetPath(actionPlan.Actor.Position, actionPlan.MoveDestination);
+        var path = _terrain.GetPath(
+            actionPlan.Actor.Position, actionPlan.MoveDestination, actionPlan.Actor.EncounterState.faction);
         yield return enemy.MoveAlongPath(path);
         yield return ExecuteAction(actionPlan.Actor, actionPlan);
-      }
-      
-      
-      // Let all spirits do their thing.
-      for (int i = spiritsInEncounter.Count - 1; i >= 0; i--) {
-        yield return spiritsInEncounter[i].ExecuteMovementPlan();
       }
 
       EndAiTurn();

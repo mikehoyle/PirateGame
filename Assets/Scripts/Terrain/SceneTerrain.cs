@@ -4,6 +4,9 @@ using System.Linq;
 using Common;
 using Common.Grid;
 using Encounters;
+using RuntimeVars;
+using RuntimeVars.Encounters;
+using State.Unit;
 using StaticConfig.Terrain;
 using UnityEngine;
 using static Common.Grid.GridUtils;
@@ -18,6 +21,8 @@ namespace Terrain {
     // TODO(P2): Use custom tilemaps instead of passed in sprites
     [SerializeField] private TerrainTilemap tilemap;
     [SerializeField] private GameObject terrainTilePrefab;
+    [SerializeField] private UnitCollection playerUnitsInEncounter;
+    [SerializeField] private EnemyUnitCollection enemyUnitsInEncounter;
 
     
     private SparseMatrix3d<TerrainTile> _terrainMap;
@@ -86,11 +91,11 @@ namespace Terrain {
     /// Returns proper elevation, but ignores elevation for pathing purposes.
     /// Always ignores enabled status of origin tile, to ensure units never block themselves.
     /// </summary>
-    public TravelPath GetPath(Vector3Int origin, Vector3Int destination) {
-      return GetPath(origin, destination, new SparseMatrix3d<bool>());
+    public TravelPath GetPath(Vector3Int origin, Vector3Int destination, UnitFaction faction) {
+      return GetPath(origin, destination, faction, new());
     }
     
-    public TravelPath GetPath(Vector3Int origin, Vector3Int destination, SparseMatrix3d<bool> enablementOverrides) {
+    public TravelPath GetPath(Vector3Int origin, Vector3Int destination, UnitFaction faction, SparseMatrix3d<bool> enablementOverrides) {
       if (!IsGridPositionDefined(origin) || !IsGridPositionDefined(destination)) {
         return new TravelPath(null);
       }
@@ -99,8 +104,13 @@ namespace Terrain {
         return new TravelPath(null);
       }
       
-      // Always set origin to enabled, otherwise the actor is locked out by themselves.
-      enablementOverrides[origin] = true;
+      var allies = faction == UnitFaction.PlayerParty
+          ? playerUnitsInEncounter
+          : enemyUnitsInEncounter.Cast<EncounterActor>();
+      foreach (var ally in allies) {
+        // Always allow movement through self and allies
+        enablementOverrides[ally.Position] = true;
+      }
       var originalEnablements = new SparseMatrix3d<bool>();
       foreach (var enablementOverride in enablementOverrides) {
         if (_terrainMap.TryGetValue(enablementOverride.Key, out var terrainTile)) {
@@ -119,12 +129,20 @@ namespace Terrain {
       return result;
     }
 
-    public HashSet<Vector3Int> GetAllViableDestinations(Vector3Int position, int moveRange) {
-      return GetAllViableDestinations(position, moveRange, new());
+    public HashSet<Vector3Int> GetAllViableDestinations(Vector3Int position, int moveRange, UnitFaction unitFaction) {
+      SparseMatrix3d<bool> overrides = new();
+      var allies = unitFaction == UnitFaction.PlayerParty
+          ? playerUnitsInEncounter
+          : enemyUnitsInEncounter.Cast<EncounterActor>();
+      foreach (var ally in allies) {
+        // Allow movement through allies
+        overrides.Add(ally.Position, true);
+      }
+      return GetAllViableDestinations(position, moveRange, unitFaction, overrides);
     }
 
     public HashSet<Vector3Int> GetAllViableDestinations(
-        Vector3Int position, int moveRange, SparseMatrix3d<bool> enablementOverrides) {
+        Vector3Int position, int moveRange, UnitFaction faction, SparseMatrix3d<bool> enablementOverrides) {
       var result = new HashSet<Vector3Int>();
       for (int x = -moveRange; x <= moveRange; x++) {
         var yMoveRange = moveRange - Math.Abs(x);
@@ -135,7 +153,7 @@ namespace Terrain {
             continue;
           }
           
-          var path = GetPath(position, possibleDestination, enablementOverrides);
+          var path = GetPath(position, possibleDestination, faction, enablementOverrides);
           if (path.IsViableAndWithinRange(moveRange)) {
             foreach (var node in path.Path) {
               if (!IsTileOccupied(node)) {
@@ -210,7 +228,9 @@ namespace Terrain {
       var objectLayer = LayerMask.GetMask("PlacedOnGrid");
       foreach (var collision in Physics2D.OverlapPointAll(GridUtils.CellCenterWorld(tile), objectLayer)) {
         if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
-          return placedOnGrid.ClaimsTile;
+          if (placedOnGrid.ClaimsTile) {
+            return true;
+          }
         }
       }
       return false;

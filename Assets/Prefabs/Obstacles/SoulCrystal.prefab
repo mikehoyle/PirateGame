@@ -5051,3 +5051,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectionRange: 1
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
+  collectionSound:
+    Guid:
+      Data1: 1763804219
+      Data2: 1244495256
+      Data3: 1482283938
+      Data4: -1307639692
+    Path: event:/Interaction/CollectCrystal
+  collectionShake: {fileID: 11400000, guid: f439e76776aeb3948b94e69505c06c20, type: 2}

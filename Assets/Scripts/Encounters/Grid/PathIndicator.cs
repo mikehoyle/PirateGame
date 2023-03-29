@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Common.Events;
 using Events;
+using State.Unit;
 using Terrain;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -73,23 +74,24 @@ namespace Encounters.Grid {
       enabled = false;
     }
 
-    public void DisplayMovementPath(Vector3Int unitPosition, int movementRange, Vector3Int hoveredTile) {
+    public void DisplayMovementPath(
+        Vector3Int unitPosition, int movementRange, Vector3Int hoveredTile, UnitFaction faction) {
       enabled = true;
-      
       if (_lastKnownHoveredCell != hoveredTile) {
-        UpdateMovementHover(hoveredTile, unitPosition, movementRange);
+        UpdateMovementHover(hoveredTile, unitPosition, movementRange, faction);
       }
     }
 
-    private void UpdateMovementHover(Vector3Int targetedCell, Vector3Int unitPosition, int movementRange) {
+    private void UpdateMovementHover(
+        Vector3Int targetedCell, Vector3Int unitPosition, int movementRange, UnitFaction faction) {
+      Clear();
       if (unitPosition == targetedCell) {
         // No need to indicate you can move where you already are
         return;
       }
       
       _lastKnownHoveredCell = targetedCell;
-      Clear();
-      var path = _terrain.GetPath(unitPosition, targetedCell);
+      var path = _terrain.GetPath(unitPosition, targetedCell, faction);
       if (path.IsViableAndWithinRange(movementRange)) {
         Clear();
         DisplayMovementHintInternal(path.Path.First); 

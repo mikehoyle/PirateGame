@@ -49,8 +49,10 @@ namespace Encounters.Enemies {
     public AiActionPlan GetActionPlan(ActionEvaluationContext context) {
       Debug.Log($"Getting action plan for {Metadata.displayName}");
       var possibleDestinations = context.Terrain.GetAllViableDestinations(
-          Position, EncounterState.GetResourceAmount(ExhaustibleResources.Instance.mp), context.ClaimedTileOverrides)
-          .Append(Position);
+          Position,
+          EncounterState.GetResourceAmount(ExhaustibleResources.Instance.mp),
+          EncounterState.faction,
+          context.ClaimedTileOverrides).Append(Position);
       var abilities = GetAllCapableAbilities();
 
       var bestActionPlan = new AiActionPlan(this);
@@ -127,7 +129,7 @@ namespace Encounters.Enemies {
       if (selectedUnit != null
           && this == selectedUnit
           && EncounterState.TryGetResourceTracker(ExhaustibleResources.Instance.mp, out var movementRange)) {
-        _gridIndicators.RangeIndicator.DisplayMovementRange(Position, movementRange.max);
+        _gridIndicators.RangeIndicator.DisplayMovementRange(Position, movementRange.max, EncounterState.faction);
       }
     }
 

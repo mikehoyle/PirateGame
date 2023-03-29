@@ -17,8 +17,6 @@ namespace Encounters.Managers {
     [SerializeField] private EnemyUnitTypeCollection spawnableEnemies;
     [SerializeField] private TileCollection shipTiles;
     [SerializeField] private IntegerVar currentRound;
-    [SerializeField] private float perRoundDifficultyScaling = 0.1f;
-    [SerializeField] private float baseDrPercentForPerRoundSpawns = 0.5f;
     
     private Text _actionHint;
     private GameObject _exfilButton;
@@ -36,7 +34,6 @@ namespace Encounters.Managers {
       base.OnEnable();
       Dispatch.Encounters.EncounterStart.RegisterListener(OnEncounterStart);
       Dispatch.Encounters.ItemCollected.RegisterListener(OnItemCollected);
-      Dispatch.Encounters.PlayerTurnStart.RegisterListener(OnPlayerTurnStart);
       Dispatch.Encounters.SpawnCollectable.RegisterListener(OnSpawnCollectable);
     }
 
@@ -44,7 +41,6 @@ namespace Encounters.Managers {
       base.OnDisable();
       Dispatch.Encounters.EncounterStart.UnregisterListener(OnEncounterStart);
       Dispatch.Encounters.ItemCollected.UnregisterListener(OnItemCollected);
-      Dispatch.Encounters.PlayerTurnStart.UnregisterListener(OnPlayerTurnStart);
       Dispatch.Encounters.SpawnCollectable.UnregisterListener(OnSpawnCollectable);
     }
 
@@ -68,17 +64,8 @@ namespace Encounters.Managers {
 
       _actionHint.text = exfilHintText;
       _exfilButton.SetActive(true);
+      SpawnReinforcements();
       StartCoroutine(FlashObjective());
-    }
-    
-    private void OnPlayerTurnStart() {
-      var spawnDifficulty = (GameState.State.world.GetActiveTile().difficulty * baseDrPercentForPerRoundSpawns)
-          + (currentRound.Value * perRoundDifficultyScaling);
-      foreach (var enemy in spawnableEnemies.RandomEnemySpawnsForDifficulty(spawnDifficulty)) {
-        var destination = _terrain.GetRandomAvailableTile(enemy.size, tile => !shipTiles.Contains(tile));
-        var enemyEncounter = enemy.NewEncounter(destination);
-        Dispatch.Encounters.SpawnEnemyRequest.Raise(enemyEncounter, 1);
-      }
     }
 
     private void OnSpawnCollectable(Vector3Int position, CollectableInstance collectableInstance) {
@@ -88,6 +75,16 @@ namespace Encounters.Managers {
 
       // TODO(P1): Animate and all that.
       Instantiate(spiritKeyPrefab).GetComponent<EncounterCollectable>().Initialize(collectableInstance, position);
+    }
+
+    private void SpawnReinforcements() {
+      Debug.Log("Spawning reinforcements");
+      foreach (var enemy in spawnableEnemies.RandomEnemySpawnsForDifficulty(
+          GameState.State.world.GetActiveTile().difficulty)) {
+        var destination = _terrain.GetRandomAvailableTile(enemy.size, tile => !shipTiles.Contains(tile));
+        var enemyEncounter = enemy.NewEncounter(destination);
+        Dispatch.Encounters.SpawnEnemyRequest.Raise(enemyEncounter, 1);
+      }
     }
   }
 }

@@ -32,6 +32,6 @@ MonoBehaviour:
   managerInstance: 0
   shaderPreview: 0
   MaxLightSize: 100
-  materialOffScreen: 0
+  materialOffScreen: 1
   disable: 0
   profile: {fileID: 11400000, guid: 744af7d72c977154f8a4489ba6ae519d, type: 2}

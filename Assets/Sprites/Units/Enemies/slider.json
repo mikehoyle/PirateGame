@@ -24,7 +24,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_3",
@@ -33,7 +33,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_4",
@@ -42,7 +42,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 400
    },
    {
     "filename": "slider_5",
@@ -51,7 +51,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 400
    },
    {
     "filename": "slider_6",
@@ -60,7 +60,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_7",
@@ -69,7 +69,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_8",
@@ -78,7 +78,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_9",
@@ -87,7 +87,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_10",
@@ -96,7 +96,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_11",
@@ -105,7 +105,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_12",
@@ -114,7 +114,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    },
    {
     "filename": "slider_13",
@@ -123,25 +123,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
     "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
-   },
-   {
-    "filename": "slider_14",
-    "frame": { "x": 1120, "y": 0, "w": 80, "h": 96 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
-    "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
-   },
-   {
-    "filename": "slider_15",
-    "frame": { "x": 1200, "y": 0, "w": 80, "h": 96 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 96 },
-    "sourceSize": { "w": 80, "h": 96 },
-    "duration": 250
+    "duration": 150
    }
  ],
  "meta": {
@@ -149,23 +131,21 @@
   "version": "1.2.40-x64",
   "image": "slider.png",
   "format": "RGBA8888",
-  "size": { "w": 1280, "h": 96 },
+  "size": { "w": 1120, "h": 96 },
   "scale": "1",
   "frameTags": [
    { "name": "idle_sw", "from": 0, "to": 1, "direction": "forward" },
-   { "name": "lean_sw", "from": 2, "to": 2, "direction": "forward" },
-   { "name": "walk_sw", "from": 3, "to": 7, "direction": "forward" },
-   { "name": "idle_ne", "from": 8, "to": 9, "direction": "forward" },
-   { "name": "lean_ne", "from": 10, "to": 10, "direction": "forward" },
-   { "name": "walk_ne", "from": 11, "to": 15, "direction": "forward" }
+   { "name": "walk_sw", "from": 2, "to": 3, "direction": "forward" },
+   { "name": "idle_ne", "from": 4, "to": 5, "direction": "forward" },
+   { "name": "walk_ne", "from": 6, "to": 7, "direction": "forward" },
+   { "name": "attack_sw", "from": 8, "to": 10, "direction": "forward" },
+   { "name": "attack_ne", "from": 11, "to": 13, "direction": "forward" }
   ],
   "layers": [
-   { "name": "shadow", "opacity": 255, "blendMode": "normal" },
-   { "name": "back_arms", "opacity": 255, "blendMode": "normal" },
-   { "name": "front_arms", "opacity": 255, "blendMode": "normal" },
-   { "name": "body", "opacity": 255, "blendMode": "normal" }
+   { "name": "Flattened", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
+   { "name": "Pivot", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 40, "y": 48, "w": 1, "h": 1 } }] }
   ]
  }
 }

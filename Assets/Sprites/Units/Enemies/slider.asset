@@ -27,13 +27,11 @@ MonoBehaviour:
   - {fileID: 7652944562198768271, guid: 22df4dcc2e5a16f4489143f7c1c4b566, type: 3}
   - {fileID: -948834287088563121, guid: 22df4dcc2e5a16f4489143f7c1c4b566, type: 3}
   - {fileID: 4360963807211601580, guid: 22df4dcc2e5a16f4489143f7c1c4b566, type: 3}
-  - {fileID: 1560110340354661520, guid: 22df4dcc2e5a16f4489143f7c1c4b566, type: 3}
-  - {fileID: 446048415665866867, guid: 22df4dcc2e5a16f4489143f7c1c4b566, type: 3}
   animations:
     m_keys:
     - idle
-    - lean
     - walk
+    - attack
     m_values:
     - animations:
         m_keys: 0300000000000000
@@ -47,42 +45,42 @@ MonoBehaviour:
         - direction: 0
           name: idle
           isMirrored: 0
-          startFrame: 8
-          endFrame: 9
-          frameDurationSecs: 0.25
+          startFrame: 4
+          endFrame: 5
+          frameDurationSecs: 0.4
       animationName: idle
       loop: 1
     - animations:
         m_keys: 0300000000000000
         m_values:
         - direction: 3
-          name: lean
+          name: walk
           isMirrored: 0
           startFrame: 2
-          endFrame: 2
-          frameDurationSecs: 0.25
+          endFrame: 3
+          frameDurationSecs: 0.15
         - direction: 0
-          name: lean
+          name: walk
           isMirrored: 0
-          startFrame: 10
-          endFrame: 10
-          frameDurationSecs: 0.25
-      animationName: lean
+          startFrame: 6
+          endFrame: 7
+          frameDurationSecs: 0.15
+      animationName: walk
       loop: 1
     - animations:
         m_keys: 0300000000000000
         m_values:
         - direction: 3
-          name: walk
+          name: attack
           isMirrored: 0
-          startFrame: 3
-          endFrame: 7
-          frameDurationSecs: 0.25
+          startFrame: 8
+          endFrame: 10
+          frameDurationSecs: 0.15
         - direction: 0
-          name: walk
+          name: attack
           isMirrored: 0
           startFrame: 11
-          endFrame: 15
-          frameDurationSecs: 0.25
-      animationName: walk
+          endFrame: 13
+          frameDurationSecs: 0.15
+      animationName: attack
       loop: 1

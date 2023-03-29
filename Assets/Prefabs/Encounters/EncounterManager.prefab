@@ -168,8 +168,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
   currentRound: {fileID: 11400000, guid: b6cacc17f9b44554c8f25deaee2f8598, type: 2}
-  playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
-  enemyUnitsInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
+  battleMusic:
+    Guid:
+      Data1: 1276592183
+      Data2: 1232382595
+      Data3: 1265679522
+      Data4: 1929860816
+    Path: event:/Music/BattleMusic
 --- !u!114 &-6471134198255543633
 MonoBehaviour:
   m_ObjectHideFlags: 0

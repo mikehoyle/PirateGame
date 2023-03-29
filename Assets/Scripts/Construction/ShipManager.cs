@@ -6,6 +6,7 @@ using Controls;
 using Encounters;
 using Events;
 using HUD.MainMenu;
+using IngameDebugConsole;
 using Optional;
 using RuntimeVars.Encounters;
 using State;
@@ -48,12 +49,24 @@ namespace Construction {
       _controls.ShipManagement.Enable();
       Dispatch.ShipBuilder.EnterConstructionMode.RegisterListener(OnEnterConstruction);
       Dispatch.ShipBuilder.ExitConstructionMode.RegisterListener(OnExitConstruction);
+      DebugLogManager.Instance.OnLogWindowShown = OnLogWindowShown;
+      DebugLogManager.Instance.OnLogWindowHidden = OnLogWindowHidden;
     }
 
     private void OnDisable() {
       _controls.ShipManagement.Disable();
       Dispatch.ShipBuilder.EnterConstructionMode.UnregisterListener(OnEnterConstruction);
       Dispatch.ShipBuilder.ExitConstructionMode.UnregisterListener(OnExitConstruction);
+      DebugLogManager.Instance.OnLogWindowShown = null;
+      DebugLogManager.Instance.OnLogWindowHidden = null;
+    }
+
+    private void OnLogWindowShown() {
+      _controls?.ShipManagement.Disable();
+    }
+
+    private void OnLogWindowHidden() {
+      _controls?.ShipManagement.Enable();
     }
 
     private void OnEnterConstruction() {

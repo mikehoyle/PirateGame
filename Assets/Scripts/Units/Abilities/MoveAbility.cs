@@ -14,20 +14,24 @@ namespace Units.Abilities {
         Vector3Int source,
         Vector3Int hoveredTile,
         GridIndicators indicators) {
-      indicators.RangeIndicator.DisplayMovementRange(source, actor.EncounterState.GetResourceAmount(movementResource));
+      indicators.RangeIndicator.DisplayMovementRange(
+          source, actor.EncounterState.GetResourceAmount(movementResource), actor.EncounterState.faction);
       indicators.PathIndicator.DisplayMovementPath(
           actor.Position,
           actor.EncounterState.GetResourceAmount(movementResource),
-          hoveredTile);
+          hoveredTile,
+          actor.EncounterState.faction);
     }
 
     public override bool CouldExecute(AbilityExecutionContext context) {
-      var path = context.Terrain.GetPath(context.Actor.Position, context.TargetedTile);
+      var path = context.Terrain.GetPath(
+          context.Actor.Position, context.TargetedTile, context.Actor.EncounterState.faction);
       return path.IsViableAndWithinRange(context.Actor.EncounterState.GetResourceAmount(movementResource));
     }
 
     protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
-      var path = context.Terrain.GetPath(context.Actor.Position, context.TargetedTile);
+      var path = context.Terrain.GetPath(
+          context.Actor.Position, context.TargetedTile, context.Actor.EncounterState.faction);
       if (!path.IsViableAndWithinRange(context.Actor.EncounterState.GetResourceAmount(movementResource))) {
         Debug.LogWarning("Path became non-viable during movement execution. This should not happen");
         callback();

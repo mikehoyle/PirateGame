@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Common.Animation;
 using Common.Grid;
 using Events;
+using FMODUnity;
 using HUD.Encounter.HoverDetails;
+using MilkShake;
 using RuntimeVars.Encounters;
 using State.Encounter;
 using Units;
@@ -14,6 +15,8 @@ namespace Encounters.Obstacles {
   public class EncounterCollectable : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider, IDirectionalAnimatable {
     [SerializeField] private int collectionRange = 1;
     [SerializeField] private CurrentSelection currentSelection;
+    [SerializeField] private EventReference collectionSound;
+    [SerializeField] private ShakePreset collectionShake;
     
     private ParticleSystem _particles;
 
@@ -70,6 +73,12 @@ namespace Encounters.Obstacles {
     
     private IEnumerator Collect(PlayerUnitController collector) {
       _particles.Play();
+      if (!collectionSound.IsNull) {
+        RuntimeManager.PlayOneShot(collectionSound);
+      }
+      if (collectionShake != null) {
+        Shaker.ShakeAll(collectionShake);
+      }
       yield return new WaitForSeconds(2f);
       collector.AddCollectable(Metadata);
       Dispatch.Encounters.ItemCollected.Raise(Metadata);

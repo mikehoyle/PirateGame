@@ -1,5 +1,4 @@
-﻿using System;
-using Common;
+﻿using Common;
 using Controls;
 using Encounters.Grid;
 using Events;
@@ -33,7 +32,6 @@ namespace Encounters.Managers {
 
     private void OnDestroy() {
       Dispatch.Encounters.EncounterStart.UnregisterListener(OnEncounterStart);
-      currentSelection.Clear();
     }
 
     private void OnEnable() {
@@ -52,6 +50,9 @@ namespace Encounters.Managers {
       
       DebugLogConsole.AddCommand("win", "Automatically win the encounter", DebugWin);
       DebugLogConsole.AddCommand("lose", "Automatically lose the encounter", DebugLose);
+      DebugLogConsole.AddCommand<int, int>("tp", "Teleport selected unit to coordinates", DebugTeleport);
+      DebugLogManager.Instance.OnLogWindowShown = OnLogWindowShown;
+      DebugLogManager.Instance.OnLogWindowHidden = OnLogWindowHidden;
     }
 
     private void OnDisable() {
@@ -66,6 +67,9 @@ namespace Encounters.Managers {
       
       DebugLogConsole.RemoveCommand("win");
       DebugLogConsole.RemoveCommand("lose");
+      DebugLogConsole.RemoveCommand("tp");
+      DebugLogManager.Instance.OnLogWindowShown = null;
+      DebugLogManager.Instance.OnLogWindowHidden = null;
     }
 
     private void Update() {
@@ -85,6 +89,14 @@ namespace Encounters.Managers {
       _controls.TurnBasedEncounter.Enable();
       Dispatch.Encounters.PlayerTurnPreStart.Raise();
       Dispatch.Encounters.PlayerTurnStart.Raise();
+    }
+
+    private void OnLogWindowShown() {
+      _controls?.TurnBasedEncounter.Disable();
+    }
+
+    private void OnLogWindowHidden() {
+      _controls?.TurnBasedEncounter.Enable();
     }
 
     private void OnAbilitySelected(PlayerUnitController actor, UnitAbility ability, Vector3Int source) {
@@ -171,6 +183,13 @@ namespace Encounters.Managers {
     
     private void DebugLose() {
       Dispatch.Encounters.EncounterEnd.Raise(EncounterOutcome.PlayerDefeat);
+    }
+    
+    
+    private void DebugTeleport(int x, int y) {
+      if (currentSelection.TryGetUnit<PlayerUnitController>(out var unit)) {
+        unit.SetPosition(new Vector3Int(x, y, 0));
+      }
     }
 
     private void OnDialogueStart() {

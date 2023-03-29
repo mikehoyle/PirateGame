@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using CameraControl;
+﻿using CameraControl;
 using Common;
 using Common.Grid;
-using Common.Loading;
 using Controls;
 using Events;
 using HUD.MainMenu;
 using IngameDebugConsole;
-using RuntimeVars;
 using State;
 using State.World;
 using UnityEngine;
@@ -64,7 +59,10 @@ namespace Overworld {
       
       Dispatch.Common.DialogueStart.RegisterListener(OnDialogueStart);
       Dispatch.Common.DialogueEnd.RegisterListener(OnDialogueEnd);
+      
       DebugLogConsole.AddCommand("reveal", "Reveal all map tiles", RevealMap);
+      DebugLogManager.Instance.OnLogWindowShown = OnLogWindowShown;
+      DebugLogManager.Instance.OnLogWindowHidden = OnLogWindowHidden;
     }
 
     private void OnDisable() {
@@ -72,7 +70,10 @@ namespace Overworld {
       
       Dispatch.Common.DialogueStart.UnregisterListener(OnDialogueStart);
       Dispatch.Common.DialogueEnd.UnregisterListener(OnDialogueEnd);
+      
       DebugLogConsole.RemoveCommand("reveal");
+      DebugLogManager.Instance.OnLogWindowShown = null;
+      DebugLogManager.Instance.OnLogWindowHidden = null;
     }
 
     private void Start() {
@@ -83,6 +84,14 @@ namespace Overworld {
       _cameraMover.Initialize(
           _overworldTilemap.GetCellCenterWorld(
               (Vector3Int)GameState.State.player.overworldGridPosition));
+    }
+
+    private void OnLogWindowShown() {
+      _controls?.Overworld.Disable();
+    }
+
+    private void OnLogWindowHidden() {
+      _controls?.Overworld.Enable();
     }
 
     private void UpdateTile (WorldTile mapTile) {

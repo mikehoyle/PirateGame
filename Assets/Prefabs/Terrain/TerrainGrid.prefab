@@ -59,3 +59,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 11400000, guid: 6e812fb8720534448a405dfbe4a37195, type: 2}
   terrainTilePrefab: {fileID: 1419319547239032188, guid: ef22b24201fd4484f98a414c717563cc, type: 3}
+  playerUnitsInEncounter: {fileID: 11400000, guid: 411ea2d3e4b5e7e468ece97c6d4645b8, type: 2}
+  enemyUnitsInEncounter: {fileID: 11400000, guid: 0e3c5f057cfd348459334ce1de128ccc, type: 2}
