@@ -63,9 +63,7 @@ namespace Encounters.Grid {
             continue;
           }
           var tile = _terrain.GetElevation(new Vector2Int(source.x + x, source.y + y));
-          if (!excludeFunc(tile)) {
-            _tilemap.SetTile(tile, eligibleTileOverlay);
-          }
+          SetIfNotExcluded(tile, eligibleTileOverlay, excludeFunc);
         }
       }
     }
@@ -84,20 +82,26 @@ namespace Encounters.Grid {
 
       if (diagonalRangeMax > 0) {
         for (int i = diagonalRangeMin; i <= diagonalRangeMax; i++) {
-          _tilemap.SetTile(source + new Vector3Int(i, i, 0), eligibleTileOverlay);
-          _tilemap.SetTile(source + new Vector3Int(i, -i, 0), eligibleTileOverlay);
-          _tilemap.SetTile(source + new Vector3Int(-i, i, 0), eligibleTileOverlay);
-          _tilemap.SetTile(source + new Vector3Int(-i, -i, 0), eligibleTileOverlay);
+          SetIfNotExcluded(source + new Vector3Int(i, i, 0), eligibleTileOverlay, excludeFunc);
+          SetIfNotExcluded(source + new Vector3Int(i, -i, 0), eligibleTileOverlay, excludeFunc);
+          SetIfNotExcluded(source + new Vector3Int(-i, i, 0), eligibleTileOverlay, excludeFunc);
+          SetIfNotExcluded(source + new Vector3Int(-i, -i, 0), eligibleTileOverlay, excludeFunc);
         }
       }
 
       if (straightRangeMax > 0) {
         for (int i = straightRangeMin; i <= straightRangeMax; i++) {
-          _tilemap.SetTile(source + new Vector3Int(i, 0, 0), eligibleTileOverlay);
-          _tilemap.SetTile(source + new Vector3Int(0, i, 0), eligibleTileOverlay);
-          _tilemap.SetTile(source + new Vector3Int(-i, 0, 0), eligibleTileOverlay);
-          _tilemap.SetTile(source + new Vector3Int(0, -i, 0), eligibleTileOverlay);
+          SetIfNotExcluded(source + new Vector3Int(i, 0, 0), eligibleTileOverlay, excludeFunc);
+          SetIfNotExcluded(source + new Vector3Int(0, i, 0), eligibleTileOverlay, excludeFunc);
+          SetIfNotExcluded(source + new Vector3Int(-i, 0, 0), eligibleTileOverlay, excludeFunc);
+          SetIfNotExcluded(source + new Vector3Int(0, -i, 0), eligibleTileOverlay, excludeFunc);
         }
+      }
+    }
+
+    private void SetIfNotExcluded(Vector3Int coord, TileBase tile, ExcludeTile excludeFunc) {
+      if (!excludeFunc(coord)) {
+        _tilemap.SetTile(coord, tile);
       }
     }
 
