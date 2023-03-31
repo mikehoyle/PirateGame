@@ -71,7 +71,12 @@ namespace Encounters.Grid {
     }
 
     public void DisplayStraightLineRange(
-        Vector3Int source, int diagonalRangeMin, int diagonalRangeMax, int straightRangeMin, int straightRangeMax) {
+        Vector3Int source,
+        int diagonalRangeMin,
+        int diagonalRangeMax,
+        int straightRangeMin,
+        int straightRangeMax,
+        ExcludeTile excludeFunc) {
       enabled = true;
       Clear();
       // TODO(P2): Make a targeting-specific sprite

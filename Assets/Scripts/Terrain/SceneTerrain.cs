@@ -214,21 +214,18 @@ namespace Terrain {
     }
 
     public static bool IsMovementBlocked(Vector3Int tile) {
-      var objectLayer = LayerMask.GetMask("PlacedOnGrid");
-      foreach (var collision in Physics2D.OverlapPointAll(GridUtils.CellCenterWorld(tile), objectLayer)) {
-        if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
-          // Committing to not doing elevation right here right now. It would be necessary to check here.
-          return placedOnGrid.BlocksAllMovement;
-        }
-      }
-      return false;
+      return DoesTileHaveObjectWhere(tile, item => item.BlocksAllMovement);
     }
-    
+
     public static bool IsTileOccupied(Vector3Int tile) {
+      return DoesTileHaveObjectWhere(tile, item => item.ClaimsTile);
+    }
+
+    public static bool DoesTileHaveObjectWhere(Vector3Int tile, Func<IPlacedOnGrid, bool> condition) {
       var objectLayer = LayerMask.GetMask("PlacedOnGrid");
       foreach (var collision in Physics2D.OverlapPointAll(GridUtils.CellCenterWorld(tile), objectLayer)) {
         if (collision.TryGetComponent<IPlacedOnGrid>(out var placedOnGrid)) {
-          if (placedOnGrid.ClaimsTile) {
+          if (condition(placedOnGrid)) {
             return true;
           }
         }

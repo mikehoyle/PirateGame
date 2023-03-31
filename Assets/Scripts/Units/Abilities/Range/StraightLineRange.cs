@@ -11,7 +11,7 @@ namespace Units.Abilities.Range {
     [SerializeField] private int straightRangeMin;
     [SerializeField] private int straightRangeMax;
     
-    public override bool IsInRange(EncounterActor _, Vector3Int source, Vector3Int target) {
+    protected override bool IsInRangeInternal(EncounterActor _, Vector3Int source, Vector3Int target) {
       var difference = target - source;
       var xDiff = Math.Abs(difference.x);
       var yDiff = Math.Abs(difference.y);
@@ -33,9 +33,10 @@ namespace Units.Abilities.Range {
       return false;
     }
 
-    public override void DisplayTargetingRange(EncounterActor _, GridIndicators indicators, Vector3Int source) {
+    public override void DisplayTargetingRange(EncounterActor actor, GridIndicators indicators, Vector3Int source) {
+      bool ExcludeFunction(Vector3Int target) => !IsInRange(actor, source, target);
       indicators.RangeIndicator.DisplayStraightLineRange(
-          source, diagonalRangeMin, diagonalRangeMax, straightRangeMin, straightRangeMax);
+          source, diagonalRangeMin, diagonalRangeMax, straightRangeMin, straightRangeMax, ExcludeFunction);
     }
   }
 }

@@ -4,57 +4,41 @@ using System.Text;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
-using Encounters.SkillTest;
 using Events;
 using Optional;
 using RuntimeVars.Encounters;
-using State.Unit;
 using StaticConfig.Units;
 using Terrain;
 using Units.Abilities.FX;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Units.Abilities {
   /// <summary>
-  /// Encapsulates an actionable capability of a unit.
-  /// Expand on this greatly.
+  ///   Encapsulates an actionable capability of a unit.
+  ///   Expand on this greatly.
   /// </summary>
   public abstract class UnitAbility : ScriptableObject {
+
+    // Result is a quality percentage from 0 - 1.
+    public delegate void AbilityEffectivenessCallback(float result);
+    public delegate void AbilityExecutionCompleteCallback();
     [SerializeField] private GameObject skillTestPrefab;
     [SerializeField] protected AbilityCastEffect fx;
     public int usesPerEncounter;
     [SerializeField] protected bool canStillMoveAfter;
     // Optional
-    [SerializeReference, SerializeReferenceButton] public StatusEffect incurredEffect;
+    [SerializeReference] [SerializeReferenceButton]
+    public StatusEffect incurredEffect;
     public string descriptionShort;
-
-    // Result is a quality percentage from 0 - 1.
-    public delegate void AbilityEffectivenessCallback(float result);
-    public delegate void AbilityExecutionCompleteCallback();
-
-    [Serializable]
-    public struct UnitAbilityCost {
-      public int amount;
-      public ExhaustibleResource resource;
-    }
-
-    public class AbilityExecutionContext {
-      public EncounterActor Actor { get; set; }
-      public Vector3Int Source { get; set; }
-      public Vector3Int TargetedTile { get; set; }
-      public SceneTerrain Terrain { get; set; }
-      public GridIndicators Indicators { get; set; }
-    }
 
     public string displayString;
     public UnitAbilityCost[] cost;
 
     public virtual void OnSelected(EncounterActor actor, GridIndicators indicators, Vector3Int source) { }
-    
+
     public virtual void ShowIndicator(
         EncounterActor actor,
-        Vector3Int source, 
+        Vector3Int source,
         Vector3Int hoveredTile,
         GridIndicators indicators) { }
 
@@ -78,14 +62,14 @@ namespace Units.Abilities {
         callback();
       }));
     }
-    
-    protected abstract IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback); 
+
+    protected abstract IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback);
 
     public bool CanAfford(EncounterActor actor) {
-      if (usesPerEncounter > 0 && actor.EncounterState.GetExecutionCount(this) >= usesPerEncounter) {
+      if ((usesPerEncounter > 0) && (actor.EncounterState.GetExecutionCount(this) >= usesPerEncounter)) {
         return false;
       }
-      
+
       foreach (var abilityCost in cost) {
         if (actor.EncounterState.GetResourceAmount(abilityCost.resource) < abilityCost.amount) {
           return false;
@@ -100,7 +84,7 @@ namespace Units.Abilities {
 
     public string CostString() {
       var result = new StringBuilder();
-      for (int i = 0; i < cost.Length; i++) {
+      for (var i = 0; i < cost.Length; i++) {
         result.Append($"{cost[i].amount} {cost[i].resource.displayName}");
         if (i != cost.Length - 1) {
           result.Append(", ");
@@ -108,7 +92,7 @@ namespace Units.Abilities {
       }
       return result.ToString();
     }
-    
+
     protected void SpendCost(EncounterActor actor) {
       actor.EncounterState.RegisterAbilityExecution(this);
       foreach (var abilityCost in cost) {
@@ -119,10 +103,24 @@ namespace Units.Abilities {
         actor.EncounterState.ExpendResource(ExhaustibleResources.Instance.mp, int.MaxValue);
       }
     }
-    
+
     protected void DetermineAbilityEffectiveness(EncounterActor actor, AbilityEffectivenessCallback callback) {
       // Right now, this is a non-factor. Considering dropping the idea of skill-tests entirely.
       callback(1f);
+    }
+
+    [Serializable]
+    public struct UnitAbilityCost {
+      public int amount;
+      public ExhaustibleResource resource;
+    }
+
+    public class AbilityExecutionContext {
+      public EncounterActor Actor { get; set; }
+      public Vector3Int Source { get; set; }
+      public Vector3Int TargetedTile { get; set; }
+      public SceneTerrain Terrain { get; set; }
+      public GridIndicators Indicators { get; set; }
     }
   }
 }

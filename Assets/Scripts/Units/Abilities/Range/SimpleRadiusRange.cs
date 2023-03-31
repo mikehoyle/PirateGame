@@ -10,13 +10,14 @@ namespace Units.Abilities.Range {
     public int rangeMin;
     public int rangeMax;
 
-    public override bool IsInRange(EncounterActor actor, Vector3Int source, Vector3Int target) {
+    protected override bool IsInRangeInternal(EncounterActor actor, Vector3Int source, Vector3Int target) {
       var distance = GridUtils.DistanceBetween(source, target);
       return distance >= rangeMin && distance <= rangeMax;
     }
 
     public override void DisplayTargetingRange(EncounterActor actor, GridIndicators indicators, Vector3Int source) {
-      indicators.RangeIndicator.DisplayTargetingRange(source, rangeMin, rangeMax);
+      bool ExcludeFunction(Vector3Int target) => !IsInRange(actor, source, target);
+      indicators.RangeIndicator.DisplayTargetingRangeWithExclusions(source, rangeMin, rangeMax, ExcludeFunction);
     }
   }
 }
