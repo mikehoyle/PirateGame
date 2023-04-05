@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -160105272764826462}
   - component: {fileID: 4072349022230282683}
   - component: {fileID: 3021715932713076003}
+  - component: {fileID: -6407067985159455034}
   m_Layer: 6
   m_Name: SmallEnemyUnit
   m_TagString: Untagged
@@ -171,6 +172,28 @@ PolygonCollider2D:
       - {x: -0.5, y: 0.25}
       - {x: 0, y: 0.5}
       - {x: 0.5, y: 0.25}
+--- !u!114 &-6407067985159455034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2938806043710237447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9bdd1d821445a38dcad5b70df057f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropInHeight: 6
+  dropInGravity: 15
+  dropInShake: {fileID: 11400000, guid: 7918ea23731f4444099e0f61bb61d2ce, type: 2}
+  dropInImpactSound:
+    Guid:
+      Data1: -489537298
+      Data2: 1236233903
+      Data3: -109247347
+      Data4: -1894127419
+    Path: event:/Units/Movement/DropInImpact
 --- !u!1001 &5184742110410809148
 PrefabInstance:
   m_ObjectHideFlags: 0

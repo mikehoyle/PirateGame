@@ -1,0 +1,31 @@
+{ "frames": [
+   {
+    "filename": "spirit_ship_0",
+    "frame": { "x": 0, "y": 0, "w": 420, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 420, "h": 256 },
+    "sourceSize": { "w": 420, "h": 256 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "spirit_ship.png",
+  "format": "RGBA8888",
+  "size": { "w": 420, "h": 256 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle_nw", "from": 0, "to": 0, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "ship", "opacity": 191, "blendMode": "normal" },
+   { "name": "deck_details", "opacity": 191, "blendMode": "normal" },
+   { "name": "lamp_posts", "opacity": 191, "blendMode": "normal" }
+  ],
+  "slices": [
+   { "name": "Pivot", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 128, "y": 183, "w": 1, "h": 1 } }] }
+  ]
+ }
+}

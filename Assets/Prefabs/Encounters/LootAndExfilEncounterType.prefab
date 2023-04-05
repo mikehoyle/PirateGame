@@ -122,11 +122,12 @@ MonoBehaviour:
   getKeyHintText: Collect The Soul Key
   exfilHintText: Get back to the boat
   spiritKeyPrefab: {fileID: 6637086093365284048, guid: 1d5d93af5bbdf3c418aebbce87e13e42, type: 3}
+  secondaryPickupPrefab: {fileID: 850007986379119164, guid: 99621540ef96fde4c93c559b90c36752, type: 3}
   spawnableEnemies: {fileID: 11400000, guid: 74a244f7052cd8e4dbe85654dce54cac, type: 2}
   shipTiles: {fileID: 11400000, guid: dbb2cb720b5109542acc8f925f1d615a, type: 2}
-  currentRound: {fileID: 11400000, guid: b6cacc17f9b44554c8f25deaee2f8598, type: 2}
-  perRoundDifficultyScaling: 0.05
-  baseDrPercentForPerRoundSpawns: 0.45
+  soulBuffs: {fileID: 11400000, guid: fe3c4966a81e6c34e97f383f36e6d1f5, type: 2}
+  minSecondarySouls: 5
+  maxSecondarySouls: 10
 --- !u!114 &7881398413011549884
 MonoBehaviour:
   m_ObjectHideFlags: 0

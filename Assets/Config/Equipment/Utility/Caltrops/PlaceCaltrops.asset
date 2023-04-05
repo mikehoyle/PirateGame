@@ -36,5 +36,6 @@ MonoBehaviour:
     - rid: 1371289412658790406
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
+        requiresLineOfSight: 1
         rangeMin: 1
         rangeMax: 1

@@ -4919,6 +4919,7 @@ GameObject:
   - component: {fileID: 6637086093365284063}
   - component: {fileID: 7273798846262474236}
   - component: {fileID: 4625400720297807631}
+  - component: {fileID: -4309453178988805296}
   m_Layer: 6
   m_Name: SoulCrystal
   m_TagString: Untagged
@@ -4984,7 +4985,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8165966925890837668, guid: 902eab7bf853b734dba908685d97f1a6, type: 3}
+  m_Sprite: {fileID: -372954537379617636, guid: 256c96179e5312642b23407839932c5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4994,7 +4995,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &6637086093365284063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5007,7 +5008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb528b02ef754612bbfb3d9af07cf338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  referenceSprite: {fileID: 11400000, guid: e7633e0fc28923c46b914cc8ead80608, type: 2}
+  referenceSprite: {fileID: 11400000, guid: 1a9de5b5751183842b061e97c5e4660a, type: 2}
 --- !u!60 &7273798846262474236
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5059,3 +5060,25 @@ MonoBehaviour:
       Data4: -1307639692
     Path: event:/Interaction/CollectCrystal
   collectionShake: {fileID: 11400000, guid: f439e76776aeb3948b94e69505c06c20, type: 2}
+--- !u!114 &-4309453178988805296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637086093365284048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9bdd1d821445a38dcad5b70df057f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropInHeight: 6
+  dropInGravity: 15
+  dropInShake: {fileID: 11400000, guid: 7918ea23731f4444099e0f61bb61d2ce, type: 2}
+  dropInImpactSound:
+    Guid:
+      Data1: -489537298
+      Data2: 1236233903
+      Data3: -109247347
+      Data4: -1894127419
+    Path: event:/Units/Movement/DropInImpact

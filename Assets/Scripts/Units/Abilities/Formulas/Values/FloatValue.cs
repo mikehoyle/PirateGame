@@ -8,6 +8,10 @@ namespace Units.Abilities.Formulas.Values {
     [SerializeField] private float value;
     
     public float GetValue(EncounterActor _, float skillTestResult) {
+      return GetValueNoContext();
+    }
+
+    public float GetValueNoContext() {
       return value;
     }
     

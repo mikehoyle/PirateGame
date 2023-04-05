@@ -7,7 +7,7 @@ namespace Common.Loading {
   public static class Scenes {
     public enum Name {
       Overworld,
-      Tavern,
+      Title,
       ShipBuilder,
       Encounter,
     }
@@ -16,7 +16,7 @@ namespace Common.Loading {
     public static string SceneName(this Name name) {
       return name switch {
           Name.Overworld => "OverworldScene",
-          Name.Tavern => "TavernScene",
+          Name.Title => "TitleScene",
           Name.ShipBuilder => "ShipBuilderScene",
           Name.Encounter => "EncounterScene",
           _ => throw new NotImplementedException($"Attempted to load non-existent scene {(int)name}"),

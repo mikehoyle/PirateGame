@@ -66,5 +66,37 @@ namespace State.World {
       var activeTile = GameState.State.player.overworldGridPosition;
       return GetTile(activeTile.x, activeTile.y);
     }
+
+    public List<EncounterWorldTile> GetAllConnectedEncounters(WorldTile tile) {
+      var result = new List<EncounterWorldTile>();
+      foreach (var border in outpostBorders) {
+        if (border.endpointOne == tile.coordinates) {
+          if (GetTile(border.endpointTwo) is EncounterWorldTile encounterTile) {
+            Debug.Log($"Found connected outpost (2) at {encounterTile.coordinates}");
+            result.Add(encounterTile);
+          }
+        }
+
+        if (border.endpointTwo == tile.coordinates) {
+          if (GetTile(border.endpointOne) is EncounterWorldTile encounterTile) {
+            Debug.Log($"Found connected outpost (1) at {encounterTile.coordinates}");
+            result.Add(encounterTile);
+          }
+        }
+      }
+
+      return result;
+    }
+
+    public bool HasPath(HexOffsetCoordinates point1, HexOffsetCoordinates point2) {
+      foreach (var border in outpostBorders) {
+        if (border.HasEndpoint(point1) && border.HasEndpoint(point2)) {
+          return true;
+        }
+      }
+      return false;
+    }
   }
 }
+
+

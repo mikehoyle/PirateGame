@@ -3,5 +3,6 @@
 namespace Encounters.Effects {
   public abstract class AppliedStatusEffect : MonoBehaviour {
     public virtual void PreCalculateEffect(EncounterActor actor, float skillTestResult) { }
+    public virtual void PreCalculateNoContext() { }
   }
 }

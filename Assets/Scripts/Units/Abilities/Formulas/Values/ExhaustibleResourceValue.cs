@@ -11,6 +11,10 @@ namespace Units.Abilities.Formulas.Values {
     public float GetValue(EncounterActor actor, float skillTestResult) {
       return actor.EncounterState.GetResourceAmount(resource);
     }
+
+    public float GetValueNoContext() {
+      return 0;
+    }
     
     public string DisplayString() => resource.displayName;
   }

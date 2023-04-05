@@ -20,7 +20,7 @@ MonoBehaviour:
   isRevivable: 1
   displayName: Spitter
   shortDescription: 2HP Ranged
-  startingHp: 3
+  startingHp: 6
   movementRange: 3
   sprite: {fileID: 11400000, guid: 69d8c2fe878279c45a21b8269d2b96e8, type: 2}
   abilities:

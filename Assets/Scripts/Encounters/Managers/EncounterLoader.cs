@@ -1,12 +1,13 @@
 ﻿using System;
 using CameraControl;
 using Common.Grid;
+using Common.Loading;
 using Encounters.Generation;
 using Encounters.ShipPlacement;
 using State;
 using State.World;
 using UnityEngine;
-using Zen.Hexagons;
+using UnityEngine.SceneManagement;
 
 namespace Encounters.Managers {
   public class EncounterLoader : MonoBehaviour {
@@ -53,9 +54,8 @@ namespace Encounters.Managers {
 
     private void MaybeLoadDebugEncounter() {
       if (Debug.isDebugBuild && GameState.State.world.GetActiveTile() == null) {
-        var position = GameState.State.player.overworldGridPosition;
-        var encounter = new EncounterWorldTile(HexOffsetCoordinates.From((Vector3Int)position));
-        GameState.State.world.UpdateTile(encounter);
+        // Just load the title scene so a game is created.
+        SceneManager.LoadScene(Scenes.Name.Title.SceneName());
       }
     }
   }

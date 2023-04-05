@@ -113,8 +113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableEnemies: {fileID: 11400000, guid: 74a244f7052cd8e4dbe85654dce54cac, type: 2}
   rockObstacle: {fileID: 11400000, guid: d99fe2c7d5625d04a81988b19a3c469f, type: 2}
-  soulsResource: {fileID: 11400000, guid: 5e30639d7433bca4fa9327eba6a1420a, type: 2}
   terrainPrefabs: {fileID: 11400000, guid: 57c109d9d45c10046a117a5bf8704056, type: 2}
+  minPrimarySouls: 20
+  maxPrimarySouls: 30
 --- !u!114 &1915456238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,13 +169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSelection: {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
   currentRound: {fileID: 11400000, guid: b6cacc17f9b44554c8f25deaee2f8598, type: 2}
-  battleMusic:
-    Guid:
-      Data1: 1276592183
-      Data2: 1232382595
-      Data3: 1265679522
-      Data4: 1929860816
-    Path: event:/Music/BattleMusic
 --- !u!114 &-6471134198255543633
 MonoBehaviour:
   m_ObjectHideFlags: 0

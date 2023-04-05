@@ -21,9 +21,9 @@ namespace State.Unit {
       _abilityExecutionCounts = new();
     }
     
-    public void NewRound() {
+    public void NewRound(Func<Stat, int> statGetter) {
       foreach (var resource in resources) {
-        resource.NewRound();
+        resource.NewRound(statGetter);
       }
     }
 

@@ -11,14 +11,13 @@ namespace State.Unit {
   [CreateAssetMenu(menuName = "State/UnitMetadata")]
   public class PlayerUnitMetadata : UnitMetadata {
     // TODO(P3): Make these configurable in an asset.
-    private const int BaseHp = 4;
+    private const int BaseHp = 9;
     private const int HpPerLevel = 1;
     private const int BaseMovement = 3;
     private const int MovementPerLevel = 1;
 
     [SerializeField] private UnitAbilitySet defaultAbilities;
-    [SerializeField] private Stat constitutionStat;
-    [SerializeField] private Stat movementStat;
+    [SerializeField] private Stats allStats;
     [SerializeField] private UnitAbility debugGodSmite;
 
     public string firstName;
@@ -47,12 +46,12 @@ namespace State.Unit {
       return firstName + " " + lastName;
     }
 
-    public override int GetStartingHp() {
-      return BaseHp + (HpPerLevel * GetStat(constitutionStat));
+    public override ExhaustibleResourceTracker.GetResourceMax GetHpFormula() {
+      return getStat => BaseHp + (HpPerLevel * getStat(allStats.constitution));
     }
     
-    public override int GetMovementRange() {
-      return BaseMovement + (MovementPerLevel * GetStat(movementStat));
+    public override ExhaustibleResourceTracker.GetResourceMax GetMovementRangeFormula() {
+      return getStat => BaseMovement + (MovementPerLevel * getStat(allStats.movement));
     }
 
     public UnitEncounterState NewEncounter(Vector3Int shipOffset) {

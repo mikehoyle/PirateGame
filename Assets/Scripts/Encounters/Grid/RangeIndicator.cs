@@ -114,8 +114,10 @@ namespace Encounters.Grid {
     }
 
     public void Clear() {
-      _tilemap.ClearAllTiles();
-      _tilemap.color = Color.white;
+      if (_tilemap != null) {
+        _tilemap.ClearAllTiles();
+        _tilemap.color = Color.white;
+      }
     }
   }
 }

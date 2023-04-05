@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 7100612996877513888}
   - component: {fileID: 2160667627937808238}
   - component: {fileID: 5969419922174882323}
+  - component: {fileID: 5747747319430010868}
   m_Layer: 6
   m_Name: Unit
   m_TagString: PlayerUnit
@@ -161,16 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedUnitsPerSec: 3.5
-  dropInHeight: 6
-  dropInGravity: 15
-  dropInShake: {fileID: 11400000, guid: 2c933a6da9294e941adc345869bca4a2, type: 2}
-  dropInImpactSound:
-    Guid:
-      Data1: -489537298
-      Data2: 1236233903
-      Data3: -109247347
-      Data4: -1894127419
-    Path: event:/Units/Movement/DropInImpact
 --- !u!60 &7100612996877513888
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -252,6 +243,28 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &5747747319430010868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998738781700405355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9bdd1d821445a38dcad5b70df057f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropInHeight: 6
+  dropInGravity: 15
+  dropInShake: {fileID: 11400000, guid: c523ce1a1eab2f6479b016deec06f8be, type: 2}
+  dropInImpactSound:
+    Guid:
+      Data1: -489537298
+      Data2: 1236233903
+      Data3: -109247347
+      Data4: -1894127419
+    Path: event:/Units/Movement/DropInImpact
 --- !u!1001 &461450814426363487
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ namespace Encounters.Obstacles {
     [SerializeField] private ShakePreset collectionShake;
     
     private ParticleSystem _particles;
+    private UnitDropIn _dropIn;
 
     public CollectableInstance Metadata { get; private set; }
     public Vector3Int Position { get; private set; }
@@ -33,6 +34,7 @@ namespace Encounters.Obstacles {
 
     private void Awake() {
       _particles = GetComponentInChildren<ParticleSystem>();
+      _dropIn = GetComponent<UnitDropIn>();
     }
 
     private void OnEnable() {
@@ -53,6 +55,10 @@ namespace Encounters.Obstacles {
       Metadata = collectable;
       Position = position;
       transform.position = GridUtils.CellCenterWorld(position);
+    }
+
+    public void DropIn() {
+      StartCoroutine(_dropIn.DropIn(() => { }));
     }
 
     private void TryCollect() {

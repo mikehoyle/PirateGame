@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6407067985159455034, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
+      propertyPath: dropInShake
+      value: 
+      objectReference: {fileID: 11400000, guid: c523ce1a1eab2f6479b016deec06f8be, type: 2}
     - target: {fileID: -160105272764826462, guid: 286b50dc74d4014489bc4069f81df2b8, type: 3}
       propertyPath: dropInShake
       value: 

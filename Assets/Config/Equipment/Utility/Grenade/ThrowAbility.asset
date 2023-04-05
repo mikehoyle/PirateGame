@@ -40,6 +40,7 @@ MonoBehaviour:
     - rid: 1371289412658790400
       type: {class: StraightLineRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
+        requiresLineOfSight: 1
         diagonalRangeMin: 0
         diagonalRangeMax: 0
         straightRangeMin: 2
@@ -62,7 +63,7 @@ MonoBehaviour:
     - rid: 1371289412658790404
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 1
+        value: 2
     - rid: 1371289412658790405
       type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:

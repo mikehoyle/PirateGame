@@ -20,7 +20,7 @@ MonoBehaviour:
   isRevivable: 0
   displayName: Enchanter
   shortDescription: Heals allies 1HP
-  startingHp: 3
+  startingHp: 6
   movementRange: 3
   sprite: {fileID: 11400000, guid: cdc8acf5d6271684e97058f12df5a5c7, type: 2}
   abilities:
@@ -29,7 +29,7 @@ MonoBehaviour:
   actionPreferences:
     atPreferredRangeFromPlayer: 5
     preferredRangeFromPlayer: 10
-    distanceFromPreferredRangeByTile: -0.1
+    dropOffFromPreferredRangeByTile: 0.1
     stayStationary: 0.05
     canPerformAbility: 10
     inRadiusOfAlly: 2

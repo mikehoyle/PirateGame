@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using StaticConfig.Units;
-using Units.Abilities;
 using UnityEngine;
 
 namespace Encounters.Effects {
@@ -21,6 +20,18 @@ namespace Encounters.Effects {
       }
     }
 
+    public override void PreCalculateNoContext() {
+      _calculatedImmediateEffects.Clear();
+      _calculatedPerRoundEffects.Clear();
+      var sourceEffect = (PerRoundExhaustibleResourceStatusEffect)_sourceEffect;
+      foreach (var effect in sourceEffect.immediateEffects) {
+        _calculatedImmediateEffects.Add(effect.resource, effect.value.GetValueNoContext());
+      }
+      foreach (var effect in sourceEffect.exhaustibleResourceEffects) {
+        _calculatedPerRoundEffects.Add(effect.resource, effect.value.GetValueNoContext());
+      }
+    }
+
     protected override void EnactEffect() {
       EnactResourceEffects(_calculatedPerRoundEffects);
     }
@@ -30,6 +41,10 @@ namespace Encounters.Effects {
     }
 
     private IEnumerator ApplyImmediateAfterDelay() {
+      var sourceEffect = (PerRoundExhaustibleResourceStatusEffect)_sourceEffect;
+      if (sourceEffect.immediateEffects.Length == 0) {
+        yield break;
+      }
       yield return new WaitForSeconds(
           ((PerRoundExhaustibleResourceStatusEffect)_sourceEffect).immediateEffectDelaySecs);
       EnactResourceEffects(_calculatedImmediateEffects);

@@ -19,19 +19,19 @@ namespace State.Unit {
     public abstract List<UnitAbility> GetAbilities();
 
     public abstract string GetName();
-    public abstract int GetStartingHp();
-    public abstract int GetMovementRange();
+    public abstract ExhaustibleResourceTracker.GetResourceMax GetHpFormula();
+    public abstract ExhaustibleResourceTracker.GetResourceMax GetMovementRangeFormula();
     
-    public int GetActionPoints() {
-      return NumActionPoints;
+    public ExhaustibleResourceTracker.GetResourceMax GetActionPoints() {
+      return _ => NumActionPoints;
     }
 
     public ExhaustibleResourceTracker[] GetEncounterTrackers() {
       return new[] {
           // TODO(P1): Don't always refresh HP fully.
-          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.hp, GetStartingHp()),
-          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.mp, GetMovementRange()),
-          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.ap, GetActionPoints()),
+          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.hp, GetHpFormula(), GetStat),
+          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.mp, GetMovementRangeFormula(), GetStat),
+          ExhaustibleResourceTracker.NewTracker(exhaustibleResources.ap, GetActionPoints(), GetStat),
       };
     }
     

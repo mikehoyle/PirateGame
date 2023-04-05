@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Common;
 using Common.Animation;
@@ -7,7 +6,6 @@ using Common.Grid;
 using Encounters;
 using Encounters.Obstacles;
 using FMODUnity;
-using MilkShake;
 using Optional;
 using StaticConfig.Units;
 using Terrain;
@@ -16,10 +14,6 @@ using UnityEngine;
 namespace Units {
   public class UnitMover : MonoBehaviour {
     [SerializeField] private float speedUnitsPerSec;
-    [SerializeField] private int dropInHeight;
-    [SerializeField] private float dropInGravity;
-    [SerializeField] private ShakePreset dropInShake;
-    [SerializeField] private EventReference dropInImpactSound;
     
     private EncounterActor _unit;
     private Option<StudioEventEmitter> _footstepsSound;
@@ -92,27 +86,6 @@ namespace Units {
           _unit.EncounterState.facingDirection = FacingDirection.SouthWest;
         }
       }
-    }
-
-    public IEnumerator DropIn(Action onCompleteCallback) {
-      _unit.EnableShadow(false);
-      var currentPosition = GridUtils.CellCenterWorld(_unit.Position);
-      var destinationY = currentPosition.y;
-      currentPosition.y += dropInHeight;
-      var currentVelocityY = 3f;
-
-      while (currentPosition.y > destinationY) {
-        currentVelocityY += (dropInGravity * Time.deltaTime);
-        currentPosition.y -= (currentVelocityY * Time.deltaTime);
-        transform.position = currentPosition;
-        yield return null;
-      }
-      
-      _unit.EnableShadow(true);
-      Shaker.ShakeAll(dropInShake);
-      RuntimeManager.PlayOneShot(dropInImpactSound);
-      OnMovementComplete();
-      onCompleteCallback();
     }
 
     public void SnapToPosition(Vector3Int position) {

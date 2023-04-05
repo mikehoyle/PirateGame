@@ -28,9 +28,25 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2453841782407168000
+      type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        operation: 0
+        operands:
+        - rid: 2453841782407168001
+        - rid: 2453841782407168002
+    - rid: 2453841782407168001
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: 2
+    - rid: 2453841782407168002
+      type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
     - rid: 4252309007281946630
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
+        requiresLineOfSight: 1
         rangeMin: 1
         rangeMax: 1
     - rid: 4252309007281946638
@@ -39,9 +55,5 @@ MonoBehaviour:
         exhaustibleResourceEffects:
         - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
           value:
-            rid: 4252309007281946639
+            rid: 2453841782407168000
         delayInSeconds: 0
-    - rid: 4252309007281946639
-      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
-      data:
-        value: 1

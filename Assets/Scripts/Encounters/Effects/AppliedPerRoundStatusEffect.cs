@@ -1,5 +1,4 @@
-﻿using System;
-using Common.Events;
+﻿using Common.Events;
 using Events;
 using State.Unit;
 

@@ -23,6 +23,13 @@ namespace Encounters.Effects {
       }
     }
     
+    public override void PreCalculateNoContext() {
+      _calculatedEffects.Clear();
+      foreach (var effect in _sourceEffect.exhaustibleResourceEffects) {
+        _calculatedEffects.Add(effect.resource, effect.value.GetValueNoContext());
+      }
+    }
+    
     private void Update() {
       _startTime += Time.deltaTime;
       if (_startTime >= _sourceEffect.delayInSeconds) {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using State;
 using State.Encounter;
 using State.Unit;
 using State.World;
@@ -20,8 +21,9 @@ namespace Encounters.Generation {
   public class EncounterGenerator : MonoBehaviour {
     [SerializeField] private EnemyUnitTypeCollection spawnableEnemies;
     [SerializeField] private ObstaclePrefab rockObstacle;
-    [SerializeField] private RawResource soulsResource;
     [SerializeField] private TerrainPrefabs terrainPrefabs;
+    [SerializeField] private int minPrimarySouls;
+    [SerializeField] private int maxPrimarySouls;
     
     private Random _rng;
     private HashSet<Vector3Int> _availableTiles;
@@ -107,25 +109,27 @@ namespace Encounters.Generation {
     private void GenerateCollectables(EncounterWorldTile encounterTile) {
       encounterTile.collectables = new();
 
-      using var randomizedTiles = _availableTiles
+      using var randomizedBackRow = _availableTiles
           .Where(tile => tile.y == 0)
           .OrderBy(_ => _rng.Next()).GetEnumerator();
-      randomizedTiles.MoveNext();
+      randomizedBackRow.MoveNext();
 
-      var crystalPosition = randomizedTiles.Current;
+      
+      // First generated the primary objective.
+      var crystalPosition = randomizedBackRow.Current;
       _availableTiles.Remove(crystalPosition);
       encounterTile.collectables.Add(crystalPosition, new CollectableInstance {
           isPrimaryObjective = true,
           name = "Soul Key",
           contents = new() {
-              // Arbitrary amount, for now
-              [soulsResource] = (int)(_rng.Next(20, 30) * encounterTile.difficulty),
+              [encounterTile.soulType] = (int)(_rng.Next(minPrimarySouls, maxPrimarySouls) * encounterTile.difficulty),
           },
       });
     }
 
     // TODO(P1): This breaks if we have no valid tile options.
-    private Vector3Int ClaimRandomTile(Vector2Int size) {
+    private Vector3Int ClaimRandomTile(Vector2Int? optionalSize = null) {
+      var size = optionalSize.GetValueOrDefault(Vector2Int.one);
       using var randomizedTiles = _availableTiles.OrderBy(_ => _rng.Next()).GetEnumerator();
       while (randomizedTiles.MoveNext()) {
         var tile = randomizedTiles.Current;

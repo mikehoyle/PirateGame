@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b012265fea4d93b79c8b1d34a7264b, type: 3}
   m_Name: ViolentSouls
   m_EditorClassIdentifier: 
-  id: 
-  displayName: 
+  id: violent_souls
+  displayName: Violent Souls

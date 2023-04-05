@@ -30,9 +30,14 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2453841759638388738
+      type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: 27bc55966ccc98747a38b270dc376ebe, type: 2}
     - rid: 4252309007281946626
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
+        requiresLineOfSight: 1
         rangeMin: 2
         rangeMax: 4
     - rid: 4252309007281946646
@@ -49,26 +54,8 @@ MonoBehaviour:
         operation: 0
         operands:
         - rid: 4252309007281946648
-        - rid: 4252309007281946649
+        - rid: 2453841759638388738
     - rid: 4252309007281946648
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 0
-    - rid: 4252309007281946649
-      type: {class: CalculatedValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
-      data:
-        operation: 2
-        operands:
-        - rid: 4252309007281946650
-        - rid: 4252309007281946651
-        - rid: 4252309007281946652
-    - rid: 4252309007281946650
-      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
-      data:
-        value: 1
-    - rid: 4252309007281946651
-      type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
-      data:
-        stat: {fileID: 11400000, guid: 27bc55966ccc98747a38b270dc376ebe, type: 2}
-    - rid: 4252309007281946652
-      type: {class: SkillTestResultValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+        value: 2

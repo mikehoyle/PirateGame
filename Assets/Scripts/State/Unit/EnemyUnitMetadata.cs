@@ -2,6 +2,7 @@
 using System.Linq;
 using Common.Animation;
 using StaticConfig.Encounters;
+using StaticConfig.Units;
 using Units.Abilities;
 using UnityEngine;
 
@@ -26,12 +27,12 @@ namespace State.Unit {
       return displayName;
     }
 
-    public override int GetStartingHp() {
-      return startingHp;
+    public override ExhaustibleResourceTracker.GetResourceMax GetHpFormula() {
+      return getStat => startingHp + getStat(Stats.Instance.constitution);
     }
-    
-    public override int GetMovementRange() {
-      return movementRange;
+
+    public override ExhaustibleResourceTracker.GetResourceMax GetMovementRangeFormula() {
+      return getStat => movementRange + getStat(Stats.Instance.movement);
     }
     
     public UnitEncounterState NewEncounter(Vector3Int position) {

@@ -7,6 +7,10 @@ namespace Units.Abilities.Formulas.Values {
     public float GetValue(EncounterActor _, float skillTestResult) {
       return skillTestResult;
     }
+
+    public float GetValueNoContext() {
+      return 1;
+    }
     
     public string DisplayString() => "[skill test]";
   }

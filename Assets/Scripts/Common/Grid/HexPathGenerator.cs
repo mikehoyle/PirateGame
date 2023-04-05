@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zen.Hexagons;
@@ -23,7 +24,9 @@ namespace Common.Grid {
         Direction.West,
     };
 
-    public HexPath GeneratePath(HexOffsetCoordinates fromCell, HexOffsetCoordinates toCell) {
+    public HexPath GeneratePath(
+        HexOffsetCoordinates fromCell,
+        HexOffsetCoordinates toCell) {
       var result = new List<HexEdge>();
       var path = HexGridUtils.HexLibrary.GetLine(fromCell, toCell);
 

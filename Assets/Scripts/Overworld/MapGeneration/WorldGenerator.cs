@@ -8,7 +8,7 @@ using Random = System.Random;
 namespace Overworld.MapGeneration {
   public class WorldGenerator {
     private const float OutpostBaseChance = 0f;
-    private const float OutpostIncreasedChanceByLoneliness = 0.1f;
+    private const float OutpostIncreasedChanceByLoneliness = 0.15f;
     private const int FarthestOutpostConnectionRadius = 3;
 
     private readonly int _worldRadius;
@@ -52,12 +52,13 @@ namespace Overworld.MapGeneration {
       // Creates a Y shape, slicing the world into thirds.
       var distance = 1;
       while (distance < _worldRadius) {
+        var isTileConnectable = distance % 4 == 0; 
         world.UpdateTile(new OutOfBoundsWorldTile(
-            _hexLibrary.CubeToOffsetCoordinates(new HexCubeCoordinates(distance, -distance, 0))));
+            _hexLibrary.CubeToOffsetCoordinates(new HexCubeCoordinates(distance, -distance, 0)), isTileConnectable));
         world.UpdateTile(new OutOfBoundsWorldTile(
-            _hexLibrary.CubeToOffsetCoordinates(new HexCubeCoordinates(0, distance, -distance))));
+            _hexLibrary.CubeToOffsetCoordinates(new HexCubeCoordinates(0, distance, -distance)), isTileConnectable));
         world.UpdateTile(new OutOfBoundsWorldTile(
-            _hexLibrary.CubeToOffsetCoordinates(new HexCubeCoordinates(-distance, 0, distance))));
+            _hexLibrary.CubeToOffsetCoordinates(new HexCubeCoordinates(-distance, 0, distance)), isTileConnectable));
         distance++;
       }
     }
@@ -95,9 +96,14 @@ namespace Overworld.MapGeneration {
         if (world.GetTile(coord).connectsToBoundaries) {
           foreach (var nearbyCell in _hexLibrary.GetSpiralRing(coord, FarthestOutpostConnectionRadius)) {
             if (world.GetTile(nearbyCell)?.connectsToBoundaries ?? false) {
+              if (world.HasPath(coord, nearbyCell) || !HasUninterruptedPath(world, coord, nearbyCell)) {
+                // Don't duplicate an already-made path & don't connect through out-of-bounds.
+                continue;
+              }
+              
               var border = _borderGenerator.GeneratePath(coord, nearbyCell);
 
-              // Exclude borders that "skirt around" boundaries, because it's crowded and unneccessarily
+              // Exclude borders that "skirt around" boundaries, because it's crowded and unnecessarily
               // over-connected.
               var shouldInclude = true;
               foreach (var edge in border.edges) {
@@ -116,6 +122,25 @@ namespace Overworld.MapGeneration {
           }
         }
       }
+    }
+
+    private bool HasUninterruptedPath(
+        WorldState world, HexOffsetCoordinates fromCell, HexOffsetCoordinates toCell) {
+      // Don't allow connections through out-of-bounds tiles.
+      var path = HexGridUtils.HexLibrary.GetLine(fromCell, toCell);
+      if (path.Length <= 2) {
+        // Adjacent cells are always uninterrupted.
+        return true;
+      }
+      
+      // Ignore first and last, iterate through the cells between.
+      for (var i = 1; i < path.Length - 1; i++) {
+        if (world.GetTile(path[i]) is null or OutOfBoundsWorldTile) {
+          return false;
+        }
+      }
+
+      return true;
     }
 
     private int ClosestEncounter(WorldState world, HexOffsetCoordinates coordinates) {

@@ -9,7 +9,6 @@ using Events;
 using HUD.Encounter.HoverDetails;
 using Optional;
 using RuntimeVars.Encounters;
-using State;
 using State.Unit;
 using StaticConfig.Units;
 using Terrain;
@@ -25,6 +24,7 @@ namespace Encounters {
     [SerializeField] protected GameObject deathParticlesPrefab;
 
     protected UnitMover Mover;
+    protected UnitDropIn DropInPerformer;
     private PolygonCollider2D _collider;
     private UnitShadow _shadow;
 
@@ -54,6 +54,7 @@ namespace Encounters {
 
     protected virtual void Awake() {
       Mover = GetComponent<UnitMover>();
+      DropInPerformer = GetComponent<UnitDropIn>();
       _collider = GetComponent<PolygonCollider2D>();
       _shadow = GetComponentInChildren<UnitShadow>();
       AnimationState = AnimationNames.Idle;
@@ -83,7 +84,7 @@ namespace Encounters {
     }
 
     private void PerformNewRoundSetup() {
-      EncounterState.NewRound();
+      EncounterState.NewRound(GetStat);
     }
 
     private void ApplySize(Vector2Int size) {
@@ -128,11 +129,25 @@ namespace Encounters {
     }
 
     public void DropIn(Action callback) {
-      StartCoroutine(Mover.DropIn(callback));
+      EnableShadow(false);
+      StartCoroutine(DropInPerformer.DropIn(() => {
+        EnableShadow(true);
+        callback();
+      }));
     }
 
-    public void EnableShadow(bool isEnabled) {
+    private void EnableShadow(bool isEnabled) {
       _shadow.SetEnabled(isEnabled);
+    }
+
+    public int GetStat(Stat stat) {
+      var value = EncounterState.metadata.GetStat(stat);
+      foreach (GameObject statusEffect in StatusEffects.transform) {
+        if (statusEffect.TryGetComponent<IStatModifier>(out var statModifier)) {
+          value += statModifier.GetStatModifier(null, stat);
+        }
+      }
+      return value;
     }
 
     public void ExpendResource(ExhaustibleResource resource, int amount) {

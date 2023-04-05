@@ -1,5 +1,6 @@
 ﻿using Overworld.MapGeneration;
 using State;
+using StaticConfig.RawResources;
 using UnityEngine;
 
 namespace MainTitle {
@@ -8,6 +9,8 @@ namespace MainTitle {
   /// refinement in the future.
   /// </summary>
   public class NewGameCreator : MonoBehaviour {
+    // This is a really hacky way to load this into memory
+    [SerializeField] private SoulTypes soulTypes;
     [SerializeField] private PlayerState newGamePlayerState;
     [SerializeField] private int mapRadius = 30;
 

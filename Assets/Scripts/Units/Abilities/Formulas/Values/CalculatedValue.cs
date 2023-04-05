@@ -23,6 +23,23 @@ namespace Units.Abilities.Formulas.Values {
 
       return result;
     }
+    
+    
+
+    public float GetValueNoContext() {
+      if (operands.Count == 0) {
+        Debug.LogWarning("Cannot perform operation with zero operands");
+        return 0;
+      }
+      
+      var result = operands[0].GetValueNoContext();
+      for (int i = 1; i < operands.Count; i++) {
+        result = operation.GetOperation()(result, operands[i].GetValueNoContext());
+      }
+
+      return result;
+    }
+    
     public string DisplayString() {
       var result = new StringBuilder("(");
 

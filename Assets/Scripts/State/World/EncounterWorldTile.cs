@@ -5,6 +5,7 @@ using Common.Loading;
 using State.Encounter;
 using State.Unit;
 using StaticConfig.Encounters;
+using StaticConfig.RawResources;
 using UnityEngine.SceneManagement;
 using Zen.Hexagons;
 
@@ -16,10 +17,12 @@ namespace State.World {
     public SparseMatrix3d<CollectableInstance> collectables;
     public SparseMatrix3d<ObstacleConfig> obstacles;
     public List<UnitEncounterState> enemies;
+    public RawResource soulType;
 
     public EncounterWorldTile(HexOffsetCoordinates coordinates) : base(coordinates) {
       isTraversable = true;
       connectsToBoundaries = true;
+      soulType = SoulTypes.Instance.RandomType();
     }
 
     public void MarkDefeated() {
