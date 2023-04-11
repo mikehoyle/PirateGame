@@ -10,23 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb43582c2321480087bf00adc5bc9d42, type: 3}
-  m_Name: SpiritEnemy
+  m_Name: TreacherousSpiritEnemy
   m_EditorClassIdentifier: 
   exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
   passiveEffects: []
   stats: []
-  prefab: {fileID: 7339068068726759523, guid: 3d2c71fcd3f472442b8be93d96ede2c4, type: 3}
+  prefab: {fileID: 7339068068726759523, guid: 63341b78414f7a741809d43fce14dd76, type: 3}
   size: {x: 1, y: 1}
   isRevivable: 0
-  displayName: Spirit
+  displayName: Treacherous Spirit
+  shortDescription: 
   startingHp: 100
   movementRange: 15
   sprite: {fileID: 11400000, guid: b8b4664254a96f44991066e93a801eab, type: 2}
   abilities: []
   turnPriority: 0
   actionPreferences:
-    playerUnitAdjacency: 5
-    distanceFromPlayerByTile: -0.1
+    atPreferredRangeFromPlayer: 5
+    preferredRangeFromPlayer: 1
+    dropOffFromPreferredRangeByTile: 0.1
     stayStationary: 0.05
     canPerformAbility: 10
     inRadiusOfAlly: 0

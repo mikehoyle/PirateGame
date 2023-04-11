@@ -35,7 +35,7 @@ MonoBehaviour:
   lastName: Fancybottom
   currentLevel: 1
   xp: 0
-  startingPosition: {x: 0, y: 1, z: 0}
+  startingPosition: {x: -1, y: 0, z: 0}
   equipped:
     m_keys:
     - {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}

@@ -82,6 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipTiles: {fileID: 11400000, guid: dbb2cb720b5109542acc8f925f1d615a, type: 2}
+  shipPrefab: {fileID: 7173543065296877271, guid: 2a7ee0b64a452134f9e65e7677dc3956, type: 3}
   unitPrefab: {fileID: 4998738781700405355, guid: ff877b2eb33443c44b77de9f2f3b9e9c, type: 3}
   inGameConstructionPrefab: {fileID: 1435102907362953376, guid: df58abea6c8bbeb49b48b9058cfbb21a, type: 3}
 --- !u!114 &1915456236

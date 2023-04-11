@@ -51,7 +51,7 @@ namespace Encounters.ShipPlacement {
       
       // MAYBE TEMPORARY, but just place the ship for the player for now.
       var maxY = _terrain.AllTiles.Max(tile => tile.y);
-      _shipSetup.SetupShip(new Vector3Int(4, maxY + 2), includeUnits: true);
+      _shipSetup.SetupShip(new Vector3Int(4, maxY + 1), includeUnits: true);
       Dispatch.Encounters.ShipPlaced.Raise();
       enabled = false;
     }

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb43582c2321480087bf00adc5bc9d42, type: 3}
+  m_Name: DiligentSpiritEnemy
+  m_EditorClassIdentifier: 
+  exhaustibleResources: {fileID: 11400000, guid: 59ca7da1aeeda2c408ed7f6c81639c68, type: 2}
+  passiveEffects: []
+  stats: []
+  prefab: {fileID: 7339068068726759523, guid: 24aa2ab69902c5a4a93480ecb4fe2a7c, type: 3}
+  size: {x: 1, y: 1}
+  isRevivable: 0
+  displayName: Diligent Spirit
+  shortDescription: 
+  startingHp: 100
+  movementRange: 15
+  sprite: {fileID: 11400000, guid: b8b4664254a96f44991066e93a801eab, type: 2}
+  abilities: []
+  turnPriority: 0
+  actionPreferences:
+    atPreferredRangeFromPlayer: 5
+    preferredRangeFromPlayer: 1
+    dropOffFromPreferredRangeByTile: 0.1
+    stayStationary: 0.05
+    canPerformAbility: 10
+    inRadiusOfAlly: 0
+    allyRadius: 0
+  spawnConfig:
+    minDifficultyRating: 0
+    maxDifficultyRating: 100
+    mostCommonDifficultyRating: 0
+    prevalenceMultiplier: 0
+    individualDifficultyRating: 0
+    maxPerEncounter: 0
+  references:
+    version: 2
+    RefIds: []

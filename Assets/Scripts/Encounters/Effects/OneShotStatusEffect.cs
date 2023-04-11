@@ -1,4 +1,6 @@
 ﻿using System;
+using StaticConfig.Units;
+using Units.Abilities.Formulas.Values;
 
 namespace Encounters.Effects {
   /// <summary>
@@ -12,6 +14,18 @@ namespace Encounters.Effects {
       var component = victim.StatusEffects.AddComponent<AppliedOneShotStatusEffect>();
       component.Initialize(this, victim);
       return component;
+    }
+
+    public static OneShotStatusEffect SimpleDamageEffect(int damage) {
+      return new OneShotStatusEffect {
+          delayInSeconds = 0,
+          exhaustibleResourceEffects = new[] {
+              new ExhaustibleResourceEffect {
+                  resource = ExhaustibleResources.Instance.hp,
+                  value = new IntValue(damage),
+              },
+          },
+      };
     }
   }
 }

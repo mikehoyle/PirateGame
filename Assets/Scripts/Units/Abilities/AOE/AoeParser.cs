@@ -18,6 +18,9 @@ namespace Units.Abilities.AOE {
 
     // No big focus on efficiency here, it won't matter
     public static AreaOfEffect ParseAreaOfEffect(string raw) {
+      if (string.IsNullOrEmpty(raw)) {
+        return new AreaOfEffect(new List<Vector3Int>());
+      }
       var lines = raw.Split("\n" , StringSplitOptions.RemoveEmptyEntries);
 
       var targetOffset = GetTargetOffset(lines);

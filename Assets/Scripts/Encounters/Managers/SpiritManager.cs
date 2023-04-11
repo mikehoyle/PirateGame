@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Common;
-using Encounters.Enemies;
+using Encounters.Enemies.Spirits;
 using Encounters.ShipPlacement;
 using Events;
 using Optional;
+using State;
 using State.Unit;
+using State.World;
+using StaticConfig.RawResources;
 using Terrain;
 using Units;
 using UnityEngine;
@@ -14,7 +17,10 @@ using Random = System.Random;
 
 namespace Encounters.Managers {
   public class SpiritManager : MonoBehaviour {
-    [SerializeField] private EnemyUnitMetadata spiritEnemy;
+    [SerializeField] private EnemyUnitMetadata kindSpiritEnemy;
+    [SerializeField] private EnemyUnitMetadata diligentSpiritEnemy;
+    [SerializeField] private EnemyUnitMetadata treacherousSpiritEnemy;
+    [SerializeField] private EnemyUnitMetadata violentSpiritEnemy;
     
     private SceneTerrain _terrain;
     private TerrainProfile _encounterProfile;
@@ -69,8 +75,21 @@ namespace Encounters.Managers {
         return;
       }
 
-      var spirit = Instantiate(spiritEnemy.prefab, transform).GetComponent<SpiritUnitController>();
-      spirit.Init(spiritEnemy.NewEncounter(position));
+      var encounterSoulType = GameState.State.world.GetActiveTile().DownCast<EncounterWorldTile>().soulType;
+
+      EnemyUnitMetadata spiritType;
+      if (encounterSoulType == SoulTypes.Instance.kind) {
+        spiritType = kindSpiritEnemy;
+      } else if (encounterSoulType == SoulTypes.Instance.diligent) {
+        spiritType = diligentSpiritEnemy;
+      } else if (encounterSoulType == SoulTypes.Instance.treacherous) {
+        spiritType = treacherousSpiritEnemy;
+      } else {
+        spiritType = violentSpiritEnemy;
+      }
+
+      var spirit = Instantiate(spiritType.prefab, transform).GetComponent<SpiritUnitController>();
+      spirit.Init(spiritType.NewEncounter(position));
       spirit.TargetBones = Option.Some(targetBones);
     }
 

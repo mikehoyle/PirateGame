@@ -71,7 +71,7 @@ namespace Units.Abilities {
           Option.Some(aoe),
           () => {
             var instanceFactory = new StatusEffectApplier(
-                incurredEffect, context, affectedFactions, skillTestResult.ValueOrFailure());
+                incurredEffect, Option.Some(context.Actor), affectedFactions, skillTestResult.ValueOrFailure());
             Dispatch.Encounters.ApplyAoeEffect.Raise(aoe, instanceFactory);
           },
           () => callback());

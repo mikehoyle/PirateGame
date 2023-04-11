@@ -14,12 +14,11 @@ using Terrain;
 using Units;
 using UnityEngine;
 
-namespace Encounters.Enemies {
+namespace Encounters.Enemies.Spirits {
   public class SpiritUnitController : MonoBehaviour, IPlacedOnGrid, IDisplayDetailsProvider, IDirectionalAnimatable {
-    [SerializeField] private ExhaustibleResources resources;
-    [SerializeField] private SpiritCollection spiritsInEncounter;
+    [SerializeField] protected SpiritCollection spiritsInEncounter;
     [SerializeField] private int damageOnCollision = 2;
-    [SerializeField] private float speedUnitsPerSec;
+    [SerializeField] private float speedUnitsPerSec = 2;
     
     private UnitEncounterState _encounterState;
     private Option<Bones> _targetBones;
@@ -87,9 +86,12 @@ namespace Encounters.Enemies {
       while (currentIndex < path.Count) {
         FacingDirection = path[currentIndex];
         var targetPosition = currentPosition + (Vector3Int)path[currentIndex].ToUnitVector();
-
+        yield return MoveBetween(currentPosition, targetPosition);
+        currentPosition = targetPosition;
+        yield return OnPassOverTile(currentPosition);
+        
         var targetTileIsClaimed = false;
-        if (SceneTerrain.TryGetComponentAtTile<IPlacedOnGrid>(targetPosition, out var actor)) {
+        if (SceneTerrain.TryGetComponentAtTile<IPlacedOnGrid>(currentPosition, out var actor)) {
           if (actor.ClaimsTile) {
             targetTileIsClaimed = true;
             if (currentIndex == path.Count - 1) {
@@ -98,17 +100,14 @@ namespace Encounters.Enemies {
             }
 
             if (actor is EncounterActor encounterActor) {
-              encounterActor.ExpendResource(resources.hp, damageOnCollision);
+              OnPassThroughUnit(encounterActor);
             }
           }
         }
-
-        yield return MoveBetween(currentPosition, targetPosition);
-        currentPosition = targetPosition;
         
-        if (!targetTileIsClaimed && SceneTerrain.TryGetComponentAtTile<Bones>(targetPosition, out var bones)) {
+        if (!targetTileIsClaimed && SceneTerrain.TryGetComponentAtTile<Bones>(currentPosition, out var bones)) {
           if (TargetBones.Contains(bones)) {
-            yield return CollectAndDissipate(bones);
+            yield return DissipateAndHandleBones(bones);
             yield break;
           }
         }
@@ -149,7 +148,7 @@ namespace Encounters.Enemies {
         return;
       }
       
-      var remainingMovement = _encounterState.GetResourceAmount(resources.mp); 
+      var remainingMovement = _encounterState.GetResourceAmount(ExhaustibleResources.Instance.mp); 
       var targetPosition = target.Position;
       var xDiff = targetPosition.x - Position.x;
       var yDiff = targetPosition.y - Position.y;
@@ -178,16 +177,15 @@ namespace Encounters.Enemies {
 
       return remainingMovement;
     }
-
-    // TODO(P0): Properly handle if we collect someone else's target bones.
-    private IEnumerator CollectAndDissipate(Bones bones) {
+    
+    private IEnumerator DissipateAndHandleBones(Bones bones) {
       _plannedMovement.Clear();
       OneOffAnimation?.Invoke("death");
       // TODO(P0): make this actually wait until animation end.. also probably handle
       //    one shot animations completely differently.
       yield return new WaitForSeconds(1);
       _renderer.enabled = false;
-      yield return bones.ReviveUnit();
+      yield return OnTargetBonesReached(bones);
       Destroy(gameObject);
     }
 
@@ -234,13 +232,26 @@ namespace Encounters.Enemies {
     }
 
     public DisplayDetails GetDisplayDetails() {
-      new WaitForSeconds(1);
+      var metadata = (EnemyUnitMetadata)_encounterState.metadata;
       return new DisplayDetails() {
-          Name = "Spirit",
+          Name = metadata.displayName,
           AdditionalDetails = new() {
               "Seeks the dead",
+              metadata.shortDescription,
           },
       };
+    }
+
+    protected virtual void OnPassThroughUnit(EncounterActor victim) {
+      victim.ExpendResource(ExhaustibleResources.Instance.hp, damageOnCollision);
+    }
+
+    protected virtual IEnumerator OnTargetBonesReached(Bones bones) {
+      yield return bones.ReviveUnit();
+    }
+
+    protected virtual IEnumerator OnPassOverTile(Vector3Int tile) {
+      yield break;
     }
   }
 }

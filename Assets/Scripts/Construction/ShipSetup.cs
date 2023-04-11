@@ -12,6 +12,7 @@ namespace Construction {
   /// </summary>
   public class ShipSetup : MonoBehaviour {
     [SerializeField] private TileCollection shipTiles;
+    [SerializeField] private GameObject shipPrefab;
     [SerializeField] private GameObject unitPrefab;
     [SerializeField] private GameObject inGameConstructionPrefab;
     
@@ -29,6 +30,7 @@ namespace Construction {
 
     public void SetupShip(Vector3Int offset, bool includeUnits = false) {
       shipTiles.Clear();
+      Instantiate(shipPrefab).GetComponent<Ship>().Initialize(offset);
       var playerState = GameState.State.player;
       foreach (var build in playerState.ship.Components) {
         var position = build.Key + offset;

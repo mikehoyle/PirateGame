@@ -32,6 +32,7 @@ namespace Units {
         yield return null;
       }
 
+      transform.position = GridUtils.CellCenterWorld(_unit.Position);
       Shaker.ShakeAll(dropInShake);
       RuntimeManager.PlayOneShot(dropInImpactSound);
       onCompleteCallback();

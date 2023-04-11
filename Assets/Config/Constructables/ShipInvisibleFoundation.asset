@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 590f89d356ae4405ade3df10123cd913, type: 3}
-  m_Name: Foundation
+  m_Name: ShipInvisibleFoundation
   m_EditorClassIdentifier: 
   id: foundation
   buildDisplayName: Foundation
-  buildCost:
-  - resource: {fileID: 11400000, guid: d7bafa779dba88046bd1e7f0e02ec587, type: 2}
-    cost: 5
+  buildCost: []
   isFoundationTile: 1
   isTraversable: 0
-  inGameSprite: {fileID: 21300000, guid: 58332956090a9ba4abb8ea1383b3a3ee, type: 3}
+  inGameSprite: {fileID: 0}
   dimensions: {x: 1, y: 1, z: 1}
+  providedAbility:
+    ability: {fileID: 0}
+    useRange: 1
+  providedCraftables: []

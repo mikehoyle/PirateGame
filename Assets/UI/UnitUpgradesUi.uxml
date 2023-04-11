@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MasterStylesheet.uss?fileID=7433441132597879392&amp;guid=3c8a9e16b1322844c921760ef6205597&amp;type=3#MasterStylesheet" />
+    <ui:VisualElement name="Container" style="width: 100%; height: 100%; align-items: center; justify-content: center;">
+        <ui:VisualElement name="UpgradesPanel" class="canvas-panel" style="height: 320px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; flex-direction: column; -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; width: 600px; align-items: center; flex-basis: auto; justify-content: flex-end; flex-wrap: nowrap;">
+            <ui:VisualElement name="InfoRow" style="height: 45px; width: 100%; padding-left: 10px; padding-right: 10px; flex-direction: row;">
+                <ui:VisualElement name="PortraitFrame" style="width: 36px; height: 36px; background-image: url(&apos;project://database/Assets/Sprites/UI/portrait_border.png?fileID=2800000&amp;guid=22724e3fe581d0b49965e81f580c237f&amp;type=3#portrait_border&apos;); -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 2; -unity-slice-top: 2; -unity-slice-right: 2; -unity-slice-bottom: 2; margin-right: 5px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;">
+                    <ui:VisualElement name="PortraitBackdrop" style="width: 32px; height: 32px; background-color: rgba(0, 0, 0, 255); min-height: 32px;" />
+                    <ui:VisualElement name="Portrait" style="width: 32px; height: 32px; min-height: 32px; margin-top: -32px;" />
+                </ui:VisualElement>
+                <ui:Label text="Champion Name" display-tooltip-when-elided="true" name="ChampionName" />
+            </ui:VisualElement>
+            <ui:VisualElement name="UpgradesContainer" style="width: 100%; height: 100%; justify-content: space-around; flex-direction: row;">
+                <ui:VisualElement name="UpgradeColumn" class="upgrades-column" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

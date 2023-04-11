@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Common;
+using Optional;
 using State.Unit;
 using Units.Abilities;
 
@@ -7,15 +9,24 @@ namespace Encounters.Effects {
     private readonly StatusEffect _effect;
     private readonly List<UnitFaction> _affectedFactions;
     private readonly float _skillTestResult;
-    private readonly EncounterActor _actor;
+    private readonly Option<EncounterActor> _actor;
 
     public StatusEffectApplier(
         StatusEffect effect,
-        UnitAbility.AbilityExecutionContext context,
+        List<UnitFaction> affectedFactions) {
+      _effect = effect;
+      _actor = Option.None<EncounterActor>();
+      _affectedFactions = affectedFactions;
+      _skillTestResult = 1;
+    }
+    
+    public StatusEffectApplier(
+        StatusEffect effect,
+        Option<EncounterActor> actor,
         List<UnitFaction> affectedFactions,
         float skillTestResult) {
       _effect = effect;
-      _actor = context.Actor;
+      _actor = actor;
       _affectedFactions = affectedFactions;
       _skillTestResult = skillTestResult;
     }
@@ -23,7 +34,11 @@ namespace Encounters.Effects {
     public void ApplyTo(EncounterActor victim) {
       if (_affectedFactions.Contains(victim.EncounterState.faction)) {
         var instance = _effect.ApplyTo(victim);
-        instance.PreCalculateEffect(_actor, _skillTestResult);
+        if (_actor.TryGet(out var actor)) {
+          instance.PreCalculateEffect(actor, _skillTestResult);
+        } else {
+          instance.PreCalculateNoContext();
+        }
       }
     }
   }

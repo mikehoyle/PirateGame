@@ -12,6 +12,7 @@ namespace State {
 
     public WorldState world;
     public PlayerState player;
+    public FlagsState flags;
 
     public static GameState State {
       get {

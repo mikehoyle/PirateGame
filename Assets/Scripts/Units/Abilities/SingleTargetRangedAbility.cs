@@ -2,6 +2,7 @@
 using Common.Animation;
 using Encounters;
 using Encounters.Enemies;
+using Encounters.Enemies.Spirits;
 using Encounters.Grid;
 using Optional;
 using Optional.Unsafe;

@@ -23,6 +23,7 @@ namespace Encounters.Enemies {
     private void OnSpawnEnemyRequest(UnitEncounterState enemy, int roundsUntilSpawn) {
       Instantiate(spawnPointPrefab, transform).GetComponent<EnemySpawnPoint>()
           .Init(enemy, roundsUntilSpawn);
+      var x = spawnPointPrefab?.transform;
     }
 
     private void OnEnemyTurnPreEnd() {

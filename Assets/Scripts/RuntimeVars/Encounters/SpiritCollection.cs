@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Encounters.Enemies;
+using Encounters.Enemies.Spirits;
 using UnityEngine;
 
 namespace RuntimeVars.Encounters {

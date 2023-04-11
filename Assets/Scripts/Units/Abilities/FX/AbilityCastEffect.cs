@@ -5,6 +5,7 @@ using System.Linq;
 using Common;
 using Common.Animation;
 using Common.Grid;
+using Encounters;
 using FMODUnity;
 using Optional;
 using Units.Abilities.AOE;
@@ -68,29 +69,48 @@ namespace Units.Abilities.FX {
         Option<AreaOfEffect> aoeOption,
         Action onImpactCallback,
         Action onCompleteCallback) {
+      return Execute(
+          Option.Some(context.Actor),
+          context.Source,
+          context.TargetedTile,
+          aoeOption,
+          onImpactCallback,
+          onCompleteCallback);
+    }
+
+    public IEnumerator Execute(
+        Option<EncounterActor> actorOption,
+        Vector3Int source,
+        Vector3Int targetTile,
+        Option<AreaOfEffect> aoeOption,
+        Action onImpactCallback,
+        Action onCompleteCallback) {
       //// PERFORM ////
-      if (performEffect.faceTarget && context.Actor.Position != context.TargetedTile) {
-        context.Actor.FaceTowards(context.TargetedTile);
+      if (actorOption.TryGet(out var actor)) {
+        if (performEffect.faceTarget && actor.Position != targetTile) {
+          actor.FaceTowards(targetTile);
+        }
+        actor.PlayOneOffAnimation(performEffect.casterAnimationName);
       }
-      context.Actor.PlayOneOffAnimation(performEffect.casterAnimationName);
+
       MaybePlaySound(performEffect.sound);
       MaybeInstantiatePrefab(
-          performEffect.optionalParticlePrefab, context.Source, performEffect.particleHeight);
-      MaybeCreateAnimation(performEffect.optionalAnimation, context.Source, performEffect.particleHeight);
+          performEffect.optionalParticlePrefab, source, performEffect.particleHeight);
+      MaybeCreateAnimation(performEffect.optionalAnimation, source, performEffect.particleHeight);
       yield return new WaitForSeconds(performEffect.completionDelaySecs);
       
       //// TRANSIT ////
       MaybePlaySound(transitEffect.sound);
       if (transitEffect.trailPrefab != null) {
-        var targets = GetTargets(context.TargetedTile, aoeOption, transitEffect.createTrailsForEveryAoeTile);
+        var targets = GetTargets(targetTile, aoeOption, transitEffect.createTrailsForEveryAoeTile);
         var transitCoroutines = new List<Coroutine>();
         foreach (var target in targets) {
           var trail =
-              MaybeInstantiatePrefab(transitEffect.trailPrefab, context.Source, transitEffect.sourceHeight);
+              MaybeInstantiatePrefab(transitEffect.trailPrefab, source, transitEffect.sourceHeight);
           if (trail.TryGetComponent<AbilityEffectTrail>(out var effectTrail)) {
             transitCoroutines.Add(effectTrail.StartCoroutine(
                 effectTrail.ExecuteThenDie(
-                    context.Source,
+                    source,
                     transitEffect.sourceHeight,
                     target,
                     transitEffect.targetHeight,
@@ -109,8 +129,8 @@ namespace Units.Abilities.FX {
       //// IMPACT ////
       onImpactCallback();
       MaybePlaySound(impactEffect.sound);
-      var particleTargets = GetTargets(context.TargetedTile, aoeOption, impactEffect.createParticlesForEveryAoeTile);
-      var animationTargets = GetTargets(context.TargetedTile, aoeOption, impactEffect.createAnimationForEveryAoeTile);
+      var particleTargets = GetTargets(targetTile, aoeOption, impactEffect.createParticlesForEveryAoeTile);
+      var animationTargets = GetTargets(targetTile, aoeOption, impactEffect.createAnimationForEveryAoeTile);
 
       foreach (var particleTarget in particleTargets) {
         MaybeInstantiatePrefab(
