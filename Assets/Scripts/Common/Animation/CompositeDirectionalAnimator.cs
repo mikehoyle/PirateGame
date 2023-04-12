@@ -47,7 +47,9 @@ namespace Common.Animation {
     }
 
     public void AddLayer(DirectionalAnimatedSprite layer) {
-      var layerRenderer = new GameObject("CompositeSpriteComponent");
+      var layerRenderer = new GameObject("CompositeSpriteComponent") {
+          layer = LayerMask.NameToLayer("UnitSprite"),
+      };
       var spriteRenderer = layerRenderer.AddComponent<SpriteRenderer>();
       spriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
       layerRenderer.transform.parent = transform;
@@ -64,6 +66,12 @@ namespace Common.Animation {
       spriteRenderer.material = paletteSwapMaterial;
       _layerRenderers.Add(spriteRenderer);
       _layerSprites.Add(layer);
+    }
+
+    public void SetVisible(bool visible) {
+      foreach (var layerRenderer in _layerRenderers) {
+        layerRenderer.enabled = visible;
+      }
     }
 
     protected override void UpdateSpriteRenderer(int currentFrame, bool isMirrored) {

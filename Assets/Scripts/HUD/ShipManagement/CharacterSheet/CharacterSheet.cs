@@ -1,7 +1,6 @@
 ﻿using Encounters;
 using Events;
 using PixelsoftGames.PixelUI;
-using Units;
 using UnityEngine;
 
 namespace HUD.ShipManagement.CharacterSheet {
@@ -19,14 +18,15 @@ namespace HUD.ShipManagement.CharacterSheet {
       _canvas.enabled = false;
     }
 
+    // Currently defunct, probably due for deletion
     private void OnEnable() {
-      Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
-      Dispatch.ShipBuilder.CloseCharacterSheet.RegisterListener(OnCloseCharacterSheet);
+      //Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
+      //Dispatch.ShipBuilder.CloseCharacterSheet.RegisterListener(OnCloseCharacterSheet);
     }
 
     private void OnDisable() {
-      Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
-      Dispatch.ShipBuilder.CloseCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
+      //Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
+      //Dispatch.ShipBuilder.CloseCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
     }
 
     private void OnOpenCharacterSheet(EncounterActor unit) {

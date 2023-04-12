@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="InfoRow" style="height: 45px; width: 100%; padding-left: 10px; padding-right: 10px; flex-direction: row;">
+        <ui:VisualElement name="PortraitFrame" style="width: 36px; height: 36px; background-image: url(&apos;project://database/Assets/Sprites/UI/portrait_border.png?fileID=2800000&amp;guid=22724e3fe581d0b49965e81f580c237f&amp;type=3#portrait_border&apos;); -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 2; -unity-slice-top: 2; -unity-slice-right: 2; -unity-slice-bottom: 2; margin-right: 5px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;">
+            <ui:VisualElement name="PortraitBackdrop" style="width: 32px; height: 32px; background-color: rgb(0, 0, 0); min-height: 32px;" />
+            <ui:VisualElement name="Portrait" style="width: 32px; height: 32px; min-height: 32px; margin-top: -32px;" />
+        </ui:VisualElement>
+        <ui:Label text="Champion Name" display-tooltip-when-elided="true" name="ChampionName" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -50,8 +50,7 @@ namespace State.Unit {
       if (TryGetStatTracker(stat, out var tracker)) {
         return tracker.current;
       }
-      
-      Debug.LogWarning($"Cannot get resource {stat.displayName}, unit does not have it");
+
       return 0;
     }
   }

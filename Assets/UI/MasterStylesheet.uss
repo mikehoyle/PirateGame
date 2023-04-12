@@ -30,6 +30,7 @@ VisualElement {
 }
 
 .unity-button {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .canvas-panel {
@@ -49,4 +50,20 @@ VisualElement {
 .upgrades-column {
     height: 100%;
     width: 48px;
+}
+
+.upgrade_available {
+    height: 36px;
+    width: 36px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-image: url('project://database/Assets/Sprites/UI/upgrade_option_greyscale.png?fileID=2800000&guid=9059acdcf074f19458947cfb751e9f38&type=3#upgrade_option_greyscale');
+    -unity-background-image-tint-color: rgb(69, 243, 255);
+    -unity-background-scale-mode: scale-and-crop;
 }

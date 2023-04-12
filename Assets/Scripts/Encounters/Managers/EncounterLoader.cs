@@ -1,13 +1,11 @@
 ﻿using System;
 using CameraControl;
 using Common.Grid;
-using Common.Loading;
 using Encounters.Generation;
 using Encounters.ShipPlacement;
 using State;
 using State.World;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Encounters.Managers {
   public class EncounterLoader : MonoBehaviour {
@@ -18,7 +16,6 @@ namespace Encounters.Managers {
     private CameraCursorMover _cameraCursor;
 
     private void Awake() {
-      MaybeLoadDebugEncounter();
       _encounter = GameState.State.world.GetActiveTile().DownCast<EncounterWorldTile>();
       if (_encounter == null) {
         throw new NotSupportedException(
@@ -50,13 +47,6 @@ namespace Encounters.Managers {
       _cameraCursor.Initialize(
           GridUtils.CellCenterWorld(new Vector3Int((int)center.x, (int)center.y, 0)));
       _cameraCursor.SetGridBounds(boundingRect);
-    }
-
-    private void MaybeLoadDebugEncounter() {
-      if (Debug.isDebugBuild && GameState.State.world.GetActiveTile() == null) {
-        // Just load the title scene so a game is created.
-        SceneManager.LoadScene(Scenes.Name.Title.SceneName());
-      }
     }
   }
 }

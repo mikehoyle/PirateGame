@@ -1,4 +1,5 @@
 ﻿using StaticConfig.RawResources;
+using Units.Abilities;
 using UnityEngine;
 
 namespace StaticConfig.Equipment.Upgrades {
@@ -7,5 +8,6 @@ namespace StaticConfig.Equipment.Upgrades {
     public string displayName;
     public EquipmentUpgrade optionalPrerequisite;
     public SerializableDictionary<RawResource, int> cost;
+    public UnitAbility[] optionalOnlyAppliesToAbilities;
   }
 }
