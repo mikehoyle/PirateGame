@@ -1,11 +1,8 @@
-﻿using System;
-using Common;
+﻿using Common;
 using RuntimeVars.ShipBuilder;
 using StaticConfig.Builds;
 using Terrain;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Tilemaps;
 
 namespace Construction {
   /// <summary>

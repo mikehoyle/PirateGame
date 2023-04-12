@@ -1,6 +1,7 @@
 ﻿using Encounters;
 using Events;
 using FMODUnity;
+using Terrain;
 using UnityEngine;
 
 namespace HUD.Audio {
@@ -18,8 +19,12 @@ namespace HUD.Audio {
       Dispatch.Encounters.UnitSelected.UnregisterListener(OnUnitSelected);
     }
 
-    private void OnTileHover(Vector3Int _) {
-      RuntimeManager.PlayOneShot(tileHoverSound);
+    private void OnTileHover(Vector3Int position) {
+      // OPTIMIZE: if there is a problem with calling this so regularly
+      var sceneTerrain = SceneTerrain.Get();
+      if (sceneTerrain && sceneTerrain.GetTile((Vector2Int)position) != null) {
+        RuntimeManager.PlayOneShot(tileHoverSound);
+      }
     }
 
     private void OnUnitSelected(EncounterActor _) {

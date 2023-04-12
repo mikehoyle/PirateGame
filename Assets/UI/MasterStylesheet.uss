@@ -52,7 +52,7 @@ VisualElement {
     width: 48px;
 }
 
-.upgrade_available {
+.upgrade-available {
     height: 36px;
     width: 36px;
     border-left-width: 0;
@@ -66,4 +66,32 @@ VisualElement {
     background-image: url('project://database/Assets/Sprites/UI/upgrade_option_greyscale.png?fileID=2800000&guid=9059acdcf074f19458947cfb751e9f38&type=3#upgrade_option_greyscale');
     -unity-background-image-tint-color: rgb(69, 243, 255);
     -unity-background-scale-mode: scale-and-crop;
+}
+
+.panel-tab-active {
+    width: 36px;
+    height: 36px;
+}
+
+.panel-tab-active:hover {
+    -unity-background-image-tint-color: rgb(0, 255, 8);
+}
+
+.panel-tab-inactive {
+    width: 36px;
+    height: 33px;
+    -unity-background-image-tint-color: rgba(87, 87, 87, 0.75);
+}
+
+.panel-tab-inactive:hover {
+    -unity-background-image-tint-color: rgba(45, 200, 45, 0.75);
+}
+
+.panel-tab {
+    background-image: url('project://database/Assets/Sprites/UI/tab.png?fileID=21300000&guid=6cdaadd77e3d9e54cb8e8546b17244bf&type=3#tab');
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+    margin-right: 2px;
 }
