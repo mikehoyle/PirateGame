@@ -180,10 +180,9 @@ namespace Encounters.Enemies.Spirits {
     
     private IEnumerator DissipateAndHandleBones(Bones bones) {
       _plannedMovement.Clear();
-      OneOffAnimation?.Invoke("death");
-      // TODO(P0): make this actually wait until animation end.. also probably handle
-      //    one shot animations completely differently.
-      yield return new WaitForSeconds(1);
+      var deathAnimationComplete = false;
+      OneOffAnimation?.Invoke("death", () => deathAnimationComplete = true);
+      yield return new WaitUntil(() => deathAnimationComplete);
       _renderer.enabled = false;
       yield return OnTargetBonesReached(bones);
       Destroy(gameObject);
@@ -191,9 +190,9 @@ namespace Encounters.Enemies.Spirits {
 
     private IEnumerator Dissipate() {
       _plannedMovement.Clear();
-      OneOffAnimation?.Invoke("death");
-      // TODO(P0): make this actually wait until animation end.. also probably handle
-      //    one shot animations completely differently.
+      var deathAnimationComplete = false;
+      OneOffAnimation?.Invoke("death", () => deathAnimationComplete = true);
+      yield return new WaitUntil(() => deathAnimationComplete);
       yield return new WaitForSeconds(1);
       _renderer.enabled = false;
       Destroy(gameObject);

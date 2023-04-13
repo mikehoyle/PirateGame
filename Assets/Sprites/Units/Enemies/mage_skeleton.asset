@@ -1,0 +1,200 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7a64b44f884d3d9b7fb52eb79b7de5, type: 3}
+  m_Name: mage_skeleton
+  m_EditorClassIdentifier: 
+  frames:
+  - {fileID: 4470070991317696724, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 2733287511007121513, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -1129381586411057801, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -2433980670241599553, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -1761413144545615091, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -6069919211723835002, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -2360638220786775252, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 2495513237719574833, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 4146738170025300101, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -8075149668883222983, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 7503962938870215157, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 3878879200075743067, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 6014309663623146780, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 4687041965299365568, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -5305951661777104603, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 3673430890628703457, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 6049843121798328324, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 6099688534291438435, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 1119089367640167125, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -4028417875496808433, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -2181828098365808749, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -8002604106151073185, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -4679546955193451929, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 1818079200582682032, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -1910936939871984184, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -235517548877676706, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 2844712040917916377, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -9142195827539019554, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 3602881386686109860, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 1024199596534886639, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -892911434754620486, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 277148485888004590, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 305859119532692243, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -691572695461777604, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 9095375161835965074, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 6505472652709973377, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -7887682188411746232, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 428705067510390283, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -3101026469329356748, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 8073502377960383481, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 6789658053611970, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 726449446221270312, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -5792314699007757745, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 1533022311432946474, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 7834734413591876617, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -3529768672301255643, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 84222565335826851, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 7858757786330493537, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -1394866197077226178, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -966880103424108731, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 7112217379823656213, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 7489363175608739734, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -8309079660561422721, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 2831221392109594248, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 2460613780505538524, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -5473513388833911586, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 4290643032073895074, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -41418107452807683, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 1569954938730336766, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -4298759719130240717, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 7188861819514008636, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 8790299410846464962, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 3493211291285716762, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -4650790090707976185, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -1897534640460238631, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 3170003819147434838, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 4311481719723190957, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -93249975782877106, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 8421816283100629522, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: -4047496822932453621, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 1878285215623489296, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 3580322588594048315, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 9122670918106907173, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  - {fileID: 3905246233060247823, guid: 88eadc360d272fe43aea1d1b4c74deda, type: 3}
+  animations:
+    m_keys:
+    - idle
+    - walk
+    - attack
+    - enchant
+    - flinch
+    - death
+    m_values:
+    - animations:
+        m_keys: 0200000000000000
+        m_values:
+        - direction: 2
+          name: idle
+          isMirrored: 0
+          startFrame: 0
+          endFrame: 7
+          frameDurationSecs: 0.1
+        - direction: 0
+          name: idle
+          isMirrored: 0
+          startFrame: 0
+          endFrame: 7
+          frameDurationSecs: 0.1
+      animationName: idle
+      loop: 1
+    - animations:
+        m_keys: 0200000000000000
+        m_values:
+        - direction: 2
+          name: walk
+          isMirrored: 0
+          startFrame: 8
+          endFrame: 15
+          frameDurationSecs: 0.1
+        - direction: 0
+          name: walk
+          isMirrored: 0
+          startFrame: 8
+          endFrame: 15
+          frameDurationSecs: 0.1
+      animationName: walk
+      loop: 1
+    - animations:
+        m_keys: 0200000000000000
+        m_values:
+        - direction: 2
+          name: attack
+          isMirrored: 0
+          startFrame: 16
+          endFrame: 36
+          frameDurationSecs: 0.1
+        - direction: 0
+          name: attack
+          isMirrored: 0
+          startFrame: 16
+          endFrame: 36
+          frameDurationSecs: 0.1
+      animationName: attack
+      loop: 1
+    - animations:
+        m_keys: 0200000000000000
+        m_values:
+        - direction: 2
+          name: enchant
+          isMirrored: 0
+          startFrame: 37
+          endFrame: 53
+          frameDurationSecs: 0.1
+        - direction: 0
+          name: enchant
+          isMirrored: 0
+          startFrame: 37
+          endFrame: 53
+          frameDurationSecs: 0.1
+      animationName: enchant
+      loop: 1
+    - animations:
+        m_keys: 0200000000000000
+        m_values:
+        - direction: 2
+          name: flinch
+          isMirrored: 0
+          startFrame: 54
+          endFrame: 60
+          frameDurationSecs: 0.1
+        - direction: 0
+          name: flinch
+          isMirrored: 0
+          startFrame: 54
+          endFrame: 60
+          frameDurationSecs: 0.1
+      animationName: flinch
+      loop: 1
+    - animations:
+        m_keys: 0200000000000000
+        m_values:
+        - direction: 2
+          name: death
+          isMirrored: 0
+          startFrame: 61
+          endFrame: 73
+          frameDurationSecs: 0.1
+        - direction: 0
+          name: death
+          isMirrored: 0
+          startFrame: 61
+          endFrame: 73
+          frameDurationSecs: 0.1
+      animationName: death
+      loop: 1

@@ -22,7 +22,7 @@ MonoBehaviour:
   shortDescription: 1HP melee + revives
   startingHp: 8
   movementRange: 4
-  sprite: {fileID: 11400000, guid: 7b84a80995a830c499955371b671ff7b, type: 2}
+  sprite: {fileID: 11400000, guid: 330c55e5088449e49997e8bae4d2df0e, type: 2}
   abilities:
   - {fileID: 11400000, guid: 439d5c72cd88d9a4bbc35dc5dfc195a3, type: 2}
   turnPriority: 50

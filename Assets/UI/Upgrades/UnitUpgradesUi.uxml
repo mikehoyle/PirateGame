@@ -6,9 +6,7 @@
             <ui:VisualElement name="ChampionStance" style="width: 96px; height: 144px; background-image: url(&apos;project://database/Assets/UI/CharacterDisplay.renderTexture?fileID=8400000&amp;guid=2296b23d769e6cf47b708d8599685064&amp;type=2#CharacterDisplay&apos;);" />
         </ui:VisualElement>
         <ui:VisualElement name="TabbedContainer" style="flex-grow: 1; flex-shrink: 0; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; flex-direction: column-reverse;">
-            <ui:VisualElement name="UpgradesPanel" class="canvas-panel" style="height: auto; margin-left: 0; margin-right: 0; margin-top: -2px; margin-bottom: 0; flex-direction: column; -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; width: auto; align-items: center; flex-basis: auto; justify-content: flex-end; flex-wrap: nowrap; flex-shrink: 0; flex-grow: 1;">
-                <ui:VisualElement name="UpgradeColumn" class="upgrades-column" style="height: 100%; flex-direction: column-reverse;" />
-            </ui:VisualElement>
+            <ui:VisualElement name="UpgradesPanel" class="canvas-panel" style="height: auto; margin-left: 0; margin-right: 0; margin-top: -2px; margin-bottom: 0; flex-direction: row; -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; width: auto; align-items: center; flex-basis: auto; justify-content: space-around; flex-wrap: nowrap; flex-shrink: 0; flex-grow: 1;" />
             <ui:VisualElement name="TabsRow" style="flex-direction: row; padding-left: 20px; padding-right: 0; padding-top: 0; padding-bottom: 0; height: 35px; -unity-background-scale-mode: stretch-to-fill; margin-bottom: 0; margin-left: 0; margin-top: 0; justify-content: flex-start;">
                 <ui:VisualElement name="tab1" class="panel-tab-active panel-tab" style="min-width: auto; min-height: auto; -unity-background-scale-mode: stretch-to-fill;" />
                 <ui:VisualElement name="tab2" class="panel-tab-inactive panel-tab" />

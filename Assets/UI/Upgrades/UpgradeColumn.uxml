@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MasterStylesheet.uss?fileID=7433441132597879392&amp;guid=3c8a9e16b1322844c921760ef6205597&amp;type=3#MasterStylesheet" />
+    <ui:VisualElement name="UpgradeColumn" class="upgrades-column" style="height: 100%; flex-direction: column-reverse;" />
+</ui:UXML>

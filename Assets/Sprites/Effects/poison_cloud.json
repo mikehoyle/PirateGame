@@ -1,0 +1,154 @@
+{ "frames": [
+   {
+    "filename": "poison_cloud_0",
+    "frame": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_1",
+    "frame": { "x": 200, "y": 0, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_2",
+    "frame": { "x": 400, "y": 0, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_3",
+    "frame": { "x": 600, "y": 0, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_4",
+    "frame": { "x": 0, "y": 110, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_5",
+    "frame": { "x": 200, "y": 110, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_6",
+    "frame": { "x": 400, "y": 110, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_7",
+    "frame": { "x": 600, "y": 110, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_8",
+    "frame": { "x": 0, "y": 220, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_9",
+    "frame": { "x": 200, "y": 220, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_10",
+    "frame": { "x": 400, "y": 220, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_11",
+    "frame": { "x": 600, "y": 220, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_12",
+    "frame": { "x": 0, "y": 330, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_13",
+    "frame": { "x": 200, "y": 330, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   },
+   {
+    "filename": "poison_cloud_14",
+    "frame": { "x": 400, "y": 330, "w": 200, "h": 110 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 110 },
+    "sourceSize": { "w": 200, "h": 110 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "poison_cloud.png",
+  "format": "RGBA8888",
+  "size": { "w": 800, "h": 440 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "effect_se", "from": 0, "to": 14, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

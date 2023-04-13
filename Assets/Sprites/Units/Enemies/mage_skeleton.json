@@ -1,0 +1,697 @@
+{ "frames": [
+   {
+    "filename": "mage_skeleton 0",
+    "frame": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 1",
+    "frame": { "x": 220, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 2",
+    "frame": { "x": 440, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 3",
+    "frame": { "x": 660, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 4",
+    "frame": { "x": 880, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 5",
+    "frame": { "x": 1100, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 6",
+    "frame": { "x": 1320, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 7",
+    "frame": { "x": 1540, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 8",
+    "frame": { "x": 1760, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 9",
+    "frame": { "x": 0, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 10",
+    "frame": { "x": 220, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 11",
+    "frame": { "x": 440, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 12",
+    "frame": { "x": 660, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 13",
+    "frame": { "x": 880, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 14",
+    "frame": { "x": 1100, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 15",
+    "frame": { "x": 1320, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 16",
+    "frame": { "x": 1540, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 17",
+    "frame": { "x": 1760, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 18",
+    "frame": { "x": 0, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 19",
+    "frame": { "x": 220, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 20",
+    "frame": { "x": 440, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 21",
+    "frame": { "x": 660, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 22",
+    "frame": { "x": 880, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 23",
+    "frame": { "x": 1100, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 24",
+    "frame": { "x": 1320, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 25",
+    "frame": { "x": 1540, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 26",
+    "frame": { "x": 1760, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 27",
+    "frame": { "x": 0, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 28",
+    "frame": { "x": 220, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 29",
+    "frame": { "x": 440, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 30",
+    "frame": { "x": 660, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 31",
+    "frame": { "x": 880, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 32",
+    "frame": { "x": 1100, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 33",
+    "frame": { "x": 1320, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 34",
+    "frame": { "x": 1540, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 35",
+    "frame": { "x": 1760, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 36",
+    "frame": { "x": 0, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 37",
+    "frame": { "x": 220, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 38",
+    "frame": { "x": 440, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 39",
+    "frame": { "x": 660, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 40",
+    "frame": { "x": 880, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 41",
+    "frame": { "x": 1100, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 42",
+    "frame": { "x": 1320, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 43",
+    "frame": { "x": 1540, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 44",
+    "frame": { "x": 1760, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 45",
+    "frame": { "x": 0, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 46",
+    "frame": { "x": 220, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 47",
+    "frame": { "x": 440, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 48",
+    "frame": { "x": 660, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 49",
+    "frame": { "x": 880, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 50",
+    "frame": { "x": 1100, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 51",
+    "frame": { "x": 1320, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 52",
+    "frame": { "x": 1540, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 53",
+    "frame": { "x": 1760, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 54",
+    "frame": { "x": 0, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 55",
+    "frame": { "x": 220, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 56",
+    "frame": { "x": 440, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 57",
+    "frame": { "x": 660, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 58",
+    "frame": { "x": 880, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 59",
+    "frame": { "x": 1100, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 60",
+    "frame": { "x": 1760, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 61",
+    "frame": { "x": 1760, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 62",
+    "frame": { "x": 0, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 63",
+    "frame": { "x": 1320, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 64",
+    "frame": { "x": 1540, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 65",
+    "frame": { "x": 1760, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 66",
+    "frame": { "x": 0, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 67",
+    "frame": { "x": 220, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 68",
+    "frame": { "x": 440, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 69",
+    "frame": { "x": 660, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 70",
+    "frame": { "x": 880, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 71",
+    "frame": { "x": 1100, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 72",
+    "frame": { "x": 1320, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "mage_skeleton 73",
+    "frame": { "x": 1540, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "mage_skeleton.png",
+  "format": "RGBA8888",
+  "size": { "w": 1980, "h": 1760 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle_se", "from": 0, "to": 7, "direction": "forward" },
+   { "name": "idle_ne", "from": 0, "to": 7, "direction": "forward" },
+   { "name": "walk_se", "from": 8, "to": 15, "direction": "forward" },
+   { "name": "walk_ne", "from": 8, "to": 15, "direction": "forward" },
+   { "name": "attack_se", "from": 16, "to": 36, "direction": "forward" },
+   { "name": "attack_ne", "from": 16, "to": 36, "direction": "forward" },
+   { "name": "enchant_se", "from": 37, "to": 53, "direction": "forward" },
+   { "name": "enchant_ne", "from": 37, "to": 53, "direction": "forward" },
+   { "name": "flinch_se", "from": 54, "to": 60, "direction": "forward" },
+   { "name": "flinch_ne", "from": 54, "to": 60, "direction": "forward" },
+   { "name": "death_se", "from": 61, "to": 73, "direction": "forward" },
+   { "name": "death_ne", "from": 61, "to": 73, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+   { "name": "Pivot", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 112, "y": 148, "w": 1, "h": 1 } }, { "frame": 1, "bounds": {"x": 112, "y": 148, "w": 1, "h": 1 } }, { "frame": 53, "bounds": {"x": 112, "y": 148, "w": 1, "h": 1 } }] }
+  ]
+ }
+}

@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 
 namespace Units.UI {
   public class UnitUpgradeDisplay : MonoBehaviour {
+    [SerializeField] private VisualTreeAsset upgradeColumn;
+    [SerializeField] private VisualTreeAsset upgradeOption;
+    
     private VisualElement _root;
     private TextElement _unitName;
     private Camera _unitCamera;
@@ -68,6 +71,18 @@ namespace Units.UI {
       }
       
       // TODO IMMEDIATE update content for tab.
+      
+      // DO NOT SUBMIT just a stub.
+      _content.Clear();
+      for (int i = 0; i < 5; i++) {
+        var column = upgradeColumn.CloneTree();
+        _content.Add(column);
+        var columnElement = column.Q<VisualElement>("UpgradeColumn");
+        for (int j = 0; j < 3; j++) {
+          upgradeOption.CloneTree(columnElement);
+        }
+      }
+      // DO NOT SUBMIT just a stub.
     }
 
     private void SetVisible(bool visible) {

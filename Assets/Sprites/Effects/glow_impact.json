@@ -1,0 +1,64 @@
+{ "frames": [
+   {
+    "filename": "glow_impact_0",
+    "frame": { "x": 0, "y": 0, "w": 61, "h": 63 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 61, "h": 63 },
+    "sourceSize": { "w": 61, "h": 63 },
+    "duration": 100
+   },
+   {
+    "filename": "glow_impact_1",
+    "frame": { "x": 61, "y": 0, "w": 61, "h": 63 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 61, "h": 63 },
+    "sourceSize": { "w": 61, "h": 63 },
+    "duration": 100
+   },
+   {
+    "filename": "glow_impact_2",
+    "frame": { "x": 122, "y": 0, "w": 61, "h": 63 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 61, "h": 63 },
+    "sourceSize": { "w": 61, "h": 63 },
+    "duration": 100
+   },
+   {
+    "filename": "glow_impact_3",
+    "frame": { "x": 0, "y": 63, "w": 61, "h": 63 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 61, "h": 63 },
+    "sourceSize": { "w": 61, "h": 63 },
+    "duration": 100
+   },
+   {
+    "filename": "glow_impact_4",
+    "frame": { "x": 61, "y": 63, "w": 61, "h": 63 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 61, "h": 63 },
+    "sourceSize": { "w": 61, "h": 63 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "glow_impact.png",
+  "format": "RGBA8888",
+  "size": { "w": 183, "h": 126 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "effect_se", "from": 0, "to": 4, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

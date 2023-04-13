@@ -129,8 +129,6 @@ namespace Units {
         currentSelection.Clear();
       }
       playerUnitsInEncounter.Remove(this);
-      // TODO(P1): play death animation.
-      Destroy(gameObject);
       
       foreach (var collectable in CollectablesAcquired) {
         if (collectable.isPrimaryObjective) {

@@ -3,6 +3,7 @@ using Events;
 using FMODUnity;
 using Terrain;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace HUD.Audio {
   public class UiAudioListener : MonoBehaviour {

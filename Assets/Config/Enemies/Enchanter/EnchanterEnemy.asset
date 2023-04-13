@@ -22,7 +22,7 @@ MonoBehaviour:
   shortDescription: Heals allies 1HP
   startingHp: 6
   movementRange: 3
-  sprite: {fileID: 11400000, guid: cdc8acf5d6271684e97058f12df5a5c7, type: 2}
+  sprite: {fileID: 11400000, guid: 75cc72aae7797964cacc808c92ebcfda, type: 2}
   abilities:
   - {fileID: 11400000, guid: 2ef8a5faca14cdd40a64bd349f5024d8, type: 2}
   turnPriority: 10

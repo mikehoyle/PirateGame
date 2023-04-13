@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Animation;
@@ -109,8 +110,12 @@ namespace Encounters {
       }
     }
 
+    public void PlayOneOffAnimation(string animationName, Action onComplete) {
+      OneOffAnimation?.Invoke(animationName, onComplete);
+    }
+    
     public void PlayOneOffAnimation(string animationName) {
-      OneOffAnimation?.Invoke(animationName);
+      PlayOneOffAnimation(animationName, () => { });
     }
 
     public List<UnitAbility> GetAllCapableAbilities() {
@@ -152,18 +157,32 @@ namespace Encounters {
 
     public void ExpendResource(ExhaustibleResource resource, int amount) {
       EncounterState.ExpendResource(resource, amount);
-      if (EncounterState.GetResourceAmount(ExhaustibleResources.Instance.hp) <= 0) {
-        Instantiate(deathParticlesPrefab).transform.position = transform.position;
-        OnDeath();
-
-        var bonesOption = Option.None<Bones>();
-        if (EncounterState.metadata.isRevivable) {
-          var bones = Instantiate(bonesPrefab).GetComponent<Bones>();
-          bones.Initialize(EncounterState, Position);
-          bonesOption = Option.Some(bones);
-        }
-        Dispatch.Encounters.UnitDeath.Raise(bonesOption);
+      if (resource == ExhaustibleResources.Instance.hp && amount > 0) {
+        PlayOneOffAnimation("flinch");
       }
+      
+      if (EncounterState.GetResourceAmount(ExhaustibleResources.Instance.hp) <= 0) {
+        StartCoroutine(HandleDeath());
+      }
+    }
+
+    private IEnumerator HandleDeath() {
+      Instantiate(deathParticlesPrefab).transform.position = transform.position;
+      OnDeath();
+
+      var bonesOption = Option.None<Bones>();
+      if (EncounterState.metadata.isRevivable) {
+        var bones = Instantiate(bonesPrefab).GetComponent<Bones>();
+        bones.Initialize(EncounterState, Position);
+        bonesOption = Option.Some(bones);
+      }
+
+      var deathAnimationComplete = false;
+      PlayOneOffAnimation("death", () => deathAnimationComplete = true);
+      yield return new WaitUntil(() => deathAnimationComplete);
+      
+      Dispatch.Encounters.UnitDeath.Raise(bonesOption);
+      Destroy(gameObject);
     }
 
     public int CurrentMovementRange() {

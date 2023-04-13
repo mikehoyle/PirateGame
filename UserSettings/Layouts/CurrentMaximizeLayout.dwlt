@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 13076
+  controlID: 18211
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 13077
+  controlID: 18212
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 13078
+  controlID: 18213
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -160,9 +160,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 668c0000
+      m_SelectedIDs: 7c8c0000
       m_LastClickedID: 0
-      m_ExpandedIDs: f2a0feffaca3fefffea7feff72b2feff94d9feff0adbfeffa609ffff9a33ffff1035ffffcaafffff04bcffff3ecfffff4ecfffffbcd0fffff2faffff187c000086f70000c60301000a110100741a0100cc1c0100
+      m_ExpandedIDs: 4838fdff383cfdff1a49fdfff2a0feffaca3fefffea7feff72b2feff94d9feff0adbfeffa609ffff9a33ffff1035ffffcaafffff04bcffff3ecfffff4ecfffffbcd0fffff2faffff187c000086f70000c60301000a110100741a0100cc1c01004c730100207401002e74010072740100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -494,9 +494,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.07546226, y: 0.5686071, z: 9.602237}
+    m_Target: {x: 3.2476494, y: -3.4081018, z: 16.914156}
     speed: 2
-    m_Value: {x: -0.07546226, y: 0.5686071, z: 9.602237}
+    m_Value: {x: 3.2444348, y: -3.4042552, z: 16.914223}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -547,9 +547,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1.9781935
+    m_Target: 8.78191
     speed: 2
-    m_Value: 1.9781935
+    m_Value: 8.775329
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -736,22 +736,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/UI
+    - Assets/UI/Upgrades
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Sprites/UI
+  - Assets/UI/Upgrades
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\micha\PersonalProjects\Games\Unity\PirateGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 08ca9a3b
-    m_LastClickedID: 1000000008
-    m_ExpandedIDs: 00000000be8c0000c08c0000c28c0000c48c0000c68c0000c88c0000ca8c0000cc8c0000ce8c0000d08c0000d28c0000d48c0000d68c0000d88c0000da8c0000dc8c0000de8c0000e08c0000e28c0000e48c0000e68c0000e88c0000ea8c0000ec8c0000ee8c0000f08c0000f28c0000f48c0000f68c0000f88c0000fa8c0000fc8c0000fe8c0000008d0000028d0000048d0000068d0000088d00000a8d000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 1439}
+    m_SelectedIDs: 98c70000
+    m_LastClickedID: 51096
+    m_ExpandedIDs: 00000000be8c0000c08c0000c28c0000c48c0000c68c0000c88c0000ca8c0000cc8c0000ce8c0000d08c0000d28c0000d48c0000d68c0000d88c0000da8c0000dc8c0000de8c0000e08c0000e28c0000e48c0000e68c0000e88c0000ea8c0000ec8c0000ee8c0000f08c0000f28c0000f48c0000f68c0000f88c0000fa8c0000fc8c0000fe8c0000008d0000028d0000048d0000068d0000088d00000a8d00004094000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -804,8 +804,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 668c0000
-    m_LastClickedInstanceID: 35942
+    m_SelectedInstanceIDs: 7c8c0000
+    m_LastClickedInstanceID: 35964
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000ce700000386e0000c2e90000cae90000f0710000609a00008ecd0000ee790000887b00009c8300008a7100002872000044780000427800007a9b000058830000820001006e08010000000000d44f0100cad1000038b5000098670100948b00008af60000
     m_RenameOverlay:

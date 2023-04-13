@@ -50,22 +50,8 @@ VisualElement {
 .upgrades-column {
     height: 100%;
     width: 48px;
-}
-
-.upgrade-available {
-    height: 36px;
-    width: 36px;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    background-image: url('project://database/Assets/Sprites/UI/upgrade_option_greyscale.png?fileID=2800000&guid=9059acdcf074f19458947cfb751e9f38&type=3#upgrade_option_greyscale');
-    -unity-background-image-tint-color: rgb(69, 243, 255);
-    -unity-background-scale-mode: scale-and-crop;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 .panel-tab-active {
@@ -94,4 +80,31 @@ VisualElement {
     padding-top: 8px;
     padding-bottom: 6px;
     margin-right: 2px;
+}
+
+.upgrade-available {
+    background-color: rgb(56, 56, 56);
+    -unity-background-image-tint-color: rgba(74, 241, 234, 255);
+}
+
+.upgrade {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-image: url('project://database/Assets/Sprites/UI/upgrade_option_greyscale.png?fileID=2800000&guid=9059acdcf074f19458947cfb751e9f38&type=3#upgrade_option_greyscale');
+    -unity-background-scale-mode: scale-to-fit;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.upgrade-acquired {
+    -unity-background-image-tint-color: rgb(105, 255, 129);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.upgrade-unavailable {
+    background-color: rgba(56, 56, 56, 0);
+    -unity-background-image-tint-color: rgb(176, 176, 176);
 }

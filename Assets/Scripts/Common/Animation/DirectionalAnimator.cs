@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using Optional;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Common.Animation {
@@ -12,7 +15,7 @@ namespace Common.Animation {
     
     // State for animation execution
     private DirectionalAnimation.Animation _currentAnimation;
-    private bool _currentAnimationIsOneOff;
+    private Option<Action> _oneOffCallback;
     private float _currentFrameStartTime;
     private int _currentFrame;
 
@@ -46,9 +49,10 @@ namespace Common.Animation {
         _currentFrameStartTime = Time.time;
         
         if (_currentFrame > _currentAnimation.endFrame) {
-          if (_currentAnimationIsOneOff) {
-            _currentAnimationIsOneOff = false;
+          if (_oneOffCallback.TryGet(out var callback)) {
+            _oneOffCallback = Option.None<Action>();
             UpdateAnimationState();
+            callback();
             return;
           }
           _currentFrame = _currentAnimation.startFrame;
@@ -68,20 +72,20 @@ namespace Common.Animation {
     }
 
     private void UpdateAnimationState() {
-      if (_currentAnimationIsOneOff) {
+      if (_oneOffCallback.HasValue) {
         // Allow one-offs to complete before updating to steady state.
         return;
       }
       
-      NewAnimation(AnimationTarget.AnimationState, isOneOff: false);
+      NewAnimation(AnimationTarget.AnimationState, Option.None<Action>());
     }
 
-    private void OnOneOffAnimationRequest(string animationName) {
+    private void OnOneOffAnimationRequest(string animationName, Action onComplete) {
       Debug.Log($"One off animation requested: {animationName}");
-      NewAnimation(animationName, isOneOff: true);
+      NewAnimation(animationName, Option.Some(onComplete));
     }
 
-    private void NewAnimation(string animationName, bool isOneOff) {
+    private void NewAnimation(string animationName, Option<Action> oneOffCallback) {
       var newAnimation = referenceSprite.GetAnimation(animationName, AnimationTarget.FacingDirection);
       if (!newAnimation.HasValue) {
         Debug.LogWarning($"No known animation for {animationName}, not updating animation state");
@@ -90,7 +94,7 @@ namespace Common.Animation {
       _currentAnimation = newAnimation.Value;
       _currentFrame = _currentAnimation.startFrame;
       _currentFrameStartTime = Time.time;
-      _currentAnimationIsOneOff = isOneOff;
+      _oneOffCallback = oneOffCallback;
       UpdateSpriteRenderer(_currentFrame, _currentAnimation.isMirrored);
     }
   }

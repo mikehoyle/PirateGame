@@ -2,7 +2,7 @@
 
 namespace Common.Animation {
   public interface IDirectionalAnimatable {
-    public delegate void RequestOneOffAnimation(string animationName);
+    public delegate void RequestOneOffAnimation(string animationName, Action onCompleteCallback);
     
     public FacingDirection FacingDirection { get; }
     public string AnimationState { get; }

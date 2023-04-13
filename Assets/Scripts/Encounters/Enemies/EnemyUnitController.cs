@@ -135,9 +135,6 @@ namespace Encounters.Enemies {
 
     protected override void OnDeath() {
       enemiesInEncounter.Remove(this);
-      PlayOneOffAnimation("death");
-      // TODO(P1): Account for animation time
-      Destroy(gameObject);
     }
 
     public override DisplayDetails GetDisplayDetails() {
