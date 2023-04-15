@@ -88,7 +88,7 @@ namespace HUD.Encounter {
     }
     
     public void OnAnyKey(InputAction.CallbackContext context) {
-      SceneManager.LoadScene(Scenes.Name.Overworld.SceneName());
+      SceneLoader.Instance.LoadScene(SceneId.Overworld);
     }
   }
 }

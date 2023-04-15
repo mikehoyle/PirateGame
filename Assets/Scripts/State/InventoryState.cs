@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using StaticConfig.Builds;
 using StaticConfig.RawResources;
@@ -35,8 +36,12 @@ namespace State {
       if (build == null) {
         return false;
       }
-      
-      foreach (var lineItem in build.buildCost) {
+
+      return CanAfford(build.buildCost);
+    }
+
+    public bool CanAfford(IEnumerable<LineItem> lineItems) {
+      foreach (var lineItem in lineItems) {
         if (GetQuantity(lineItem.resource) < lineItem.cost) {
           return false;
         }
@@ -45,8 +50,8 @@ namespace State {
       return true;
     }
 
-    public void DeductBuildCost(ConstructableObject build) {
-      foreach (var lineItem in build.buildCost) {
+    public void DeductCost(IEnumerable<LineItem> lineItems) {
+      foreach (var lineItem in lineItems) {
         ReduceQuantity(lineItem.resource, lineItem.cost);
       }
     }

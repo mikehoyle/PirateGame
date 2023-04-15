@@ -7,6 +7,7 @@
     }
     
     public void Activate() {
+      
       _activated = true;
     }
 

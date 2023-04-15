@@ -12,7 +12,195 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7a64b44f884d3d9b7fb52eb79b7de5, type: 3}
   m_Name: brute
   m_EditorClassIdentifier: 
-  frames: []
+  frames:
+  - {fileID: 1092193355370073605, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -7020857357276367441, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 217873372868201962, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -1578107764885755671, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -8200651855622180100, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -7643767869277526368, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -8902117605360516759, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -8046777144419649649, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -3155774244100705204, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -8369920915914150388, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 4749942772989927502, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 68096679810200032, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 8456137892965924658, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 1609853164540338743, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 7842049619468944971, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -3497562684056492665, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -4731644387238554878, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 1541763939680718789, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 3716602646400604622, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 8943180666889097017, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 7672553401083151245, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 2795143821808659304, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 1480132955552270280, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -8641510595189178412, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 6381707194094020799, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -1205161213730874435, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -399737928172218543, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 877320805131140961, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -9101657635169489886, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -3512445577604459194, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 9185049224163459956, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 8057620017587938824, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -8420708490481396617, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 7630556939546220517, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 5489035899884674163, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 2692338634739245324, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -7612596553976156324, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -2013791014434688881, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 2979979565739339725, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -4918982315853550056, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -7980388713481955603, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -9064096210451642626, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 4488111155587333156, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 3472685178564047477, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -2361360549533001588, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 5246646939934261930, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -8581737511353022487, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -4309658873077511277, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 2451273981773004599, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 3273649544354492554, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 3704691871594237631, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 5803408063568677424, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -3729624720162188814, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -2122410598298535964, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -6966103675702966412, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -8343493693673510266, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -6867618816426907531, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -7365375809139922911, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 1526980865423276485, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -5457084098910041478, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: 5443644532555093565, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
+  - {fileID: -6263094422160462151, guid: 7b6c4a84c7b447d4ebe85fd6f6e6d262, type: 3}
   animations:
-    m_keys: []
-    m_values: []
+    m_keys:
+    - idle
+    - pound
+    - walk
+    - attack
+    - leap
+    - flinch
+    - death
+    m_values:
+    - animations:
+        m_keys: 0200000000000000
+        m_values:
+        - direction: 2
+          name: idle
+          isMirrored: 0
+          startFrame: 0
+          endFrame: 6
+          frameDurationSecs: 0.1
+        - direction: 0
+          name: idle
+          isMirrored: 0
+          startFrame: 0
+          endFrame: 6
+          frameDurationSecs: 0.1
+      animationName: idle
+      loop: 1
+    - animations:
+        m_keys: 0000000002000000
+        m_values:
+        - direction: 0
+          name: pound
+          isMirrored: 0
+          startFrame: 7
+          endFrame: 16
+          frameDurationSecs: 0.13
+        - direction: 2
+          name: pound
+          isMirrored: 0
+          startFrame: 7
+          endFrame: 16
+          frameDurationSecs: 0.13
+      animationName: pound
+      loop: 1
+    - animations:
+        m_keys: 0000000002000000
+        m_values:
+        - direction: 0
+          name: walk
+          isMirrored: 0
+          startFrame: 17
+          endFrame: 22
+          frameDurationSecs: 0.1
+        - direction: 2
+          name: walk
+          isMirrored: 0
+          startFrame: 17
+          endFrame: 22
+          frameDurationSecs: 0.1
+      animationName: walk
+      loop: 1
+    - animations:
+        m_keys: 0200000000000000
+        m_values:
+        - direction: 2
+          name: attack
+          isMirrored: 0
+          startFrame: 23
+          endFrame: 31
+          frameDurationSecs: 0.1
+        - direction: 0
+          name: attack
+          isMirrored: 0
+          startFrame: 23
+          endFrame: 31
+          frameDurationSecs: 0.1
+      animationName: attack
+      loop: 1
+    - animations:
+        m_keys: 0000000002000000
+        m_values:
+        - direction: 0
+          name: leap
+          isMirrored: 0
+          startFrame: 32
+          endFrame: 42
+          frameDurationSecs: 0.1
+        - direction: 2
+          name: leap
+          isMirrored: 0
+          startFrame: 32
+          endFrame: 42
+          frameDurationSecs: 0.1
+      animationName: leap
+      loop: 1
+    - animations:
+        m_keys: 0000000002000000
+        m_values:
+        - direction: 0
+          name: flinch
+          isMirrored: 0
+          startFrame: 43
+          endFrame: 49
+          frameDurationSecs: 0.1
+        - direction: 2
+          name: flinch
+          isMirrored: 0
+          startFrame: 43
+          endFrame: 49
+          frameDurationSecs: 0.1
+      animationName: flinch
+      loop: 1
+    - animations:
+        m_keys: 0000000002000000
+        m_values:
+        - direction: 0
+          name: death
+          isMirrored: 0
+          startFrame: 50
+          endFrame: 61
+          frameDurationSecs: 0.1
+        - direction: 2
+          name: death
+          isMirrored: 0
+          startFrame: 50
+          endFrame: 61
+          frameDurationSecs: 0.1
+      animationName: death
+      loop: 1

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Common.Animation;
+using StaticConfig.Equipment.Upgrades;
 using StaticConfig.Units;
 using Units.Abilities;
 using UnityEngine;
@@ -14,7 +16,12 @@ namespace StaticConfig.Equipment {
     public DirectionalAnimatedSprite optionalEquippedSprite;
     public EquipmentSlot applicableSlot;
     public List<UnitAbility> abilitiesProvided;
-    public SerializableDictionary<Stat, int> statBonuses; 
+    public SerializableDictionary<Stat, int> statBonuses;
+    public List<EquipmentUpgrade> availableUpgrades;
+
+    public IEnumerable<EquipmentUpgrade> GetAvailableUpgrades() {
+      return availableUpgrades.Concat(UniversalUpgrades.Instance.GetUpgradesForSlot(applicableSlot));
+    }
 
     public string DisplayDescription() {
       var result = new StringBuilder($"{displayName}\n");

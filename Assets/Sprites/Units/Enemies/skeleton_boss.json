@@ -1,0 +1,791 @@
+{ "frames": [
+   {
+    "filename": "skeleton_boss_0",
+    "frame": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_1",
+    "frame": { "x": 220, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_2",
+    "frame": { "x": 440, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_3",
+    "frame": { "x": 660, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_4",
+    "frame": { "x": 880, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_5",
+    "frame": { "x": 1100, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_6",
+    "frame": { "x": 1320, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_7",
+    "frame": { "x": 1540, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_8",
+    "frame": { "x": 1760, "y": 0, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_9",
+    "frame": { "x": 0, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_10",
+    "frame": { "x": 220, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_11",
+    "frame": { "x": 440, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_12",
+    "frame": { "x": 660, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_13",
+    "frame": { "x": 880, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_14",
+    "frame": { "x": 1100, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_15",
+    "frame": { "x": 1320, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_16",
+    "frame": { "x": 1540, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_17",
+    "frame": { "x": 1760, "y": 220, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_18",
+    "frame": { "x": 0, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_19",
+    "frame": { "x": 220, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_20",
+    "frame": { "x": 440, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_21",
+    "frame": { "x": 660, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_22",
+    "frame": { "x": 880, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_23",
+    "frame": { "x": 1100, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_24",
+    "frame": { "x": 1320, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_25",
+    "frame": { "x": 1540, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_26",
+    "frame": { "x": 1760, "y": 440, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_27",
+    "frame": { "x": 0, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_28",
+    "frame": { "x": 220, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_29",
+    "frame": { "x": 440, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_30",
+    "frame": { "x": 660, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_31",
+    "frame": { "x": 880, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_32",
+    "frame": { "x": 1100, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_33",
+    "frame": { "x": 1320, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_34",
+    "frame": { "x": 1540, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_35",
+    "frame": { "x": 1760, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_36",
+    "frame": { "x": 0, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_37",
+    "frame": { "x": 220, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_38",
+    "frame": { "x": 440, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_39",
+    "frame": { "x": 660, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_40",
+    "frame": { "x": 880, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_41",
+    "frame": { "x": 1100, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_42",
+    "frame": { "x": 1320, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_43",
+    "frame": { "x": 1540, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_44",
+    "frame": { "x": 1760, "y": 880, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_45",
+    "frame": { "x": 0, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_46",
+    "frame": { "x": 220, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_47",
+    "frame": { "x": 1540, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_48",
+    "frame": { "x": 440, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_49",
+    "frame": { "x": 660, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_50",
+    "frame": { "x": 880, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_51",
+    "frame": { "x": 1100, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_52",
+    "frame": { "x": 1320, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_53",
+    "frame": { "x": 1540, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_54",
+    "frame": { "x": 1760, "y": 1100, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_55",
+    "frame": { "x": 1540, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_56",
+    "frame": { "x": 0, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_57",
+    "frame": { "x": 220, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_58",
+    "frame": { "x": 440, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_59",
+    "frame": { "x": 660, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_60",
+    "frame": { "x": 880, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_61",
+    "frame": { "x": 1100, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_62",
+    "frame": { "x": 1320, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_63",
+    "frame": { "x": 1540, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_64",
+    "frame": { "x": 0, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_65",
+    "frame": { "x": 220, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_66",
+    "frame": { "x": 1540, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_67",
+    "frame": { "x": 1760, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_68",
+    "frame": { "x": 0, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_69",
+    "frame": { "x": 220, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_70",
+    "frame": { "x": 440, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_71",
+    "frame": { "x": 1540, "y": 660, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_72",
+    "frame": { "x": 0, "y": 1320, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_73",
+    "frame": { "x": 660, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_74",
+    "frame": { "x": 880, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_75",
+    "frame": { "x": 1100, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_76",
+    "frame": { "x": 1320, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_77",
+    "frame": { "x": 1540, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_78",
+    "frame": { "x": 1760, "y": 1540, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_79",
+    "frame": { "x": 0, "y": 1760, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_80",
+    "frame": { "x": 220, "y": 1760, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_81",
+    "frame": { "x": 440, "y": 1760, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_82",
+    "frame": { "x": 660, "y": 1760, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   },
+   {
+    "filename": "skeleton_boss_83",
+    "frame": { "x": 880, "y": 1760, "w": 220, "h": 220 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 220, "h": 220 },
+    "sourceSize": { "w": 220, "h": 220 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "skeleton_boss.png",
+  "format": "I8",
+  "size": { "w": 1980, "h": 1980 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle_ne", "from": 0, "to": 7, "direction": "forward" },
+   { "name": "idle_se", "from": 0, "to": 7, "direction": "forward" },
+   { "name": "walk_ne", "from": 8, "to": 15, "direction": "forward" },
+   { "name": "walk_se", "from": 8, "to": 15, "direction": "forward" },
+   { "name": "attack_ne", "from": 16, "to": 33, "direction": "forward" },
+   { "name": "attack_se", "from": 16, "to": 33, "direction": "forward" },
+   { "name": "swipe_ne", "from": 34, "to": 46, "direction": "forward" },
+   { "name": "swipe_se", "from": 34, "to": 46, "direction": "forward" },
+   { "name": "block_ne", "from": 47, "to": 54, "direction": "forward" },
+   { "name": "block_se", "from": 47, "to": 54, "direction": "forward" },
+   { "name": "flinch_ne", "from": 55, "to": 62, "direction": "forward" },
+   { "name": "flinch_se", "from": 55, "to": 62, "direction": "forward" },
+   { "name": "shieldbreak_ne", "from": 63, "to": 70, "direction": "forward" },
+   { "name": "shieldbreak_se", "from": 63, "to": 70, "direction": "forward" },
+   { "name": "death_ne", "from": 71, "to": 83, "direction": "forward" },
+   { "name": "death_se", "from": 71, "to": 83, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+   { "name": "Pivot", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 112, "y": 148, "w": 1, "h": 1 } }] }
+  ]
+ }
+}

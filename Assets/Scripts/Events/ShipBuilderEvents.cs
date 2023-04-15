@@ -17,5 +17,6 @@ namespace Events {
     public readonly GameEvent<EquipmentItemInstance> EquipmentCraftedEvent = new();
     public readonly GameEvent<EquipmentItemInstance> AttemptEquipItem = new();
     public readonly GameEvent<EquipmentItemInstance> ItemEquipped = new();
+    public readonly GameEvent EquipmentUpgradePurchased = new();
   }
 }

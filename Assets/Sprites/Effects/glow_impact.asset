@@ -12,7 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7a64b44f884d3d9b7fb52eb79b7de5, type: 3}
   m_Name: glow_impact
   m_EditorClassIdentifier: 
-  frames: []
+  frames:
+  - {fileID: -273143375249434432, guid: fbe1f1b31936fd04287df93557c9bf25, type: 3}
+  - {fileID: -1168137940580463700, guid: fbe1f1b31936fd04287df93557c9bf25, type: 3}
+  - {fileID: 1196862716188647621, guid: fbe1f1b31936fd04287df93557c9bf25, type: 3}
+  - {fileID: -7983492968894769343, guid: fbe1f1b31936fd04287df93557c9bf25, type: 3}
+  - {fileID: -3862331247793087533, guid: fbe1f1b31936fd04287df93557c9bf25, type: 3}
   animations:
-    m_keys: []
-    m_values: []
+    m_keys:
+    - effect
+    m_values:
+    - animations:
+        m_keys: 02000000
+        m_values:
+        - direction: 2
+          name: effect
+          isMirrored: 0
+          startFrame: 0
+          endFrame: 4
+          frameDurationSecs: 0.1
+      animationName: effect
+      loop: 1

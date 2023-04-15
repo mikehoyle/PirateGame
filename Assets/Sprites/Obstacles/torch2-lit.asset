@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7a64b44f884d3d9b7fb52eb79b7de5, type: 3}
   m_Name: torch2-lit
   m_EditorClassIdentifier: 
-  frames: []
+  frames:
+  - {fileID: -8580972570711908043, guid: dc062cbbfa9ffc141a8389c7caa6d34c, type: 3}
+  - {fileID: -6807053147592076636, guid: dc062cbbfa9ffc141a8389c7caa6d34c, type: 3}
+  - {fileID: 1041847790584115457, guid: dc062cbbfa9ffc141a8389c7caa6d34c, type: 3}
+  - {fileID: 9038758262215195606, guid: dc062cbbfa9ffc141a8389c7caa6d34c, type: 3}
+  - {fileID: -3257403891330338026, guid: dc062cbbfa9ffc141a8389c7caa6d34c, type: 3}
+  - {fileID: 924414468159316574, guid: dc062cbbfa9ffc141a8389c7caa6d34c, type: 3}
+  - {fileID: -2223014218315147780, guid: dc062cbbfa9ffc141a8389c7caa6d34c, type: 3}
+  - {fileID: -5743413477148515426, guid: dc062cbbfa9ffc141a8389c7caa6d34c, type: 3}
   animations:
     m_keys: []
     m_values: []

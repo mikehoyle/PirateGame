@@ -20,7 +20,7 @@ namespace HUD.ShipManagement {
     }
 
     private void OnButtonClick() {
-      SceneManager.LoadScene(Scenes.Name.Overworld.SceneName());
+      SceneLoader.Instance.LoadScene(SceneId.Overworld);
     }
   }
 }

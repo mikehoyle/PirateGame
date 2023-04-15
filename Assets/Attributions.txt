@@ -4,3 +4,12 @@
 
 https://github.com/roy-t/AStar
  - MIT License
+ 
+https://github.com/nlkl/Optional
+ - MIT License
+ 
+ https://github.com/gmoller/Zen.Hexagons
+ - MIT License
+ 
+ https://rafaelmatos.itch.io/epic-rpg-world-pack-old-prison-asset-tileset
+ - Attribution not technically required

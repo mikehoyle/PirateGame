@@ -88,7 +88,7 @@ namespace Construction {
         return;
       }
 
-      _playerState.inventory.DeductBuildCost(build);
+      _playerState.inventory.DeductCost(build.buildCost);
       _playerState.ship.Add(tile, build);
       _shipSetup.AddBuild(tile, build);
       currentBuildSelection.tile = Option.None<Vector3Int>();

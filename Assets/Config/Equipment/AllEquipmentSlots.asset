@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c9af3d892e4cdeb3b1991675cf3ade, type: 3}
+  m_Name: AllEquipmentSlots
+  m_EditorClassIdentifier: 
+  weaponSlot: {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}
+  apparelSlot: {fileID: 11400000, guid: e37b7659718ab4c478959b4a73a6a0d2, type: 2}
+  utilitySlot: {fileID: 11400000, guid: f860d19c29f42aa428363a9b68097a27, type: 2}

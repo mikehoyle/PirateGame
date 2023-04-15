@@ -12,7 +12,7 @@ namespace MainTitle {
 
     private void Start() {
       _newGameCreator.SetUpNewGame();
-      _overworldScene = SceneLoader.Instance.PreloadScene(Scenes.Name.Overworld);
+      _overworldScene = SceneLoader.Instance.PreloadScene(SceneId.Overworld);
     }
 
     public void OnPlayButtonClick() {

@@ -35,7 +35,7 @@ namespace State.World {
     public override void OnVisit() {
       base.OnVisit();
       if (state != TileState.Cleared) {
-        SceneManager.LoadScene(Scenes.Name.Encounter.SceneName());
+        SceneLoader.Instance.LoadScene(SceneId.Encounter);
       }
     }
   }

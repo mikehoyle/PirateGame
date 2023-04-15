@@ -12,7 +12,7 @@ namespace MainTitle {
     private void Awake() {
       if (!_alreadyBooted) {
         _alreadyBooted = true;
-        SceneManager.LoadScene(Scenes.Name.Title.SceneName());
+        SceneManager.LoadScene(SceneId.Title.SceneName());
       }
     }
   }

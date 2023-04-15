@@ -9,6 +9,8 @@ namespace StaticConfig.Units {
     public Stat innovation;
     public Stat constitution;
     public Stat movement;
+    public Stat basicAttack;
+    public Stat specialAttack;
 
     protected override Stats Self() {
       return this;

@@ -99,7 +99,7 @@ namespace Construction {
     }
 
     private void OnBackToMap() {
-      SceneManager.LoadScene(Scenes.Name.Overworld.SceneName());
+      SceneManager.LoadScene(SceneId.Overworld.SceneName());
     }
     
     public void OnClick(InputAction.CallbackContext context) {

@@ -17,3 +17,5 @@ MonoBehaviour:
   innovation: {fileID: 11400000, guid: c6379a07df65c92448227fa47fd5ebdd, type: 2}
   constitution: {fileID: 11400000, guid: d6f0cf594fbe2ca4782833aa62fd60c4, type: 2}
   movement: {fileID: 11400000, guid: f0645ee535e419d4cb5f55bba8e17304, type: 2}
+  basicAttack: {fileID: 11400000, guid: c09c6a5859a87a4419d073604f077357, type: 2}
+  specialAttack: {fileID: 11400000, guid: f1f236067a6404b42ac056619eecee9f, type: 2}

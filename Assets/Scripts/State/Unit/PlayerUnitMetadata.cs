@@ -2,6 +2,7 @@
 using System.Linq;
 using Common.Animation;
 using StaticConfig.Equipment;
+using StaticConfig.Equipment.Upgrades;
 using StaticConfig.Units;
 using Units;
 using Units.Abilities;
@@ -31,7 +32,7 @@ namespace State.Unit {
       List<UnitAbility> unitAbilities = defaultAbilities.abilities.ToList();
       foreach (var equipment in equipped.Values) {
         if (equipment.item is not null) {
-          unitAbilities.AddRange(equipment.item.abilitiesProvided);
+          unitAbilities.AddRange(equipment.GetAbilitiesProvided());
         }
       }
 

@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
+using Common;
 using Encounters;
 using Events;
+using Optional;
+using RuntimeVars.Encounters;
+using StaticConfig.Equipment;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -69,20 +73,45 @@ namespace Units.UI {
           tab.AddToClassList("panel-tab-inactive");
         }
       }
-      
-      // TODO IMMEDIATE update content for tab.
-      
-      // DO NOT SUBMIT just a stub.
+
+      SetContent(GetSlotForTab(tabIndex));
+    }
+
+    private void SetContent(EquipmentSlot slot) {
       _content.Clear();
-      for (int i = 0; i < 5; i++) {
+      if (!CurrentSelection.Instance.TryGetUnit<PlayerUnitController>(out var unit)
+          || !unit.Metadata.equipped.TryGetValue(slot, out var equipment)) {
+        Debug.LogWarning("No selected unit, cannot display upgrade content");
+        return;
+      }
+
+      foreach (var upgrade in equipment.item.GetAvailableUpgrades()) {
         var column = upgradeColumn.CloneTree();
         _content.Add(column);
         var columnElement = column.Q<VisualElement>("UpgradeColumn");
-        for (int j = 0; j < 3; j++) {
-          upgradeOption.CloneTree(columnElement);
+        
+        // We assume upgrade options are only the max tier;
+        var currentUpgrade = Option.Some(upgrade);
+        while (currentUpgrade.TryGet(out var innerUpgrade)) {
+          var option = upgradeOption.CloneTree();
+          columnElement.Add(option);
+          option.userData = new UpgradeOption(option, innerUpgrade, equipment);
+          
+          currentUpgrade = innerUpgrade.GetPrerequisite();
         }
       }
-      // DO NOT SUBMIT just a stub.
+    }
+
+    private EquipmentSlot GetSlotForTab(int tabIndex) {
+      if (tabIndex == 2) {
+        return EquipmentSlots.Instance.utilitySlot;
+      }
+      
+      if (tabIndex == 1) {
+        return EquipmentSlots.Instance.apparelSlot;
+      }
+      
+      return EquipmentSlots.Instance.weaponSlot;
     }
 
     private void SetVisible(bool visible) {

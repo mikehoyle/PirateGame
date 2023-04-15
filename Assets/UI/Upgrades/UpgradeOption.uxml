@@ -1,4 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/MasterStylesheet.uss?fileID=7433441132597879392&amp;guid=3c8a9e16b1322844c921760ef6205597&amp;type=3#MasterStylesheet" />
-    <ui:VisualElement class="upgrade upgrade-available" />
+    <ui:VisualElement name="UpgradeOption" class="upgrade upgrade-available" style="justify-content: center; align-items: center;">
+        <ui:VisualElement name="UpgradeIcon" class="upgrade-icon" style="width: 28px; height: 28px; background-image: url(&apos;project://database/Assets/Sprites/Equipment/Upgrades/upgrades.png?fileID=442767597&amp;guid=39bccaafd4e77ed48abb56e51b5c2bad&amp;type=3#upgrades_0&apos;); -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: rgba(255, 255, 255, 0.78);" />
+    </ui:VisualElement>
 </ui:UXML>
