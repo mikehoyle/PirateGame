@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f9ab30d208112ce48b16d70f72f0f544
+guid: 87efaacfb0cf6c14f81ac663987310ef
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - FFF Forward
+  - Dogica Pixel Bold
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 2

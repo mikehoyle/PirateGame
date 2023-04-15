@@ -1,16 +1,17 @@
 fileFormatVersion: 2
-guid: f9ab30d208112ce48b16d70f72f0f544
+guid: 62186f10ff6ac3b48bfdf0a4bf03d635
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
   fontSize: 16
-  forceTextureCase: -2
+  forceTextureCase: -1
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - FFF Forward
-  fallbackFontReferences: []
+  - Dogica Pixel
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 87efaacfb0cf6c14f81ac663987310ef, type: 3}
   customCharacters: 
   fontRenderingMode: 2
   ascentCalculationMode: 1
