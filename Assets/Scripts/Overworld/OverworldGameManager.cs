@@ -3,7 +3,6 @@ using Common;
 using Common.Grid;
 using Controls;
 using Events;
-using HUD.MainMenu;
 using IngameDebugConsole;
 using State;
 using State.World;
@@ -32,7 +31,6 @@ namespace Overworld {
     private Tilemap _overlayTilemap;
     private Tilemap _overworldTilemap;
     private AsyncOperation _loadShipBuilderSceneOperation;
-    private MainMenuController _gameMenu;
     private CameraCursorMover _cameraMover;
     private GameControls _controls;
     private Camera _camera;
@@ -80,7 +78,6 @@ namespace Overworld {
       DisplayWorld();
       DisplayPlayerIndicator();
       RemoveFogOfWar();
-      _gameMenu = MainMenuController.Get();
       _cameraMover.Initialize(
           _overworldTilemap.GetCellCenterWorld(
               (Vector3Int)GameState.State.player.overworldGridPosition));

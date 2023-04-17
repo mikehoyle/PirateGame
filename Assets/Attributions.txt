@@ -13,3 +13,6 @@ https://github.com/nlkl/Optional
  
  https://rafaelmatos.itch.io/epic-rpg-world-pack-old-prison-asset-tileset
  - Attribution not technically required
+ 
+ Some icons from:
+ https://finalbossblues.itch.io/icons

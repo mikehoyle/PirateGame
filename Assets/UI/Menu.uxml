@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MasterStylesheet.uss?fileID=7433441132597879392&amp;guid=3c8a9e16b1322844c921760ef6205597&amp;type=3#MasterStylesheet" />
+    <ui:VisualElement name="Container" class="translucent-overlay">
+        <ui:VisualElement name="Menu" style="background-image: url(&apos;project://database/Assets/Sprites/UI/gem_panel.png?fileID=21300000&amp;guid=d4a86ba5c5239724298ddad25f921463&amp;type=3#gem_panel&apos;); width: auto; height: auto; -unity-background-scale-mode: stretch-to-fill; min-width: auto; min-height: auto; align-items: center; padding-left: 32px; padding-right: 32px; padding-top: 20px; padding-bottom: 32px; flex-shrink: 1; flex-grow: 0; -unity-font: initial; -unity-font-definition: resource(&apos;Fonts/dogicapixel&apos;); margin-left: 32px; margin-right: 32px; margin-top: 32px; margin-bottom: 32px;">
+            <ui:Label text="Menu Name" display-tooltip-when-elided="true" name="MenuTitle" style="padding-left: 5px; padding-right: 5px; padding-top: 0; padding-bottom: 15px; width: 100%; -unity-text-align: upper-center; -unity-font-style: bold; font-size: 18px;" />
+            <ui:VisualElement name="MenuContent" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

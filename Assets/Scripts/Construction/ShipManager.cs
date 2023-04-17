@@ -18,12 +18,10 @@ using UnityEngine.SceneManagement;
 
 namespace Construction {
   public class ShipManager : MonoBehaviour, GameControls.IShipManagementActions {
-    [SerializeField] private string backToMapButtonLabel = "Back to Map";
     [SerializeField] private CurrentSelection currentSelection;
 
     private SceneTerrain _terrain;
     private ShipSetup _shipSetup;
-    private MainMenuController _mainMenu;
     private GameControls _controls;
     private UiInteractionTracker _uiInteraction;
 
@@ -36,8 +34,6 @@ namespace Construction {
     private void Start() {
       _shipSetup.SetupShip(includeUnits: true);
       InitializeCamera();
-      _mainMenu = MainMenuController.Get();
-      _mainMenu.AddMenuItem(backToMapButtonLabel, OnBackToMap);
     }
 
     private void OnEnable() {
