@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: kind_souls
   displayName: Kind Souls
+  spriteTag: <sprite=911>

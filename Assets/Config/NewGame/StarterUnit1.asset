@@ -16,15 +16,19 @@ MonoBehaviour:
   passiveEffects: []
   stats:
   - stat: {fileID: 11400000, guid: d6f0cf594fbe2ca4782833aa62fd60c4, type: 2}
-    current: 1
+    current: 0
   - stat: {fileID: 11400000, guid: c6379a07df65c92448227fa47fd5ebdd, type: 2}
-    current: 1
+    current: 0
   - stat: {fileID: 11400000, guid: f0645ee535e419d4cb5f55bba8e17304, type: 2}
-    current: 1
+    current: 0
   - stat: {fileID: 11400000, guid: 27bc55966ccc98747a38b270dc376ebe, type: 2}
-    current: 1
+    current: 0
   - stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
-    current: 1
+    current: 0
+  - stat: {fileID: 11400000, guid: c09c6a5859a87a4419d073604f077357, type: 2}
+    current: 0
+  - stat: {fileID: 11400000, guid: f1f236067a6404b42ac056619eecee9f, type: 2}
+    current: 0
   prefab: {fileID: 4998738781700405355, guid: ff877b2eb33443c44b77de9f2f3b9e9c, type: 3}
   size: {x: 1, y: 1}
   isRevivable: 1
@@ -43,8 +47,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f860d19c29f42aa428363a9b68097a27, type: 2}
     m_values:
     - item: {fileID: 11400000, guid: 20afacb69a2d4bb459de5d6d789f66bc, type: 2}
+      appliedUpgrades: []
     - item: {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}
+      appliedUpgrades: []
     - item: {fileID: 11400000, guid: 2b6d2ca97d6b56a41815f5a6faf232ec, type: 2}
+      appliedUpgrades: []
   references:
     version: 2
     RefIds: []

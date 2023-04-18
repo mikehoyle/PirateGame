@@ -15,4 +15,4 @@ MonoBehaviour:
   id: constitution
   displayName: Constitution
   maxValue: 6
-  minValue: 1
+  minValue: 0

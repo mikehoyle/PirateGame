@@ -7,6 +7,7 @@ using Encounters.Grid;
 using Events;
 using Optional;
 using RuntimeVars.Encounters;
+using State.Unit;
 using StaticConfig.Units;
 using Terrain;
 using Units.Abilities.FX;
@@ -66,7 +67,8 @@ namespace Units.Abilities {
     protected abstract IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback);
 
     public bool CanAfford(EncounterActor actor) {
-      if ((usesPerEncounter > 0) && (actor.EncounterState.GetExecutionCount(this) >= usesPerEncounter)) {
+      var uses = GetUsesPerEncounter(actor);
+      if ((uses > 0) && (actor.EncounterState.GetExecutionCount(this) >= uses)) {
         return false;
       }
 
@@ -79,7 +81,7 @@ namespace Units.Abilities {
     }
 
     public int GetRemainingUses(EncounterActor actor) {
-      return Math.Max(0, usesPerEncounter - actor.EncounterState.GetExecutionCount(this));
+      return Math.Max(0, GetUsesPerEncounter(actor) - actor.EncounterState.GetExecutionCount(this));
     }
 
     public string CostString() {
@@ -93,15 +95,40 @@ namespace Units.Abilities {
       return result.ToString();
     }
 
-    protected void SpendCost(EncounterActor actor) {
+    private int GetUsesPerEncounter(EncounterActor actor) {
+      if (actor is not PlayerUnitController playerUnitController) {
+        return usesPerEncounter;
+      }
+
+      var result = usesPerEncounter;
+      foreach (var upgrade in playerUnitController.Metadata.GetAllUpgrades()) {
+        result += upgrade.GetAdditionalUsesPerEncounter(playerUnitController.Metadata, this);
+      }
+      return result;
+    }
+
+    private void SpendCost(EncounterActor actor) {
       actor.EncounterState.RegisterAbilityExecution(this);
       foreach (var abilityCost in cost) {
         actor.EncounterState.ExpendResource(abilityCost.resource, abilityCost.amount);
       }
 
-      if (!canStillMoveAfter) {
+      if (!CanStillMoveAfter(actor)) {
         actor.EncounterState.ExpendResource(ExhaustibleResources.Instance.mp, int.MaxValue);
       }
+    }
+
+    private bool CanStillMoveAfter(EncounterActor actor) {
+      if (actor is not PlayerUnitController playerUnitController) {
+        return canStillMoveAfter;
+      }
+
+      foreach (var upgrade in playerUnitController.Metadata.GetAllUpgrades()) {
+        if (upgrade.GetAllowMovementAfterUse(playerUnitController.Metadata, this)) {
+          return true;
+        } 
+      }
+      return canStillMoveAfter;
     }
 
     protected void DetermineAbilityEffectiveness(EncounterActor actor, AbilityEffectivenessCallback callback) {

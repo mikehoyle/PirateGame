@@ -5,6 +5,7 @@ using Events;
 using Optional;
 using State.Unit;
 using Units;
+using Units.Abilities;
 using Units.Abilities.AOE;
 using Units.Abilities.FX;
 using UnityEngine;
@@ -40,6 +41,7 @@ namespace Encounters.Enemies.Spirits {
       var damageEffect = OneShotStatusEffect.SimpleDamageEffect(explosionDamage);
       yield return explosionFx.Execute(
           Option.None<EncounterActor>(),
+          RangedAbility.AllFactions(),
           bones.Position,
           bones.Position,
           Option.Some(_areaOfEffect),

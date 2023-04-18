@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: TextSettings
   m_EditorClassIdentifier: 
   m_Version: 
-  m_DefaultFontAsset: {fileID: 11400000, guid: 66ddf0f38be20a348b33396480996753, type: 2}
+  m_DefaultFontAsset: {fileID: 11400000, guid: 55011655af13f3f43ba9067c57c94746, type: 2}
   m_DefaultFontAssetPath: Fonts/
   m_FallbackFontAssets: []
   m_MatchMaterialPreset: 0
   m_MissingCharacterUnicode: 0
   m_ClearDynamicDataOnBuild: 1
-  m_DefaultSpriteAsset: {fileID: 0}
-  m_DefaultSpriteAssetPath: Sprite Assets/
+  m_DefaultSpriteAsset: {fileID: 11400000, guid: fcd68cdaa549c6b4b926794afd47b025, type: 2}
+  m_DefaultSpriteAssetPath: Icons/
   m_FallbackSpriteAssets: []
   m_MissingSpriteCharacterUnicode: 0
-  m_DefaultStyleSheet: {fileID: 0}
-  m_StyleSheetsResourcePath: Text Style Sheets/
+  m_DefaultStyleSheet: {fileID: 11400000, guid: 89c84d66bb0f20f47b1817bda5ab9197, type: 2}
+  m_StyleSheetsResourcePath: TextStyle/
   m_DefaultColorGradientPresetsPath: Text Color Gradients/
   m_UnicodeLineBreakingRules:
     m_UnicodeLineBreakingRules: {fileID: 0}

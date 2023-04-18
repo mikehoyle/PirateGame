@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Common;
 using Encounters;
 using Events;
 using Optional;
 using RuntimeVars.Encounters;
+using State;
 using StaticConfig.Equipment;
+using StaticConfig.RawResources;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,11 +31,13 @@ namespace Units.UI {
     private void OnEnable() {
       Dispatch.ShipBuilder.OpenCharacterSheet.RegisterListener(OnOpenCharacterSheet);
       Dispatch.ShipBuilder.CloseCharacterSheet.RegisterListener(OnCloseCharacterSheet);
+      Dispatch.ShipBuilder.EquipmentUpgradePurchased.RegisterListener(OnPurchase);
     }
 
     private void OnDisable() {
       Dispatch.ShipBuilder.OpenCharacterSheet.UnregisterListener(OnOpenCharacterSheet);
       Dispatch.ShipBuilder.CloseCharacterSheet.UnregisterListener(OnCloseCharacterSheet);
+      Dispatch.ShipBuilder.EquipmentUpgradePurchased.UnregisterListener(OnPurchase);
     }
 
     private void Start() {
@@ -44,6 +49,21 @@ namespace Units.UI {
       }
 
       _content = _root.Q<VisualElement>("UpgradesPanel");
+
+      SetupResourcesDisplay();
+    }
+
+    private void OnPurchase() {
+      SetupResourcesDisplay();
+    }
+
+    private void SetupResourcesDisplay() {
+      var resources = _root.Q<Label>("ResourcesText");
+      var inventory = GameState.State.player.inventory;
+      resources.text = string.Join(
+          "\n",
+          SoulTypes.Instance.All().Select(
+              soulType => $"{inventory.GetQuantity(soulType)} {soulType.displayName} ({soulType.spriteTag})"));
     }
 
     private void OnOpenCharacterSheet(EncounterActor unit) {

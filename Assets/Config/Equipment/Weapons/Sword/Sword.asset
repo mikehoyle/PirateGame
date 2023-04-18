@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ca399f40c94f548f6e75f9bd274b81, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  displayName: Scimitar
+  description: 
+  hudSprite: {fileID: 0}
+  optionalEquippedSprite: {fileID: 11400000, guid: 44fc8a7b809ff844da864de66d64b2cf, type: 2}
+  applicableSlot: {fileID: 11400000, guid: 15497aa0cd9479a458ff5906fce97351, type: 2}
+  abilitiesProvided:
+  - {fileID: 11400000, guid: e23a561c44fe4334398f51df28b1bb91, type: 2}
+  - {fileID: 11400000, guid: 5c60d9c382166f84ba44a7f73e53601c, type: 2}
+  availableUpgrades: []

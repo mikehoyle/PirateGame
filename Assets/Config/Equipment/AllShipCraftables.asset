@@ -19,21 +19,3 @@ MonoBehaviour:
       cost: 20
     equipmentCost:
     - {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}
-  - result: {fileID: 11400000, guid: 38a39937bb3a6364c91ecae55f237e49, type: 2}
-    cost:
-    - resource: {fileID: 11400000, guid: 5e30639d7433bca4fa9327eba6a1420a, type: 2}
-      cost: 20
-    equipmentCost:
-    - {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}
-  - result: {fileID: 11400000, guid: f1b743135c380d94db8ddc7cabcdb0d9, type: 2}
-    cost:
-    - resource: {fileID: 11400000, guid: 5e30639d7433bca4fa9327eba6a1420a, type: 2}
-      cost: 20
-    equipmentCost:
-    - {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}
-  - result: {fileID: 11400000, guid: f0b511f52c157914f9309c7d9431b2a2, type: 2}
-    cost:
-    - resource: {fileID: 11400000, guid: 5e30639d7433bca4fa9327eba6a1420a, type: 2}
-      cost: 20
-    equipmentCost:
-    - {fileID: 11400000, guid: c5f669ae10a376e409d292a131afcc85, type: 2}

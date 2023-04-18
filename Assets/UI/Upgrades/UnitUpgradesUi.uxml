@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/MasterStylesheet.uss?fileID=7433441132597879392&amp;guid=3c8a9e16b1322844c921760ef6205597&amp;type=3#MasterStylesheet" />
     <ui:VisualElement name="Container" style="width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: row; display: flex; background-color: rgba(255, 255, 255, 0.29);">
         <ui:VisualElement name="ChampionDisplay" style="width: 120px; height: 100%; align-items: center; justify-content: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
-            <ui:Label text="Champion Name Here" display-tooltip-when-elided="false" name="ChampionName" style="flex-wrap: wrap; font-size: 8px; -unity-text-align: middle-center; white-space: normal;" />
+            <ui:Label text="Champion Name Here" display-tooltip-when-elided="false" name="ChampionName" style="flex-wrap: wrap; font-size: 10px; -unity-text-align: middle-center; white-space: normal; -unity-font-style: bold;" />
             <ui:VisualElement name="ChampionStance" style="width: 96px; height: 144px; background-image: url(&apos;project://database/Assets/UI/CharacterDisplay.renderTexture?fileID=8400000&amp;guid=2296b23d769e6cf47b708d8599685064&amp;type=2#CharacterDisplay&apos;);" />
         </ui:VisualElement>
         <ui:VisualElement name="TabbedContainer" style="flex-grow: 1; flex-shrink: 0; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; flex-direction: column-reverse;">
@@ -12,6 +12,9 @@
                 <ui:VisualElement name="tab2" class="panel-tab-inactive panel-tab" />
                 <ui:VisualElement name="tab3" class="panel-tab-inactive panel-tab" />
             </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Resources" style="position: absolute; left: 0; top: 0;">
+            <ui:Label text="Resource 1&#10;Resource 2" display-tooltip-when-elided="true" name="ResourcesText" style="font-size: 8px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; -unity-paragraph-spacing: 50px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -2,7 +2,6 @@
 using Common;
 using Optional;
 using State.Unit;
-using Units.Abilities;
 
 namespace Encounters.Effects {
   public class StatusEffectApplier {

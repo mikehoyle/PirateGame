@@ -8,8 +8,11 @@ using Common.Grid;
 using Encounters;
 using FMODUnity;
 using Optional;
+using State.Unit;
+using Terrain;
 using Units.Abilities.AOE;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace Units.Abilities.FX {
@@ -40,7 +43,9 @@ namespace Units.Abilities.FX {
     [Serializable]
     private class TransitEffect {
       public GameObject trailPrefab;
-      public bool createTrailsForEveryAoeTile;
+      [FormerlySerializedAs("createTrailsForEveryAoeTile")]
+      public bool createTrailsForAoeTiles;
+      public bool onlyCreateTrailsAtAffectedUnits;
       public float sourceHeight = 0.25f;
       public float targetHeight = 0.25f;
       public float arcHeight = 0.5f;
@@ -50,9 +55,13 @@ namespace Units.Abilities.FX {
 
     [Serializable]
     private class ImpactEffect {
-      public bool createParticlesForEveryAoeTile;
+      [FormerlySerializedAs("createParticlesForEveryAoeTile")]
+      public bool createParticlesForAoeTiles;
+      public bool onlyCreateParticlesAtAffectedUnits;
       public GameObject optionalParticlePrefab;
-      public bool createAnimationForEveryAoeTile;
+      [FormerlySerializedAs("createAnimationForEveryAoeTile")]
+      public bool createAnimationForAoeTiles; 
+      public bool onlyCreateAnimationAtAffectedUnits;
       public DirectionalAnimatedSprite optionalAnimation;
       public float targetHeight = 0.25f;
       // TODO(P1): impact sound varies based on victim;
@@ -66,11 +75,13 @@ namespace Units.Abilities.FX {
 
     public IEnumerator Execute(
         UnitAbility.AbilityExecutionContext context,
+        List<UnitFaction> affectedFactions,
         Option<AreaOfEffect> aoeOption,
         Action onImpactCallback,
         Action onCompleteCallback) {
       return Execute(
           Option.Some(context.Actor),
+          affectedFactions,
           context.Source,
           context.TargetedTile,
           aoeOption,
@@ -80,6 +91,7 @@ namespace Units.Abilities.FX {
 
     public IEnumerator Execute(
         Option<EncounterActor> actorOption,
+        List<UnitFaction> affectedFactions,
         Vector3Int source,
         Vector3Int targetTile,
         Option<AreaOfEffect> aoeOption,
@@ -102,7 +114,12 @@ namespace Units.Abilities.FX {
       //// TRANSIT ////
       MaybePlaySound(transitEffect.sound);
       if (transitEffect.trailPrefab != null) {
-        var targets = GetTargets(targetTile, aoeOption, transitEffect.createTrailsForEveryAoeTile);
+        var targets = GetTargets(
+            targetTile,
+            aoeOption,
+            transitEffect.createTrailsForAoeTiles,
+            transitEffect.onlyCreateTrailsAtAffectedUnits,
+            affectedFactions);
         var transitCoroutines = new List<Coroutine>();
         foreach (var target in targets) {
           var trail =
@@ -129,8 +146,18 @@ namespace Units.Abilities.FX {
       //// IMPACT ////
       onImpactCallback();
       MaybePlaySound(impactEffect.sound);
-      var particleTargets = GetTargets(targetTile, aoeOption, impactEffect.createParticlesForEveryAoeTile);
-      var animationTargets = GetTargets(targetTile, aoeOption, impactEffect.createAnimationForEveryAoeTile);
+      var particleTargets = GetTargets(
+          targetTile,
+          aoeOption,
+          impactEffect.createParticlesForAoeTiles,
+          impactEffect.onlyCreateParticlesAtAffectedUnits,
+          affectedFactions);
+      var animationTargets = GetTargets(
+          targetTile,
+          aoeOption,
+          impactEffect.createAnimationForAoeTiles,
+          impactEffect.onlyCreateAnimationAtAffectedUnits,
+          affectedFactions);
 
       foreach (var particleTarget in particleTargets) {
         MaybeInstantiatePrefab(
@@ -145,10 +172,23 @@ namespace Units.Abilities.FX {
       onCompleteCallback();
     }
 
-    private List<Vector3Int> GetTargets(Vector3Int target, Option<AreaOfEffect> aoeOption, bool useAoe) {
+    private List<Vector3Int> GetTargets(
+        Vector3Int target,
+        Option<AreaOfEffect> aoeOption,
+        bool useAoe,
+        bool restrictToAffectedUnits,
+        List<UnitFaction> affectedFactions) {
       var targets = new List<Vector3Int>();
       if (useAoe && aoeOption.TryGet(out var aoe)) {
         targets = aoe.AffectedPoints().ToList();
+        if (restrictToAffectedUnits) {
+          targets = targets.Where(targetTile => {
+            if (SceneTerrain.TryGetComponentAtTile<EncounterActor>(targetTile, out var actor)) {
+              return affectedFactions.Contains(actor.EncounterState.faction);
+            }
+            return false;
+          }).ToList();
+        }
       } else {
         targets.Add(target);
       }

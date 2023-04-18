@@ -8,5 +8,6 @@ namespace StaticConfig.RawResources {
   [CreateAssetMenu(menuName = "Config/RawResource")]
   public class RawResource : EnumScriptableObject {
     public string displayName;
+    public string spriteTag;
   }
 }

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System.Collections.Generic;
+using Common;
 using UnityEngine;
 
 namespace StaticConfig.RawResources {
@@ -17,6 +18,15 @@ namespace StaticConfig.RawResources {
           1 => treacherous,
           2 => diligent,
           _ => kind,
+      };
+    }
+
+    public List<RawResource> All() {
+      return new List<RawResource> {
+          violent,
+          treacherous,
+          diligent,
+          kind,
       };
     }
   }

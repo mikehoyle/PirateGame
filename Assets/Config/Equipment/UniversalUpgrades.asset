@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponUpgrades:
   - {fileID: 11400000, guid: 2f265379b9e0e114eaa35b548a747ca6, type: 2}
+  - {fileID: 11400000, guid: 6f65cbde8ac54634dbf132966bcee8ce, type: 2}
   apparelUpgrades: []
   utilityUpgrades: []

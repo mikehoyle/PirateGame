@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: treacherous_souls
   displayName: Treacherous Souls
+  spriteTag: <sprite=915>

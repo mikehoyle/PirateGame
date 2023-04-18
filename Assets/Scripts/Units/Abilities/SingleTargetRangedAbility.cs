@@ -22,7 +22,7 @@ namespace Units.Abilities {
       base.ShowIndicator(actor, source, hoveredTile, indicators);
 
       indicators.TargetingIndicator.Clear();
-      if (!range.IsInRange(actor, source, hoveredTile)) {
+      if (!GetRange(actor).IsInRange(actor, source, hoveredTile)) {
         return;
       }
       var target = MaybeGetTarget(actor, hoveredTile);
@@ -38,7 +38,8 @@ namespace Units.Abilities {
     }
 
     public override bool CouldExecute(AbilityExecutionContext context) {
-      if (!CanAfford(context.Actor) || !range.IsInRange(context.Actor, context.Source, context.TargetedTile)) {
+      if (!CanAfford(context.Actor)
+          || !GetRange(context.Actor).IsInRange(context.Actor, context.Source, context.TargetedTile)) {
         return false;
       }
       var target = MaybeGetTarget(context.Actor, context.TargetedTile);
@@ -75,6 +76,7 @@ namespace Units.Abilities {
       yield return new WaitUntil(() => skillTestResult.HasValue);
       yield return fx.Execute(
           context,
+          GetAffectedFactions(context.Actor),
           Option.None<AreaOfEffect>(),
           () => {
             var effect = incurredEffect.ApplyTo(target);

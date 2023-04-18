@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Common.Animation;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
@@ -42,13 +41,13 @@ namespace Units.Abilities {
         GridIndicators indicators) {
       base.ShowIndicator(actor, source, hoveredTile, indicators);
       indicators.TargetingIndicator.Clear();
-      if (range.IsInRange(actor, source, hoveredTile)) {
+      if (GetRange(actor).IsInRange(actor, source, hoveredTile)) {
         indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTargetAndRotation(source, hoveredTile));
       }
     }
 
     public override bool CouldExecute(AbilityExecutionContext context) {
-      return range.IsInRange(context.Actor, context.Source, context.TargetedTile);
+      return GetRange(context.Actor).IsInRange(context.Actor, context.Source, context.TargetedTile);
     }
     
     protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
@@ -58,20 +57,13 @@ namespace Units.Abilities {
       DetermineAbilityEffectiveness(context.Actor, result => skillTestResult = Option.Some(result));
       yield return new WaitUntil(() => skillTestResult.HasValue);
 
-      var affectedFactions = new List<UnitFaction>();
-      if (canTargetAllies) {
-        affectedFactions.Add(context.Actor.EncounterState.faction);
-      }
-      if (canTargetOpponents) {
-        affectedFactions.Add(context.Actor.EncounterState.OpposingFaction());
-      }
-      
       yield return fx.Execute(
           context,
+          GetAffectedFactions(context.Actor),
           Option.Some(aoe),
           () => {
             var instanceFactory = new StatusEffectApplier(
-                incurredEffect, Option.Some(context.Actor), affectedFactions, skillTestResult.ValueOrFailure());
+                incurredEffect, Option.Some(context.Actor), GetAffectedFactions(context.Actor), skillTestResult.ValueOrFailure());
             Dispatch.Encounters.ApplyAoeEffect.Raise(aoe, instanceFactory);
           },
           () => callback());

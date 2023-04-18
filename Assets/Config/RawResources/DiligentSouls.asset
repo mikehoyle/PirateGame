@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: diligent_souls
   displayName: Diligent Souls
+  spriteTag: <sprite=913>

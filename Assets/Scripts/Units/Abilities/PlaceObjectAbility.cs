@@ -1,9 +1,11 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Common.Animation;
 using Encounters;
 using Encounters.Grid;
 using Encounters.Obstacles;
 using Optional;
+using State.Unit;
 using Terrain;
 using Units.Abilities.AOE;
 using UnityEngine;
@@ -36,7 +38,7 @@ namespace Units.Abilities {
         EncounterActor actor,
         Vector3Int source,
         Vector3Int targetTile) {
-      if (!range.IsInRange(actor, source, targetTile)) {
+      if (!GetRange(actor).IsInRange(actor, source, targetTile)) {
         return false;
       }
 
@@ -53,6 +55,7 @@ namespace Units.Abilities {
     protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
       yield return fx.Execute(
           context,
+          AllFactions(),
           Option.None<AreaOfEffect>(),
           () => {
             var placedObject = Instantiate(placedObjectPrefab).GetComponent<PlacedObject>();

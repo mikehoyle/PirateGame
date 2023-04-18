@@ -15,4 +15,4 @@ MonoBehaviour:
   id: precision
   displayName: Precision
   maxValue: 6
-  minValue: 1
+  minValue: 0

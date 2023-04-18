@@ -12,9 +12,9 @@ namespace State.Unit {
   [CreateAssetMenu(menuName = "State/UnitMetadata")]
   public class PlayerUnitMetadata : UnitMetadata {
     // TODO(P3): Make these configurable in an asset.
-    private const int BaseHp = 9;
+    private const int BaseHp = 10;
     private const int HpPerLevel = 1;
-    private const int BaseMovement = 3;
+    private const int BaseMovement = 4;
     private const int MovementPerLevel = 1;
 
     [SerializeField] private UnitAbilitySet defaultAbilities;
@@ -65,12 +65,18 @@ namespace State.Unit {
       };
     }
 
+    public List<EquipmentUpgrade> GetAllUpgrades() {
+      var result = new List<EquipmentUpgrade>();
+      foreach (var equipment in equipped.Values) {
+        result.AddRange(equipment.appliedUpgrades);
+      }
+      return result;
+    } 
+
     public override int GetStat(Stat stat) {
       var statValue = base.GetStat(stat);
-      foreach (var equipment in equipped.Values) {
-        if (equipment.item.statBonuses.TryGetValue(stat, out var bonus)) {
-          statValue += bonus;
-        }
+      foreach (var upgrade in GetAllUpgrades()) {
+        statValue = upgrade.GetModifiedStatNoRestrictions(stat, statValue);
       }
       return statValue;
     }

@@ -115,7 +115,7 @@ VisualElement {
     padding-bottom: 5px;
     justify-content: center;
     align-items: auto;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
     transition-property: color;
     transition-duration: 0.2s;
 }

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f845326fa27747299bbe1ca3f795e1e1, type: 3}
+  m_Name: Rally2
+  m_EditorClassIdentifier: 
+  displayName: Rally II
+  icon: {fileID: -108081122, guid: 39bccaafd4e77ed48abb56e51b5c2bad, type: 3}
+  optionalPrerequisite: {fileID: 11400000, guid: 82d117212e440eb4d985d19c21892d0f, type: 2}
+  cost:
+  - resource: {fileID: 11400000, guid: cb57619766a4ba64e97e636e035dc2c7, type: 2}
+    cost: 20
+  optionalOnlyAppliesToAbilities: []
+  flatStatModifiers:
+    m_keys: []
+    m_values: 
+  rangeOverride:
+    rid: -2
+  revokesAbilities:
+  - {fileID: 11400000, guid: d40c291708c950c4d83f8fb3e3bdf63a, type: 2}
+  addsAbilities:
+  - {fileID: 11400000, guid: d7dbeac005065fe4bb1173218edb5171, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

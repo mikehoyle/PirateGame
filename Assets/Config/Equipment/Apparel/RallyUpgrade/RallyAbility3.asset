@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1753957539f948dbb176a9af2bd3fdd0, type: 3}
+  m_Name: RallyAbility3
+  m_EditorClassIdentifier: 
+  skillTestPrefab: {fileID: 0}
+  fx: {fileID: 11400000, guid: 0b4c82efe991344479d028704ca29910, type: 2}
+  usesPerEncounter: 0
+  canStillMoveAfter: 1
+  incurredEffect:
+    rid: 2453842077257826309
+  descriptionShort: Grant MP+HP to teammates and self
+  displayString: Rally
+  cost:
+  - amount: 1
+    resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}
+  range:
+    rid: 2453842077257826308
+  canTargetOpponents: 0
+  canTargetAllies: 1
+  aoeDefinition: '111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    11111111X111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111
+
+    111111111111111111'
+  references:
+    version: 2
+    RefIds:
+    - rid: 2453842077257826308
+      type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
+      data:
+        requiresLineOfSight: 0
+        rangeMin: 0
+        rangeMax: 0
+    - rid: 2453842077257826309
+      type: {class: OneShotStatusEffect, ns: Encounters.Effects, asm: Assembly-CSharp}
+      data:
+        exhaustibleResourceEffects:
+        - resource: {fileID: 11400000, guid: cc49ca2f9c359ad4284ef1ef8e035d48, type: 2}
+          value:
+            rid: 2453842077257826310
+        - resource: {fileID: 11400000, guid: d639637270e6b154b8727a7477a98345, type: 2}
+          value:
+            rid: 2453842077257826312
+        delayInSeconds: 0
+    - rid: 2453842077257826310
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: -1
+    - rid: 2453842077257826312
+      type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        value: -1
