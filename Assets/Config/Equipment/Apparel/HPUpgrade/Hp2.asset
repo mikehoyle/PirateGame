@@ -12,19 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f845326fa27747299bbe1ca3f795e1e1, type: 3}
   m_Name: Hp2
   m_EditorClassIdentifier: 
-  displayName: HP I|
+  displayName: HP II
+  longDescription: Grants +2 Base HP
   icon: {fileID: -108081122, guid: 39bccaafd4e77ed48abb56e51b5c2bad, type: 3}
   optionalPrerequisite: {fileID: 11400000, guid: 902501726e218c144914fd455cbd9486, type: 2}
   cost:
   - resource: {fileID: 11400000, guid: cb57619766a4ba64e97e636e035dc2c7, type: 2}
     cost: 20
   optionalOnlyAppliesToAbilities: []
+  onlyAppliesToAbilitiesFromSourceEquipment: 0
   flatStatModifiers:
     m_keys:
     - {fileID: 11400000, guid: d6f0cf594fbe2ca4782833aa62fd60c4, type: 2}
     m_values: 01000000
   rangeOverride:
     rid: -2
+  allowMovementAfterUse: 0
+  additionalUsesPerEncounter: 0
   revokesAbilities: []
   addsAbilities: []
   references:

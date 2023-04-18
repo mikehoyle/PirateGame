@@ -13,17 +13,21 @@ MonoBehaviour:
   m_Name: Rally2
   m_EditorClassIdentifier: 
   displayName: Rally II
+  longDescription: '"Rally" ability now also grants 1 HP to teammates'
   icon: {fileID: -108081122, guid: 39bccaafd4e77ed48abb56e51b5c2bad, type: 3}
   optionalPrerequisite: {fileID: 11400000, guid: 82d117212e440eb4d985d19c21892d0f, type: 2}
   cost:
   - resource: {fileID: 11400000, guid: cb57619766a4ba64e97e636e035dc2c7, type: 2}
     cost: 20
   optionalOnlyAppliesToAbilities: []
+  onlyAppliesToAbilitiesFromSourceEquipment: 0
   flatStatModifiers:
     m_keys: []
     m_values: 
   rangeOverride:
     rid: -2
+  allowMovementAfterUse: 0
+  additionalUsesPerEncounter: 0
   revokesAbilities:
   - {fileID: 11400000, guid: d40c291708c950c4d83f8fb3e3bdf63a, type: 2}
   addsAbilities:

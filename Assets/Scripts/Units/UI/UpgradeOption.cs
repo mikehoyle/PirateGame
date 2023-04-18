@@ -1,9 +1,7 @@
 ﻿using System.Linq;
-using System.Text;
 using Events;
 using StaticConfig.Equipment;
 using StaticConfig.Equipment.Upgrades;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Units.UI {
@@ -13,15 +11,20 @@ namespace Units.UI {
     private readonly EquipmentUpgrade _upgrade;
     private readonly EquipmentItemInstance _item;
     private readonly Label _cost;
+    private readonly Label _descriptionField;
 
-    public UpgradeOption(VisualElement upgradeOption, EquipmentUpgrade upgrade, EquipmentItemInstance item) {
+    public UpgradeOption(
+        VisualElement upgradeOption, EquipmentUpgrade upgrade, EquipmentItemInstance item, Label descriptionField) {
       _upgradeOption = upgradeOption.Q("UpgradeOption");
       _icon = upgradeOption.Q("UpgradeIcon");
       _cost = upgradeOption.Q<Label>("UpgradeCost");
       _upgrade = upgrade;
       _item = item;
+      _descriptionField = descriptionField;
 
       _upgradeOption.RegisterCallback<ClickEvent>(OnClick);
+      _upgradeOption.RegisterCallback<MouseEnterEvent>(OnMouseEnter);
+      _upgradeOption.RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
       _upgradeOption.RegisterCallback<DetachFromPanelEvent>(OnDestroy);
       SetStyle();
       Dispatch.ShipBuilder.EquipmentUpgradePurchased.RegisterListener(OnUpgradePurchased);
@@ -73,6 +76,15 @@ namespace Units.UI {
       }
       
       _item.AttemptPurchaseUpgrade(_upgrade);
+    }
+    
+    private void OnMouseEnter(MouseEnterEvent evt) {
+      _descriptionField.text =
+          $"<line-height=150%><b>{_upgrade.displayName}</b>\n{_upgrade.longDescription}</line-height>";
+    }
+    
+    private void OnMouseLeave(MouseLeaveEvent evt) {
+      _descriptionField.text = "";
     }
   }
 }

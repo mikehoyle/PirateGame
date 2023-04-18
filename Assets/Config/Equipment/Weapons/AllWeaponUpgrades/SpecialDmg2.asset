@@ -13,18 +13,22 @@ MonoBehaviour:
   m_Name: SpecialDmg2
   m_EditorClassIdentifier: 
   displayName: Special Attack Damage II
+  longDescription: +1 Special Attack Damage
   icon: {fileID: -1909035091, guid: 39bccaafd4e77ed48abb56e51b5c2bad, type: 3}
   optionalPrerequisite: {fileID: 11400000, guid: fc7fb5b183b0f1846a9e5b071d56152f, type: 2}
   cost:
   - resource: {fileID: 11400000, guid: dfa212f2d3d39644cb3893f94a819b2f, type: 2}
     cost: 20
   optionalOnlyAppliesToAbilities: []
+  onlyAppliesToAbilitiesFromSourceEquipment: 0
   flatStatModifiers:
     m_keys:
     - {fileID: 11400000, guid: f1f236067a6404b42ac056619eecee9f, type: 2}
     m_values: 01000000
   rangeOverride:
     rid: -2
+  allowMovementAfterUse: 0
+  additionalUsesPerEncounter: 0
   revokesAbilities: []
   addsAbilities: []
   references:

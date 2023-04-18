@@ -18,7 +18,7 @@ MonoBehaviour:
   canStillMoveAfter: 0
   incurredEffect:
     rid: 4252309007281946675
-  descriptionShort: -2 HP
+  descriptionShort: -3 HP
   displayString: Swipe
   cost:
   - amount: 2
@@ -35,6 +35,10 @@ MonoBehaviour:
       type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
+    - rid: 2453842098360942593
+      type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: f1f236067a6404b42ac056619eecee9f, type: 2}
     - rid: 4252309007281946674
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
@@ -56,7 +60,8 @@ MonoBehaviour:
         operands:
         - rid: 4252309007281946677
         - rid: 2453841759638388743
+        - rid: 2453842098360942593
     - rid: 4252309007281946677
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 2
+        value: 3

@@ -13,18 +13,22 @@ MonoBehaviour:
   m_Name: Hp3
   m_EditorClassIdentifier: 
   displayName: HP III
+  longDescription: Grants +3 Base HP
   icon: {fileID: -926293814, guid: 39bccaafd4e77ed48abb56e51b5c2bad, type: 3}
   optionalPrerequisite: {fileID: 11400000, guid: da63061bec3032d4d9499219db9223d8, type: 2}
   cost:
   - resource: {fileID: 11400000, guid: cb57619766a4ba64e97e636e035dc2c7, type: 2}
     cost: 25
   optionalOnlyAppliesToAbilities: []
+  onlyAppliesToAbilitiesFromSourceEquipment: 0
   flatStatModifiers:
     m_keys:
     - {fileID: 11400000, guid: d6f0cf594fbe2ca4782833aa62fd60c4, type: 2}
     m_values: 01000000
   rangeOverride:
     rid: -2
+  allowMovementAfterUse: 0
+  additionalUsesPerEncounter: 0
   revokesAbilities: []
   addsAbilities: []
   references:

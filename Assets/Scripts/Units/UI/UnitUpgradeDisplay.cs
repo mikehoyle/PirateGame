@@ -21,6 +21,7 @@ namespace Units.UI {
     private Camera _unitCamera;
     private List<VisualElement> _tabs;
     private VisualElement _content;
+    private Label _description;
 
     private void Awake() {
       _root = GetComponent<UIDocument>().rootVisualElement;
@@ -48,7 +49,8 @@ namespace Units.UI {
         _tabs[i].RegisterCallback<ClickEvent>(_ => SetActiveTab(tabIndex));
       }
 
-      _content = _root.Q<VisualElement>("UpgradesPanel");
+      _content = _root.Q<VisualElement>("UpgradeOptionsContainer");
+      _description = _root.Q<Label>("UpgradeDescription");
 
       SetupResourcesDisplay();
     }
@@ -115,7 +117,7 @@ namespace Units.UI {
         while (currentUpgrade.TryGet(out var innerUpgrade)) {
           var option = upgradeOption.CloneTree();
           columnElement.Add(option);
-          option.userData = new UpgradeOption(option, innerUpgrade, equipment);
+          option.userData = new UpgradeOption(option, innerUpgrade, equipment, _description);
           
           currentUpgrade = innerUpgrade.GetPrerequisite();
         }

@@ -18,7 +18,7 @@ MonoBehaviour:
   canStillMoveAfter: 0
   incurredEffect:
     rid: 4252309007281946660
-  descriptionShort: -2 HP
+  descriptionShort: -4 HP
   displayString: Swing
   cost:
   - amount: 1
@@ -33,11 +33,15 @@ MonoBehaviour:
     - rid: 2453841759638388741
       type: {class: IntValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
-        value: 3
+        value: 4
     - rid: 2453841759638388742
       type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: 30201831ac06ba94cb0d80bd12854519, type: 2}
+    - rid: 2453842098360942592
+      type: {class: ActorStatValue, ns: Units.Abilities.Formulas.Values, asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: c09c6a5859a87a4419d073604f077357, type: 2}
     - rid: 4252309007281946628
       type: {class: SimpleRadiusRange, ns: Units.Abilities.Range, asm: Assembly-CSharp}
       data:
@@ -59,3 +63,4 @@ MonoBehaviour:
         operands:
         - rid: 2453841759638388741
         - rid: 2453841759638388742
+        - rid: 2453842098360942592

@@ -13,18 +13,22 @@ MonoBehaviour:
   m_Name: BasicDmg2
   m_EditorClassIdentifier: 
   displayName: Basic Attack Damage II
+  longDescription: +2 Basic Attack Damage
   icon: {fileID: -1909035091, guid: 39bccaafd4e77ed48abb56e51b5c2bad, type: 3}
   optionalPrerequisite: {fileID: 11400000, guid: 0e2e3670f0c0bf04cac40d139463d3c0, type: 2}
   cost:
   - resource: {fileID: 11400000, guid: 28fe63cbac1658e4991f1454bcd54167, type: 2}
     cost: 20
   optionalOnlyAppliesToAbilities: []
+  onlyAppliesToAbilitiesFromSourceEquipment: 0
   flatStatModifiers:
     m_keys:
     - {fileID: 11400000, guid: c09c6a5859a87a4419d073604f077357, type: 2}
     m_values: 01000000
   rangeOverride:
     rid: -2
+  allowMovementAfterUse: 0
+  additionalUsesPerEncounter: 0
   revokesAbilities: []
   addsAbilities: []
   references:

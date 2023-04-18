@@ -10,13 +10,10 @@ namespace HUD.MainMenu {
     private VisualElement _content;
     private GameControls _controls;
 
-    private void Awake() {
-      _root = GetComponent<UIDocument>().rootVisualElement;
-      _root.style.display = DisplayStyle.None;
-      _content = _root.Q<VisualElement>("MenuContent");
-    }
-
     private void Start() {
+      _root = GetComponent<UIDocument>().rootVisualElement;
+      _content = _root.Q<VisualElement>("MenuContent");
+      _root.style.display = DisplayStyle.None;
       _root.Q<Label>("MenuTitle").text = "Main Menu";
       AddButton("Exit Game", OnExitGame);
     }

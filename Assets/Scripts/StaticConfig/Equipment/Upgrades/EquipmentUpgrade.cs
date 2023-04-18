@@ -13,6 +13,7 @@ namespace StaticConfig.Equipment.Upgrades {
   [CreateAssetMenu(menuName = "Equipment/Upgrades/EquipmentUpgrade")]
   public class EquipmentUpgrade : ScriptableObject {
     public string displayName;
+    [Multiline] public string longDescription;
     public Sprite icon;
     [SerializeField] private EquipmentUpgrade optionalPrerequisite;
     public LineItem[] cost;
