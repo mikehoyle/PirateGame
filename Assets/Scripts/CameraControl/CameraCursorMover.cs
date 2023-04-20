@@ -1,8 +1,7 @@
-﻿using Common.Grid;
+﻿using Common;
+using Common.Grid;
 using Controls;
-using FunkyCode.Utilities.Polygon2DTriangulation;
 using Optional;
-using Terrain;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,7 +19,6 @@ namespace CameraControl {
     private Vector3 _cameraCursor;
     private Vector3 _cameraCursorVelocity;
     private CameraController _camera;
-    private GameControls _controls;
     private Option<Rect> _bounds; 
 
     private void Awake() {
@@ -29,16 +27,11 @@ namespace CameraControl {
     }
     
     private void OnEnable() {
-      if (_controls == null) {
-        _controls ??= new GameControls();
-        _controls.CameraCursorMovement.SetCallbacks(this);
-      }
-
-      _controls.CameraCursorMovement.Enable();
+      GameInput.Controls.CameraCursorMovement.SetCallbacks(this);
     }
 
     private void OnDisable() {
-      _controls.CameraCursorMovement.Disable();
+      GameInput.Controls.CameraCursorMovement.RemoveCallbacks(this);
     }
 
     private void Update() {

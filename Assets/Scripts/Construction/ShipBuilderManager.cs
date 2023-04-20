@@ -20,7 +20,6 @@ namespace Construction {
     [SerializeField] private AllBuildOptionsScriptableObject buildOptions;
     [SerializeField] private CurrentBuildSelection currentBuildSelection;
     
-    private GameControls _controls;
     private SceneTerrain _terrain;
     private PlayerState _playerState;
     private ShipSetup _shipSetup;
@@ -34,30 +33,21 @@ namespace Construction {
       _uiInteraction = GetComponent<UiInteractionTracker>();
       Dispatch.ShipBuilder.EnterConstructionMode.RegisterListener(OnEnterConstructionMode);
       Dispatch.ShipBuilder.ExitConstructionMode.RegisterListener(OnExitConstructionMode);
-      Dispatch.Common.DialogueStart.RegisterListener(OnDialogueStart);
-      Dispatch.Common.DialogueEnd.RegisterListener(OnDialogueEnd);
     }
 
     private void OnDestroy() {
       Dispatch.ShipBuilder.EnterConstructionMode.UnregisterListener(OnEnterConstructionMode);
       Dispatch.ShipBuilder.ExitConstructionMode.UnregisterListener(OnExitConstructionMode);
-      Dispatch.Common.DialogueStart.UnregisterListener(OnDialogueStart);
-      Dispatch.Common.DialogueEnd.UnregisterListener(OnDialogueEnd);
     }
 
     private void OnEnable() {
-      if (_controls == null) {
-        _controls = new GameControls();
-        _controls.ShipBuilder.SetCallbacks(this);
-      }
-      
-      _controls.ShipBuilder.Enable();
+      GameInput.Controls.ShipBuilder.SetCallbacks(this);
       Dispatch.ShipBuilder.BuildSelected.RegisterListener(OnBuildSelected);
     }
 
     private void OnDisable() {
+      GameInput.Controls.ShipBuilder.RemoveCallbacks(this);
       currentBuildSelection.Clear();
-      _controls.ShipBuilder.Disable();
       Dispatch.ShipBuilder.BuildSelected.UnregisterListener(OnBuildSelected);
     }
 
@@ -172,14 +162,6 @@ namespace Construction {
         return !SceneTerrain.IsTileOccupied(_terrain.GetElevation((Vector2Int)gridCell));
       }
       return false;
-    }
-
-    private void OnDialogueStart() {
-      _controls.TurnBasedEncounter.Disable();
-    }
-
-    private void OnDialogueEnd() {
-      _controls.TurnBasedEncounter.Enable();
     }
   }
 }

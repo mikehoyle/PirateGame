@@ -19,7 +19,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Resources" style="position: absolute; left: 0; top: 0;">
-            <ui:Label text="Resource 1&#10;Resource 2" display-tooltip-when-elided="true" name="ResourcesText" style="font-size: 8px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; -unity-paragraph-spacing: 50px;" />
+            <ui:Label text="Resource 1&#10;Resource 2" display-tooltip-when-elided="true" name="ResourcesText" style="font-size: 7px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; -unity-paragraph-spacing: 50px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

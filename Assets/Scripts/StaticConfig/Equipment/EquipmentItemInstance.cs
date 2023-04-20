@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Events;
 using State;
 using StaticConfig.Equipment.Upgrades;
 using Units.Abilities;
@@ -59,6 +60,7 @@ namespace StaticConfig.Equipment {
       Debug.Log($"Purchasing upgrade: {upgrade.displayName}");
       GameState.State.player.inventory.DeductCost(upgrade.cost);
       appliedUpgrades.Add(upgrade);
+      Dispatch.ShipBuilder.EquipmentUpgradePurchased.Raise();
     }
   }
 }

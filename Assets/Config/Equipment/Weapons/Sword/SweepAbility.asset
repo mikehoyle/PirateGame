@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1753957539f948dbb176a9af2bd3fdd0, type: 3}
-  m_Name: SwipeAbility
+  m_Name: SweepAbility
   m_EditorClassIdentifier: 
   skillTestPrefab: {fileID: 0}
   fx: {fileID: 11400000, guid: 2e92bee91caf56145a052239f2c25d4d, type: 2}
@@ -19,7 +19,7 @@ MonoBehaviour:
   incurredEffect:
     rid: 4252309007281946675
   descriptionShort: -3 HP
-  displayString: Swipe
+  displayString: Sweep
   cost:
   - amount: 2
     resource: {fileID: 11400000, guid: 3cc40fa0f6000c040a11a8f579b62069, type: 2}

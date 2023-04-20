@@ -15,7 +15,6 @@ namespace Encounters.Managers {
     [SerializeField] private CurrentSelection currentSelection;
     [SerializeField] private IntegerVar currentRound;
     
-    private GameControls _controls;
     private GridIndicators _gridIndicators;
     private SceneTerrain _terrain;
     private UiInteractionTracker _uiInteraction;
@@ -35,41 +34,31 @@ namespace Encounters.Managers {
     }
 
     private void OnEnable() {
-      if (_controls == null) {
-        _controls = new GameControls();
-        _controls.TurnBasedEncounter.SetCallbacks(this);
-      }
-      _controls.TurnBasedEncounter.Enable();
+      GameInput.Controls.TurnBasedEncounter.SetCallbacks(this);
+      
       Dispatch.Encounters.EnemyTurnEnd.RegisterListener(OnEnemyTurnEnd);
       Dispatch.Encounters.AbilitySelected.RegisterListener(OnAbilitySelected);
       Dispatch.Encounters.EncounterEnd.RegisterListener(OnEncounterEnd);
       Dispatch.Encounters.MouseHover.RegisterListener(OnMouseHover);
       Dispatch.Encounters.PlayerTurnEndRequest.RegisterListener(OnRequestEndTurn);
-      Dispatch.Common.DialogueStart.RegisterListener(OnDialogueStart);
-      Dispatch.Common.DialogueEnd.RegisterListener(OnDialogueEnd);
       
       DebugLogConsole.AddCommand("win", "Automatically win the encounter", DebugWin);
       DebugLogConsole.AddCommand("lose", "Automatically lose the encounter", DebugLose);
       DebugLogConsole.AddCommand<int, int>("tp", "Teleport selected unit to coordinates", DebugTeleport);
-      DebugLogManager.Instance.OnLogWindowShown = OnLogWindowShown;
-      DebugLogManager.Instance.OnLogWindowHidden = OnLogWindowHidden;
     }
 
     private void OnDisable() {
-      _controls?.TurnBasedEncounter.Disable();
+      GameInput.Controls.TurnBasedEncounter.RemoveCallbacks(this);
+      
       Dispatch.Encounters.EnemyTurnEnd.UnregisterListener(OnEnemyTurnEnd);
       Dispatch.Encounters.AbilitySelected.UnregisterListener(OnAbilitySelected);
       Dispatch.Encounters.EncounterEnd.UnregisterListener(OnEncounterEnd);
       Dispatch.Encounters.MouseHover.UnregisterListener(OnMouseHover);
       Dispatch.Encounters.PlayerTurnEndRequest.UnregisterListener(OnRequestEndTurn);
-      Dispatch.Common.DialogueStart.UnregisterListener(OnDialogueStart);
-      Dispatch.Common.DialogueEnd.UnregisterListener(OnDialogueEnd);
       
       DebugLogConsole.RemoveCommand("win");
       DebugLogConsole.RemoveCommand("lose");
       DebugLogConsole.RemoveCommand("tp");
-      DebugLogManager.Instance.OnLogWindowShown = null;
-      DebugLogManager.Instance.OnLogWindowHidden = null;
     }
 
     private void Update() {
@@ -86,17 +75,8 @@ namespace Encounters.Managers {
 
     private void OnEnemyTurnEnd() {
       currentRound.Value += 1;
-      _controls.TurnBasedEncounter.Enable();
       Dispatch.Encounters.PlayerTurnPreStart.Raise();
       Dispatch.Encounters.PlayerTurnStart.Raise();
-    }
-
-    private void OnLogWindowShown() {
-      _controls?.TurnBasedEncounter.Disable();
-    }
-
-    private void OnLogWindowHidden() {
-      _controls?.TurnBasedEncounter.Enable();
     }
 
     private void OnAbilitySelected(PlayerUnitController actor, UnitAbility ability, Vector3Int source) {
@@ -104,14 +84,6 @@ namespace Encounters.Managers {
       ability.OnSelected(actor, _gridIndicators, source);
       ability.ShowIndicator(
           actor, source, _lastKnownHoveredTile, _gridIndicators);
-    }
-
-    private void OnBeginAbilityExecution() {
-      _controls.TurnBasedEncounter.Disable();
-    }
-
-    private void OnEndAbilityExecution() {
-      _controls.TurnBasedEncounter.Enable();
     }
     
     private void OnEncounterEnd(EncounterOutcome outcome) {
@@ -133,9 +105,8 @@ namespace Encounters.Managers {
             Terrain = _terrain,
             Indicators = _gridIndicators,
         };
-        var attemptedExecution = ability.TryExecute(executionContext, OnEndAbilityExecution);
+        var attemptedExecution = ability.TryExecute(executionContext);
         if (attemptedExecution.TryGet(out var abilityExecution)) {
-          OnBeginAbilityExecution();
           StartCoroutine(abilityExecution);
           return;
         }
@@ -164,7 +135,6 @@ namespace Encounters.Managers {
     private void OnRequestEndTurn() {
       currentSelection.Clear();
       Dispatch.Encounters.UnitSelected.Raise(null);
-      _controls.TurnBasedEncounter.Disable();
       _gridIndicators.Clear();
       Dispatch.Encounters.PlayerTurnEnd.Raise();
       Dispatch.Encounters.EnemyTurnPreStart.Raise();
@@ -184,20 +154,11 @@ namespace Encounters.Managers {
     private void DebugLose() {
       Dispatch.Encounters.EncounterEnd.Raise(EncounterOutcome.PlayerDefeat);
     }
-    
-    
+
     private void DebugTeleport(int x, int y) {
       if (currentSelection.TryGetUnit<PlayerUnitController>(out var unit)) {
         unit.SetPosition(new Vector3Int(x, y, 0));
       }
-    }
-
-    private void OnDialogueStart() {
-      _controls.TurnBasedEncounter.Disable();
-    }
-
-    private void OnDialogueEnd() {
-      _controls.TurnBasedEncounter.Enable();
     }
   }
 }

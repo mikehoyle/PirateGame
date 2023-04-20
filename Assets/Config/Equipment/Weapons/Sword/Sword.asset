@@ -20,4 +20,6 @@ MonoBehaviour:
   abilitiesProvided:
   - {fileID: 11400000, guid: e23a561c44fe4334398f51df28b1bb91, type: 2}
   - {fileID: 11400000, guid: 5c60d9c382166f84ba44a7f73e53601c, type: 2}
-  availableUpgrades: []
+  availableUpgrades:
+  - {fileID: 11400000, guid: c068175fd97198a46977f1cdd459dff8, type: 2}
+  - {fileID: 11400000, guid: 31fe1c3ac1f281c439959093e866d5d3, type: 2}

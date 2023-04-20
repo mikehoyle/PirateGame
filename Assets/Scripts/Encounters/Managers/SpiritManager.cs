@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Encounters.Enemies.Spirits;
@@ -103,11 +104,12 @@ namespace Encounters.Managers {
       _pendingBones.Add(bones);
     }
 
-    private void OnEnemyTurnPreEnd() {
+    private IEnumerator OnEnemyTurnPreEnd() {
       foreach (var bones in _pendingBones) {
         CreateNewSpirit(bones);
       }
       _pendingBones.Clear();
+      yield break;
     }
   }
 }

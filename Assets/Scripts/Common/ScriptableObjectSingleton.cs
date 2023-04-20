@@ -4,17 +4,17 @@ namespace Common {
   public abstract class ScriptableObjectSingleton<T> : ScriptableObject where T : ScriptableObjectSingleton<T> {
     public static T Instance { get; private set; }
     
-    private void Awake() {
+    protected virtual void Awake() {
       Instance ??= Self();
     }
 
-    private void OnEnable() {
+    protected virtual void OnEnable() {
       Instance ??= Self();
       // Enable this if needed, but it may cause memory leaks according to docs, so don't use now.
       // hideFlags |= HideFlags.DontUnloadUnusedAsset;
     }
 
-    private void OnDisable() {
+    protected virtual void OnDisable() {
       Instance = null;
     }
 

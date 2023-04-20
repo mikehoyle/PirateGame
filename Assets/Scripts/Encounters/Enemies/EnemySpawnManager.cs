@@ -1,4 +1,6 @@
-﻿using Events;
+﻿using System.Collections;
+using Common;
+using Events;
 using State.Unit;
 using UnityEngine;
 
@@ -26,24 +28,14 @@ namespace Encounters.Enemies {
       var x = spawnPointPrefab?.transform;
     }
 
-    private void OnEnemyTurnPreEnd() {
+    private IEnumerator OnEnemyTurnPreEnd() {
       var currentSpawnDelay = 0f;
       _unitsCurrentlySpawning = 0;
       foreach (Transform spawnPoint in transform) {
-        if (spawnPoint.GetComponent<EnemySpawnPoint>().TrySpawn(currentSpawnDelay, OnSpawnComplete)) {
-          _unitsCurrentlySpawning++;
+        if (spawnPoint.GetComponent<EnemySpawnPoint>().TrySpawn(currentSpawnDelay).TryGet(out var coroutine)) {
+          yield return coroutine;
           currentSpawnDelay += spawnIntervalSec;
         }
-      }
-      if (_unitsCurrentlySpawning == 0) {
-        Dispatch.Encounters.EnemyTurnEnd.Raise();
-      }
-    }
-
-    private void OnSpawnComplete() {
-      _unitsCurrentlySpawning--;
-      if (_unitsCurrentlySpawning <= 0) {
-        Dispatch.Encounters.EnemyTurnEnd.Raise();
       }
     }
   }

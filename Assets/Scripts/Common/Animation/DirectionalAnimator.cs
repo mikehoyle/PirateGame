@@ -1,6 +1,5 @@
 ﻿using System;
 using Optional;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -89,6 +88,9 @@ namespace Common.Animation {
       var newAnimation = referenceSprite.GetAnimation(animationName, AnimationTarget.FacingDirection);
       if (!newAnimation.HasValue) {
         Debug.LogWarning($"No known animation for {animationName}, not updating animation state");
+        if (oneOffCallback.TryGet(out var callback)) {
+          callback();
+        }
         return;
       }
       _currentAnimation = newAnimation.Value;

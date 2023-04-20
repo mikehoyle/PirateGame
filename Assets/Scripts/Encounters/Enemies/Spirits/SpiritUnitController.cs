@@ -130,8 +130,9 @@ namespace Encounters.Enemies.Spirits {
       return result;
     }
 
-    private void OnEnemyTurnPreEnd() {
+    private IEnumerator OnEnemyTurnPreEnd() {
       PrePlanAction();
+      yield break;
     }
 
     /// <summary>

@@ -3,11 +3,7 @@ using CameraControl;
 using Common;
 using Common.Loading;
 using Controls;
-using Encounters;
 using Events;
-using HUD.MainMenu;
-using IngameDebugConsole;
-using Optional;
 using RuntimeVars.Encounters;
 using State;
 using Terrain;
@@ -22,7 +18,6 @@ namespace Construction {
 
     private SceneTerrain _terrain;
     private ShipSetup _shipSetup;
-    private GameControls _controls;
     private UiInteractionTracker _uiInteraction;
 
     private void Awake() {
@@ -37,41 +32,24 @@ namespace Construction {
     }
 
     private void OnEnable() {
-      if (_controls == null) {
-        _controls = new GameControls();
-        _controls.ShipManagement.SetCallbacks(this);
-      }
-      
-      _controls.ShipManagement.Enable();
+      GameInput.Controls.ShipManagement.SetCallbacks(this);
       Dispatch.ShipBuilder.EnterConstructionMode.RegisterListener(OnEnterConstruction);
       Dispatch.ShipBuilder.ExitConstructionMode.RegisterListener(OnExitConstruction);
-      DebugLogManager.Instance.OnLogWindowShown = OnLogWindowShown;
-      DebugLogManager.Instance.OnLogWindowHidden = OnLogWindowHidden;
     }
 
     private void OnDisable() {
-      _controls.ShipManagement.Disable();
+      GameInput.Controls.ShipManagement.RemoveCallbacks(this);
       Dispatch.ShipBuilder.EnterConstructionMode.UnregisterListener(OnEnterConstruction);
       Dispatch.ShipBuilder.ExitConstructionMode.UnregisterListener(OnExitConstruction);
-      DebugLogManager.Instance.OnLogWindowShown = null;
-      DebugLogManager.Instance.OnLogWindowHidden = null;
-    }
-
-    private void OnLogWindowShown() {
-      _controls?.ShipManagement.Disable();
-    }
-
-    private void OnLogWindowHidden() {
-      _controls?.ShipManagement.Enable();
     }
 
     private void OnEnterConstruction() {
       ClearSelection();
-      _controls.ShipManagement.Disable();
+      GameInput.Controls.ShipManagement.RemoveCallbacks(this);
     }
 
     private void OnExitConstruction() {
-      _controls.ShipManagement.Enable();
+      GameInput.Controls.ShipManagement.SetCallbacks(this);
     }
 
     private void InitializeCamera() {

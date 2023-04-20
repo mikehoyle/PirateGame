@@ -65,7 +65,7 @@ namespace Units.UI {
       resources.text = string.Join(
           "\n",
           SoulTypes.Instance.All().Select(
-              soulType => $"{inventory.GetQuantity(soulType)} {soulType.displayName} ({soulType.spriteTag})"));
+              soulType => $"{soulType.spriteTag} {inventory.GetQuantity(soulType)} {soulType.displayName}"));
     }
 
     private void OnOpenCharacterSheet(EncounterActor unit) {

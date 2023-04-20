@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
 using Controls;
 using Events;
 using RuntimeVars;
@@ -11,7 +12,6 @@ namespace Dialogue.UI {
 
     private IEnumerator<DialogueSegment> _sequence;
     private List<DialogueSpeaker> _speakers;
-    private GameControls _controls;
     private Canvas _canvas;
 
     public delegate void OnNewDialogueContent(DialogueSegment segment, List<DialogueSpeaker> speakers);
@@ -29,23 +29,18 @@ namespace Dialogue.UI {
     }
 
     private void OnEnable() {
-      if (_controls == null) {
-        _controls ??= new GameControls();
-        _controls.PressAnyKey.SetCallbacks(this);
-      }
-
-      _controls.PressAnyKey.Enable();
+      GameInput.Controls.PressAnyKey.SetCallbacks(this);
     }
 
     private void OnDisable() {
-      _controls?.PressAnyKey.Disable();
+      GameInput.Controls.PressAnyKey.RemoveCallbacks(this);
     }
 
     public void Initialize(string dialogueJson, List<DialogueSpeaker> speakers) {
       _sequence = DialogueSequence.ParseFrom(dialogueJson).Each();
       _speakers = speakers;
       DisplayNext();
-      Dispatch.Common.DialogueStart.Raise();
+      GameInput.AddInputBlocker(this);
       enabled = true;
       _canvas.enabled = true;
     }
@@ -59,7 +54,7 @@ namespace Dialogue.UI {
 
     private void DisplayNext() {
       if (!_sequence.MoveNext()) {
-        Dispatch.Common.DialogueEnd.Raise();
+        GameInput.RemoveInputBlocker(this);
         Destroy(gameObject);
         return;
       }

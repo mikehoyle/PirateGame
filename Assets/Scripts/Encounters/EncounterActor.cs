@@ -133,9 +133,9 @@ namespace Encounters {
       return StartCoroutine(Mover.ExecuteMovement(path.Path, true));
     }
 
-    public void DropIn(Action callback) {
+    public Coroutine DropIn(Action callback) {
       EnableShadow(false);
-      StartCoroutine(DropInPerformer.DropIn(() => {
+      return StartCoroutine(DropInPerformer.DropIn(() => {
         EnableShadow(true);
         callback();
       }));

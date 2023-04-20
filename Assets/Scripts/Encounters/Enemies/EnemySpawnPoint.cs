@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Common.Grid;
 using Events;
+using Optional;
 using State.Unit;
 using UnityEngine;
 
@@ -45,28 +46,26 @@ namespace Encounters.Enemies {
       Dispatch.Encounters.EnemyTurnStart.UnregisterListener(OnEnemyTurnStart);
     }
 
-    private void SpawnEnemy(OnSpawnComplete callback) {
+    private IEnumerator SpawnEnemy() {
       if (_enemyToSpawn.metadata is not EnemyUnitMetadata enemyMetadata) {
         Debug.LogWarning("Cannot spawn non-enemy");
-        OnDropInComplete(callback);
-        return;
+        yield break;
       }
       var unitController = Instantiate(enemyMetadata.prefab).GetComponent<EnemyUnitController>();
       unitController.Init(_enemyToSpawn);
-      unitController.DropIn(() => OnDropInComplete(callback));
+      yield return unitController.DropIn(() => OnDropInComplete(() => { }));
     }
 
-    public bool TrySpawn(float delaySecs, OnSpawnComplete callback) {
+    public Option<Coroutine> TrySpawn(float delaySecs) {
       if (_roundsUntilSpawn > 0) {
-        return false;
+        return Option.None<Coroutine>();
       }
-      StartCoroutine(ExecuteSpawn(delaySecs, callback));
-      return true;
+      return Option.Some(StartCoroutine(ExecuteSpawn(delaySecs)));
     }
 
-    private IEnumerator ExecuteSpawn(float delaySecs, OnSpawnComplete callback) {
+    private IEnumerator ExecuteSpawn(float delaySecs) {
       yield return new WaitForSeconds(delaySecs);
-      SpawnEnemy(callback);
+      yield return SpawnEnemy();
     }
 
     private void OnEnemyTurnStart() {

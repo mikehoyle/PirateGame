@@ -42,14 +42,14 @@ namespace HUD.Encounter {
     }
 
     private void Update() {
-      SetAvailable(false);
-      if (disabled || !CurrentSelection.Instance.TryGetUnit<PlayerUnitController>(out var unit)) {
-        return;
+      var buttonIsAvailable = false;
+      if (!disabled && CurrentSelection.Instance.TryGetUnit<PlayerUnitController>(out var unit)) {
+        if (_ability != null && _ability.CanAfford(unit)) {
+          buttonIsAvailable = true;
+        }
       }
 
-      if (_ability != null && _ability.CanAfford(unit)) {
-        SetAvailable(true);
-      }
+      SetAvailable(buttonIsAvailable);
     }
 
     private void SetAvailable(bool isAvailable) {

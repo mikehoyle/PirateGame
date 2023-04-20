@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 9054562780770869765}
   - component: {fileID: 5875382951646210385}
   - component: {fileID: 8163067942378556824}
+  - component: {fileID: 6099951030736629977}
   m_Layer: 0
   m_Name: GlobalSingletons
   m_TagString: Untagged
@@ -257,6 +258,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ea274d926a0dda47a0a7ddeafcc8993, type: 2}
   - {fileID: 11400000, guid: b6cacc17f9b44554c8f25deaee2f8598, type: 2}
   - {fileID: 11400000, guid: fb68cd97d6dfc214c996275ebebab85a, type: 2}
+--- !u!114 &6099951030736629977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8910508545843570327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2692326ad1f04553b30815e6c09b5a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8910508546811083212
 PrefabInstance:
   m_ObjectHideFlags: 0

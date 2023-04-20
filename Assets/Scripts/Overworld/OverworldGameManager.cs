@@ -32,7 +32,6 @@ namespace Overworld {
     private Tilemap _overworldTilemap;
     private AsyncOperation _loadShipBuilderSceneOperation;
     private CameraCursorMover _cameraMover;
-    private GameControls _controls;
     private Camera _camera;
     private UiInteractionTracker _uiInteraction;
     private Grid _grid;
@@ -48,30 +47,13 @@ namespace Overworld {
     }
     
     private void OnEnable() {
-      if (_controls == null) {
-        _controls ??= new GameControls();
-        _controls.Overworld.SetCallbacks(this);
-      }
-
-      _controls.Overworld.Enable();
-      
-      Dispatch.Common.DialogueStart.RegisterListener(OnDialogueStart);
-      Dispatch.Common.DialogueEnd.RegisterListener(OnDialogueEnd);
-      
+      GameInput.Controls.Overworld.SetCallbacks(this);
       DebugLogConsole.AddCommand("reveal", "Reveal all map tiles", RevealMap);
-      DebugLogManager.Instance.OnLogWindowShown = OnLogWindowShown;
-      DebugLogManager.Instance.OnLogWindowHidden = OnLogWindowHidden;
     }
 
     private void OnDisable() {
-      _controls.Overworld.Disable();
-      
-      Dispatch.Common.DialogueStart.UnregisterListener(OnDialogueStart);
-      Dispatch.Common.DialogueEnd.UnregisterListener(OnDialogueEnd);
-      
+      GameInput.Controls.Overworld.RemoveCallbacks(this);
       DebugLogConsole.RemoveCommand("reveal");
-      DebugLogManager.Instance.OnLogWindowShown = null;
-      DebugLogManager.Instance.OnLogWindowHidden = null;
     }
 
     private void Start() {
@@ -81,14 +63,6 @@ namespace Overworld {
       _cameraMover.Initialize(
           _overworldTilemap.GetCellCenterWorld(
               (Vector3Int)GameState.State.player.overworldGridPosition));
-    }
-
-    private void OnLogWindowShown() {
-      _controls?.Overworld.Disable();
-    }
-
-    private void OnLogWindowHidden() {
-      _controls?.Overworld.Enable();
     }
 
     private void UpdateTile (WorldTile mapTile) {
@@ -201,14 +175,6 @@ namespace Overworld {
         gameTile.Reveal();
         UpdateTile(gameTile);
       }
-    }
-
-    private void OnDialogueStart() {
-      _controls.TurnBasedEncounter.Disable();
-    }
-
-    private void OnDialogueEnd() {
-      _controls.TurnBasedEncounter.Enable();
     }
   }
 }

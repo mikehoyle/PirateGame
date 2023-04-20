@@ -6,15 +6,19 @@ using StaticConfig.Builds;
 using StaticConfig.Units;
 using Units.Abilities;
 using Units.Abilities.Range;
+using Units.Abilities.AOE;
 using UnityEngine;
 using State.Unit;
 
 namespace StaticConfig.Equipment.Upgrades {
   [CreateAssetMenu(menuName = "Equipment/Upgrades/EquipmentUpgrade")]
   public class EquipmentUpgrade : ScriptableObject {
+    // Metadata
     public string displayName;
     [Multiline] public string longDescription;
     public Sprite icon;
+    
+    // Prerequisites
     [SerializeField] private EquipmentUpgrade optionalPrerequisite;
     public LineItem[] cost;
     public UnitAbility[] optionalOnlyAppliesToAbilities;
@@ -24,12 +28,13 @@ namespace StaticConfig.Equipment.Upgrades {
     public SerializableDictionary<Stat, int> flatStatModifiers;
     [SerializeReference, SerializeReferenceButton]
     public AbilityRange rangeOverride;
+    [Multiline] public string aoeOverride;
     public bool allowMovementAfterUse;
     public int additionalUsesPerEncounter;
     public UnitAbility[] revokesAbilities;
     public UnitAbility[] addsAbilities;
     
-    
+    private Option<AreaOfEffect> _aoeOverride = Option.None<AreaOfEffect>();
 
     public int GetModifiedStat(
         PlayerUnitMetadata actor, UnitAbility ability, Stat stat, int currentValue) {
@@ -52,6 +57,14 @@ namespace StaticConfig.Equipment.Upgrades {
       }
 
       return Option.None<AbilityRange>();
+    }
+
+    public Option<AreaOfEffect> GetAoeOverride(PlayerUnitMetadata playerUnitMetadata, UnitAbility ability) {
+      if (AppliesTo(playerUnitMetadata, ability)) {
+        return _aoeOverride;
+      }
+
+      return Option.None<AreaOfEffect>();
     }
 
     public bool GetAllowMovementAfterUse(PlayerUnitMetadata playerUnitMetadata, UnitAbility ability) {
@@ -110,8 +123,23 @@ namespace StaticConfig.Equipment.Upgrades {
       return 1 + prereq.GetUpgradeTier();
     }
 
-    public bool IsNull() {
+    private bool IsNull() {
       return displayName == "";
+    }
+    
+    private void Awake() {
+      UpdateAoeDefinition();
+    }
+
+    private void OnValidate() {
+      UpdateAoeDefinition();
+    }
+
+    private void UpdateAoeDefinition() {
+      if (string.IsNullOrEmpty(aoeOverride)) {
+        return;
+      }
+      _aoeOverride = Option.Some(AoeParser.ParseAreaOfEffect(aoeOverride));
     }
   }
 }

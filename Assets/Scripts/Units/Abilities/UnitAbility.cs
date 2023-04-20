@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using Common;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
@@ -46,12 +47,13 @@ namespace Units.Abilities {
     public abstract bool CouldExecute(AbilityExecutionContext context);
 
     /// <returns>A coroutine enumerator for the ability, if it can be performed.</returns>
-    public Option<IEnumerator> TryExecute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
+    public Option<IEnumerator> TryExecute(AbilityExecutionContext context) {
       if (!CouldExecute(context) || !CanAfford(context.Actor)) {
         return Option.None<IEnumerator>();
       }
 
       Dispatch.Encounters.AbilityExecutionStart.Raise(context.Actor, this);
+      GameInput.AddInputBlocker(this);
       SpendCost(context.Actor);
       CurrentSelection.Instance.Clear();
       return Option.Some(Execute(context, () => {
@@ -59,8 +61,8 @@ namespace Units.Abilities {
           CurrentSelection.Instance.SelectUnit(playerUnit);
           CurrentSelection.Instance.SelectAbility(playerUnit, this);
         }
+        GameInput.RemoveInputBlocker(this);
         Dispatch.Encounters.AbilityExecutionEnd.Raise(context.Actor, this);
-        callback();
       }));
     }
 

@@ -15,14 +15,16 @@ namespace RuntimeVars.Encounters {
     public Vector3Int AbilitySource { get; private set; }
     public Option<EncounterActor> SelectedUnit { get; private set; }
 
-    private void Awake() {
+    protected override void OnEnable() {
+      base.OnEnable();
       SceneManager.activeSceneChanged += OnSceneChanged;
 #if UNITY_EDITOR
       UnityEditor.SceneManagement.EditorSceneManager.activeSceneChangedInEditMode += OnSceneChanged;
 #endif
     }
 
-    private void OnDestroy() {
+    protected override void OnDisable() {
+      base.OnDisable();
       SceneManager.activeSceneChanged -= OnSceneChanged;
 #if UNITY_EDITOR
       UnityEditor.SceneManagement.EditorSceneManager.activeSceneChangedInEditMode -= OnSceneChanged;

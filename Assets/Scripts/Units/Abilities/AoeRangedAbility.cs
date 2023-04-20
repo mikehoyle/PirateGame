@@ -1,14 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Encounters;
 using Encounters.Effects;
 using Encounters.Grid;
 using Events;
 using Optional;
 using Optional.Unsafe;
-using State.Unit;
 using Units.Abilities.AOE;
 using UnityEngine;
+using Common;
 
 namespace Units.Abilities {
   /// <summary>
@@ -42,7 +41,8 @@ namespace Units.Abilities {
       base.ShowIndicator(actor, source, hoveredTile, indicators);
       indicators.TargetingIndicator.Clear();
       if (GetRange(actor).IsInRange(actor, source, hoveredTile)) {
-        indicators.TargetingIndicator.TargetAoe(_areaOfEffect.WithTargetAndRotation(source, hoveredTile));
+        var aoe = GetAreaOfEffect(actor);
+        indicators.TargetingIndicator.TargetAoe(aoe.WithTargetAndRotation(source, hoveredTile));
       }
     }
 
@@ -51,7 +51,7 @@ namespace Units.Abilities {
     }
     
     protected override IEnumerator Execute(AbilityExecutionContext context, AbilityExecutionCompleteCallback callback) {
-      var aoe = _areaOfEffect.WithTargetAndRotation(context.Source, context.TargetedTile);
+      var aoe = GetAreaOfEffect(context.Actor).WithTargetAndRotation(context.Source, context.TargetedTile);
       
       var skillTestResult = Option.None<float>();
       DetermineAbilityEffectiveness(context.Actor, result => skillTestResult = Option.Some(result));
@@ -67,6 +67,23 @@ namespace Units.Abilities {
             Dispatch.Encounters.ApplyAoeEffect.Raise(aoe, instanceFactory);
           },
           () => callback());
+    }
+
+    private AreaOfEffect GetAreaOfEffect(EncounterActor actor) {
+      if (actor is not PlayerUnitController playerUnit) {
+        return _areaOfEffect;
+      }
+
+      var currentTier = 0;
+      var result = _areaOfEffect;
+      foreach (var upgrade in playerUnit.Metadata.GetAllUpgrades()) {
+        // Sloppy logic that enforces at least higher-tier upgrades always override lower-tier upgrades.
+        if (upgrade.GetUpgradeTier() > currentTier && upgrade.GetAoeOverride(playerUnit.Metadata, this).TryGet(out var aoeOverride)) {
+          currentTier = upgrade.GetUpgradeTier();
+          result = aoeOverride;
+        }
+      }
+      return result;
     }
   }
 }

@@ -21,7 +21,7 @@ namespace Events {
     public readonly GameEvent<EncounterOutcome> EncounterEnd = new();
     public readonly GameEvent EnemyTurnPreStart = new();
     public readonly GameEvent EnemyTurnStart = new();
-    public readonly GameEvent EnemyTurnPreEnd = new();
+    public readonly SynchronousGameEvent EnemyTurnPreEnd = new();
     public readonly GameEvent EnemyTurnEnd = new();
     public readonly GameEvent PlayerTurnPreStart = new();
     public readonly GameEvent PlayerTurnStart = new();

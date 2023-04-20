@@ -27,6 +27,7 @@ namespace Encounters.AI {
     }
 
     private void OnEnemyTurnStart() {
+      GameInput.AddInputBlocker(this);
       StartCoroutine(ExecuteEnemyAi());
     }
     private IEnumerator ExecuteEnemyAi() {
@@ -58,14 +59,16 @@ namespace Encounters.AI {
 
     private IEnumerator ExecuteAction(EncounterActor enemy, AiActionPlan actionPlan) {
       if (actionPlan.Action.TryGet(out var action)) {
-        if (action.Ability.TryExecute(action.Context, () => { }).TryGet(out var abilityExecution)) {
+        if (action.Ability.TryExecute(action.Context).TryGet(out var abilityExecution)) {
           yield return abilityExecution;
         }
       }
     }
 
     private void EndAiTurn() {
-      Dispatch.Encounters.EnemyTurnPreEnd.Raise();
+      Dispatch.Encounters.EnemyTurnPreEnd.Raise(this);
+      GameInput.RemoveInputBlocker(this);
+      Dispatch.Encounters.EnemyTurnEnd.Raise();
     }
   }
 }
